@@ -1,5 +1,4 @@
 import { Geolocation } from 'react-native';
-import { Location, Permissions } from 'expo';
 import {
 	FETCH_LOCATION,
 	FETCH_LOCATION_SUCCESS,
@@ -13,28 +12,16 @@ export default () => {
 		dispatch({ type: FETCH_LOCATION });
 		try {
 			const { coords } = Geolocation.getCurrentPosition();
-			const { status } = await Permissions.askAsync(Permissions.LOCATION);
-			if (status === 'granted') {
-				const {
-					coords: { latitude, longitude }
-				} = await Location.getCurrentPositionAsync({
-					enableHighAccuracy: true
-				});
-				const response = await fetch(
-					`https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${latitude},${longitude}?exclude=[minutely,hourly,daily,alert,flags]`
-				);
-				const weatherData = await response.json();
-				return dispatch({
-					type: FETCH_LOCATION_SUCCESS,
-					payload: {
-						coords: { latitude, longitude },
-						weatherData
-					}
-				});
-			}
+			const response = await fetch(
+				`https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${latitude},${longitude}?exclude=[minutely,hourly,daily,alert,flags]`
+			);
+			const weatherData = await response.json();
 			return dispatch({
-				type: FETCH_LOCATION_FAILURE,
-				payload: { errorMessage: 'Location permission not granted.' }
+				type: FETCH_LOCATION_SUCCESS,
+				payload: {
+					coords: { latitude, longitude },
+					weatherData
+				}
 			});
 		} catch (error) {
 			return dispatch({

@@ -48,7 +48,7 @@ const Login = ({ navigation }: any) => {
 				>
 					<Text
 						style={{
-							fontFamily: 'Muli SemiBold',
+							// fontFamily: 'Muli SemiBold',
 							fontSize: 35,
 							marginBottom: 20
 						}}
@@ -74,9 +74,9 @@ const Login = ({ navigation }: any) => {
 						<View style={styles.button}>
 							<Text
 								style={{
+									// fontFamily: 'Muli SemiBold',
 									fontSize: 18,
-									color: '#FFFFFF',
-									fontFamily: 'Muli SemiBold'
+									color: '#FFFFFF'
 								}}
 							>
 								Login

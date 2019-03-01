@@ -13,7 +13,7 @@ const aspectRatio = width / height;
 const style = StyleSheet.create({
 	buttonText: {
 		fontSize: 18,
-		fontFamily: 'Muli SemiBold'
+		// fontFamily: 'Muli SemiBold'
 	}
 });
 
@@ -31,7 +31,7 @@ const Welcome = ({ navigation }) => (
 			<Text
 				style={{
 					color: 'rgba(0,0,0,0.7)',
-					fontFamily: 'Muli SemiBold',
+					// fontFamily: 'Muli SemiBold',
 					fontSize: aspectRatio * 64
 				}}
 			>

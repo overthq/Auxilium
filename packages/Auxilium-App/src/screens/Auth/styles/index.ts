@@ -15,7 +15,7 @@ export default StyleSheet.create({
 		borderRadius: 25,
 		marginBottom: 20,
 		fontSize: 16,
-		fontFamily: 'Muli Regular'
+		// fontFamily: 'Muli Regular'
 	},
 	button: {
 		display: 'flex',

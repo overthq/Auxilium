@@ -55,7 +55,7 @@ const Register = ({ navigation }) => (
 			>
 				<Text
 					style={{
-						fontFamily: 'Muli SemiBold',
+						// fontFamily: 'Muli SemiBold',
 						fontSize: 35,
 						marginBottom: 20
 					}}

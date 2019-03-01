@@ -1,0 +1,12 @@
+{
+  "name": "auxilium-server",
+  "private": true,
+  "main": "dist/app.js",
+  "version": "0.0.1",
+  "scripts": {
+    "lint": "yarn eslint . --fix",
+    "start": "node dist/app",
+    "dev": ""
+  },
+  "author": "Oluwakorede Fashokun"
+}

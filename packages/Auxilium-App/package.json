@@ -17,6 +17,7 @@
     "react-native": "0.59.0-rc.0",
     "react-native-geolocation-service": "^2.0.0",
     "react-native-gesture-handler": "^1.0.17",
+    "react-native-onesignal": "^3.2.12",
     "react-native-screens": "^1.0.0-alpha.22",
     "react-native-sentry": "^0.42.0",
     "react-native-svg": "^9.2.4",

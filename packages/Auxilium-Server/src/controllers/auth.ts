@@ -22,6 +22,12 @@ export const register = async (req: Request, res: Response) => {
 
 export const logIn = async (req: Request, res: Response) => {
   const { deviceId } = req.body;
+  if (!deviceId) {
+    return res.status(400).json({
+      success: false,
+      message: "Please use this from a device ;)"
+    });
+  }
   try {
     const user = User.findOne({ deviceId });
     if (!user) {

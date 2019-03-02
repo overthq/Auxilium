@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "mapbox-gl": "^0.53.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-scripts": "2.1.5"
@@ -21,5 +22,11 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@types/mapbox-gl": "^0.51.4",
+    "@types/react": "^16.8.6",
+    "@types/react-dom": "^16.8.2",
+    "typescript": "^3.3.3333"
+  }
 }

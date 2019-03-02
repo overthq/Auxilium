@@ -4,7 +4,7 @@ Auxilium is an open-source app for reporting emergencies. It informs nearby user
 
 ## Motivation
 
-In [my country]([wikipedia_link_to_nigeria]), many people die because of inability to access help quickly when they are involved in accidents or emergencies. I've always believed that many of these mortalities could have been averted, if people around would ave come to their aid.
+In [my country](https://en.wikipedia.org/wiki/Nigeria), many people die because of inability to access help quickly when they are involved in accidents or emergencies. I've always believed that many of these mortalities could have been averted, if people around would ave come to their aid.
 
 ## Installation
 

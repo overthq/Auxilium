@@ -29,13 +29,14 @@ export const logIn = async (req: Request, res: Response) => {
     });
   }
   try {
-    const user = User.findOne({ deviceId });
+    const user = await User.findOne({ deviceId });
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: `No user found with specified email: ${deviceId}. Please register and try again.`
+        message: `No user found with specified deviceId: ${deviceId}. Please register and try again.`
       });
     }
+    console.log(user);
     return res.status(200).json({
       success: true,
       message: "User successfully verified"

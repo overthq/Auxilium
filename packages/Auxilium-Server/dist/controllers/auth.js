@@ -67,35 +67,42 @@ exports.register = function (req, res) { return __awaiter(_this, void 0, void 0,
     });
 }); };
 exports.logIn = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var deviceId, user;
+    var deviceId, user, error_2;
     return __generator(this, function (_a) {
-        deviceId = req.body.deviceId;
-        if (!deviceId) {
-            return [2, res.status(400).json({
-                    success: false,
-                    message: "Please use this from a device ;)"
-                })];
-        }
-        try {
-            user = models_1.User.findOne({ deviceId: deviceId });
-            if (!user) {
-                return [2, res.status(404).json({
-                        success: false,
-                        message: "No user found with specified email: " + deviceId + ". Please register and try again."
+        switch (_a.label) {
+            case 0:
+                deviceId = req.body.deviceId;
+                if (!deviceId) {
+                    return [2, res.status(400).json({
+                            success: false,
+                            message: "Please use this from a device ;)"
+                        })];
+                }
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4, models_1.User.findOne({ deviceId: deviceId })];
+            case 2:
+                user = _a.sent();
+                if (!user) {
+                    return [2, res.status(404).json({
+                            success: false,
+                            message: "No user found with specified email: " + deviceId + ". Please register and try again."
+                        })];
+                }
+                console.log(user);
+                return [2, res.status(200).json({
+                        success: true,
+                        message: "User successfully verified"
                     })];
-            }
-            return [2, res.status(200).json({
-                    success: true,
-                    message: "User successfully verified"
-                })];
+            case 3:
+                error_2 = _a.sent();
+                return [2, res.status(500).json({
+                        success: false,
+                        message: "An error occured. Please try again later.",
+                        error: error_2
+                    })];
+            case 4: return [2];
         }
-        catch (error) {
-            return [2, res.status(500).json({
-                    success: false,
-                    message: "An error occured. Please try again later.",
-                    error: error
-                })];
-        }
-        return [2];
     });
 }); };

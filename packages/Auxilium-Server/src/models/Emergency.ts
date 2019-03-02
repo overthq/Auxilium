@@ -3,7 +3,8 @@ import { model, Schema } from "mongoose";
 const EmergencySchema = new Schema(
   {
     userId: {
-      type: Schema.Types.ObjectId,
+			type: Schema.Types.ObjectId,
+			required: true,
       ref: "User"
     },
     location: {

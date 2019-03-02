@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "yarn eslint . --fix",
     "start": "node dist/app",
-    "dev": ""
+    "build": "tsc .",
+    "clean": "rimraf dist"
   },
   "author": "Oluwakorede Fashokun",
   "dependencies": {
@@ -19,6 +20,16 @@
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
-    "@types/socket.io": "^2.1.2"
+    "@types/socket.io": "^2.1.2",
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "@typescript-eslint/parser": "^1.4.2",
+    "eslint": "^5.15.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.16.4",
+    "rimraf": "^2.6.3",
+    "typescript": "^3.3.3333"
   }
 }

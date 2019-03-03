@@ -1,19 +1,13 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "parserOptions": {
     "sourceType": "module"
   },
   "env": {
-    "browser": true,
     "node": true
   },
-  "extends": [
-    "airbnb",
-    "prettier",
-    "plugin:prettier/recommended",
-    "prettier/@typescript-eslint"
-  ],
+  "extends": ["prettier", "prettier/@typescript-eslint"],
   "rules": {
     "comma-dangle": "off",
     "indent": 0,

@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv";
+import * as dotenv from 'dotenv';
 dotenv.load();
 
 const { PORT, DB_URI } = process.env;

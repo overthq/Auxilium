@@ -1,14 +1,14 @@
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
 const UserSchema = new Schema(
-  {
-    deviceId: {
-      type: String,
-      required: true,
-      unique: true
-    }
-  },
-  { timestamps: true }
+	{
+		deviceId: {
+			type: String,
+			required: true,
+			unique: true
+		}
+	},
+	{ timestamps: true }
 );
 
-export default model("User", UserSchema);
+export default model('User', UserSchema);

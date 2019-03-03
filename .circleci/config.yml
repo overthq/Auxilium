@@ -1,0 +1,52 @@
+version: 2
+jobs:
+  build_mobile:
+    working_directory: ~/auxilium-app
+    docker:
+      - image: circleci/node:11.8.0
+    steps:
+      - checkout
+      - run:
+          name: Update Yarn
+          command: "sudo npm install -g yarn@latest"
+      - run:
+          name: Install global dependencies
+          command: "sudo yarn global add expo-cli"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install dependencies
+          command: yarn install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Login to Expo
+          command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+      - run:
+          name: Publish to Expo
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+               expo publish
+            fi
+      - store_artifacts:
+          path: test-results.xml
+          prefix: tests
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
+      - store_test_results:
+          path: test-results.xml
+  build_backend:
+    working
+- workflows:
+  version: 2
+  build_mobile_app:
+    jobs:
+      - build_mobile
+      - test_mobile
+  build_backend:
+    jobs:
+      - build_backend
+      - test_backend

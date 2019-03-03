@@ -31,7 +31,9 @@ Overt is a JavaScript-based application. It is built with popular JS libraries/f
 
 - Front-End
   - Mobile App
+    - Framework: [React Native](https://facebook.github.io/react-native) based on [Expo](https://expo.io)
   - Dashboard
+    - Library: [React](https://facebook.github.io/react) based on [Create React App](https://facebook.github.io/create-react-app)
 - Back-End
   - Framework: [Express](https://expressjs.org)
   - Database: [MongoDB](https://mongodb.com)

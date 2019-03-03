@@ -2,17 +2,10 @@ import { model, Schema } from "mongoose";
 
 const UserSchema = new Schema(
   {
-    firstName: {
-      type: String,
-      required: true
-    },
-    lastName: {
-      type: String,
-      required: true
-    },
     deviceId: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     }
   },
   { timestamps: true }

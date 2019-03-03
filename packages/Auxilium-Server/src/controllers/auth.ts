@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import { User } from "../models";
 
 export const register = async (req: Request, res: Response) => {
-  const { firstName, lastName, deviceId } = req.body;
+  const { deviceId } = req.body;
   try {
-    const user = new User({ firstName, lastName, deviceId });
+    const user = new User({ deviceId });
     await user.save();
     return res.status(201).json({
       success: true,
@@ -36,7 +36,6 @@ export const logIn = async (req: Request, res: Response) => {
         message: `No user found with specified deviceId: ${deviceId}. Please register and try again.`
       });
     }
-    console.log(user);
     return res.status(200).json({
       success: true,
       message: "User successfully verified"

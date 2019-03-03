@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import Swiper from 'react-native-swiper';
+
+import { Notify, Security } from './images';
 
 interface SlideProps {
 	id?: number;
@@ -13,8 +15,8 @@ const Slide = (props: SlideProps) => {
 	const { image, title, description } = props;
 	return (
 		<View>
-			<Image source={image} />
 			<View>
+				{image}
 				<Text>{title}</Text>
 				<Text>{description}</Text>
 			</View>
@@ -25,13 +27,13 @@ const Slide = (props: SlideProps) => {
 const slides: SlideProps[] = [
 	{
 		id: 1,
-		image: '',
+		image: <Notify />,
 		title: 'Get help from people around you',
 		description: 'Call for help when you are in an emergency.'
 	},
 	{
 		id: 2,
-		image: '',
+		image: <Security />,
 		title: 'Stay anonymous',
 		description: 'Never worry about anyone getting your information.'
 	},

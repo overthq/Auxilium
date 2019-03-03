@@ -1,5 +1,5 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
-import Onboarding from './Onboarding/Welcome';
+import Onboarding from './Onboarding';
 import Main from './Main';
 
 export default createAppContainer(

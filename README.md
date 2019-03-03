@@ -37,7 +37,7 @@ Overt is a JavaScript-based application. It is built with popular JS libraries/f
 - Back-End
   - Framework: [Express](https://expressjs.org)
   - Database: [MongoDB](https://mongodb.com)
-  - Hosting: [DigitalOcean](https://digitalocean.com)
+  - Hosting: [Heroku](https://heroku.com)
 
 ## License
 

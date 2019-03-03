@@ -6,11 +6,11 @@ import {
 
 const initialState = {
 	loading: false,
-	coords: {
+	coordinates: {
 		longitude: 0,
 		latitude: 0
 	},
-	emergencies: [{}],
+	emergencies: [],
 	weatherData: {},
 	errorMessage: ''
 };
@@ -23,7 +23,7 @@ export default (state = initialState, action: any) => {
 			return {
 				...state,
 				loading: false,
-				coords: action.payload.coords,
+				coordinates: action.payload.coordinates,
 				emergencies: action.payload.emergencies,
 				weatherData: action.payload.weatherData
 			};

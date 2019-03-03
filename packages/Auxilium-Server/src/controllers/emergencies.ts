@@ -91,5 +91,3 @@ export const getNearbyEmergencies = async (req: Request, res: Response) => {
 		});
 	}
 };
-
-getNearbyEmergencies({132.232, -123.22});

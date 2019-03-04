@@ -4,7 +4,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "publish:app": "expo publish"
   },
   "dependencies": {
     "expo": "^32.0.0",

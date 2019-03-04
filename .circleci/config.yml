@@ -16,7 +16,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Install dependencies
-          command: yarn install
+          command: lerna bootstrap
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
@@ -26,10 +26,7 @@ jobs:
           command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run:
           name: Publish to Expo
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-               expo publish
-            fi
+          command: lerna run publish:app
       - store_artifacts:
           path: test-results.xml
           prefix: tests
@@ -39,14 +36,48 @@ jobs:
       - store_test_results:
           path: test-results.xml
   build_backend:
-    working
+    working_directory: ~/auxilium-server
+    docker:
+      - image: circleci/node:11.8.0
+    steps:
+      - checkout
+      - run:
+        name: Install dependencies
+        command: lerna boostrap
+      - run:
+        name: Install Heroku CLI
+        command: curl https://cli-assets.heroku.com/install.sh | sh
+      - run:
+        name: Login to Heroku
+        command: |
+          (
+            echo "$HEROKU_CREDENTIALS_EMAIL"  # or you can plaintext it, if you're feeling adventurous
+            echo "$HEROKU_CREDENTIALS_PASSWORD"
+          ) | heroku login
+      - run:
+        name: Add Heroku remote
+        command: heroku git:remote -a auxilium-staging
+      - run:
+        name: Push backend to Heroku
+        command: git subtree push --prefix /packages/Auxilium-Server heroku master
+
 - workflows:
   version: 2
   build_mobile_app:
     jobs:
-      - build_mobile
-      - test_mobile
+      - build_mobile:
+          filters:
+            branches:
+              only:
+                - staging
+                - prepare-staging
+                - master
   build_backend:
     jobs:
-      - build_backend
-      - test_backend
+      - build_backend:
+          filters:
+            branches:
+              only:
+                - staging
+                - prepare-staging
+                - master

@@ -1,11 +1,11 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
-import Auth from './Auth';
+import Onboarding from './Onboarding';
 import Main from './Main';
 
 export default createAppContainer(
 	createStackNavigator(
 		{
-			Auth: { screen: Auth },
+			Onboarding: { screen: Onboarding },
 			Main: { screen: Main }
 		},
 		{

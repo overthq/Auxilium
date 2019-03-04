@@ -8,9 +8,8 @@ import emergencies from './src/redux/reducers/Emergencies';
 
 const appReducer = combineReducers({
 	location: persistReducer({ key: 'location', storage }, location),
-	emergencies: persistReducer({ key: 'emergencies', storage }, emergencies)
 });
-const middlewares = applyMiddleware(thunk);
+const middlewares = applyMiddleware(thunk, logger);
 
 const rootReducer = (state: any, action: any) => {
 	if (action.type === 'AUTH_LOGOUT') {

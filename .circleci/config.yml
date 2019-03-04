@@ -24,8 +24,8 @@ jobs:
             - ./packages/Auxilium-App/node_modules
             - ./packages/Auxilium-Server/node_modules
       - persist_to_workspace:
-	      root: .
-	      paths: .
+          root: .
+          paths: .
   deploy_mobile:
     working_directory: ~/auxilium-app
     docker:

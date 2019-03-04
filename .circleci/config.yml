@@ -41,7 +41,7 @@ jobs:
           command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run:
           name: Publish to Expo
-          command: lerna run publish:app
+          command: lerna run --scope Auxilium-App publish:app
       - store_artifacts:
           path: test-results.xml
           prefix: tests

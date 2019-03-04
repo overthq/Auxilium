@@ -5,9 +5,11 @@ import {
 	Image,
 	Dimensions,
 	SafeAreaView,
-	TouchableOpacity
+	TouchableOpacity,
+	Alert
 } from 'react-native';
 import SideSwipe from 'react-native-sideswipe';
+import { Auth } from '../../api';
 /* eslint-disable global-require */
 
 const { width, height } = Dimensions.get('window');
@@ -108,6 +110,19 @@ class Onboarding extends React.Component {
 		currentIndex: 0
 	};
 
+	authenticateUser = async () => {
+		const {
+			navigation: { navigate }
+		} = this.props;
+		try {
+			const auth = await Auth();
+			navigate('Main');
+			return auth;
+		} catch (error) {
+			return Alert.alert(error.message);
+		}
+	};
+
 	render() {
 		const { currentIndex } = this.state;
 		return (
@@ -146,6 +161,7 @@ class Onboarding extends React.Component {
 						backgroundColor: '#FF8282',
 						marginBottom: 20
 					}}
+					onPress={this.authenticateUser}
 				>
 					<Text
 						style={{

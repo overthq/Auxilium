@@ -43,7 +43,7 @@ jobs:
       - store_test_results:
           path: test-results.xml
   deploy_backend:
-    working_directory: ~/auxilium-server
+    working_directory: ~/auxilium-app
     docker:
       - image: circleci/node:11.8.0
     steps:
@@ -54,7 +54,7 @@ jobs:
         name: Login to Heroku
         command: |
           (
-            echo "$HEROKU_CREDENTIALS_EMAIL"  # or you can plaintext it, if you're feeling adventurous
+            echo "$HEROKU_CREDENTIALS_EMAIL"
             echo "$HEROKU_CREDENTIALS_PASSWORD"
           ) | heroku login
       - run:
@@ -79,6 +79,7 @@ jobs:
                 - master
   build_backend:
     jobs:
+      - build
       - deploy_backend:
           requires:
             - build

@@ -68,6 +68,7 @@ workflows:
   version: 2
   build_mobile_app:
     jobs:
+      - build
       - deploy_mobile:
           requires:
             - build

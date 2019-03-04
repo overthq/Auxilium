@@ -115,9 +115,9 @@ class Onboarding extends React.Component {
 			navigation: { navigate }
 		} = this.props;
 		try {
-			const auth = await Auth();
+			// const auth = await Auth();
 			navigate('Main');
-			return auth;
+			// return auth;
 		} catch (error) {
 			return Alert.alert(error.message);
 		}

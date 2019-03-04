@@ -2,7 +2,7 @@ import { Constants, Notifications } from 'expo';
 import { Alert } from 'react-native';
 import env from '../../env';
 
-const auth = async (): Promise<void> => {
+const authenticate = async (): Promise<void> => {
 	const pushToken = await Notifications.getExpoPushTokenAsync();
 	try {
 		const response = await fetch(`${env.apiUrl}auth`, {
@@ -20,4 +20,4 @@ const auth = async (): Promise<void> => {
 	}
 };
 
-export default auth;
+export default { authenticate };

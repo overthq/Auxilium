@@ -40,9 +40,6 @@ jobs:
           name: Login to Expo
           command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run:
-          name: Start Expo
-          command: lerna exec --scope auxilium-app "yarn start"
-      - run:
           name: Publish to Expo
           command: lerna exec --scope auxilium-app "yarn publish:app"
       - store_artifacts:

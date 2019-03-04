@@ -5,11 +5,10 @@
   "version": "0.0.1",
   "scripts": {
     "lint": "yarn eslint . --fix",
-    "start": "node dist/app",
     "dev": "nodemon src/app.ts --exec ts-node",
-    "build": "yarn tsc",
     "clean": "rimraf dist",
-    "prepare": "yarn clean && yarn build"
+    "build": "yarn clean && yarn tsc",
+    "start": "node dist/app"
   },
   "author": "Oluwakorede Fashokun <koredefashokun@gmail.com>",
   "dependencies": {

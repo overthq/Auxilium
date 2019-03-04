@@ -3,14 +3,12 @@ import { Font, AppLoading } from 'expo';
 import { connect } from 'react-redux';
 import AppNavigator, { NavigationService } from './screens';
 import locate from './redux/actions/Location';
-import getEmergencies from './redux/actions/Emergencies';
 
 interface RootState {
 	fontsLoaded: boolean;
 }
 interface RootProps {
 	locate(): Promise<void>;
-	getEmergencies(): Promise<void>;
 }
 
 class Root extends React.Component<RootProps, RootState> {
@@ -21,7 +19,6 @@ class Root extends React.Component<RootProps, RootState> {
 	componentDidMount() {
 		this.checkUserAuth();
 		this.props.locate();
-		this.props.getEmergencies();
 	}
 
 	checkUserAuth = () => {};
@@ -51,7 +48,7 @@ class Root extends React.Component<RootProps, RootState> {
 	}
 }
 
-const mapDispatchToProps = { locate, getEmergencies };
+const mapDispatchToProps = { locate };
 
 export default connect(
 	null,

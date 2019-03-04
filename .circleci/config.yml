@@ -11,7 +11,7 @@ jobs:
           command: "sudo npm install -g yarn@latest"
       - run:
           name: Install global dependencies
-          command: "sudo yarn global add expo-cli lerna"
+          command: "sudo yarn global add lerna"
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
@@ -28,6 +28,9 @@ jobs:
     docker:
       - image: circleci/node:11.8.0
     steps:
+      - run:
+        name: Install Expo CLI
+        command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli
       - run:
           name: Login to Expo
           command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD

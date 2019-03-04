@@ -48,21 +48,21 @@ jobs:
       - image: circleci/node:11.8.0
     steps:
       - run:
-        name: Install Heroku CLI
-        command: curl https://cli-assets.heroku.com/install.sh | sh
+          name: Install Heroku CLI
+          command: curl https://cli-assets.heroku.com/install.sh | sh
       - run:
-        name: Login to Heroku
-        command: |
-          (
-            echo "$HEROKU_CREDENTIALS_EMAIL"
-            echo "$HEROKU_CREDENTIALS_PASSWORD"
-          ) | heroku login
+          name: Login to Heroku
+          command: |
+            (
+              echo "$HEROKU_CREDENTIALS_EMAIL"
+              echo "$HEROKU_CREDENTIALS_PASSWORD"
+            ) | heroku login
       - run:
-        name: Add Heroku remote
-        command: heroku git:remote -a auxilium-staging
+          name: Add Heroku remote
+          command: heroku git:remote -a auxilium-staging
       - run:
-        name: Push backend to Heroku
-        command: git subtree push --prefix /packages/Auxilium-Server heroku master
+          name: Push backend to Heroku
+          command: git subtree push --prefix /packages/Auxilium-Server heroku master
 
 workflows:
   version: 2

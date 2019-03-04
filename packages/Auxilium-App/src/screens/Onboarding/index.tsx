@@ -85,23 +85,23 @@ const slides: SlideProps[] = [
 		id: 2,
 		image: (
 			<Image
+				source={require('../../../assets/Help_Others.png')}
+				style={{ height: 300, width: 300 }}
+			/>
+		),
+		title: 'Help others',
+		description: 'Lend a helping hand to others during emergencies.'
+	},
+	{
+		id: 3,
+		image: (
+			<Image
 				source={require('../../../assets/Security.png')}
 				style={{ height: 300, width: 300 }}
 			/>
 		),
 		title: 'Stay anonymous',
 		description: 'Never worry about anyone getting your information.'
-	},
-	{
-		id: 3,
-		image: (
-			<Image
-				source={require('../../../assets/Notify.png')}
-				style={{ height: 300, width: 300 }}
-			/>
-		),
-		title: '',
-		description: ''
 	}
 ];
 

@@ -35,7 +35,7 @@ jobs:
           at: ~/auxilium-app
       - run:
           name: Install Expo CLI
-          command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli
+          command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli lerna
       - run:
           name: Login to Expo
           command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD

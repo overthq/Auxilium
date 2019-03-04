@@ -11,12 +11,12 @@ jobs:
           command: "sudo npm install -g yarn@latest"
       - run:
           name: Install global dependencies
-          command: "sudo yarn global add expo-cli"
+          command: "sudo yarn global add expo-cli lerna"
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Install dependencies
-          command: yarn lerna bootstrap
+          command: lerna bootstrap
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:

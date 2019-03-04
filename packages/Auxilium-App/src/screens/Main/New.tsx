@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, TouchableOpacity, Alert, Text } from 'react-native';
-import firebase from 'firebase';
-import { Firebase } from '../../config';
 import locate from '../../redux/actions/Location';
+import { Emergencies } from '../../api';
 
 interface NewState {
 	location: {
@@ -14,21 +13,13 @@ interface NewState {
 
 class New extends React.Component<{}, NewState> {
 	help = async () => {
-		const { locate, location } = this.props;
+		const {
+			locate,
+			location: { coords }
+		} = this.props;
 		try {
 			await locate();
-			const { uid } = Firebase.auth.currentUser;
-			await Firebase.firestore
-				.collection('emergencies')
-				.doc()
-				.set({
-					uid,
-					location: {
-						latitude: location.coords.latitude,
-						longitude: location.coords.longitude
-					},
-					timestamp: firebase.firestore.FieldValue.serverTimestamp()
-				});
+			await Emergencies.createEmergency(coords);
 		} catch (error) {
 			Alert.alert(error.message);
 		}

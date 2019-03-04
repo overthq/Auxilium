@@ -64,7 +64,7 @@ jobs:
         name: Push backend to Heroku
         command: git subtree push --prefix /packages/Auxilium-Server heroku master
 
-- workflows:
+workflows:
   version: 2
   build_mobile_app:
     jobs:

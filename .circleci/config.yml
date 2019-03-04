@@ -55,6 +55,7 @@ jobs:
     docker:
       - image: buildpack-deps:trusty
     steps:
+      - checkout
       - run:
           name: Push backend to Heroku
           command: |

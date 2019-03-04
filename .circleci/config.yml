@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build_mobile:
+  build:
     working_directory: ~/auxilium-app
     docker:
       - image: circleci/node:11.8.0
@@ -21,6 +21,13 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+            - ./packages/Auxilium-App/node_modules
+            - ./packages/Auxilium-Server/node_modules
+  deploy_mobile:
+    working_directory: ~/auxilium-app
+    docker:
+      - image: circleci/node:11.8.0
+    steps:
       - run:
           name: Login to Expo
           command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
@@ -35,15 +42,11 @@ jobs:
           prefix: coverage
       - store_test_results:
           path: test-results.xml
-  build_backend:
+  deploy_backend:
     working_directory: ~/auxilium-server
     docker:
       - image: circleci/node:11.8.0
     steps:
-      - checkout
-      - run:
-        name: Install dependencies
-        command: lerna boostrap
       - run:
         name: Install Heroku CLI
         command: curl https://cli-assets.heroku.com/install.sh | sh
@@ -65,7 +68,9 @@ jobs:
   version: 2
   build_mobile_app:
     jobs:
-      - build_mobile:
+      - deploy_mobile:
+          requires:
+            - build
           filters:
             branches:
               only:
@@ -74,7 +79,9 @@ jobs:
                 - master
   build_backend:
     jobs:
-      - build_backend:
+      - deploy_backend:
+          requires:
+            - build
           filters:
             branches:
               only:

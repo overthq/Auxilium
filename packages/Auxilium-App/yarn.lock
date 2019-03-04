@@ -5404,6 +5404,11 @@ react-native-screens@1.0.0-alpha.22, "react-native-screens@^1.0.0 || ^1.0.0-alph
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   integrity sha512-kSyAt0AeVU6N7ZonfV6dP6iZF8B7Bce+tk3eujXhzBGsLg0VSLnU7uE9VqJF0xdQrHR91ZjGgVMieo/8df9KTA==
 
+react-native-sideswipe@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-sideswipe/-/react-native-sideswipe-1.4.2.tgz#9e3e23077884838c5592533bf09ffd7977283b74"
+  integrity sha512-WhxmXVWijMx1smPlWQwSrzklq9284xsZEnArzQLvksA/23Tsic4AbsMOkqHZB1kjiLEBBbdspLyie5mOnf9zUw==
+
 react-native-svg@8.0.10:
   version "8.0.10"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-8.0.10.tgz#b07e2342d1486220f5fda1a584e316e7d2d1f392"

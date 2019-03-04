@@ -18,6 +18,7 @@ class Root extends React.Component<RootProps, RootState> {
 
 	componentDidMount() {
 		this.checkUserAuth();
+		this.loadFonts();
 		this.props.locate();
 	}
 
@@ -31,6 +32,7 @@ class Root extends React.Component<RootProps, RootState> {
 			'Muli Bold': require('../assets/fonts/Muli-Bold.ttf'),
 			'Muli Black': require('../assets/fonts/Muli-Black.ttf')
 		});
+		this.setState({ fontsLoaded: true });
 	};
 
 	render() {

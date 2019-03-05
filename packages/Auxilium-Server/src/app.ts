@@ -5,7 +5,7 @@ import router from './router';
 import './config/database';
 
 const app: express.Application = express();
-const port: number = process.env.PORT || 4000;
+const port: number | any = process.env.PORT || 4000;
 
 const server = http.createServer(app);
 const io = socketIO.listen(server);

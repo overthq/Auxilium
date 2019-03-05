@@ -6,8 +6,9 @@
   "scripts": {
     "lint": "yarn eslint . --fix",
     "dev": "nodemon src/app.ts --exec ts-node",
-    "clean": "rimraf dist",
+    "clean": "yarn rimraf dist",
     "build": "yarn clean && yarn tsc",
+    "heroku-postbuild": "yarn build",
     "start": "node dist/app"
   },
   "author": "Oluwakorede Fashokun <koredefashokun@gmail.com>",

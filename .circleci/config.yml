@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build_mobile:
+  build:
     working_directory: ~/auxilium-app
     docker:
       - image: circleci/node:11.8.0
@@ -11,70 +11,51 @@ jobs:
           command: "sudo npm install -g yarn@latest"
       - run:
           name: Install global dependencies
-          command: "sudo yarn global add expo-cli"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          command: "sudo yarn global add lerna"
       - run:
           name: Install dependencies
           command: lerna bootstrap
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
-      - run:
-          name: Login to Expo
-          command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      - run:
-          name: Publish to Expo
-          command: lerna run publish:app
-      - store_artifacts:
-          path: test-results.xml
-          prefix: tests
-      - store_artifacts:
-          path: coverage
-          prefix: coverage
-      - store_test_results:
-          path: test-results.xml
-  build_backend:
-    working_directory: ~/auxilium-server
+  deploy_mobile:
+    working_directory: ~/auxilium-app
     docker:
       - image: circleci/node:11.8.0
     steps:
       - checkout
       - run:
-        name: Install dependencies
-        command: lerna boostrap
+          name: Install global dependencies
+          command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli lerna
       - run:
-        name: Install Heroku CLI
-        command: curl https://cli-assets.heroku.com/install.sh | sh
+          name: Install dependencies
+          command: lerna bootstrap --scope auxilium-app
       - run:
-        name: Login to Heroku
-        command: |
-          (
-            echo "$HEROKU_CREDENTIALS_EMAIL"  # or you can plaintext it, if you're feeling adventurous
-            echo "$HEROKU_CREDENTIALS_PASSWORD"
-          ) | heroku login
+          name: Login to Expo
+          command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run:
-        name: Add Heroku remote
-        command: heroku git:remote -a auxilium-staging
+          name: Publish to Expo
+          command: lerna exec --scope auxilium-app "yarn publish:app"
+  deploy_backend:
+    working_directory: ~/auxilium-app
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
       - run:
-        name: Push backend to Heroku
-        command: git subtree push --prefix /packages/Auxilium-Server heroku master
-
-- workflows:
+          name: Push backend to Heroku
+          command: |
+            git subtree push --prefix packages/Auxilium-Server https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+workflows:
   version: 2
-  build_mobile_app:
+  deploy:
     jobs:
-      - build_mobile:
+      - build
+      - deploy_mobile:
           filters:
             branches:
               only:
                 - staging
                 - prepare-staging
                 - master
-  build_backend:
-    jobs:
-      - build_backend:
+      - deploy_backend:
           filters:
             branches:
               only:

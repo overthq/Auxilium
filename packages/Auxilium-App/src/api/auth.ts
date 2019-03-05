@@ -1,16 +1,17 @@
-import { Constants } from 'expo';
+import { Constants, Notifications } from 'expo';
 import { Alert } from 'react-native';
 import env from '../../env';
 
-const logIn = async (): Promise<void> => {
+const authenticate = async (): Promise<void> => {
+	const pushToken = await Notifications.getExpoPushTokenAsync();
 	try {
-		const response = await fetch(env.apiUrl, {
+		const response = await fetch(`${env.apiUrl}auth`, {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ deviceId: Constants.deviceId })
+			body: JSON.stringify({ deviceId: Constants.deviceId, pushToken })
 		});
 		const data = await response.json();
 		return data;
@@ -19,25 +20,4 @@ const logIn = async (): Promise<void> => {
 	}
 };
 
-const register = async (firstName: string, lastName: string): Promise<void> => {
-	try {
-		const response = await fetch(env.apiUrl, {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				firstName,
-				lastName,
-				deviceId: Constants.deviceId
-			})
-		});
-		const data = await response.json();
-		return data;
-	} catch (error) {
-		return Alert.alert(error.message);
-	}
-};
-
-export default { logIn, register };
+export default { authenticate };

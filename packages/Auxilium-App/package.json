@@ -1,4 +1,5 @@
 {
+  "name": "auxilium-app",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -13,6 +14,7 @@
     "haversine": "^1.1.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-sideswipe": "^1.4.2",
     "react-native-swiper": "^1.5.14",
     "react-navigation": "^3.3.2",
     "react-redux": "^6.0.1",

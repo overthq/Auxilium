@@ -10,6 +10,9 @@ jobs:
           name: Install global dependencies
           command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli lerna
       - run:
+          name: Show files
+          command: ls -la packages/Auxilium-App/src/api
+      - run:
           name: Install dependencies
           command: lerna bootstrap --scope auxilium-app
       - run:

@@ -12,17 +12,9 @@ jobs:
       - run:
           name: Install global dependencies
           command: "sudo yarn global add lerna"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Install dependencies
           command: lerna bootstrap
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
-            - ./packages/Auxilium-App/node_modules
-            - ./packages/Auxilium-Server/node_modules
   deploy_mobile:
     working_directory: ~/auxilium-app
     docker:

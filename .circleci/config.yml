@@ -57,8 +57,6 @@ workflows:
     jobs:
       - build
       - deploy_mobile:
-          requires:
-            - build
           filters:
             branches:
               only:
@@ -66,8 +64,6 @@ workflows:
                 - prepare-staging
                 - master
       - deploy_backend:
-          requires:
-            - build
           filters:
             branches:
               only:

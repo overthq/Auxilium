@@ -36,8 +36,8 @@ jobs:
           name: Install Expo CLI
           command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli lerna
       - run:
-          name: Show files
-          command: ls -la packages/Auxilium-App/src/api
+          name: Install dependencies
+          command: lerna bootstrap --scope auxilium-app
       - run:
           name: Login to Expo
           command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD

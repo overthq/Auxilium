@@ -8,7 +8,7 @@ import {
 	StyleSheet
 } from 'react-native';
 import SideSwipe from 'react-native-sideswipe';
-// import { Auth } from '../../api';
+import { Auth } from '../../api';
 /* eslint-disable-next-line */
 import Slide, { SlideProps } from './Slide';
 import slides from './slides';
@@ -48,8 +48,8 @@ class Onboarding extends React.Component {
 			navigation: { navigate }
 		} = this.props;
 		try {
-			// const auth = await Auth();
-			navigate('Main');
+			await Auth.authenticate();
+			return navigate('Main');
 			// return auth;
 		} catch (error) {
 			return Alert.alert(error.message);

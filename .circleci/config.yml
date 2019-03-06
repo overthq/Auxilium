@@ -37,12 +37,10 @@ workflows:
             branches:
               only:
                 - staging
-                - prepare-staging
                 - master
       - deploy_backend:
           filters:
             branches:
               only:
                 - staging
-                - prepare-staging
                 - master

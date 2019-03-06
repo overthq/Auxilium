@@ -2,7 +2,7 @@ import { Constants } from 'expo';
 
 const ENV = {
 	dev: {
-		apiUrl: 'http://localhost:4000/'
+		apiUrl: 'https://auxilium-staging.herokuapp.com/'
 	},
 	staging: {
 		apiUrl: 'https://auxilium-staging.herokuapp.com/'

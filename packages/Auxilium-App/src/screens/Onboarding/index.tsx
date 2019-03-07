@@ -50,7 +50,6 @@ class Onboarding extends React.Component {
 		try {
 			await Auth.authenticate();
 			return navigate('Main');
-			// return auth;
 		} catch (error) {
 			return Alert.alert(error.message);
 		}

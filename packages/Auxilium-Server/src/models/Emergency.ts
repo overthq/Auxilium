@@ -7,18 +7,14 @@ const EmergencySchema = new Schema(
 			required: true,
 			ref: 'User'
 		},
-		coordinates: {
-			longitude: {
-				type: Number,
-				reuqired: true
-			},
-			latitude: {
-				type: Number,
-				required: true
-			}
+		location: {
+			type: { type: String },
+			coordinates: []
 		}
 	},
 	{ timestamps: true }
 );
+
+EmergencySchema.index({ location: '2dsphere' });
 
 export default model('Emergency', EmergencySchema);

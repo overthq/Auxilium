@@ -15,7 +15,7 @@ interface Emergency {
 	coordinates: Coordinates;
 }
 
-const createEmergency = async (coords: Coordinates): Promise<void> => {
+const createEmergency = async (coordinates: Coordinates): Promise<void> => {
 	try {
 		const response = await fetch(`${env.apiUrl}emergencies/create`, {
 			method: 'POST',
@@ -23,7 +23,7 @@ const createEmergency = async (coords: Coordinates): Promise<void> => {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ deviceId: Constants.deviceId, coords })
+			body: JSON.stringify({ deviceId: Constants.deviceId, coordinates })
 		});
 		const data = await response.json();
 		return data;

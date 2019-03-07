@@ -37,6 +37,7 @@
     "@types/redux": "^3.6.0",
     "@types/redux-logger": "^3.0.7",
     "@types/redux-thunk": "^2.1.0",
+    "@types/socket.io-client": "^1.4.32",
     "@types/yup": "^0.26.11",
     "@typescript-eslint/eslint-plugin": "^1.4.2",
     "@typescript-eslint/parser": "^1.4.2",

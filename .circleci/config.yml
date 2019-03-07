@@ -1,20 +1,5 @@
 version: 2
 jobs:
-  build:
-    working_directory: ~/auxilium-app
-    docker:
-      - image: circleci/node:11.8.0
-    steps:
-      - checkout
-      - run:
-          name: Update Yarn
-          command: "sudo npm install -g yarn@latest"
-      - run:
-          name: Install global dependencies
-          command: "sudo yarn global add lerna"
-      - run:
-          name: Install dependencies
-          command: lerna bootstrap
   deploy_mobile:
     working_directory: ~/auxilium-app
     docker:
@@ -47,18 +32,15 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - build
       - deploy_mobile:
           filters:
             branches:
               only:
                 - staging
-                - prepare-staging
                 - master
       - deploy_backend:
           filters:
             branches:
               only:
                 - staging
-                - prepare-staging
                 - master

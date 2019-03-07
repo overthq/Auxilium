@@ -15,10 +15,12 @@ To install Auxilium on your machine, run these commands:
 git clone https://github.com/overthq/Auxilium
 # Move into the project directory
 cd Auxilium
+# Install general dependencies
+yarn
 # Install required dependencies
-lerna bootstrap
+yarn lerna bootstrap
 # Start the entire project
-lerna run start
+yarn lerna run start
 ```
 
 ## Contributing

@@ -1,9 +1,9 @@
 import { Constants } from 'expo';
 import { Alert } from 'react-native';
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 import env from '../../env';
 
-// const socket = io(env.apiUrl);
+const socket = io(env.apiUrl);
 
 interface Coordinates {
 	longitude: number;
@@ -15,7 +15,7 @@ interface Emergency {
 	coordinates: Coordinates;
 }
 
-const createEmergency = async (coords: Coordinates): Promise<void> => {
+const createEmergency = async (coordinates: Coordinates): Promise<void> => {
 	try {
 		const response = await fetch(`${env.apiUrl}emergencies/create`, {
 			method: 'POST',
@@ -23,7 +23,7 @@ const createEmergency = async (coords: Coordinates): Promise<void> => {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ deviceId: Constants.deviceId, coords })
+			body: JSON.stringify({ deviceId: Constants.deviceId, coordinates })
 		});
 		const data = await response.json();
 		return data;
@@ -44,8 +44,12 @@ const getNearbyEmergencies = async (
 			},
 			body: JSON.stringify({ coordinates })
 		});
-		const data = await response.json();
-		return data.emergencies;
+		await response.json();
+		let emergencies;
+		socket.on('emergencies', (data: Emergency[]) => {
+			emergencies = data;
+		});
+		return emergencies;
 	} catch (error) {
 		return Alert.alert(error.message);
 	}

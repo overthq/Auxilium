@@ -15,7 +15,7 @@ export const createEmergency = async (req: Request, res: Response) => {
 		coordinates,
 		deviceId
 	}: { coordinates: Coordinates; deviceId: string } = req.body;
-	const io: socketIO.Server = req.app.get('io');
+	// const io: socketIO.Server = req.app.get('io');
 	try {
 		const emergency = new Emergency({
 			deviceId,
@@ -25,7 +25,7 @@ export const createEmergency = async (req: Request, res: Response) => {
 			}
 		});
 		await emergency.save();
-		await io.emit('emergency', emergency);
+		// await io.emit('emergency', emergency);
 		return res.status(200).json({
 			success: true,
 			message: 'Emergency logged'
@@ -40,6 +40,7 @@ export const createEmergency = async (req: Request, res: Response) => {
 
 export const getNearbyEmergencies = async (req: Request, res: Response) => {
 	const { coordinates }: { coordinates: Coordinates } = req.body;
+	const io: socketIO.Server = req.app.get('io');
 	try {
 		const pushTokens: string[] | any = await User.find().select(
 			'pushToken - _id'
@@ -56,6 +57,7 @@ export const getNearbyEmergencies = async (req: Request, res: Response) => {
 			}
 		}).find();
 		if (emergencies) {
+			io.emit('emergencies', emergencies);
 			const messages = [];
 			for (let pushToken of pushTokens) {
 				if (!expo.isExpoPushToken(pushToken)) {

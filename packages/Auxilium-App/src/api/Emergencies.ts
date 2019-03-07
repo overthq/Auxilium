@@ -32,19 +32,23 @@ const createEmergency = async (coordinates: Coordinates): Promise<void> => {
 	}
 };
 
-const getNearbyEmergencies = async (): Promise<Emergency[] | void> => {
+const getNearbyEmergencies = async (
+	coordinates: Coordinates
+): Promise<Emergency[] | void> => {
 	try {
-		// const response = await fetch(`${env.apiUrl}emergencies/get`, {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		Accept: 'application/json',
-		// 		'Content-Type': 'application/json'
-		// 	},
-		// 	body: JSON.stringify({ coordinates })
-		// });
-		// const data = await response.json();
-		// return data.emergencies;
-		const emergencies = await socket.on('emergencies');
+		const response = await fetch(`${env.apiUrl}emergencies/get`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ coordinates })
+		});
+		await response.json();
+		let emergencies;
+		socket.on('emergencies', (data: Emergency[]) => {
+			emergencies = data;
+		});
 		return emergencies;
 	} catch (error) {
 		return Alert.alert(error.message);

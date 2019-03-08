@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "allowJs": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -7,21 +8,7 @@
     "outDir": "dist",
     "module": "commonjs",
     "moduleResolution": "node",
-    "lib": [
-      "es5",
-      "es6",
-      "dom",
-      "es2015.core",
-      "es2015.collection",
-      "es2015.generator",
-      "es2015.iterable",
-      "es2015.promise",
-      "es2015.proxy",
-      "es2015.reflect",
-      "es2015.symbol",
-      "es2015.symbol.wellknown",
-      "esnext.asynciterable"
-    ],
+    "lib": ["es2017"],
     "target": "es5",
     "sourceMap": false,
     "noImplicitAny": false,
@@ -31,12 +18,5 @@
     "removeComments": true
   },
   "include": ["src"],
-  "exclude": [
-    "node_modules",
-    "build",
-    "jest",
-    "scripts",
-    "__tests__",
-    "**/*.spec.ts"
-  ]
+  "exclude": ["node_modules"]
 }

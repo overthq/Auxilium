@@ -4,7 +4,7 @@
   "main": "dist/app.js",
   "version": "0.0.1",
   "scripts": {
-    "lint": "yarn eslint . --fix",
+    "lint": "yarn eslint --fix .",
     "dev": "nodemon src/app.ts --exec ts-node",
     "clean": "yarn rimraf dist",
     "build": "yarn clean && yarn tsc",

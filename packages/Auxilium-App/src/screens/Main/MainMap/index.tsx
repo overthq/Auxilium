@@ -38,15 +38,12 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 		const { locate } = this.props;
 		await locate();
 		const { coordinates } = this.props;
-		setTimeout(
-			(async () => {
-				const emergencies:
-					| Emergency[]
-					| void = await Emergencies.getNearbyEmergencies(coordinates);
-				this.setState({ emergencies });
-			})(),
-			5000
-		);
+		setTimeout(async () => {
+			const emergencies:
+				| Emergency[]
+				| void = await Emergencies.getNearbyEmergencies(coordinates);
+			this.setState({ emergencies });
+		}, 5000);
 	}
 
 	render() {

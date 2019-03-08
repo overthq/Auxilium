@@ -7,7 +7,7 @@
     "ios": "expo start --ios",
     "eject": "expo eject",
     "publish:app": "expo publish",
-    "lint": "yarn eslint --fix './*' --ext .ts,.tsx"
+    "lint": "yarn eslint --fix ."
   },
   "dependencies": {
     "expo": "^32.0.0",

@@ -45,10 +45,9 @@ const getNearbyEmergencies = async (
 			body: JSON.stringify({ coordinates })
 		});
 		await response.json();
-		let emergencies;
+		const emergencies: Emergency[] = [];
 		socket.on('emergencies', (data: Emergency[]) => {
-			console.log(data);
-			emergencies = data;
+			data.forEach(emergency => emergencies.push(emergency));
 		});
 		return emergencies;
 	} catch (error) {

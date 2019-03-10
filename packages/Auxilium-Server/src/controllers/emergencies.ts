@@ -1,9 +1,6 @@
 import * as socketIO from 'socket.io';
 import { Request, Response } from 'express';
-import expo from 'expo-server-sdk';
 import { Emergency, User } from '../models';
-
-const Expo = new expo();
 
 interface Coordinates {
 	longitude: number;

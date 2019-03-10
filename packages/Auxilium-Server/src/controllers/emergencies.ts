@@ -25,7 +25,6 @@ export const createEmergency = async (req: Request, res: Response) => {
 			}
 		});
 		await emergency.save();
-		// await io.emit('emergency', emergency);
 		return res.status(200).json({
 			success: true,
 			message: 'Emergency logged'
@@ -42,9 +41,9 @@ export const getNearbyEmergencies = async (req: Request, res: Response) => {
 	const { coordinates }: { coordinates: Coordinates } = req.body;
 	const io: socketIO.Server = req.app.get('io');
 	try {
-		const pushTokens: string[] | any = await User.find().select(
-			'pushToken - _id'
-		);
+		// const pushTokens: string[] | any = await User.find().select(
+		// 	'pushToken - _id'
+		// );
 		const emergencies = await Emergency.find({
 			location: {
 				$near: {
@@ -56,61 +55,30 @@ export const getNearbyEmergencies = async (req: Request, res: Response) => {
 				}
 			}
 		}).find();
-		if (emergencies) {
-			io.emit('emergencies', emergencies);
-			const messages = [];
-			for (let pushToken of pushTokens) {
-				if (!expo.isExpoPushToken(pushToken)) {
-					console.error(
-						`Push token ${pushToken} is not a valid Expo push token`
-					);
-					continue;
-				}
-				messages.push({
-					to: pushToken,
-					sound: 'default',
-					body: 'Someone near you is in trouble. Mind lending a helping hand?',
-					data: { coordinates }
-				});
-			}
+		emergencies && io.emit('emergencies', emergencies);
+	} catch (error) {
+		return res.status(500).json({
+			success: false,
+			message: 'An error has occured. Please try again later.'
+		});
+	}
+};
 
-			let chunks = Expo.chunkPushNotifications(messages);
-			let tickets = [];
-			(async () => {
-				for (let chunk of chunks) {
-					try {
-						const ticketChunk = await Expo.sendPushNotificationsAsync(chunk);
-						tickets.push(...ticketChunk);
-					} catch (error) {
-						console.error(error);
-					}
-				}
-			})();
-
-			const receiptIds = [];
-			tickets.forEach(ticket => ticket.id && receiptIds.push(ticket.id));
-
-			let receiptIdChunks = Expo.chunkPushNotificationReceiptIds(receiptIds);
-			await receiptIdChunks.forEach(async chunk => {
-				try {
-					const receipts: any = await Expo.getPushNotificationReceiptsAsync(
-						chunk
-					);
-					receipts.forEach(receipt => {
-						if (receipt.status === 'error') {
-							console.error(
-								`There was an error sending a notification: ${receipt.message}`
-							);
-							if (receipt.details && receipt.details.error) {
-								console.error(`The error code is ${receipt.details.error}`);
-							}
-						}
-					});
-				} catch (error) {
-					console.error(error);
-				}
+export const getUserEmergencies = async (req: Request, res: Response) => {
+	const { deviceId } = req.query;
+	try {
+		const user = await User.findOne({ deviceId });
+		if (!user) {
+			return res.status(404).json({
+				success: false,
+				message: `No user found with the deviceId: ${deviceId}`
 			});
 		}
+		const emergencies = await Emergency.find({ deviceId });
+		return res.status(200).json({
+			success: true,
+			emergencies
+		});
 	} catch (error) {
 		return res.status(500).json({
 			success: false,

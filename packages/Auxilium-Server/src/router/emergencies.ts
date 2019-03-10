@@ -1,12 +1,10 @@
 import { Router } from 'express';
-import {
-	createEmergency,
-	getNearbyEmergencies
-} from '../controllers/emergencies';
+import * as emergencies from '../controllers/emergencies';
 
 const router = Router();
 
-router.post('/create', createEmergency);
-router.post('/get', getNearbyEmergencies);
+router.post('/create', emergencies.createEmergency);
+router.post('/get', emergencies.getNearbyEmergencies);
+router.get('/getUser', emergencies.getUserEmergencies);
 
 export default router;

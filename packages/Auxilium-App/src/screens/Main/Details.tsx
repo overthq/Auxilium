@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 
 interface DetailsProps {
 	location: {
-		coords: {
+		coordinates: {
 			longitude: number;
 			latitude: number;
 		};
@@ -14,14 +14,18 @@ interface DetailsProps {
 
 const Details = ({
 	location: {
-		coords: { longitude, latitude },
+		coordinates: { longitude, latitude },
 		weatherData
 	}
 }: DetailsProps) => {
 	if (longitude === 0 || latitude === 0) {
 		return <View />;
 	}
-	return <Text>{JSON.stringify({ longitude, latitude, weatherData })}</Text>;
+	return (
+		<View>
+			<Text>{JSON.stringify({ longitude, latitude, weatherData })}</Text>
+		</View>
+	);
 };
 
 const mapStateToProps = ({ location }: { location: any }) => ({ location });

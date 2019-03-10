@@ -7,10 +7,9 @@ import env from './config/env';
 import './config/database';
 
 const app: express.Application = express();
-Sentry.init({ dsn: env.SENTRY_DSN });
-
 const server = http.createServer(app);
 const io = socketIO.listen(server);
+Sentry.init({ dsn: env.SENTRY_DSN });
 
 server.listen(env.PORT);
 

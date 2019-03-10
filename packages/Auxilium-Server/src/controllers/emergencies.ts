@@ -1,7 +1,6 @@
 import * as socketIO from 'socket.io';
 import { Request, Response } from 'express';
 import { Emergency, User } from '../models';
-import { isObject } from 'util';
 
 interface Coordinates {
 	longitude: number;

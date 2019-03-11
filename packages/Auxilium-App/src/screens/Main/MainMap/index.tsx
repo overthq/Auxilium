@@ -41,6 +41,7 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 		const { locate } = this.props;
 		await locate();
 		// const { coordinates } = this.props;
+		console.log('This is the connection status:', this.socket.connected);
 		this.socket.on('emergency', (emergency: Emergency) => {
 			this.setState({ emergencies: [...this.state.emergencies, emergency] });
 		});

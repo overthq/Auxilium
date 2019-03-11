@@ -23,6 +23,7 @@ class New extends React.Component<{ locate: any; location: any }, NewState> {
 		} = this.props;
 		try {
 			await locate();
+			console.log('This is the connection status:', this.socket.connected);
 			this.socket.emit('emergency', {
 				deviceId: Constants.deviceId,
 				location: {

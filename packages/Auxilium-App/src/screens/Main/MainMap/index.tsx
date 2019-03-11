@@ -6,6 +6,7 @@ import { CustomMarker } from './components';
 import mapStyle from './mapStyle';
 import locate from '../../../redux/actions/Location';
 import env from '../../../../env';
+import { Emergencies } from '../../../api';
 
 interface Coordinates {
 	longitude: number;
@@ -35,6 +36,14 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 	};
 
 	socket = io(env.apiUrl);
+
+	constructor(props: MainMapProps) {
+		super(props);
+		const {
+			coordinates: { longitude, latitude }
+		} = props;
+		Emergencies.getNearbyEmergencies({ longitude, latitude });
+	}
 
 	async componentDidMount() {
 		/* eslint-disable-next-line no-shadow */

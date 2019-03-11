@@ -25,7 +25,7 @@ yarn lerna run start
 
 ## Contributing
 
-All forms of (positive) contribution is welcome to Auxilium. Be sure to check out the [contribution guidlines](.github/CONTRIBUTING.md) before contributing.
+All forms of (positive) contribution is welcome to Auxilium. Be sure to check out the [contribution guidelines](.github/CONTRIBUTING.md) before contributing.
 
 ## Tech Stack
 
@@ -40,6 +40,7 @@ Overt is a JavaScript-based application. It is built with popular JS libraries/f
   - Framework: [Express](https://expressjs.com)
   - Database: [MongoDB](https://mongodb.com)
   - Hosting: [Heroku](https://heroku.com)
+  - Websockets: [Socket.iO](https://socket.io)
 
 ## License
 

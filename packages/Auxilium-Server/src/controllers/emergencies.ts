@@ -1,4 +1,3 @@
-import * as socketIO from 'socket.io';
 import { Request, Response } from 'express';
 import { Emergency, User } from '../models';
 
@@ -9,7 +8,6 @@ interface Coordinates {
 
 export const getNearbyEmergencies = async (req: Request, res: Response) => {
 	const { coordinates }: { coordinates: Coordinates } = req.body;
-	const io: socketIO.Server = req.app.get('io');
 	try {
 		// const pushTokens: string[] | any = await User.find().select(
 		// 	'pushToken - _id'
@@ -26,8 +24,9 @@ export const getNearbyEmergencies = async (req: Request, res: Response) => {
 				}
 			}
 		}).find();
-		io.on('connection', socket => {
-			emergencies && socket.emit('emergencies', emergencies);
+		return res.status(200).json({
+			success: true,
+			emergencies
 		});
 	} catch (error) {
 		return res.status(500).json({

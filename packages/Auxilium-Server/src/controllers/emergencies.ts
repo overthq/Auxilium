@@ -7,32 +7,6 @@ interface Coordinates {
 	latitude: number;
 }
 
-export const createEmergency = async (req: Request, res: Response) => {
-	const {
-		coordinates,
-		deviceId
-	}: { coordinates: Coordinates; deviceId: string } = req.body;
-	try {
-		const emergency = new Emergency({
-			deviceId,
-			location: {
-				type: 'Point',
-				coordinates: [coordinates.longitude, coordinates.latitude]
-			}
-		});
-		await emergency.save();
-		return res.status(200).json({
-			success: true,
-			message: 'Emergency logged'
-		});
-	} catch (error) {
-		return res.status(500).json({
-			success: false,
-			message: 'An error has occured. Please try again later.'
-		});
-	}
-};
-
 export const getNearbyEmergencies = async (req: Request, res: Response) => {
 	const { coordinates }: { coordinates: Coordinates } = req.body;
 	const io: socketIO.Server = req.app.get('io');
@@ -52,7 +26,9 @@ export const getNearbyEmergencies = async (req: Request, res: Response) => {
 				}
 			}
 		}).find();
-		emergencies && io.emit('emergencies', emergencies);
+		io.on('connection', socket => {
+			emergencies && socket.emit('emergencies', emergencies);
+		});
 	} catch (error) {
 		return res.status(500).json({
 			success: false,

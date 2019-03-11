@@ -2,9 +2,12 @@ import * as http from 'http';
 import * as express from 'express';
 import * as socketIO from 'socket.io';
 import * as Sentry from '@sentry/node';
+
 import router from './router';
 import env from './config/env';
 import './config/database';
+
+import { Emergency } from './models';
 
 const app: express.Application = express();
 const server = http.createServer(app);
@@ -13,8 +16,14 @@ Sentry.init({ dsn: env.SENTRY_DSN });
 
 server.listen(env.PORT);
 
+io.on('connection', socket => {
+	socket.on('emergency', async emergency => {
+		await new Emergency(emergency).save();
+		socket.emit('emergency', emergency);
+	});
+});
+
 app.use(Sentry.Handlers.requestHandler() as express.RequestHandler);
-app.set('io', io);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', router);

@@ -1,8 +1,10 @@
 import React from 'react';
+import { Constants } from 'expo';
 import { connect } from 'react-redux';
+import io from 'socket.io-client';
 import { View, TouchableOpacity, Alert, Text } from 'react-native';
 import locate from '../../redux/actions/Location';
-import { Emergencies } from '../../api';
+import env from '../../../env';
 
 interface NewState {
 	location: {
@@ -11,15 +13,23 @@ interface NewState {
 	};
 }
 
-class New extends React.Component<{}, NewState> {
+class New extends React.Component<{ locate: any; location: any }, NewState> {
+	socket = io(env.apiUrl);
+
 	help = async () => {
 		const {
 			locate,
-			location: { coords }
+			location: { coordinates }
 		} = this.props;
 		try {
 			await locate();
-			await Emergencies.createEmergency(coords);
+			this.socket.emit('emergency', {
+				deviceId: Constants.deviceId,
+				location: {
+					type: 'Point',
+					coordinates: [coordinates.longitude, coordinates.latitude]
+				}
+			});
 		} catch (error) {
 			Alert.alert(error.message);
 		}

@@ -26,10 +26,8 @@ const getNearbyEmergencies = async (
 			},
 			body: JSON.stringify({ coordinates })
 		});
-		await response.json();
-		socket.on('emergency', (data: Emergency) => {
-			return data;
-		});
+		const { emergencies } = await response.json();
+		return emergencies;
 	} catch (error) {
 		return Alert.alert(error.message);
 	}

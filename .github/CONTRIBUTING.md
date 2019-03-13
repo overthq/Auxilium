@@ -1,7 +1,13 @@
 # Contributing to Auxilium
 
+Thanks for taking the time to contribute to Auxilium. It really means a lot! To make sure the contribution process is seamless, we encourage everyone to adhere to the regulations listed below.
+
 We love maintainable and tested pull requests, and reviews be carried out by
 [code owners](https://)
+
+## Code Formatting
+
+Since Auxilium is based on TypeScript, we use ESLint to format all code.
 
 ## Pull Requests
 

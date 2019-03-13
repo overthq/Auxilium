@@ -6,6 +6,10 @@ Auxilium is an open-source app for reporting emergencies. It informs nearby user
 
 In [my country](https://en.wikipedia.org/wiki/Nigeria), many people die because of inability to access help quickly when they are involved in accidents or emergencies. I've always believed that many of these mortalities could have been averted, if people around would ave come to their aid.
 
+## Project Phase
+
+This project is currently in _pre-launch_, being developed by [Oluwakorede Fashokun](https://github/com/korede360).
+
 ## Installation
 
 To install Auxilium on your machine, run these commands:
@@ -40,7 +44,7 @@ Overt is a JavaScript-based application. It is built with popular JS libraries/f
   - Framework: [Express](https://expressjs.com)
   - Database: [MongoDB](https://mongodb.com)
   - Hosting: [Heroku](https://heroku.com)
-  - Websockets: [Socket.iO](https://socket.io)
+  - Websockets: [Socket.IO](https://socket.io)
 
 ## License
 

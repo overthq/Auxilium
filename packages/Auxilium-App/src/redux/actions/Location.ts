@@ -6,7 +6,7 @@ import {
 	FETCH_LOCATION_FAILURE
 } from '../types/Location';
 
-export default () => {
+const locate = () => {
 	return async (dispatch: any): Promise<void> => {
 		dispatch({ type: FETCH_LOCATION });
 		try {
@@ -31,3 +31,5 @@ export default () => {
 		}
 	};
 };
+
+export default { locate };

@@ -1,10 +1,11 @@
 import React from 'react';
+import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
 import io from 'socket.io-client';
 import { CustomMarker } from './components';
 import mapStyle from './mapStyle';
-import locate from '../../../redux/actions/Location';
+import { LocationActions } from '../../../redux/actions';
 import env from '../../../../env';
 import { Emergencies } from '../../../api';
 
@@ -19,7 +20,7 @@ interface Emergency {
 }
 
 interface MainMapState {
-	emergencies: Emergency[] | void;
+	emergencies: Emergency[];
 }
 
 interface MainMapProps {
@@ -31,10 +32,6 @@ interface MainMapProps {
 }
 
 class MainMap extends React.Component<MainMapProps, MainMapState> {
-	state = {
-		emergencies: []
-	};
-
 	socket = io(env.apiUrl);
 
 	constructor(props: MainMapProps) {
@@ -42,7 +39,10 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 		const {
 			coordinates: { longitude, latitude }
 		} = props;
-		Emergencies.getNearbyEmergencies({ longitude, latitude });
+		const emergencies = this.loadEmergencies(longitude, latitude);
+		this.state = {
+			emergencies
+		};
 	}
 
 	async componentDidMount() {
@@ -52,9 +52,18 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 		await locate();
 		// const { coordinates } = this.props;
 		this.socket.on('emergency', (emergency: Emergency) => {
+			Alert.alert('Emergency received!');
 			this.setState({ emergencies: [...emergencies, emergency] });
 		});
 	}
+
+	loadEmergencies = async (longitude: number, latitude: number) => {
+		const emergencies = await Emergencies.getNearbyEmergencies({
+			longitude,
+			latitude
+		});
+		return emergencies;
+	};
 
 	render() {
 		const { emergencies } = this.state;
@@ -88,7 +97,7 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 const mapStateToProps = ({ location: { coordinates } }: any) => ({
 	coordinates
 });
-const mapDispatchToProps = { locate };
+const mapDispatchToProps = { locate: LocationActions.locate };
 
 export default connect(
 	mapStateToProps,

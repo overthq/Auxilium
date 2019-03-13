@@ -1,5 +1,7 @@
 # Contributing to Auxilium
 
+Thanks for taking the time to contribute to Auxilium. It really means a lot!
+
 We love maintainable and tested pull requests, and reviews be carried out by
 [code owners](https://)
 

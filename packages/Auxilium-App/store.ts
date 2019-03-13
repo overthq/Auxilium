@@ -7,7 +7,7 @@ import location from './src/redux/reducers/Location';
 import emergencies from './src/redux/reducers/Emergencies';
 
 const appReducer = combineReducers({
-	location: persistReducer({ key: 'location', storage }, location),
+	location: persistReducer({ key: 'location', storage }, location)
 });
 const middlewares = applyMiddleware(thunk, logger);
 

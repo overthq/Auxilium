@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
+import io from 'socket.io-client';
 import { CustomMarker } from './components';
 import mapStyle from './mapStyle';
-import { Emergencies } from '../../../api';
 import locate from '../../../redux/actions/Location';
+import env from '../../../../env';
+import { Emergencies } from '../../../api';
 
 interface Coordinates {
 	longitude: number;
@@ -33,20 +35,25 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 		emergencies: []
 	};
 
+	socket = io(env.apiUrl);
+
+	constructor(props: MainMapProps) {
+		super(props);
+		const {
+			coordinates: { longitude, latitude }
+		} = props;
+		Emergencies.getNearbyEmergencies({ longitude, latitude });
+	}
+
 	async componentDidMount() {
 		/* eslint-disable-next-line no-shadow */
+		const { emergencies } = this.state;
 		const { locate } = this.props;
 		await locate();
-		const { coordinates } = this.props;
-		setTimeout(
-			(async () => {
-				const emergencies:
-					| Emergency[]
-					| void = await Emergencies.getNearbyEmergencies(coordinates);
-				this.setState({ emergencies });
-			})(),
-			5000
-		);
+		// const { coordinates } = this.props;
+		this.socket.on('emergency', (emergency: Emergency) => {
+			this.setState({ emergencies: [...emergencies, emergency] });
+		});
 	}
 
 	render() {

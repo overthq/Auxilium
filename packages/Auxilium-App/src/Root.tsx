@@ -19,7 +19,7 @@ class Root extends React.Component<RootProps, RootState> {
 	componentDidMount() {
 		this.checkUserAuth();
 		this.loadFonts();
-		this.props.locate();
+		this.props.yes();
 	}
 
 	checkUserAuth = () => {};
@@ -50,7 +50,7 @@ class Root extends React.Component<RootProps, RootState> {
 	}
 }
 
-const mapDispatchToProps = { locate: LocationActions.locate };
+const mapDispatchToProps = { yes: LocationActions.locate };
 
 export default connect(
 	null,

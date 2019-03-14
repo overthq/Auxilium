@@ -2,7 +2,7 @@ import React from 'react';
 import { Font, AppLoading } from 'expo';
 import { connect } from 'react-redux';
 import AppNavigator, { NavigationService } from './screens';
-import locate from './redux/actions/Location';
+import { LocationActions } from './redux/actions';
 
 interface RootState {
 	fontsLoaded: boolean;
@@ -50,7 +50,7 @@ class Root extends React.Component<RootProps, RootState> {
 	}
 }
 
-const mapDispatchToProps = { locate };
+const mapDispatchToProps = { locate: LocationActions.locate };
 
 export default connect(
 	null,

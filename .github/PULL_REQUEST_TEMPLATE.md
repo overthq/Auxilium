@@ -1,12 +1,14 @@
 ## Description
 
-## Deploy Notes
-
-Include changes that would affect the deployment process. e.g. environment variables.
+Describe changes made in your PR here.
 
 ## Steps to reproduce
 
 List steps to be taken to reproduce this PR here.
+
+## Deploy Notes
+
+Include changes that would affect the deployment process. e.g. environment variables.
 
 ## Related PRs
 

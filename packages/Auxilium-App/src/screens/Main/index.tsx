@@ -2,13 +2,13 @@ import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
 /* eslint-disable-next-line */
 import { Feather } from '@expo/vector-icons';
-import Details from './Details';
+import History from './History';
 import MainMap from './MainMap';
 import New from './New';
 
 export default createBottomTabNavigator(
 	{
-		Details: { screen: Details },
+		History: { screen: History },
 		MainMap: { screen: MainMap },
 		New: { screen: New }
 	},

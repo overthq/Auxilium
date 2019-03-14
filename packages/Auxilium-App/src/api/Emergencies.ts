@@ -2,12 +2,12 @@ import { Alert } from 'react-native';
 import { Constants } from 'expo';
 import env from '../../env';
 
-interface Coordinates {
+export interface Coordinates {
 	longitude: number;
 	latitude: number;
 }
 
-interface Emergency {
+export interface Emergency {
 	deviceId: string;
 	coordinates: Coordinates;
 }

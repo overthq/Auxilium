@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaView, FlatList } from 'react-native';
+import { Detail } from './components';
 import { Emergencies } from '../../../api';
 
 class Details extends React.Component {
@@ -19,7 +20,7 @@ class Details extends React.Component {
 				<FlatList
 					keyExtractor={item => item.id}
 					data={emergencies}
-					renderItem={({}) => <View />}
+					renderItem={({ item, index }) => <Detail key={index} {...item} />}
 				/>
 			</SafeAreaView>
 		);

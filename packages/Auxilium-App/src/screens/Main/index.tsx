@@ -18,7 +18,7 @@ export default createBottomTabNavigator(
 			tabBarIcon: ({ tintColor }) => {
 				const { routeName } = navigation.state;
 				let iconName;
-				if (routeName === 'Details') {
+				if (routeName === 'History') {
 					iconName = 'list';
 				} else if (routeName === 'MainMap') {
 					iconName = 'map';

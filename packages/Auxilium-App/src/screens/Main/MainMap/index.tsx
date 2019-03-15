@@ -9,25 +9,12 @@ import { LocationActions } from '../../../redux/actions';
 import env from '../../../../env';
 import { Emergencies } from '../../../api';
 
-interface Coordinates {
-	longitude: number;
-	latitude: number;
-}
-
-interface Emergency {
-	deviceId: string;
-	coordinates: Coordinates;
-}
-
 interface MainMapState {
 	emergencies: Emergency[];
 }
 
 interface MainMapProps {
-	coordinates: {
-		longitude: number;
-		latitude: number;
-	};
+	coordinates: Coordinates;
 	locate(): Promise<void>;
 }
 
@@ -40,9 +27,7 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 			coordinates: { longitude, latitude }
 		} = props;
 		const emergencies = this.loadEmergencies(longitude, latitude);
-		this.state = {
-			emergencies
-		};
+		this.state = { emergencies };
 	}
 
 	async componentDidMount() {
@@ -84,7 +69,10 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 				{emergencies &&
 					emergencies.map((emergency: Emergency, index: number) => {
 						return (
-							<MapView.Marker key={index} coordinate={emergency.coordinates}>
+							<MapView.Marker
+								key={index}
+								coordinate={emergency.location.coordinates}
+							>
 								<CustomMarker size={10} />
 							</MapView.Marker>
 						);

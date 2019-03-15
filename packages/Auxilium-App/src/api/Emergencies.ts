@@ -2,16 +2,6 @@ import { Alert } from 'react-native';
 import { Constants } from 'expo';
 import env from '../../env';
 
-export interface Coordinates {
-	longitude: number;
-	latitude: number;
-}
-
-export interface Emergency {
-	deviceId: string;
-	coordinates: Coordinates;
-}
-
 const getNearbyEmergencies = async (
 	coordinates: Coordinates
 ): Promise<Emergency[] | void> => {

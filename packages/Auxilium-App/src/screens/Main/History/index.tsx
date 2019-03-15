@@ -3,8 +3,12 @@ import { SafeAreaView, FlatList } from 'react-native';
 import { Detail } from './components';
 import { Emergencies } from '../../../api';
 
-class Details extends React.Component {
-	state = {
+interface HistoryState {
+	emergencies: Emergency[];
+}
+
+export default class History extends React.Component<{}, HistoryState> {
+	state: HistoryState = {
 		emergencies: []
 	};
 
@@ -26,5 +30,3 @@ class Details extends React.Component {
 		);
 	}
 }
-
-export default Details;

@@ -1,7 +1,9 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
+import haversine from 'haversine';
+/* eslint-disable-next-line */
 import io from 'socket.io-client';
 import { CustomMarker } from './components';
 import mapStyle from './mapStyle';
@@ -9,65 +11,59 @@ import { LocationActions } from '../../../redux/actions';
 import env from '../../../../env';
 import { Emergencies } from '../../../api';
 
-interface Coordinates {
-	longitude: number;
-	latitude: number;
-}
-
-interface Emergency {
-	deviceId: string;
-	coordinates: Coordinates;
-}
-
 interface MainMapState {
-	emergencies: Emergency[];
+	emergencies: Emergency[] | void;
 }
 
 interface MainMapProps {
-	coordinates: {
-		longitude: number;
-		latitude: number;
-	};
+	coordinates: Coordinates;
 	locate(): Promise<void>;
 }
 
 class MainMap extends React.Component<MainMapProps, MainMapState> {
 	socket = io(env.apiUrl);
 
-	constructor(props: MainMapProps) {
-		super(props);
-		const {
-			coordinates: { longitude, latitude }
-		} = props;
-		const emergencies = this.loadEmergencies(longitude, latitude);
-		this.state = {
-			emergencies
-		};
-	}
+	state = {
+		emergencies: []
+	};
 
 	async componentDidMount() {
-		/* eslint-disable-next-line no-shadow */
-		const { emergencies } = this.state;
+		// const { emergencies } = this.state;
 		const { locate } = this.props;
 		await locate();
-		// const { coordinates } = this.props;
+		const { coordinates } = this.props;
+
+		const { longitude, latitude } = coordinates;
+		const emergencies = await this.loadEmergencies(longitude, latitude);
+		await this.setState({ emergencies });
 		this.socket.on('emergency', (emergency: Emergency) => {
 			Alert.alert('Emergency received!');
-			this.setState({ emergencies: [...emergencies, emergency] });
+			const distance = haversine(
+				{ ...coordinates },
+				{ ...emergency.location.coordinates }
+			);
+			if (Math.round(distance) <= 1) {
+				this.setState({ emergencies: [...emergencies, emergency] });
+			}
 		});
 	}
 
 	loadEmergencies = async (longitude: number, latitude: number) => {
-		const emergencies = await Emergencies.getNearbyEmergencies({
-			longitude,
-			latitude
-		});
-		return emergencies;
+		try {
+			const emergencies = await Emergencies.getNearbyEmergencies({
+				longitude,
+				latitude
+			});
+			return emergencies;
+		} catch (error) {
+			return Alert.alert(error.message);
+		}
 	};
 
 	render() {
 		const { emergencies } = this.state;
 		const { coordinates } = this.props;
+		StatusBar.setBarStyle('light-content');
 		return (
 			<MapView
 				style={{ flex: 1 }}
@@ -84,7 +80,13 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 				{emergencies &&
 					emergencies.map((emergency: Emergency, index: number) => {
 						return (
-							<MapView.Marker key={index} coordinate={emergency.coordinates}>
+							<MapView.Marker
+								key={index}
+								coordinate={{
+									longitude: emergency.location.coordinates[0],
+									latitude: emergency.location.coordinates[1]
+								}}
+							>
 								<CustomMarker size={10} />
 							</MapView.Marker>
 						);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
 import haversine from 'haversine';
@@ -63,6 +63,7 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 	render() {
 		const { emergencies } = this.state;
 		const { coordinates } = this.props;
+		StatusBar.setBarStyle('light-content');
 		return (
 			<MapView
 				style={{ flex: 1 }}
@@ -81,7 +82,10 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 						return (
 							<MapView.Marker
 								key={index}
-								coordinate={{ ...emergency.location.coordinates }}
+								coordinate={{
+									longitude: emergency.location.coordinates[0],
+									latitude: emergency.location.coordinates[1]
+								}}
 							>
 								<CustomMarker size={10} />
 							</MapView.Marker>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Font, AppLoading } from 'expo';
 import { connect } from 'react-redux';
+import { YellowBox } from 'react-native';
 import AppNavigator, { NavigationService } from './screens';
 import { LocationActions } from './redux/actions';
 
@@ -18,6 +19,7 @@ class Root extends React.Component<RootProps, RootState> {
 
 	componentDidMount() {
 		const { locate } = this.props;
+		this.ignoreSocketWarnings();
 		this.checkUserAuth();
 		this.loadFonts();
 		locate();
@@ -34,6 +36,13 @@ class Root extends React.Component<RootProps, RootState> {
 			'Muli Black': require('../assets/fonts/Muli-Black.ttf')
 		});
 		this.setState({ fontsLoaded: true });
+	};
+
+	ignoreSocketWarnings = () => {
+		console.ignoredYellowBox = ['Remote debugger'];
+		YellowBox.ignoreWarnings([
+			'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
+		]);
 	};
 
 	render() {

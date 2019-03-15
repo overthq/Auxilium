@@ -23,20 +23,22 @@ interface MainMapProps {
 class MainMap extends React.Component<MainMapProps, MainMapState> {
 	socket = io(env.apiUrl);
 
-	constructor(props: MainMapProps) {
-		super(props);
-		const {
-			coordinates: { longitude, latitude }
-		} = props;
-		const emergencies = this.loadEmergencies(longitude, latitude);
-		this.state = { emergencies };
-	}
+	state = {
+		emergencies: []
+	};
 
 	async componentDidMount() {
-		const { emergencies } = this.state;
+		// const { emergencies } = this.state;
 		const { locate } = this.props;
 		await locate();
 		const { coordinates } = this.props;
+
+		const { longitude, latitude } = coordinates;
+		const emergencies: Emergency[] = await this.loadEmergencies(
+			longitude,
+			latitude
+		);
+		await this.setState({ emergencies });
 		this.socket.on('emergency', (emergency: Emergency) => {
 			Alert.alert('Emergency received!');
 			const distance = haversine(
@@ -50,11 +52,15 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 	}
 
 	loadEmergencies = async (longitude: number, latitude: number) => {
-		const emergencies = await Emergencies.getNearbyEmergencies({
-			longitude,
-			latitude
-		});
-		return emergencies;
+		try {
+			const emergencies = await Emergencies.getNearbyEmergencies({
+				longitude,
+				latitude
+			});
+			return emergencies;
+		} catch (error) {
+			return Alert.alert(error.message);
+		}
 	};
 
 	render() {

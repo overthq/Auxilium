@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
+import haversine from 'haversine';
 import io from 'socket.io-client';
 import { CustomMarker } from './components';
 import mapStyle from './mapStyle';
@@ -35,10 +36,16 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 		const { emergencies } = this.state;
 		const { locate } = this.props;
 		await locate();
-		// const { coordinates } = this.props;
+		const { coordinates } = this.props;
 		this.socket.on('emergency', (emergency: Emergency) => {
 			Alert.alert('Emergency received!');
-			this.setState({ emergencies: [...emergencies, emergency] });
+			const distance = haversine(
+				{ ...coordinates },
+				{ ...emergency.location.coordinates }
+			);
+			if (Math.round(distance) <= 1) {
+				this.setState({ emergencies: [...emergencies, emergency] });
+			}
 		});
 	}
 

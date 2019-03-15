@@ -3,6 +3,7 @@ import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
 import haversine from 'haversine';
+/* eslint-disable-next-line */
 import io from 'socket.io-client';
 import { CustomMarker } from './components';
 import mapStyle from './mapStyle';
@@ -32,7 +33,6 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 	}
 
 	async componentDidMount() {
-		/* eslint-disable-next-line no-shadow */
 		const { emergencies } = this.state;
 		const { locate } = this.props;
 		await locate();

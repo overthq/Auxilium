@@ -33,7 +33,7 @@ const getUserHistory = async () => {
 				}
 			}
 		);
-		const { emergencies } = await response.json();
+		const { emergencies }: { emergencies: Emergency[] } = await response.json();
 		return emergencies;
 	} catch (error) {
 		return Alert.alert(error.message);

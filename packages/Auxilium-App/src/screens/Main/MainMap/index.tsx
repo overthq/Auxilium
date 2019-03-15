@@ -12,7 +12,7 @@ import env from '../../../../env';
 import { Emergencies } from '../../../api';
 
 interface MainMapState {
-	emergencies: Emergency[];
+	emergencies: Emergency[] | void;
 }
 
 interface MainMapProps {
@@ -34,10 +34,7 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 		const { coordinates } = this.props;
 
 		const { longitude, latitude } = coordinates;
-		const emergencies: Emergency[] = await this.loadEmergencies(
-			longitude,
-			latitude
-		);
+		const emergencies = await this.loadEmergencies(longitude, latitude);
 		await this.setState({ emergencies });
 		this.socket.on('emergency', (emergency: Emergency) => {
 			Alert.alert('Emergency received!');
@@ -84,7 +81,7 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 						return (
 							<MapView.Marker
 								key={index}
-								coordinate={emergency.location.coordinates}
+								coordinate={{ ...emergency.location.coordinates }}
 							>
 								<CustomMarker size={10} />
 							</MapView.Marker>

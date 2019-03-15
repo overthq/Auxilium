@@ -3,7 +3,7 @@ import { Constants } from 'expo';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { View, TouchableOpacity, Alert, Text } from 'react-native';
-import locate from '../../redux/actions/Location';
+import { LocationActions } from '../../redux/actions';
 import env from '../../../env';
 
 interface NewState {
@@ -48,7 +48,7 @@ class New extends React.Component<{ locate: any; location: any }, NewState> {
 }
 
 const mapStateToProps = ({ location }: { location: any }) => ({ location });
-const mapDispatchToProps = { locate };
+const mapDispatchToProps = { locate: LocationActions.locate };
 
 export default connect(
 	mapStateToProps,

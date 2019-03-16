@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, FlatList } from 'react-native';
+import { SafeAreaView, FlatList, Text } from 'react-native';
 import { Detail } from './components';
 import { Emergencies } from '../../../api';
 
@@ -21,10 +21,22 @@ export default class History extends React.Component<{}, HistoryState> {
 		const { emergencies } = this.state;
 		return (
 			<SafeAreaView>
+				<Text
+					style={{
+						fontSize: 40,
+						fontFamily: 'Muli SemiBold',
+						color: '#000000'
+					}}
+				>
+					History
+				</Text>
 				<FlatList
-					keyExtractor={item => item.id}
+					keyExtractor={({ _id: id }) => id}
 					data={emergencies}
-					renderItem={({ item, index }) => <Detail key={index} {...item} />}
+					renderItem={({ item }) => {
+						const { _id: id } = item;
+						return <Detail key={id} {...item} />;
+					}}
 				/>
 			</SafeAreaView>
 		);

@@ -6,10 +6,11 @@ const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
 	container: {
-		height: 50,
+		height: 30,
 		width: 0.8 * width,
-		borderRadius: 4,
-		backgroundColor: '#D3D3D3'
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-between'
 	},
 	text: {
 		fontFamily: 'Muli Regular',

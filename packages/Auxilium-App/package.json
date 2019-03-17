@@ -10,6 +10,7 @@
     "lint": "yarn eslint --fix . --ext .tsx,.ts"
   },
   "dependencies": {
+    "@expo/vector-icons": "^10.0.0",
     "expo": "^32.0.0",
     "formik": "^1.5.1",
     "haversine": "^1.1.1",

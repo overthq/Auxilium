@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, FlatList, Text } from 'react-native';
+import { SafeAreaView, FlatList, Text, StyleSheet } from 'react-native';
 import { Detail } from './components';
 import { Emergencies } from '../../../api';
 
@@ -31,6 +31,7 @@ export default class History extends React.Component<{}, HistoryState> {
 					History
 				</Text>
 				<FlatList
+					style={styles.list}
 					keyExtractor={({ _id: id }) => id}
 					data={emergencies}
 					renderItem={({ item }) => {
@@ -42,3 +43,11 @@ export default class History extends React.Component<{}, HistoryState> {
 		);
 	}
 }
+
+const styles = StyleSheet.create({
+	list: {
+		flex: 1,
+		flexDirection: 'column',
+		alignItems: 'center'
+	}
+});

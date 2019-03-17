@@ -26,6 +26,7 @@
     "comma-dangle": "off",
     "indent": 0,
     "no-tabs": 0,
+    "no-use-before-define": 0,
     "jsx-quotes": ["error", "prefer-single"],
     "prettier/prettier": [
       "error",

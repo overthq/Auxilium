@@ -1,5 +1,11 @@
 import React from 'react';
-import { SafeAreaView, FlatList, Text, StyleSheet } from 'react-native';
+import {
+	SafeAreaView,
+	FlatList,
+	Text,
+	StyleSheet,
+	StatusBar
+} from 'react-native';
 import { Detail } from './components';
 import { Emergencies } from '../../../api';
 
@@ -19,19 +25,22 @@ export default class History extends React.Component<{}, HistoryState> {
 
 	render() {
 		const { emergencies } = this.state;
+		StatusBar.setBarStyle('dark-content');
 		return (
 			<SafeAreaView>
 				<Text
 					style={{
 						fontSize: 40,
 						fontFamily: 'Muli SemiBold',
-						color: '#000000'
+						color: '#000000',
+						paddingVertical: 20,
+						paddingLeft: 20
 					}}
 				>
 					History
 				</Text>
 				<FlatList
-					style={styles.list}
+					contentContainerStyle={styles.list}
 					keyExtractor={({ _id: id }) => id}
 					data={emergencies}
 					renderItem={({ item }) => {
@@ -46,8 +55,9 @@ export default class History extends React.Component<{}, HistoryState> {
 
 const styles = StyleSheet.create({
 	list: {
-		flex: 1,
+		flexGrow: 1,
 		flexDirection: 'column',
-		alignItems: 'center'
+		alignItems: 'center',
+		marginTop: 40
 	}
 });

@@ -6,7 +6,7 @@ const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
 	container: {
-		height: 30,
+		height: 50,
 		width: 0.8 * width,
 		display: 'flex',
 		flexDirection: 'row',
@@ -14,32 +14,48 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontFamily: 'Muli Regular',
-		fontSize: 16
+		fontSize: 14,
+		color: '#505050'
 	}
 });
 
-const getAddressFromCoords = async ({ longitude, latitude }: Coordinates) => {
-	try {
-		const response = await fetch(
-			`http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${longitude},${latitude}`
-		);
-		const data = await response.json();
-		console.log(data);
-	} catch (error) {
-		Alert.alert(error.message);
-	}
-};
+class Detail extends React.PureComponent<Emergency, { address: string }> {
+	state: { address: string } = {
+		address: ''
+	};
 
-const Detail = ({ location: { coordinates } }: Emergency) => {
-	const [longitude, latitude] = coordinates;
-	getAddressFromCoords({ longitude, latitude });
-	return (
-		<View style={styles.container}>
-			<Feather name='map-pin' color='#D3D3D3' size={16} />
-			<Text style={styles.text}>Longitude: {`${longitude}`}</Text>
-			<Text style={styles.text}>Latitude: {`${latitude}`}</Text>
-		</View>
-	);
-};
+	async componentDidMount() {
+		const {
+			location: { coordinates }
+		} = this.props;
+		const [longitude, latitude] = coordinates;
+		const address = await this.getAddressFromCoords({ longitude, latitude });
+		console.log(address);
+		this.setState({ address });
+	}
+
+	getAddressFromCoords = async ({ longitude, latitude }: Coordinates) => {
+		try {
+			const response = await fetch(
+				`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=pk.eyJ1Ijoia29yZWRlMzYwIiwiYSI6ImNqZno1MGN2YjBhOTgyd2xlbWFhMGQ3dmwifQ.1AbAu_Ga4bu4iQCnOgBfog`
+			);
+			const { features } = await response.json();
+			return features[0].place_name;
+		} catch (error) {
+			Alert.alert(error.message);
+		}
+	};
+
+	render() {
+		const { address } = this.state;
+		console.log(address);
+		return (
+			<View style={styles.container}>
+				<Feather name='map-pin' color='#D3D3D3' size={14} />
+				<Text style={styles.text}>{address}</Text>
+			</View>
+		);
+	}
+}
 
 export default Detail;

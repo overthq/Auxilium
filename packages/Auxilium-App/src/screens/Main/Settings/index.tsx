@@ -24,7 +24,7 @@ const Settings = () => {
 							<Text style={[styles.menuoptionName, { color: theme.textColor }]}>
 								Dark Mode
 							</Text>
-							<Switch value={dark} onValueChange={toggleTheme} />
+							<Switch value={dark} onValueChange={() => toggleTheme()} />
 						</View>
 					</ScrollView>
 				</SafeAreaView>
@@ -36,11 +36,11 @@ const Settings = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#505050',
-		paddingHorizontal: 10
+		backgroundColor: '#505050'
 	},
 	scroll: {
-		flexGrow: 1
+		flexGrow: 1,
+		paddingHorizontal: 10
 	},
 	header: {
 		fontSize: 30,
@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
 		height: 40,
 		display: 'flex',
 		flexDirection: 'row',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		alignItems: 'center'
 	},
 	menuoptionName: {
 		textTransform: 'uppercase',

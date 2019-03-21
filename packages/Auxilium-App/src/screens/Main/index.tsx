@@ -4,13 +4,13 @@ import { createBottomTabNavigator } from 'react-navigation';
 import { Feather } from '@expo/vector-icons';
 import History from './History';
 import MainMap from './MainMap';
-import New from './New';
+import Settings from './Settings';
 
 export default createBottomTabNavigator(
 	{
 		History: { screen: History },
 		MainMap: { screen: MainMap },
-		New: { screen: New }
+		Settings: { screen: Settings }
 	},
 	{
 		defaultNavigationOptions: ({ navigation }) => ({
@@ -22,8 +22,8 @@ export default createBottomTabNavigator(
 					iconName = 'list';
 				} else if (routeName === 'MainMap') {
 					iconName = 'map';
-				} else if (routeName === 'New') {
-					iconName = 'plus';
+				} else if (routeName === 'Settings') {
+					iconName = 'settings';
 				}
 				return <Feather name={iconName} color={tintColor} size={24} />;
 			}

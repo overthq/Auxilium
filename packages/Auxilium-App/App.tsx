@@ -4,6 +4,7 @@ import Sentry from 'sentry-expo';
 import { useScreens } from 'react-native-screens';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { store, persistor } from './store';
+import { ThemeProvider } from './src/context/ThemeContext';
 import Root from './src/Root';
 
 persistor.purge();
@@ -15,7 +16,9 @@ useScreens();
 const App = () => (
 	<Provider store={store}>
 		<PersistGate persistor={persistor}>
-			<Root />
+			<ThemeProvider>
+				<Root />
+			</ThemeProvider>
 		</PersistGate>
 	</Provider>
 );

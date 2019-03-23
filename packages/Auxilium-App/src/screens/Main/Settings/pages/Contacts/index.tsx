@@ -1,16 +1,21 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView, FlatList, StyleSheet } from 'react-native';
 import { Contacts } from 'expo';
+import { Contact } from './components';
 
-class ContactsPage extends React.Component {
-	state = {
+interface ContactsState {
+	contacts: Contacts.ContactResponse;
+	selectedContacts: Contacts.ContactResponse[];
+}
+
+class ContactsPage extends React.Component<{}, ContactsState> {
+	state: ContactsState = {
 		contacts: [],
 		selectedContacts: []
 	};
 
 	loadContacts = async () => {
 		const contacts = await Contacts.getContactsAsync();
-		console.log(contacts);
 		this.setState({ contacts });
 	};
 
@@ -18,7 +23,11 @@ class ContactsPage extends React.Component {
 		const { contacts, selectedContacts } = this.state;
 		return (
 			<SafeAreaView style={styles.container}>
-				<ScrollView />
+				<FlatList
+					data={contacts}
+					renderItem={contact => <Contact {...{ contact }} />}
+					keyExtractor={contact => contact.id}
+				/>
 			</SafeAreaView>
 		);
 	}

@@ -83,10 +83,18 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 		return (
 			<ThemeConsumer>
 				{({ theme }) => (
-					<>
+					<View
+						style={{
+							flex: 1,
+							position: 'absolute',
+							top: 0,
+							left: 0,
+							right: 0,
+							bottom: 0,
+							backgroundColor: 'transparent'
+						}}>
 						<MapView
 							style={{
-								flex: 1,
 								position: 'absolute',
 								top: 0,
 								left: 0,
@@ -136,7 +144,7 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 								<Feather name='alert-circle' size={35} color='#FFFFFF' />
 							</View>
 						</TouchableOpacity>
-					</>
+					</View>
 				)}
 			</ThemeConsumer>
 		);

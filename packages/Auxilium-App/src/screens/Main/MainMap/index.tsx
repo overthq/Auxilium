@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, StatusBar, TouchableOpacity, View } from 'react-native';
+import { Alert, StatusBar, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { MapView, Constants } from 'expo';
 import haversine from 'haversine';
@@ -84,23 +84,13 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 			<ThemeConsumer>
 				{({ theme }) => (
 					<View
-						style={{
-							flex: 1,
-							position: 'absolute',
-							top: 0,
-							left: 0,
-							right: 0,
-							bottom: 0,
-							backgroundColor: 'transparent'
-						}}>
+						style={[
+							styles.container,
+							{ flex: 1, backgroundColor: 'transparent'}
+						]}
+					>
 						<MapView
-							style={{
-								position: 'absolute',
-								top: 0,
-								left: 0,
-								right: 0,
-								bottom: 0
-							}}
+							style={styles.container}
 							provider='google'
 							showsUserLocation
 							initialRegion={{
@@ -150,6 +140,16 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 		);
 	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0
+	}
+});
 
 const mapStateToProps = ({ location: { coordinates } }: any) => ({
 	coordinates

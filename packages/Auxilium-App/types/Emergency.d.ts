@@ -1,5 +1,5 @@
 interface Emergency {
-	id: string;
+	_id: string;
 	deviceId: string;
 	location: {
 		coordinates: [number, number];

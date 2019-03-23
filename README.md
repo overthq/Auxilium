@@ -1,5 +1,7 @@
 # [![Auxilium](assets/AuxiliumLogo.png)](https://overt.dev)
 
+[![CircleCI](https://circleci.com/gh/overthq/Auxilium.svg?style=svg)](https://circleci.com/gh/overthq/Auxilium)
+
 Auxilium is an open-source app for reporting emergencies. It informs nearby users that someone around them is in danger, and provides them with your location (and directions), so you can get help quickly.
 
 ## Motivation
@@ -8,7 +10,7 @@ In [my country](https://en.wikipedia.org/wiki/Nigeria), many people die because 
 
 ## Project Phase
 
-This project is currently in _pre-launch_, being developed by [Oluwakorede Fashokun](https://github/com/korede360).
+This project is currently in _pre-launch_, being developed by [Oluwakorede Fashokun](https://github/com/korede360) for Overt, a concept that creates open-source apps to solve many of the worlds problems. You can read more [here](https://overt.dev)
 
 ## Installation
 
@@ -38,6 +40,7 @@ Overt is a JavaScript-based application. It is built with popular JS libraries/f
 - Front-End
   - Mobile App
     - Framework: [React Native](https://facebook.github.io/react-native) based on [Expo](https://expo.io)
+    - Database: SQLite (stores data on the front-end)
   - Dashboard
     - Library: [React](https://facebook.github.io/react) based on [Create React App](https://facebook.github.io/create-react-app)
 - Back-End

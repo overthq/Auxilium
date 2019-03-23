@@ -1,10 +1,61 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Alert } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
-const Detail = ({ location: { coordinates } }: Emergency) => (
-	<View>
-		<Text>At {JSON.stringify(coordinates)}</Text>
-	</View>
-);
+const { width } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+	container: {
+		height: 50,
+		width: 0.8 * width,
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	},
+	text: {
+		fontFamily: 'Muli Regular',
+		fontSize: 14,
+		color: '#505050'
+	}
+});
+
+class Detail extends React.PureComponent<Emergency, { address: string }> {
+	state: { address: string } = {
+		address: ''
+	};
+
+	async componentDidMount() {
+		const {
+			location: { coordinates }
+		} = this.props;
+		const [longitude, latitude] = coordinates;
+		const address = await this.getAddressFromCoords({ longitude, latitude });
+		console.log(address);
+		this.setState({ address });
+	}
+
+	getAddressFromCoords = async ({ longitude, latitude }: Coordinates) => {
+		try {
+			const response = await fetch(
+				`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=pk.eyJ1Ijoia29yZWRlMzYwIiwiYSI6ImNqZno1MGN2YjBhOTgyd2xlbWFhMGQ3dmwifQ.1AbAu_Ga4bu4iQCnOgBfog`
+			);
+			const { features } = await response.json();
+			return features[0].place_name;
+		} catch (error) {
+			Alert.alert(error.message);
+		}
+	};
+
+	render() {
+		const { address } = this.state;
+		console.log(address);
+		return (
+			<View style={styles.container}>
+				<Feather name='map-pin' color='#D3D3D3' size={14} />
+				<Text style={styles.text}>{address}</Text>
+			</View>
+		);
+	}
+}
 
 export default Detail;

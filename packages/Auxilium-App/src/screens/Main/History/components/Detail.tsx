@@ -30,7 +30,6 @@ class Detail extends React.PureComponent<Emergency, { address: string }> {
 		} = this.props;
 		const [longitude, latitude] = coordinates;
 		const address = await this.getAddressFromCoords({ longitude, latitude });
-		console.log(address);
 		this.setState({ address });
 	}
 
@@ -48,7 +47,6 @@ class Detail extends React.PureComponent<Emergency, { address: string }> {
 
 	render() {
 		const { address } = this.state;
-		console.log(address);
 		return (
 			<View style={styles.container}>
 				<Feather name='map-pin' color='#D3D3D3' size={14} />

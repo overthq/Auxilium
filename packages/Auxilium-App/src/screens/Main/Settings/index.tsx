@@ -9,10 +9,20 @@ import {
 } from 'react-native';
 import { ThemeConsumer } from '../../../context/ThemeContext';
 
+const swap = (val: any) => {
+	let output: string;
+	if (val === 'light') {
+		output = 'dark';
+	} else {
+		output = 'light';
+	}
+	return output;
+};
+
 const Settings = () => {
 	return (
 		<ThemeConsumer>
-			{({ dark, theme, toggleTheme }) => (
+			{({ theme, toggleTheme }) => (
 				<SafeAreaView
 					style={[styles.container, { backgroundColor: theme.backgroundColor }]}
 				>
@@ -24,7 +34,11 @@ const Settings = () => {
 							<Text style={[styles.menuoptionName, { color: theme.textColor }]}>
 								Dark Mode
 							</Text>
-							<Switch value={dark} onValueChange={() => toggleTheme()} />
+							<Switch
+								value={theme.name === 'dark'}
+								onValueChange={() => toggleTheme(swap(theme.name))}
+								trackColor={{ false: '#D3D3D3', true: '#FF8282' }}
+							/>
 						</View>
 					</ScrollView>
 				</SafeAreaView>
@@ -40,11 +54,11 @@ const styles = StyleSheet.create({
 	},
 	scroll: {
 		flexGrow: 1,
-		paddingHorizontal: 10
+		paddingHorizontal: 20
 	},
 	header: {
-		fontSize: 30,
-		fontFamily: 'Muli Regular',
+		fontSize: 40,
+		fontFamily: 'Muli SemiBold',
 		paddingVertical: 20
 	},
 	row: {

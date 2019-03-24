@@ -1,5 +1,11 @@
 import React from 'react';
-import { Alert, StatusBar, TouchableOpacity, View, StyleSheet } from 'react-native';
+import {
+	Alert,
+	StatusBar,
+	TouchableOpacity,
+	View,
+	StyleSheet
+} from 'react-native';
 import { connect } from 'react-redux';
 import { MapView, Constants } from 'expo';
 import haversine from 'haversine';
@@ -86,7 +92,7 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 					<View
 						style={[
 							styles.container,
-							{ flex: 1, backgroundColor: 'transparent'}
+							{ flex: 1, backgroundColor: 'transparent' }
 						]}
 					>
 						<MapView

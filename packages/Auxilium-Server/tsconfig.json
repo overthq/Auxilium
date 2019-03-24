@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": { "*": ["types/*"] },
     "allowJs": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -16,7 +15,8 @@
     "noImplicitReturns": false,
     "noImplicitThis": false,
     "noUnusedParameters": false,
-    "removeComments": true
+    "removeComments": true,
+    "skipLibCheck": true
   },
   "include": ["src"],
   "exclude": ["node_modules"]

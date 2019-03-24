@@ -23,8 +23,8 @@ export class ThemeProvider extends React.Component<{}, { theme: any }> {
 		theme: themes.dark
 	};
 
-	toggleTheme = async (theme: 'dark' | 'light') => {
-		await this.setState({ theme: themes[theme] });
+	toggleTheme = (theme: 'dark' | 'light') => {
+		this.setState({ theme: themes[theme] });
 	};
 
 	render() {

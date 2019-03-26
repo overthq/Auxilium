@@ -16,7 +16,7 @@ import { CustomMarker } from './components';
 import { LocationActions } from '../../../redux/actions';
 import env from '../../../../env';
 import { Emergencies } from '../../../api';
-import { ThemeConsumer } from '../../../context/ThemeContext';
+import { ThemeConsumer } from '../../../context';
 
 interface MainMapState {
 	emergencies: Emergency[] | void;

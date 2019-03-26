@@ -7,7 +7,7 @@ import {
 	Text,
 	Switch
 } from 'react-native';
-import { ThemeConsumer } from '../../../context/ThemeContext';
+import { ThemeConsumer } from '../../../context';
 
 const swap = (val: any) => {
 	let output: string;

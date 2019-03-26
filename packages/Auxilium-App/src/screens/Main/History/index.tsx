@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Detail } from './components';
 import { Emergencies } from '../../../api';
-import { ThemeConsumer } from '../../../context/ThemeContext';
+import { ThemeConsumer } from '../../../context';
 
 interface HistoryState {
 	emergencies: Emergency[];

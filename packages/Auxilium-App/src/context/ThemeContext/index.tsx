@@ -3,7 +3,18 @@ import darkMapStyle from './darkMapStyle';
 
 const { Provider, Consumer } = React.createContext({});
 
-const themes = {
+interface ITheme {
+	name: 'dark' | 'light';
+	mapStyle: any[];
+	backgroundColor: string;
+	textColor: string;
+}
+
+interface IThemes {
+	[x: string]: ITheme;
+}
+
+const themes: IThemes = {
 	dark: {
 		name: 'dark',
 		mapStyle: darkMapStyle,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import Sentry from 'sentry-expo';
-import { useScreens } from 'react-native-screens';
+// import { useScreens } from 'react-native-screens';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { store, persistor } from './store';
 import { ThemeProvider } from './src/context';

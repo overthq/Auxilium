@@ -1,9 +1,10 @@
 import React from 'react';
 import { Font, AppLoading } from 'expo';
 import { connect } from 'react-redux';
-import { YellowBox } from 'react-native';
+import { YellowBox, StatusBar } from 'react-native';
 import AppNavigator, { NavigationService } from './screens';
 import { LocationActions } from './redux/actions';
+import { ThemeConsumer } from './context/index';
 
 interface RootState {
 	fontsLoaded: boolean;
@@ -51,11 +52,22 @@ class Root extends React.Component<RootProps, RootState> {
 			return <AppLoading />;
 		}
 		return (
-			<AppNavigator
-				ref={(navigatorRef: any) => {
-					NavigationService.setTopLevelNavigator(navigatorRef);
-				}}
-			/>
+			<ThemeConsumer>
+				{({ theme }) => (
+					<>
+						<StatusBar
+							barStyle={
+								theme.name === 'dark' ? 'light-content' : 'dark-content'
+							}
+						/>
+						<AppNavigator
+							ref={(navigatorRef: any) => {
+								NavigationService.setTopLevelNavigator(navigatorRef);
+							}}
+						/>
+					</>
+				)}
+			</ThemeConsumer>
 		);
 	}
 }

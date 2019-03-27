@@ -2,14 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { ThemeConsumer } from '../../../../../context';
 
-const Contact = ({ contact }: { name: string; phone: string }) => (
+const Contact = ({ name, phone }: { name: string; phone: string }) => (
 	<ThemeConsumer>
 		{({ theme }) => (
 			<View style={styles.container}>
 				<Text style={[styles.contactName, { color: theme.textColor }]}>
-					{contact.name}
+					{name}
 				</Text>
-				<Text>{contact.phoneNumbers}</Text>
+				<Text>{phone}</Text>
 			</View>
 		)}
 	</ThemeConsumer>

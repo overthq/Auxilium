@@ -11,7 +11,7 @@ persistor.purge();
 Sentry.config(
 	'https://018ed01c2b844dc1bab9fa5a84517b24@sentry.io/1409956'
 ).install();
-useScreens();
+// useScreens();
 
 const App = () => (
 	<Provider store={store}>

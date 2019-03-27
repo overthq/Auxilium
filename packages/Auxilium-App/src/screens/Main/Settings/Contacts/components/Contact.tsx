@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-/* eslint-disable-next-line */
-import { Contacts } from 'expo';
-import { ThemeConsumer } from '../../../../../../context/ThemeContext';
+import { ThemeConsumer } from '../../../../../context';
 
-const Contact = ({ contact }: { contact: Contacts.Contact }) => (
+const Contact = ({ contact }: { name: string; phone: string }) => (
 	<ThemeConsumer>
 		{({ theme }) => (
 			<View style={styles.container}>
-				<Text style={styles.contactName}>{contact.name}</Text>
+				<Text style={[styles.contactName, { color: theme.textColor }]}>
+					{contact.name}
+				</Text>
 				<Text>{contact.phoneNumbers}</Text>
 			</View>
 		)}

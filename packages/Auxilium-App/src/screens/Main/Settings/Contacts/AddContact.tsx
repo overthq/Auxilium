@@ -32,12 +32,11 @@ class AddContact extends React.Component<AddContactProps, AddContactState> {
 		phone: ''
 	};
 
-	handleSubmit = (): void => {
+	handleSubmit = async (): Promise<void> => {
 		const { name, phone } = this.state;
 		const { navigation } = this.props;
 		const onSubmit: SubmitFunction = navigation.getParam('onSubmit');
-		console.log(onSubmit(name, phone));
-		return onSubmit(name, phone);
+		await onSubmit(name, phone);
 	};
 
 	render() {

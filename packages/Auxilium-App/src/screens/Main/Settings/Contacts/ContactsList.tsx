@@ -33,8 +33,11 @@ class ContactsPage extends React.Component<
 		contacts: []
 	};
 
+	componentDidMount() {
+		this.loadContacts();
+	}
+
 	loadContacts = () => {
-		// TODO: Fetch contacts from SQLite!
 		db.transaction((tx: any) => {
 			tx.executeSql(
 				`CREATE TABLE IF NOT EXISTS contacts (name text, phone text );`
@@ -42,7 +45,9 @@ class ContactsPage extends React.Component<
 			tx.executeSql(
 				`SELECT * from contacts;`,
 				null,
-				(_, { rows: { _array } }) => this.setState({ contacts: _array })
+				(_, { rows: { _array } }) => {
+					this.setState({ contacts: _array });
+				}
 			);
 		});
 	};
@@ -53,6 +58,14 @@ class ContactsPage extends React.Component<
 				name,
 				phone
 			]);
+		});
+		this.loadContacts();
+	};
+
+	deleteContact = async (name: string) => {
+		// TODO: Use function to delete contacts in the contacts component
+		await db.transaction((tx: any) => {
+			tx.executeSql('DELETE FROM contacts WHERE name = ?;', [name]);
 		});
 		this.loadContacts();
 	};
@@ -78,7 +91,11 @@ class ContactsPage extends React.Component<
 						<FlatList
 							contentContainerStyle={{ flex: 1, alignItems: 'center' }}
 							data={contacts}
-							renderItem={({ name, phone }) => <Contact {...{ name, phone }} />}
+							renderItem={({ item: { name, phone } }) => (
+								<Contact
+									{...{ name, phone, deleteContact: this.deleteContact }}
+								/>
+							)}
 							keyExtractor={(_, index) => index.toString()}
 							ListFooterComponent={() => (
 								<TouchableOpacity

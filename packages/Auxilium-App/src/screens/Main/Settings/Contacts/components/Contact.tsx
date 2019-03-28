@@ -1,15 +1,37 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {
+	View,
+	Text,
+	StyleSheet,
+	TouchableOpacity,
+	Dimensions
+} from 'react-native';
+import { Feather } from '@expo/vector-icons';
 import { ThemeConsumer } from '../../../../../context';
 
-const Contact = ({ name, phone }: { name: string; phone: string }) => (
+const { width } = Dimensions.get('window');
+
+interface ContactProps {
+	name: string;
+	phone: string;
+	deleteContact: (name: string) => void;
+}
+
+const Contact = ({ name, phone, deleteContact }: ContactProps) => (
 	<ThemeConsumer>
 		{({ theme }) => (
 			<View style={styles.container}>
-				<Text style={[styles.contactName, { color: theme.textColor }]}>
-					{name}
-				</Text>
-				<Text>{phone}</Text>
+				<View>
+					<Text style={[styles.name, { color: theme.textColor }]}>{name}</Text>
+					<Text style={[styles.phone, { color: theme.textColor }]}>
+						{phone}
+					</Text>
+				</View>
+				<View>
+					<TouchableOpacity onPress={() => deleteContact(name)}>
+						<Feather name='trash-2' size={26} color={theme.textColor} />
+					</TouchableOpacity>
+				</View>
 			</View>
 		)}
 	</ThemeConsumer>
@@ -20,9 +42,11 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		alignItems: 'center'
+		alignItems: 'center',
+		height: 100,
+		width: width <= 320 ? 300 : width < 375 ? 350 : 400
 	},
-	contactName: {
+	name: {
 		fontSize: 16,
 		fontFamily: 'Muli Regular'
 	},

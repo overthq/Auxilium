@@ -1,65 +1,17 @@
-import React from 'react';
-import {
-	View,
-	SafeAreaView,
-	ScrollView,
-	StyleSheet,
-	Text,
-	Switch
-} from 'react-native';
-import { ThemeConsumer } from '../../../context/ThemeContext';
+import { createStackNavigator } from 'react-navigation';
+import MainSettings from './MainSettings';
+import Contacts from './Contacts';
 
-const Settings = () => {
-	return (
-		<ThemeConsumer>
-			{({ dark, theme, toggleTheme }) => (
-				<SafeAreaView
-					style={[styles.container, { backgroundColor: theme.backgroundColor }]}
-				>
-					<ScrollView style={styles.scroll}>
-						<Text style={[styles.header, { color: theme.textColor }]}>
-							Settings
-						</Text>
-						<View style={styles.row}>
-							<Text style={[styles.menuoptionName, { color: theme.textColor }]}>
-								Dark Mode
-							</Text>
-							<Switch value={dark} onValueChange={() => toggleTheme()} />
-						</View>
-					</ScrollView>
-				</SafeAreaView>
-			)}
-		</ThemeConsumer>
-	);
-};
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#505050'
+const Settings = createStackNavigator(
+	{
+		MainSettings: {
+			screen: MainSettings
+		},
+		Contacts: { screen: Contacts }
 	},
-	scroll: {
-		flexGrow: 1,
-		paddingHorizontal: 10
-	},
-	header: {
-		fontSize: 30,
-		fontFamily: 'Muli Regular',
-		paddingVertical: 20
-	},
-	row: {
-		width: '100%',
-		height: 40,
-		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center'
-	},
-	menuoptionName: {
-		textTransform: 'uppercase',
-		fontFamily: 'Muli Regular',
-		fontSize: 14
+	{
+		headerMode: 'none'
 	}
-});
+);
 
 export default Settings;

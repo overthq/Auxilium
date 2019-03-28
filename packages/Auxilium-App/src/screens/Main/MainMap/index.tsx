@@ -1,5 +1,11 @@
 import React from 'react';
-import { Alert, StatusBar, TouchableOpacity, View } from 'react-native';
+import {
+	Alert,
+	StatusBar,
+	TouchableOpacity,
+	View,
+	StyleSheet
+} from 'react-native';
 import { connect } from 'react-redux';
 import { MapView, Constants } from 'expo';
 import haversine from 'haversine';
@@ -10,7 +16,7 @@ import { CustomMarker } from './components';
 import { LocationActions } from '../../../redux/actions';
 import env from '../../../../env';
 import { Emergencies } from '../../../api';
-import { ThemeConsumer } from '../../../context/ThemeContext';
+import { ThemeConsumer } from '../../../context';
 
 interface MainMapState {
 	emergencies: Emergency[] | void;
@@ -83,16 +89,14 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 		return (
 			<ThemeConsumer>
 				{({ theme }) => (
-					<>
+					<View
+						style={[
+							styles.container,
+							{ flex: 1, backgroundColor: 'transparent' }
+						]}
+					>
 						<MapView
-							style={{
-								flex: 1,
-								position: 'absolute',
-								top: 0,
-								left: 0,
-								right: 0,
-								bottom: 0
-							}}
+							style={styles.container}
 							provider='google'
 							showsUserLocation
 							initialRegion={{
@@ -136,12 +140,22 @@ class MainMap extends React.Component<MainMapProps, MainMapState> {
 								<Feather name='alert-circle' size={35} color='#FFFFFF' />
 							</View>
 						</TouchableOpacity>
-					</>
+					</View>
 				)}
 			</ThemeConsumer>
 		);
 	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0
+	}
+});
 
 const mapStateToProps = ({ location: { coordinates } }: any) => ({
 	coordinates

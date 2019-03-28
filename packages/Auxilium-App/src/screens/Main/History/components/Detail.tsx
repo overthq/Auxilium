@@ -1,23 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, Alert } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { ThemeConsumer } from '../../../../context';
 
 const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-	container: {
-		height: 50,
-		width: 0.8 * width,
-		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: 'space-between'
-	},
-	text: {
-		fontFamily: 'Muli Regular',
-		fontSize: 14,
-		color: '#505050'
-	}
-});
 
 class Detail extends React.PureComponent<Emergency, { address: string }> {
 	state: { address: string } = {
@@ -30,7 +16,6 @@ class Detail extends React.PureComponent<Emergency, { address: string }> {
 		} = this.props;
 		const [longitude, latitude] = coordinates;
 		const address = await this.getAddressFromCoords({ longitude, latitude });
-		console.log(address);
 		this.setState({ address });
 	}
 
@@ -48,14 +33,33 @@ class Detail extends React.PureComponent<Emergency, { address: string }> {
 
 	render() {
 		const { address } = this.state;
-		console.log(address);
 		return (
-			<View style={styles.container}>
-				<Feather name='map-pin' color='#D3D3D3' size={14} />
-				<Text style={styles.text}>{address}</Text>
-			</View>
+			<ThemeConsumer>
+				{({ theme }) => (
+					<View style={styles.container}>
+						<Feather name='map-pin' color={theme.textColor} size={14} />
+						<Text style={[styles.text, { color: theme.textColor }]}>
+							{address}
+						</Text>
+					</View>
+				)}
+			</ThemeConsumer>
 		);
 	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		height: 50,
+		width: 0.8 * width,
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	},
+	text: {
+		fontFamily: 'Muli Regular',
+		fontSize: 14
+	}
+});
 
 export default Detail;

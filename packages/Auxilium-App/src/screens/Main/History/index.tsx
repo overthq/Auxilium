@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Detail } from './components';
 import { Emergencies } from '../../../api';
+import { ThemeConsumer } from '../../../context';
 
 interface HistoryState {
 	emergencies: Emergency[];
@@ -27,28 +28,34 @@ export default class History extends React.Component<{}, HistoryState> {
 		const { emergencies } = this.state;
 		StatusBar.setBarStyle('dark-content');
 		return (
-			<SafeAreaView>
-				<Text
-					style={{
-						fontSize: 40,
-						fontFamily: 'Muli SemiBold',
-						color: '#000000',
-						paddingVertical: 20,
-						paddingLeft: 20
-					}}
-				>
-					History
-				</Text>
-				<FlatList
-					contentContainerStyle={styles.list}
-					keyExtractor={({ _id: id }) => id}
-					data={emergencies}
-					renderItem={({ item }) => {
-						const { _id: id } = item;
-						return <Detail key={id} {...item} />;
-					}}
-				/>
-			</SafeAreaView>
+			<ThemeConsumer>
+				{({ theme }) => (
+					<SafeAreaView
+						style={{ backgroundColor: theme.backgroundColor, flex: 1 }}
+					>
+						<Text
+							style={{
+								fontSize: 40,
+								fontFamily: 'Muli SemiBold',
+								color: theme.textColor,
+								paddingVertical: 20,
+								paddingLeft: 20
+							}}
+						>
+							History
+						</Text>
+						<FlatList
+							contentContainerStyle={styles.list}
+							keyExtractor={({ _id: id }) => id}
+							data={emergencies}
+							renderItem={({ item }) => {
+								const { _id: id } = item;
+								return <Detail key={id} {...item} />;
+							}}
+						/>
+					</SafeAreaView>
+				)}
+			</ThemeConsumer>
 		);
 	}
 }

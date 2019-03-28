@@ -3,44 +3,46 @@ import darkMapStyle from './darkMapStyle';
 
 const { Provider, Consumer } = React.createContext({});
 
-const darkTheme = {
-	mapStyle: darkMapStyle,
-	backgroundColor: '#505050',
-	textColor: '#D3D3D3'
+interface ITheme {
+	name: 'dark' | 'light';
+	mapStyle: any[];
+	backgroundColor: string;
+	textColor: string;
+}
+
+interface IThemes {
+	[x: string]: ITheme;
+}
+
+const themes: IThemes = {
+	dark: {
+		name: 'dark',
+		mapStyle: darkMapStyle,
+		backgroundColor: '#505050',
+		textColor: '#D3D3D3'
+	},
+	light: {
+		name: 'light',
+		mapStyle: [],
+		backgroundColor: '#FFFFFF',
+		textColor: '#000000'
+	}
 };
 
-const lightTheme = {
-	mapStyle: [],
-	backgroundColor: '#505050',
-	textColor: '#D3D3D3'
-};
-
-export class ThemeProvider extends React.Component<{}, { dark: boolean }> {
+export class ThemeProvider extends React.Component<{}, { theme: any }> {
 	state = {
-		dark: true
+		theme: themes.dark
 	};
 
-	toggleTheme = () => {
-		this.setState(state => ({
-			dark: !state.dark
-		}));
+	toggleTheme = (theme: 'dark' | 'light') => {
+		this.setState({ theme: themes[theme] });
 	};
 
 	render() {
 		const { children } = this.props;
-		const { dark } = this.state;
 		const { toggleTheme } = this;
-		return (
-			<Provider
-				value={{
-					dark,
-					theme: dark ? darkTheme : lightTheme,
-					toggleTheme
-				}}
-			>
-				{children}
-			</Provider>
-		);
+		const { theme } = this.state;
+		return <Provider value={{ theme, toggleTheme }}>{children}</Provider>;
 	}
 }
 

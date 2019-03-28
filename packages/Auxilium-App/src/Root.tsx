@@ -1,5 +1,5 @@
 import React from 'react';
-import { Font, AppLoading } from 'expo';
+import { AppLoading, Asset, Font } from 'expo';
 import { connect } from 'react-redux';
 import { YellowBox, StatusBar } from 'react-native';
 import AppNavigator, { NavigationService } from './screens';
@@ -37,6 +37,17 @@ class Root extends React.Component<RootProps, RootState> {
 			'Muli Black': require('../assets/fonts/Muli-Black.ttf')
 		});
 		this.setState({ fontsLoaded: true });
+	};
+
+	loadAssets = () => {
+		const images = [
+			require('../assets/Notify.png'),
+			require('../assets/Help_Others.png'),
+			require('../assets/Security.png')
+		];
+		images.map(image => {
+			return Asset.fromModule(image).downloadAsync();
+		});
 	};
 
 	ignoreSocketWarnings = () => {

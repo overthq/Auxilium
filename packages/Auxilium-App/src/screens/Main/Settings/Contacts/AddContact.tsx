@@ -37,6 +37,7 @@ class AddContact extends React.Component<AddContactProps, AddContactState> {
 		const { navigation } = this.props;
 		const onSubmit: SubmitFunction = navigation.getParam('onSubmit');
 		await onSubmit(name, phone);
+		navigation.pop();
 	};
 
 	render() {

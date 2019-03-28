@@ -82,12 +82,24 @@ class ContactsPage extends React.Component<
 							{ backgroundColor: theme.backgroundColor }
 						]}
 					>
-						<TouchableOpacity
-							style={styles.backButton}
-							onPress={() => navigation.pop()}
-						>
-							<Feather name='arrow-left' color={theme.textColor} size={35} />
-						</TouchableOpacity>
+						<View style={styles.navBar}>
+							<TouchableOpacity
+								style={styles.backButton}
+								onPress={() => navigation.pop()}
+							>
+								<Feather name='arrow-left' color={theme.textColor} size={25} />
+							</TouchableOpacity>
+							<Text
+								style={{
+									fontSize: 20,
+									fontFamily: 'Muli SemiBold',
+									color: theme.textColor
+								}}
+							>
+								Contacts
+							</Text>
+							<View style={{ width: '30%' }} />
+						</View>
 						<FlatList
 							contentContainerStyle={{ flex: 1, alignItems: 'center' }}
 							data={contacts}
@@ -97,6 +109,11 @@ class ContactsPage extends React.Component<
 								/>
 							)}
 							keyExtractor={(_, index) => index.toString()}
+							ListEmptyComponent={() => (
+								<Text style={[styles.emptyText, { color: theme.textColor }]}>
+									{`You haven't saved any contacts yet. Click the button below to add contacts to be notified when you report a personal emergency.`}
+								</Text>
+							)}
 							ListFooterComponent={() => (
 								<TouchableOpacity
 									onPress={() =>
@@ -134,8 +151,24 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1
 	},
+	navBar: {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: 52
+	},
 	backButton: {
-		padding: 10
+		padding: 10,
+		position: 'absolute',
+		top: 5,
+		left: 5
+	},
+	emptyText: {
+		paddingHorizontal: 10,
+		fontSize: 14,
+		opacity: 0.6,
+		marginVertical: 20,
+		fontFamily: 'Muli Regular'
 	},
 	mainButton: {
 		display: 'flex',

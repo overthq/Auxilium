@@ -1,8 +1,10 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, Dimensions } from 'react-native';
 /* eslint-disable-next-line */
 import { SlideProps } from './Slide';
 /* eslint-disable global-require */
+
+const { width, height } = Dimensions.get('window');
 
 const slides: SlideProps[] = [
 	{
@@ -10,7 +12,7 @@ const slides: SlideProps[] = [
 		image: (
 			<Image
 				source={require('../../../assets/Notify.png')}
-				style={{ height: 300, width: 300 }}
+				style={{ height: 0.9 * (height / 2), width: 0.9 * width }}
 			/>
 		),
 		title: 'Get help',
@@ -21,7 +23,7 @@ const slides: SlideProps[] = [
 		image: (
 			<Image
 				source={require('../../../assets/Help_Others.png')}
-				style={{ height: 300, width: 300 }}
+				style={{ height: 0.9 * (height / 2), width: 0.9 * width }}
 			/>
 		),
 		title: 'Help others',
@@ -32,7 +34,7 @@ const slides: SlideProps[] = [
 		image: (
 			<Image
 				source={require('../../../assets/Security.png')}
-				style={{ height: 300, width: 300 }}
+				style={{ height: 0.9 * (height / 2), width: 0.9 * width }}
 			/>
 		),
 		title: 'Stay anonymous',

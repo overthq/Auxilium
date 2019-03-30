@@ -5,15 +5,50 @@ import {
 	Dimensions,
 	TouchableOpacity,
 	Alert,
-	StyleSheet
+	StyleSheet,
+	FlatList
 } from 'react-native';
-import SideSwipe from 'react-native-sideswipe';
+// eslint-disable-next-line
+import { NavigationScreenProps } from 'react-navigation';
 import { Auth } from '../../api';
-/* eslint-disable-next-line */
-import Slide, { SlideProps } from './Slide';
+import Slide from './Slide';
 import slides from './slides';
 
 const { width, height } = Dimensions.get('window');
+
+interface OnboardingProps extends NavigationScreenProps {}
+
+const Onboarding = (props: OnboardingProps) => {
+	const authenticateUser = async () => {
+		const {
+			navigation: { navigate }
+		} = props;
+		try {
+			await Auth.authenticate();
+			return navigate('Main');
+		} catch (error) {
+			return Alert.alert(error.message);
+		}
+	};
+	return (
+		<View style={styles.screen}>
+			<FlatList
+				data={slides}
+				keyExtractor={item => item.id.toString()}
+				renderItem={({ item, index }) => <Slide key={index} {...item} />}
+				horizontal
+				contentContainerStyle={{ height: 0.8 * height }}
+				showsHorizontalScrollIndicator={false}
+				snapToInterval={width}
+				snapToAlignment='center'
+				decelerationRate={0}
+			/>
+			<TouchableOpacity style={styles.button} onPress={authenticateUser}>
+				<Text style={styles.buttonText}>Get Started</Text>
+			</TouchableOpacity>
+		</View>
+	);
+};
 
 const styles = StyleSheet.create({
 	screen: {
@@ -37,51 +72,5 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	}
 });
-
-class Onboarding extends React.Component {
-	state = {
-		currentIndex: 0
-	};
-
-	authenticateUser = async () => {
-		const {
-			navigation: { navigate }
-		} = this.props;
-		try {
-			await Auth.authenticate();
-			return navigate('Main');
-		} catch (error) {
-			return Alert.alert(error.message);
-		}
-	};
-
-	render() {
-		const { currentIndex } = this.state;
-		return (
-			<View style={styles.screen}>
-				<SideSwipe
-					index={currentIndex}
-					itemWidth={width}
-					style={{ height: 0.8 * height }}
-					data={slides}
-					useNativeDriver
-					onIndexChange={(index: number) =>
-						this.setState(() => ({ currentIndex: index }))
-					}
-					renderItem={({
-						itemIndex,
-						item
-					}: {
-						itemIndex: number;
-						item: SlideProps;
-					}) => <Slide key={itemIndex} {...item} />}
-				/>
-				<TouchableOpacity style={styles.button} onPress={this.authenticateUser}>
-					<Text style={styles.buttonText}>Get Started</Text>
-				</TouchableOpacity>
-			</View>
-		);
-	}
-}
 
 export default Onboarding;

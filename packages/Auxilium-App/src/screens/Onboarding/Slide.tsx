@@ -1,10 +1,17 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Dimensions, View, Text, Image } from 'react-native';
+import {
+	SafeAreaView,
+	StyleSheet,
+	Dimensions,
+	View,
+	Text,
+	Image
+} from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
 export interface SlideProps {
-	id?: number;
+	id: number;
 	image: any;
 	title: string;
 	description: string;

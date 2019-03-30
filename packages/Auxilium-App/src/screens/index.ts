@@ -11,7 +11,7 @@ export default createAppContainer(
 		{
 			headerMode: 'none',
 			defaultNavigationOptions: {
-        gesturesEnabled: false
+				gesturesEnabled: false
 			}
 		}
 	)

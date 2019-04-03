@@ -1,3 +1,8 @@
+interface Coordinates {
+	latitude: number;
+	longitude: number;
+}
+
 interface Emergency {
 	_id: string;
 	deviceId: string;

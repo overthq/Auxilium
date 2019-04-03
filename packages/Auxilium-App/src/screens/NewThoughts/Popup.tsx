@@ -6,8 +6,10 @@ import {
 	TouchableWithoutFeedback,
 	TextInput,
 	StyleSheet,
-	Dimensions
+	Dimensions,
+	TouchableOpacity
 } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 import { NavigationScreenProps } from 'react-navigation';
 
 const { width, height } = Dimensions.get('window');
@@ -24,7 +26,8 @@ export default class Popup extends React.Component<
 		const { navigation } = this.props;
 		const action = navigation.getParam('action');
 		const { text } = this.state;
-		return action(text);
+		action(text);
+		navigation.pop();
 	};
 
 	render() {
@@ -34,6 +37,9 @@ export default class Popup extends React.Component<
 				<TouchableWithoutFeedback onPress={() => navigation.pop()}>
 					<View style={styles.container}>
 						<View style={[styles.modal, { width, height: height / 2 }]}>
+							<TouchableOpacity style={styles.button} onPress={this.onSubmit}>
+								<Feather name='send' color='#FF8282' size={30} />
+							</TouchableOpacity>
 							<TextInput
 								style={styles.textArea}
 								onChange={text => this.setState({ text })}
@@ -71,5 +77,8 @@ const styles = StyleSheet.create({
 		fontFamily: 'Rubik Regular',
 		fontSize: 16,
 		color: '#D3D3D3'
+	},
+	button: {
+		alignSelf: 'flex-end'
 	}
 });

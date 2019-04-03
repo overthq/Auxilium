@@ -5,4 +5,5 @@ interface Emergency {
 		coordinates: [number, number];
 		type?: 'Point';
 	};
+	description?: string;
 }

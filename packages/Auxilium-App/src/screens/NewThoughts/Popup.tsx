@@ -42,7 +42,7 @@ export default class Popup extends React.Component<
 							</TouchableOpacity>
 							<TextInput
 								style={styles.textArea}
-								onChange={text => this.setState({ text })}
+								onChangeText={text => this.setState({ text })}
 								placeholder='What went wrong?'
 								placeholderTextColor='#777777'
 								multiline
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 	},
 	modal: {
 		flexDirection: 'column',
-		paddingVertical: 40,
+		paddingTop: 20,
 		paddingHorizontal: 20,
 		backgroundColor: '#1C1C1C',
 		borderTopLeftRadius: 10,

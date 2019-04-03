@@ -20,7 +20,8 @@ import mapStyle from './mapStyle';
 import { LocationActions } from '../../redux/actions';
 import env from '../../../env';
 import { Emergencies } from '../../api';
-import { NewMarker, MainButton, History } from './components';
+import { NewMarker, MainButton, AroundYou } from './components';
+import { getAddressFromCoords } from './helpers/location';
 
 const { width, height } = Dimensions.get('window');
 
@@ -50,12 +51,11 @@ class Home extends React.Component<HomeProps, HomeState> {
 			locate
 		} = this.props;
 		await locate();
-		const place = await this.getAddressFromCoords({ longitude, latitude });
+		const place = await getAddressFromCoords({ longitude, latitude });
 		const emergencies = await this.loadEmergencies(longitude, latitude);
 		const history = await this.getUserHistory();
 		await this.setState({ place, emergencies, history });
 
-		// Set up socket
 		this.socket.on('emergency', (emergency: Emergency) => {
 			const distance = haversine(
 				{ longitude, latitude },
@@ -96,18 +96,6 @@ class Home extends React.Component<HomeProps, HomeState> {
 			});
 		} catch (error) {
 			Alert.alert(error.message);
-		}
-	};
-
-	getAddressFromCoords = async ({ longitude, latitude }: Coordinates) => {
-		try {
-			const response = await fetch(
-				`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=pk.eyJ1Ijoia29yZWRlMzYwIiwiYSI6ImNqZno1MGN2YjBhOTgyd2xlbWFhMGQ3dmwifQ.1AbAu_Ga4bu4iQCnOgBfog`
-			);
-			const { features } = await response.json();
-			return features[2].place_name;
-		} catch (error) {
-			return Alert.alert(error.message);
 		}
 	};
 
@@ -156,8 +144,8 @@ class Home extends React.Component<HomeProps, HomeState> {
 					>
 						{emergencies && this.renderMarkers(emergencies)}
 					</MapView>
-					<Text style={styles.sectionHeader}>History</Text>
-					{history && <History {...{ history }} />}
+					<Text style={styles.sectionHeader}>Around You</Text>
+					{emergencies && <AroundYou {...{ emergencies }} />}
 				</ScrollView>
 				<MainButton
 					onPress={() =>

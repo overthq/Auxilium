@@ -1,6 +1,10 @@
 # [![Auxilium](assets/AuxiliumLogo.png)](https://overt.dev)
 
-[![CircleCI](https://circleci.com/gh/overthq/Auxilium.svg?style=svg)](https://circleci.com/gh/overthq/Auxilium)
+<p align="center">
+  <a href="https://circleci.com/gh/overthq/Auxilium">
+    <img src="https://circleci.com/gh/overthq/Auxilium.svg?style=svg" alt="CircleCI" />
+  </a>
+</p>
 
 Auxilium is an open-source app for reporting emergencies. It informs nearby users that someone around them is in danger, and provides them with your location (and directions), so you can get help quickly.
 

@@ -1,13 +1,11 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import Onboarding from './Onboarding';
 import Main from './Main';
+import NewThoughts from './NewThoughts';
 
 export default createAppContainer(
 	createStackNavigator(
-		{
-			Onboarding: { screen: Onboarding },
-			Main: { screen: Main }
-		},
+		{ Onboarding, NewThoughts, Main },
 		{
 			headerMode: 'none',
 			defaultNavigationOptions: {

@@ -92,7 +92,7 @@ class ContactsPage extends React.Component<
 							<Text
 								style={{
 									fontSize: 20,
-									fontFamily: 'Muli SemiBold',
+									fontFamily: 'Rubik Black',
 									color: theme.textColor
 								}}
 							>
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		opacity: 0.6,
 		marginVertical: 20,
-		fontFamily: 'Muli Regular'
+		fontFamily: 'Rubik Regular'
 	},
 	mainButton: {
 		display: 'flex',
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
 		borderRadius: 22.5
 	},
 	mainButtonText: {
-		fontFamily: 'Muli Regular',
+		fontFamily: 'Rubik Regular',
 		fontSize: 16,
 		textTransform: 'uppercase'
 	}

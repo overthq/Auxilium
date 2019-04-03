@@ -31,10 +31,10 @@ class Root extends React.Component<RootProps, RootState> {
 	loadFonts = async () => {
 		await Font.loadAsync({
 			/* eslint-disable global-require */
-			'Muli Regular': require('../assets/fonts/Muli-Regular.ttf'),
-			'Muli SemiBold': require('../assets/fonts/Muli-SemiBold.ttf'),
-			'Muli Bold': require('../assets/fonts/Muli-Bold.ttf'),
-			'Muli Black': require('../assets/fonts/Muli-Black.ttf')
+			'Rubik Regular': require('../assets/fonts/Rubik-Regular.ttf'),
+			'Rubik Medium': require('../assets/fonts/Rubik-Medium.ttf'),
+			'Rubik Bold': require('../assets/fonts/Rubik-Bold.ttf'),
+			'Rubik Black': require('../assets/fonts/Rubik-Black.ttf')
 		});
 		this.setState({ fontsLoaded: true });
 	};

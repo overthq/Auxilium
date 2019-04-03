@@ -25,7 +25,7 @@ const Onboarding = (props: OnboardingProps) => {
 		} = props;
 		try {
 			await Auth.authenticate();
-			return navigate('Main');
+			return navigate('NewThoughts');
 		} catch (error) {
 			return Alert.alert(error.message);
 		}
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 	},
 	buttonText: {
 		color: '#FFFFFF',
-		fontFamily: 'Muli SemiBold',
+		fontFamily: 'Rubik Medium',
 		fontSize: 20
 	}
 });

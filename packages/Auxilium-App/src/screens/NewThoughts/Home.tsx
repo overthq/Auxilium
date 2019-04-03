@@ -82,7 +82,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 		}
 	};
 
-	askForHelp = async () => {
+	askForHelp = async (description: string) => {
 		const { locate, coordinates } = this.props;
 		try {
 			await locate();
@@ -90,7 +90,8 @@ class Home extends React.Component<HomeProps, HomeState> {
 				deviceId: Constants.deviceId,
 				location: {
 					type: 'Point',
-					coordinates: [coordinates.longitude, coordinates.latitude]
+					coordinates: [coordinates.longitude, coordinates.latitude],
+					description
 				}
 			});
 		} catch (error) {
@@ -158,7 +159,13 @@ class Home extends React.Component<HomeProps, HomeState> {
 					<Text style={styles.sectionHeader}>History</Text>
 					{history && <History {...{ history }} />}
 				</ScrollView>
-				<MainButton onPress={() => navigation.navigate('Popup')} />
+				<MainButton
+					onPress={() =>
+						navigation.navigate('Popup', {
+							action: this.askForHelp
+						})
+					}
+				/>
 			</SafeAreaView>
 		);
 	}

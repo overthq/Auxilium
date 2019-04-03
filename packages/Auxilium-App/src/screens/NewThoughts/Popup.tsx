@@ -21,9 +21,10 @@ export default class Popup extends React.Component<
 	};
 
 	onSubmit = () => {
-		const { action } = this.props;
+		const { navigation } = this.props;
+		const action = navigation.getParam('action');
 		const { text } = this.state;
-		console.log(text);
+		return action(text);
 	};
 
 	render() {
@@ -36,7 +37,7 @@ export default class Popup extends React.Component<
 							<TextInput
 								style={styles.textArea}
 								onChange={text => this.setState({ text })}
-								placeholder={`What's going on?`}
+								placeholder='What went wrong?'
 								placeholderTextColor='#777777'
 								multiline
 								onBlur={Keyboard.dismiss}

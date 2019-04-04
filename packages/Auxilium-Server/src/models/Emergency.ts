@@ -9,6 +9,9 @@ const EmergencySchema = new Schema(
 		location: {
 			type: { type: String },
 			coordinates: []
+		},
+		description: {
+			type: String
 		}
 	},
 	{ timestamps: true }

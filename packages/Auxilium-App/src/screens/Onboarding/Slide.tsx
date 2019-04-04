@@ -1,14 +1,34 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Dimensions, View, Text } from 'react-native';
+import {
+	SafeAreaView,
+	StyleSheet,
+	Dimensions,
+	View,
+	Text,
+	Image
+} from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
 export interface SlideProps {
-	id?: number;
-	image: React.ReactNode;
+	id: number;
+	image: any;
 	title: string;
 	description: string;
 }
+
+const Slide = ({ image, title, description }: SlideProps) => (
+	<SafeAreaView style={styles.container}>
+		<View style={styles.image}>
+			<Image
+				source={image}
+				style={{ height: 0.9 * (height / 2), width: 0.9 * width }}
+			/>
+		</View>
+		<Text style={styles.title}>{title}</Text>
+		<Text style={styles.description}>{description}</Text>
+	</SafeAreaView>
+);
 
 const styles = StyleSheet.create({
 	container: {
@@ -27,27 +47,18 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: 26,
-		fontFamily: 'Muli SemiBold',
+		fontFamily: 'Rubik Medium',
+		letterSpacing: 1,
 		fontWeight: 'bold',
-		textAlign: 'center'
+		textAlign: 'center',
+		color: '#1C1C1C'
 	},
 	description: {
 		fontSize: 16,
-		fontFamily: 'Muli Regular',
+		fontFamily: 'Rubik Regular',
 		textAlign: 'center',
 		color: '#505050'
 	}
 });
-
-const Slide = (props: SlideProps) => {
-	const { image, title, description } = props;
-	return (
-		<SafeAreaView style={styles.container}>
-			<View style={styles.image}>{image}</View>
-			<Text style={styles.title}>{title}</Text>
-			<Text style={styles.description}>{description}</Text>
-		</SafeAreaView>
-	);
-};
 
 export default Slide;

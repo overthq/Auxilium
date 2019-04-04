@@ -1,6 +1,10 @@
 # [![Auxilium](assets/AuxiliumLogo.png)](https://overt.dev)
 
-[![CircleCI](https://circleci.com/gh/overthq/Auxilium.svg?style=svg)](https://circleci.com/gh/overthq/Auxilium)
+<p align="center">
+  <a href="https://circleci.com/gh/overthq/Auxilium">
+    <img src="https://circleci.com/gh/overthq/Auxilium.svg?style=svg" alt="CircleCI" />
+  </a>
+</p>
 
 Auxilium is an open-source app for reporting emergencies. It informs nearby users that someone around them is in danger, and provides them with your location (and directions), so you can get help quickly.
 
@@ -10,7 +14,7 @@ In [my country](https://en.wikipedia.org/wiki/Nigeria), many people die because 
 
 ## Project Phase
 
-This project is currently in _pre-launch_, being developed by [Oluwakorede Fashokun](https://github/com/korede360) for Overt, a concept that creates open-source apps to solve many of the worlds problems. You can read more [here](https://overt.dev)
+This project is currently in _pre-launch_, being developed by [Oluwakorede Fashokun](https://github/com/korede360) for [Overt](https://overt.dev), a concept that creates open-source apps to solve many of the worlds problems. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412)
 
 ## Installation
 

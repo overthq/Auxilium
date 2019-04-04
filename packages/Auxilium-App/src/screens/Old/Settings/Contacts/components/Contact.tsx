@@ -48,11 +48,11 @@ const styles = StyleSheet.create({
 	},
 	name: {
 		fontSize: 16,
-		fontFamily: 'Muli Regular'
+		fontFamily: 'Rubik Regular'
 	},
 	phone: {
 		fontSize: 14,
-		fontFamily: 'Muli Regular'
+		fontFamily: 'Rubik Regular'
 	}
 });
 

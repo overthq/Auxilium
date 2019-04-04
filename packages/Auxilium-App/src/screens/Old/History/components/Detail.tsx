@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between'
 	},
 	text: {
-		fontFamily: 'Muli Regular',
+		fontFamily: 'Rubik Regular',
 		fontSize: 14
 	}
 });

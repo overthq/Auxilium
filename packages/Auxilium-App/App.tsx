@@ -7,7 +7,7 @@ import { store, persistor } from './store';
 import { ThemeProvider } from './src/context';
 import Root from './src/Root';
 
-persistor.purge();
+// persistor.purge();
 Sentry.config(
 	'https://018ed01c2b844dc1bab9fa5a84517b24@sentry.io/1409956'
 ).install();

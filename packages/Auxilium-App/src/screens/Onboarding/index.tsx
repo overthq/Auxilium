@@ -25,7 +25,7 @@ const Onboarding = (props: OnboardingProps) => {
 		} = props;
 		try {
 			await Auth.authenticate();
-			return navigate('NewThoughts');
+			return navigate('Main');
 		} catch (error) {
 			return Alert.alert(error.message);
 		}

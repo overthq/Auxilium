@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
 	buttonText: {
-		fontFamily: 'Muli SemiBold',
+		fontFamily: 'Rubik Black',
 		fontSize: 16
 	},
 	backButton: {
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'rgba(0, 0, 0, 0.3)',
 		height: 45,
 		borderRadius: 4,
-		fontFamily: 'Muli Regular',
+		fontFamily: 'Rubik Regular',
 		fontSize: 16,
 		width: width <= 320 ? 300 : width < 375 ? 350 : 400,
 		marginBottom: 20,

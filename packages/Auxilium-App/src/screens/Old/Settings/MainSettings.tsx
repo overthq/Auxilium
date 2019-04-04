@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 	},
 	header: {
 		fontSize: 45,
-		fontFamily: 'Muli SemiBold',
+		fontFamily: 'Rubik Black',
 		paddingVertical: 20
 	},
 	row: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 	},
 	menuoptionName: {
 		textTransform: 'uppercase',
-		fontFamily: 'Muli Regular',
+		fontFamily: 'Rubik Regular',
 		fontSize: 14
 	}
 });

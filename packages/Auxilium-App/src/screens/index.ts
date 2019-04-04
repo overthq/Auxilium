@@ -1,18 +1,15 @@
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import Onboarding from './Onboarding';
 import Main from './Main';
+import Loading from './Loading';
+// import Old from './Old';
 
 export default createAppContainer(
-	createStackNavigator(
+	createSwitchNavigator(
+		{ Loading, Onboarding, Main },
 		{
-			Onboarding: { screen: Onboarding },
-			Main: { screen: Main }
-		},
-		{
-			headerMode: 'none',
-			defaultNavigationOptions: {
-				gesturesEnabled: false
-			}
+			initialRouteName: 'Loading',
+			backBehavior: 'none'
 		}
 	)
 );

@@ -36,7 +36,7 @@ export default class History extends React.Component<{}, HistoryState> {
 						<Text
 							style={{
 								fontSize: 40,
-								fontFamily: 'Muli SemiBold',
+								fontFamily: 'Rubik Black',
 								color: theme.textColor,
 								paddingVertical: 20,
 								paddingLeft: 20

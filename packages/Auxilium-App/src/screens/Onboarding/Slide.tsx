@@ -47,13 +47,15 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: 26,
-		fontFamily: 'Muli SemiBold',
+		fontFamily: 'Rubik Medium',
+		letterSpacing: 1,
 		fontWeight: 'bold',
-		textAlign: 'center'
+		textAlign: 'center',
+		color: '#1C1C1C'
 	},
 	description: {
 		fontSize: 16,
-		fontFamily: 'Muli Regular',
+		fontFamily: 'Rubik Regular',
 		textAlign: 'center',
 		color: '#505050'
 	}

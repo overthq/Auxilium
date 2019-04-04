@@ -18,7 +18,7 @@ const slides: SlideProps[] = [
 		id: 3,
 		image: require('../../../assets/Security.png'),
 		title: 'Stay anonymous',
-		description: 'Never worry about anyone getting your information.'
+		description: 'Never worry about anyone stealing your personal information.'
 	}
 ];
 

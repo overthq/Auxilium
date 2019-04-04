@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 	},
 	buttonText: {
 		color: '#FFFFFF',
-		fontFamily: 'Muli SemiBold',
+		fontFamily: 'Rubik Medium',
 		fontSize: 20
 	}
 });

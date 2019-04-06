@@ -17,11 +17,11 @@ import haversine from 'haversine';
 import { Ionicons } from '@expo/vector-icons';
 import mapStyle from './mapStyle';
 
-import { LocationActions } from '../../../redux/actions';
-import env from '../../../../env';
-import { Emergencies } from '../../../api';
+import { LocationActions } from '../../../../redux/actions';
+import env from '../../../../../env';
+import { Emergencies } from '../../../../api';
 import { NewMarker, MainButton, AroundYou } from './components';
-import { getAddressFromCoords } from '../helpers/location';
+import { getAddressFromCoords } from '../../helpers/location';
 
 const { width, height } = Dimensions.get('window');
 
@@ -144,7 +144,9 @@ class Home extends React.Component<HomeProps, HomeState> {
 					{emergencies && (
 						<AroundYou
 							navigate={(emergency: Emergency) =>
-								navigation.navigate('EmergencyDetails', emergency)
+								navigation.navigate('EmergencyDetails', {
+									details: emergency
+								})
 							}
 							{...{ emergencies }}
 						/>

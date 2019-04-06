@@ -24,8 +24,8 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 	} = pageDetails;
 	return (
 		<SafeAreaView style={styles.container}>
-			<TouchableOpacity>
-				<Feather name='arrow-left' size={35} color='' />
+			<TouchableOpacity onPress={() => navigation.pop()}>
+				<Feather name='arrow-left' size={35} color='#D3D3D3' />
 			</TouchableOpacity>
 			<MapView
 				style={styles.map}

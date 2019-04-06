@@ -2,7 +2,7 @@ import { createStackNavigator } from 'react-navigation';
 import Home from './Home';
 import Popup from './Popup';
 
-const HomeNav = createStackNavigator(
+const Main = createStackNavigator(
 	{ Home, Popup },
 	{
 		headerMode: 'none',
@@ -11,4 +11,4 @@ const HomeNav = createStackNavigator(
 	}
 );
 
-export default HomeNav;
+export default Main;

@@ -14,17 +14,14 @@ import { NavigationScreenProps } from 'react-navigation';
 const { width, height } = Dimensions.get('window');
 
 const EmergencyDetails = (props: NavigationScreenProps) => {
-	const {
-		navigation: {
-			state: { params }
-		}
-	} = props;
+	const { navigation } = props;
+	const pageDetails: Emergency = navigation.getParam('details');
 	const {
 		location: {
-			coordinates: { longitude, latitude }
+			coordinates: [longitude, latitude]
 		},
 		description
-	} = params;
+	} = pageDetails;
 	return (
 		<SafeAreaView style={styles.container}>
 			<TouchableOpacity>

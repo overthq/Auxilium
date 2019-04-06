@@ -141,7 +141,14 @@ class Home extends React.Component<HomeProps, HomeState> {
 						{emergencies && this.renderMarkers(emergencies)}
 					</MapView>
 					<Text style={styles.sectionHeader}>Around You</Text>
-					{emergencies && <AroundYou {...{ emergencies }} />}
+					{emergencies && (
+						<AroundYou
+							navigate={(emergency: Emergency) =>
+								navigation.navigate('EmergencyDetails', emergency)
+							}
+							{...{ emergencies }}
+						/>
+					)}
 				</ScrollView>
 				<MainButton
 					onPress={() =>

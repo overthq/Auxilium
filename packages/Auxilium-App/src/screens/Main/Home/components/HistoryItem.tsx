@@ -1,11 +1,18 @@
 import React from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { getAddressFromCoords } from '../../helpers/location';
 
 const { width } = Dimensions.get('window');
 
-class HistoryItem extends React.Component<{}, { address: string }> {
+interface HistoryItemProps extends Emergency {
+	onPress(): void;
+}
+
+class HistoryItem extends React.Component<
+	HistoryItemProps,
+	{ address: string }
+> {
 	state = {
 		address: ''
 	};
@@ -22,15 +29,17 @@ class HistoryItem extends React.Component<{}, { address: string }> {
 
 	render() {
 		const { address } = this.state;
-		const { description } = this.props;
+		const { description, onPress } = this.props;
 		return (
-			<View style={styles.historySection}>
-				<View style={styles.headerRow}>
-					<Feather name='navigation' size={16} color='#D3D3D3' />
-					<Text style={styles.locationText}>{address}</Text>
+			<TouchableOpacity {...{ onPress }}>
+				<View style={styles.historySection}>
+					<View style={styles.headerRow}>
+						<Feather name='navigation' size={16} color='#D3D3D3' />
+						<Text style={styles.locationText}>{address}</Text>
+					</View>
+					<Text style={styles.descriptionText}>{description}</Text>
 				</View>
-				<Text style={styles.descriptionText}>{description}</Text>
-			</View>
+			</TouchableOpacity>
 		);
 	}
 }

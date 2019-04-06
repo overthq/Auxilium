@@ -50,7 +50,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 		} = this.props;
 		await locate();
 		const place = await getAddressFromCoords({ longitude, latitude });
-		const emergencies = await this.loadEmergencies(longitude, latitude);
+		const emergencies = await this.loadEmergencies(longitude, latitude) || [];
 		await this.setState({ place, emergencies });
 
 		this.socket.on('emergency', (emergency: Emergency) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { getAddressFromCoords } from '../../helpers/location';
+import { getAddressFromCoords } from '../../../helpers/location';
 
 const { width } = Dimensions.get('window');
 

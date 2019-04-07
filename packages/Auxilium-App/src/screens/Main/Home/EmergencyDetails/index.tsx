@@ -10,6 +10,7 @@ import {
 import { MapView } from 'expo';
 import { Feather } from '@expo/vector-icons';
 import { NavigationScreenProps } from 'react-navigation';
+import mapStyle from '../Overview/mapStyle';
 
 const { width, height } = Dimensions.get('window');
 
@@ -24,11 +25,13 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 	} = pageDetails;
 	return (
 		<SafeAreaView style={styles.container}>
-			<TouchableOpacity onPress={() => navigation.pop()}>
-				<Feather name='arrow-left' size={35} color='#D3D3D3' />
+			<TouchableOpacity style={styles.backButton} onPress={() => navigation.pop()}>
+				<Feather name='arrow-left' size={35} color='#505050' />
 			</TouchableOpacity>
 			<MapView
 				style={styles.map}
+				provider='google'
+				customMapStyle={mapStyle}
 				initialRegion={{
 					longitude,
 					latitude,
@@ -36,8 +39,8 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 					latitudeDelta: 0.00568
 				}}
 			/>
-			<View>
-				<Text>{description}</Text>
+			<View style={styles.descriptionView}>
+				<Text style={styles.description}>{description}</Text>
 			</View>
 		</SafeAreaView>
 	);
@@ -51,8 +54,24 @@ const styles = StyleSheet.create({
 	},
 	map: {
 		width,
-		height: height * 0.7,
-		pointerEvents: 'none'
+		height: height * 0.7
+	},
+	backButton: {
+		position: 'absolute',
+		top: 25,
+		left: 5,
+		zIndex: 1000
+	},
+	descriptionView: {
+		flexGrow: 1,
+		width,
+		justifyContent: 'space-around',
+		alignItems: 'center'
+	},
+	description: {
+		fontFamily: 'Rubik Regular',
+		fontSize: 16,
+		color: '#D3D3D3'
 	}
 });
 

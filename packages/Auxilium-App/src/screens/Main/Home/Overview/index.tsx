@@ -17,17 +17,16 @@ import haversine from 'haversine';
 import { Ionicons } from '@expo/vector-icons';
 import mapStyle from './mapStyle';
 
-import { LocationActions } from '../../redux/actions';
-import env from '../../../env';
-import { Emergencies } from '../../api';
+import { LocationActions } from '../../../../redux/actions';
+import env from '../../../../../env';
+import { Emergencies } from '../../../../api';
 import { NewMarker, MainButton, AroundYou } from './components';
-import { getAddressFromCoords } from './helpers/location';
+import { getAddressFromCoords } from '../../helpers/location';
 
 const { width, height } = Dimensions.get('window');
 
 interface HomeState {
 	place: string;
-	history: Emergency[] | void;
 	emergencies: Emergency[] | void;
 }
 
@@ -41,8 +40,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 
 	state = {
 		place: '',
-		emergencies: [],
-		history: []
+		emergencies: []
 	};
 
 	async componentDidMount() {
@@ -52,9 +50,8 @@ class Home extends React.Component<HomeProps, HomeState> {
 		} = this.props;
 		await locate();
 		const place = await getAddressFromCoords({ longitude, latitude });
-		const emergencies = await this.loadEmergencies(longitude, latitude);
-		const history = await this.getUserHistory();
-		await this.setState({ place, emergencies, history });
+		const emergencies = await this.loadEmergencies(longitude, latitude) || [];
+		await this.setState({ place, emergencies });
 
 		this.socket.on('emergency', (emergency: Emergency) => {
 			const distance = haversine(
@@ -90,18 +87,13 @@ class Home extends React.Component<HomeProps, HomeState> {
 				deviceId: Constants.deviceId,
 				location: {
 					type: 'Point',
-					coordinates: [coordinates.longitude, coordinates.latitude],
-					description
-				}
+					coordinates: [coordinates.longitude, coordinates.latitude]
+				},
+				description
 			});
 		} catch (error) {
 			Alert.alert(error.message);
 		}
-	};
-
-	getUserHistory = async () => {
-		const history = await Emergencies.getUserHistory();
-		return history;
 	};
 
 	renderMarkers = (emergencies: Emergency[]) => {
@@ -119,7 +111,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 	};
 
 	render() {
-		const { place, emergencies, history } = this.state;
+		const { place, emergencies } = this.state;
 		const { coordinates, navigation } = this.props;
 		return (
 			<SafeAreaView style={styles.container}>
@@ -141,11 +133,24 @@ class Home extends React.Component<HomeProps, HomeState> {
 							longitudeDelta: 0.00353,
 							latitudeDelta: 0.00568
 						}}
+						pitchEnabled={false}
+						rotateEnabled={false}
+						scrollEnabled={false}
+						zoomEnabled={false}
 					>
 						{emergencies && this.renderMarkers(emergencies)}
 					</MapView>
 					<Text style={styles.sectionHeader}>Around You</Text>
-					{emergencies && <AroundYou {...{ emergencies }} />}
+					{emergencies && (
+						<AroundYou
+							navigate={(emergency: Emergency) =>
+								navigation.navigate('EmergencyDetails', {
+									details: emergency
+								})
+							}
+							{...{ emergencies }}
+						/>
+					)}
 				</ScrollView>
 				<MainButton
 					onPress={() =>

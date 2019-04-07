@@ -10,7 +10,8 @@ import {
 import { MapView } from 'expo';
 import { Feather } from '@expo/vector-icons';
 import { NavigationScreenProps } from 'react-navigation';
-import mapStyle from '../Overview/mapStyle';
+import mapStyle from './mapStyle';
+import { NewMarker } from '../Overview/components';
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,7 +27,7 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<TouchableOpacity style={styles.backButton} onPress={() => navigation.pop()}>
-				<Feather name='arrow-left' size={35} color='#505050' />
+				<Feather name='arrow-left' size={35} color='#D3D3D3' />
 			</TouchableOpacity>
 			<MapView
 				style={styles.map}
@@ -38,7 +39,11 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 					longitudeDelta: 0.00353,
 					latitudeDelta: 0.00568
 				}}
-			/>
+			>
+				<MapView.Marker coordinate={{ longitude, latitude }}>
+					<NewMarker size={40} />
+				</MapView.Marker>
+			</MapView>
 			<View style={styles.descriptionView}>
 				<Text style={styles.description}>{description}</Text>
 			</View>

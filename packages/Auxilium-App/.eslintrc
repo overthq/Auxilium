@@ -1,55 +1,56 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint",
-    "react",
-    "react-native",
-    "prettier",
-    "import"
-  ],
-  "parserOptions": {
-    "sourceType": "module"
-  },
-  "env": {
-    "browser": true,
-    "node": true
-  },
-  "extends": [
-    "airbnb",
-    "prettier",
-    "plugin:prettier/recommended",
-    "plugin:react/recommended",
-    "prettier/react",
-    "prettier/@typescript-eslint"
-  ],
-  "rules": {
-    "comma-dangle": "off",
-    "indent": 0,
-    "no-tabs": 0,
-    "no-use-before-define": 0,
-    "jsx-quotes": ["error", "prefer-single"],
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true,
-        "useTabs": true,
-        "tabWidth": 2,
-        "semi": true,
-        "jsxSingleQuote": true,
-        "trailingComma": "none",
-        "bracketSpacing": true,
-        "arrowParens": "avoid",
-        "endOfLine": "lf"
-      }
-    ],
-    "react/jsx-filename-extension": [2, { "extensions": [".jsx", ".tsx"] }],
-    "react/no-array-index-key": 0
-  },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [".ts", ".tsx"]
-      }
-    }
-  }
+	"parser": "@typescript-eslint/parser",
+	"plugins": [
+		"@typescript-eslint",
+		"react",
+		"react-native",
+		"prettier",
+		"import"
+	],
+	"parserOptions": {
+		"sourceType": "module"
+	},
+	"env": {
+		"browser": true,
+		"node": true
+	},
+	"extends": [
+		"airbnb",
+		"prettier",
+		"plugin:prettier/recommended",
+		"plugin:react/recommended",
+		"prettier/react",
+		"prettier/@typescript-eslint"
+	],
+	"rules": {
+		"comma-dangle": "off",
+		"indent": 0,
+		"no-tabs": 0,
+		"no-unused-vars": ["off"],
+		"no-use-before-define": 0,
+		"jsx-quotes": ["error", "prefer-single"],
+		"prettier/prettier": [
+			"error",
+			{
+				"singleQuote": true,
+				"useTabs": true,
+				"tabWidth": 2,
+				"semi": true,
+				"jsxSingleQuote": true,
+				"trailingComma": "none",
+				"bracketSpacing": true,
+				"arrowParens": "avoid",
+				"endOfLine": "lf"
+			}
+		],
+		"react/jsx-filename-extension": [2, { "extensions": [".jsx", ".tsx"] }],
+		"react/no-array-index-key": 0
+	},
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".ts", ".tsx"]
+			}
+		}
+	}
 }

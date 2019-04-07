@@ -55,7 +55,7 @@ All forms of (positive) contribution is welcome to Auxilium. Be sure to check ou
 
 ## Tech Stack
 
-Overt is a JavaScript-based application. It is built with popular JS libraries/frameworks like React, React Native and Express. Here's what the stack looks like.
+Auxilium is a JavaScript-based application. It is built with popular JS libraries/frameworks like React, React Native and Express. Here's what the stack looks like.
 
 - Front-End
   - Mobile App

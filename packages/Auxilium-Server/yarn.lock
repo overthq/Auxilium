@@ -85,6 +85,7 @@
 "@types/chai-http@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@types/chai-http/-/chai-http-4.2.0.tgz#223c9a3e7ce664767df3820501a91283382d756f"
+  integrity sha512-yb8+55cAuiVB7/yfnHIME5Ppw0LMUE6QFbuBFk5LewleI5pvYvtoXIEUAst3z3m0wZ2hLp1XeqllzffOSJSQuA==
   dependencies:
     chai-http "*"
 

@@ -7,19 +7,20 @@ interface Coordinates {
 }
 
 export const getNearbyEmergencies = async (req: Request, res: Response) => {
-	const { coordinates }: { coordinates: Coordinates } = req.body;
+	const {
+		coordinates: {
+			longitude,
+			latitude
+		}
+	}: { coordinates: Coordinates } = req.body;
 	try {
-		// const pushTokens: string[] | any = await User.find().select(
-		// 	'pushToken - _id'
-		// );
-		// Use the above *only* when the app is in the background.
 		const emergencies = await Emergency.find({
 			location: {
 				$near: {
 					$maxDistance: 1000,
 					$geometry: {
 						type: 'Point',
-						coordinates: [coordinates.longitude, coordinates.latitude]
+						coordinates: [longitude, latitude]
 					}
 				}
 			}

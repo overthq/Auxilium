@@ -14,7 +14,7 @@ In [my country](https://en.wikipedia.org/wiki/Nigeria), many people die because 
 
 ## Project Phase
 
-This project is currently in _pre-launch_, being developed by [Oluwakorede Fashokun](https://github/com/korede360) for [Overt](https://overt.dev), a concept that creates open-source software to solve many of the problems we face in the world. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412)
+This project is currently in _pre-launch_, being developed by [Oluwakorede Fashokun](https://github/com/korede360) for [Overt](https://overt.dev), a concept that creates open-source software to solve many of the problems we face in the world. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412).
 
 ## Installation
 

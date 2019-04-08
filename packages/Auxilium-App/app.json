@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Auxilium",
-    "slug": "Auxilium",
+    "slug": "auxilium",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": ["ios", "android"],

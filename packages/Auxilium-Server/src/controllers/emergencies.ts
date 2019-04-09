@@ -1,18 +1,8 @@
 import { Request, Response } from 'express';
 import { Emergency, User } from '../models';
 
-interface Coordinates {
-	longitude: number;
-	latitude: number;
-}
-
 export const getNearbyEmergencies = async (req: Request, res: Response) => {
-	const {
-		coordinates: {
-			longitude,
-			latitude
-		}
-	}: { coordinates: Coordinates } = req.body;
+	const { longitude, latitude }: { [key: string]: string } = req.query;
 	try {
 		const emergencies = await Emergency.find({
 			location: {
@@ -20,7 +10,7 @@ export const getNearbyEmergencies = async (req: Request, res: Response) => {
 					$maxDistance: 1000,
 					$geometry: {
 						type: 'Point',
-						coordinates: [longitude, latitude]
+						coordinates: [Number(longitude), Number(latitude)]
 					}
 				}
 			}

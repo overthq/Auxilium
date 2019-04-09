@@ -2,18 +2,23 @@ import { Alert } from 'react-native';
 import { Constants } from 'expo';
 import env from '../../env';
 
-const getNearbyEmergencies = async (
-	coordinates: Coordinates
-): Promise<Emergency[] | void> => {
+const getNearbyEmergencies = async ({
+	longitude,
+	latitude
+}: Coordinates): Promise<Emergency[] | void> => {
 	try {
-		const response = await fetch(`${env.apiUrl}emergencies/get`, {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ coordinates })
-		});
+		const response = await fetch(
+			`${
+				env.apiUrl
+			}emergencies/get?longitude=${longitude}&latitude=${latitude}`,
+			{
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				}
+			}
+		);
 		const { emergencies } = await response.json();
 		return emergencies;
 	} catch (error) {

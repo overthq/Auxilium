@@ -19,16 +19,15 @@ Before starting the server, make sure your local (or remote) MongoDB server is r
 
 ### Writing and Running Tests
 
-We currently write tests for the server using [Mocha]() and [Chai](). All tests live in the `tests` folder.
+We currently write tests for the server using [Mocha](https://mochajs.org) and [Chai](https://www.chaijs.com). All tests live in the `tests` folder.
 
+#### When should I write a test?
 
-#### When should I create a test
-
-We currently write tests for every server controller and helper functions. You should write a test when you create a new controller (or endpoint) on the API.
+We currently write tests for every server controller and helper functions. You should write a test when you create a new controller (or endpoint) or helper on the API.
 
 #### Writing tests
 
-Be sure to look at the patterns used in writing previous tests. We currently use the `async/await` pattern to make asynchronous calls to the server and `try/catch` to handle errors.
+Be sure to look at the patterns used in writing previous tests. We currently use the `async/await` pattern to make asynchronous calls to the server and `try/catch` to handle errors. Also make sure that the description of each suite is easy to understand. Write tests for as many edge cases as you can imagine.
 
 #### Running tests
 

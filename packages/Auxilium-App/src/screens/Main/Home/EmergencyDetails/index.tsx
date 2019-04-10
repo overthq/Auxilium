@@ -45,7 +45,8 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 				</MapView.Marker>
 			</MapView>
 			<View style={styles.descriptionView}>
-				<Text style={styles.description}>{description}</Text>
+        <Text></Text>
+        <Text style={styles.description}>{description}</Text>
 			</View>
 		</SafeAreaView>
 	);

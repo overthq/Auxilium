@@ -15,4 +15,21 @@ To set up this server on your machine, create a .env file in this directory (Aux
 
 ### Starting the Server
 
-Before starting the server, make sure your local (or remote) MongoDB server is running. Then run `yarn dev` or `npm run dev` in the server directory. This should start the server on `http://localhost:4000`. Note that using port 4000 is mandatory, as it is hardcoded as the development endpoint in the `Auxilium-App` package (So you have a server to use during app development).
+Before starting the server, make sure your local (or remote) MongoDB server is running. Then run `yarn dev` in the server directory. This should start the server on `http://localhost:4000`. Note that using port 4000 is mandatory, as it is hardcoded as the development endpoint in the `Auxilium-App` package (So you have a server to use during app development).
+
+### Writing and Running Tests
+
+We currently write tests for the server using [Mocha]() and [Chai](). All tests live in the `tests` folder.
+
+
+#### When should I create a test
+
+We currently write tests for every server controller and helper functions. You should write a test when you create a new controller (or endpoint) on the API.
+
+#### Writing tests
+
+Be sure to look at the patterns used in writing previous tests. We currently use the `async/await` pattern to make asynchronous calls to the server and `try/catch` to handle errors.
+
+#### Running tests
+
+Tests can be run by running `yarn test` in this folder. Note that your local MongoDB database should be running for the app to successfully execute the tests.

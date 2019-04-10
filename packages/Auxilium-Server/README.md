@@ -8,7 +8,7 @@ This is Auxilium's backend API. This currently provides the features that Auxili
 
 To set up this server on your machine, create a .env file in this directory (Auxilium-Server), and add the following variables.
 
-| Environment Variable | Description                        |
+| Variable             | Description                        |
 | -------------------- | ---------------------------------- |
 |	PORT								 | Port number for server to run on   |
 | DB_URI               | MongoDB database connection string |

@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
 	screen: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		backgroundColor: '#1C1C1C'
 	},
 	button: {
 		height: 50,

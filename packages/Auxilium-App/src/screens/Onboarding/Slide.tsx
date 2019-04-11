@@ -51,13 +51,13 @@ const styles = StyleSheet.create({
 		letterSpacing: 1,
 		fontWeight: 'bold',
 		textAlign: 'center',
-		color: '#1C1C1C'
+		color: '#D3D3D3'
 	},
 	description: {
 		fontSize: 16,
 		fontFamily: 'Rubik Regular',
 		textAlign: 'center',
-		color: '#505050'
+		color: '#D3D3D3'
 	}
 });
 

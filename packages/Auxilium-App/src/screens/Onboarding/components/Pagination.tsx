@@ -21,7 +21,7 @@ const Pagination = ({ tabs, scrollX }: PaginationProps) => {
 				});
 				const scale = position.interpolate({
 					inputRange: [index - 1, index, index + 1],
-					outputRange: [0.6, 1, 0.6]
+					outputRange: [0.8, 1, 0.8]
 				});
 				return (
 					<Animated.View
@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
 	},
 	dot: {
 		backgroundColor: '#FF8282',
-		height: 15,
-		width: 15,
+		height: 10,
+		width: 10,
 		borderRadius: 10
 	}
 });

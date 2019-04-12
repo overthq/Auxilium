@@ -34,7 +34,8 @@ const Onboarding = (props: OnboardingProps) => {
 			return Alert.alert(error.message);
 		}
 	};
-	return (
+
+  return (
 		<View style={styles.screen}>
 			<FlatList
 				data={slides}

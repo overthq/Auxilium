@@ -33,7 +33,7 @@ const Slide = ({ image, title, description }: SlideProps) => (
 const styles = StyleSheet.create({
 	container: {
 		width,
-		height: 0.8 * height,
+		height: 0.75 * height,
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'space-between',

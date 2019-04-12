@@ -6,19 +6,23 @@ import {
 	TouchableOpacity,
 	Alert,
 	StyleSheet,
-	FlatList
+	FlatList,
+	Animated
 } from 'react-native';
 // eslint-disable-next-line
 import { NavigationScreenProps } from 'react-navigation';
 import { Auth } from '../../api';
 import Slide from './Slide';
 import slides from './slides';
+import { Pagination } from './components';
 
 const { width, height } = Dimensions.get('window');
 
 interface OnboardingProps extends NavigationScreenProps {}
 
 const Onboarding = (props: OnboardingProps) => {
+	const scrollX = new Animated.Value(0);
+
 	const authenticateUser = async () => {
 		const {
 			navigation: { navigate }
@@ -42,7 +46,14 @@ const Onboarding = (props: OnboardingProps) => {
 				snapToInterval={width}
 				snapToAlignment='center'
 				decelerationRate={0}
+				pagingEnabled
+				onScroll={Animated.event([
+					{
+						nativeEvent: { contentOffset: { x: scrollX } }
+					}
+				])}
 			/>
+			<Pagination {...{ tabs: slides, scrollX }} />
 			<TouchableOpacity style={styles.button} onPress={authenticateUser}>
 				<Text style={styles.buttonText}>Get Started</Text>
 			</TouchableOpacity>

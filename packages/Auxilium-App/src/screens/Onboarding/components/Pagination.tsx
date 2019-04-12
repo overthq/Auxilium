@@ -1,18 +1,38 @@
 import React from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 interface PaginationProps {
-	tabs: {
-		active: boolean;
-	}[];
+	tabs: any[];
+	scrollX: Animated.Value;
 }
 
-const Pagination = ({ tabs }) => {
+const Pagination = ({ tabs, scrollX }: PaginationProps) => {
+	const position = Animated.divide(scrollX, width);
+
 	return (
-		<View>
-			{tabs.map((tab, index) => (
-				<View style={[styles.dot, {}]} />
-			))}
+		<View style={styles.container}>
+			{tabs.map((_, index) => {
+				const opacity = position.interpolate({
+					inputRange: [index - 1, index, index + 1],
+					outputRange: [0.4, 1, 0.4],
+					extrapolate: 'clamp'
+				});
+				const scale = position.interpolate({
+					inputRange: [index - 1, index, index + 1],
+					outputRange: [0.6, 1, 0.6]
+				});
+				return (
+					<Animated.View
+						key={index}
+						style={[
+							styles.dot,
+							{ opacity, transform: [{ scaleX: scale }, { scaleY: scale }] }
+						]}
+					/>
+				);
+			})}
 		</View>
 	);
 };
@@ -22,10 +42,15 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		width: width / 4,
+		marginBottom: 20
 	},
 	dot: {
-		backgroundColor: '#FF8282'
+		backgroundColor: '#FF8282',
+		height: 15,
+		width: 15,
+		borderRadius: 10
 	}
 });
 

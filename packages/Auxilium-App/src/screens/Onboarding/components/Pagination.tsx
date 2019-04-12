@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
 	},
 	dot: {
 		backgroundColor: '#FF8282',
-		height: 10,
-		width: 10,
+		height: 12,
+		width: 12,
 		borderRadius: 10
 	}
 });

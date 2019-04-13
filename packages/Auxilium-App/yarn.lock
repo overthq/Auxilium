@@ -726,10 +726,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/expo@^32.0.3":
-  version "32.0.3"
-  resolved "https://registry.yarnpkg.com/@types/expo/-/expo-32.0.3.tgz#c5e3cc8cb1b182ccd46ca2330068f10f99ffcf86"
-  integrity sha512-RHzJk/WBIIdwvQj8Mqvm4MVK51TLGhDwe+wYqwj/47BpBUiyloJtuZTlzK7LhLwE14AAITpuxfDBKkGSyR/3ZQ==
+"@types/expo@^32.0.10":
+  version "32.0.10"
+  resolved "https://registry.yarnpkg.com/@types/expo/-/expo-32.0.10.tgz#ae15e428bb4dcfcb432d9bfead0de7a563c59e98"
+  integrity sha512-ITFGBsR3oy/IFku5KWxLV1MD7mT1/reSs3uK6KohHRupp55e/e0PUAaCcyGcKEH34DTW/b1mNiFsHTEw4bBSPQ==
   dependencies:
     "@types/fbemitter" "*"
     "@types/react" "*"
@@ -3060,7 +3060,7 @@ expo-task-manager@~1.0.0:
     expo-errors "~1.0.0"
     expo-task-manager-interface "~1.0.0"
 
-expo@^32.0.0:
+expo@^32.0.6:
   version "32.0.6"
   resolved "https://registry.yarnpkg.com/expo/-/expo-32.0.6.tgz#71ef60ac5293b9ca8f2219584bc6add8a975714b"
   integrity sha512-LMFtWZY+lwMHkoThTBwirctPB/5WeZtGrVM8MVoCI1e7jlONOfNQceM6X2j06BO5HxcCF/ASJSUDiTIIStAeaA==
@@ -5687,11 +5687,6 @@ react-native-sentry@^0.40.2:
     "@sentry/wizard" "^0.12.1"
     raven-js "^3.24.2"
 
-react-native-sideswipe@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/react-native-sideswipe/-/react-native-sideswipe-1.4.2.tgz#9e3e23077884838c5592533bf09ffd7977283b74"
-  integrity sha512-WhxmXVWijMx1smPlWQwSrzklq9284xsZEnArzQLvksA/23Tsic4AbsMOkqHZB1kjiLEBBbdspLyie5mOnf9zUw==
-
 react-native-svg@8.0.10:
   version "8.0.10"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-8.0.10.tgz#b07e2342d1486220f5fda1a584e316e7d2d1f392"
@@ -5700,13 +5695,6 @@ react-native-svg@8.0.10:
     color "^2.0.1"
     lodash "^4.16.6"
     pegjs "^0.10.0"
-
-react-native-swiper@^1.5.14:
-  version "1.5.14"
-  resolved "https://registry.yarnpkg.com/react-native-swiper/-/react-native-swiper-1.5.14.tgz#1c6f949ca377186300f972bb0f30d24062c899aa"
-  integrity sha512-Kn0fxKooN7Shwu1qJYHB+Y8ssXXnvrIwReHXU5jCdyYNfz2QbBv0Cv3sa2Mqzr+XgzORCFFIokc8uCCUITDrVA==
-  dependencies:
-    prop-types "^15.5.10"
 
 react-native-tab-view@^1.0.0, react-native-tab-view@^1.2.0:
   version "1.3.2"

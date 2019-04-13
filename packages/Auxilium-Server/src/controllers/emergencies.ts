@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import haversine from 'haversine';
 import { Emergency, User } from '../models';
 
 export const getNearbyEmergencies = async (req: Request, res: Response) => {
@@ -41,6 +42,42 @@ export const getUserEmergencies = async (req: Request, res: Response) => {
 		return res.status(200).json({
 			success: true,
 			emergencies
+		});
+	} catch (error) {
+		return res.status(500).json({
+			success: false,
+			message: 'An error has occured. Please try again later.'
+		});
+	}
+};
+
+export const backgroundNotifications = async (req: Request, res: Response) => {
+	const {
+		longitude: lon,
+		latitude: lat
+	}: { [key: string]: string } = req.query;
+	try {
+		const emergencies = await Emergency.find({
+			location: {
+				$near: {
+					$maxDistance: 1000,
+					$geometry: {
+						type: 'Point',
+						coordinates: [Number(lon), Number(lat)]
+					}
+				}
+			}
+		}).find();
+		emergencies.forEach((emergency: any) => {
+			const coordinates = emergency.location;
+			const [longitude, latitude] = coordinates;
+			const distance = haversine(
+				{ longitude: lon, latitude: lat },
+				{ longitude, latitude }
+			);
+			if (distance <= 1) {
+				// Send the notification
+			}
 		});
 	} catch (error) {
 		return res.status(500).json({

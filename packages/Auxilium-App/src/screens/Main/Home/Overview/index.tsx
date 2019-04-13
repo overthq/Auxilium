@@ -20,7 +20,7 @@ import mapStyle from './mapStyle';
 import { LocationActions } from '../../../../redux/actions';
 import env from '../../../../../env';
 import { Emergencies } from '../../../../api';
-import { NewMarker, MainButton, AroundYou } from './components';
+import { MapMarker, MainButton, AroundYou } from './components';
 import { getAddressFromCoords } from '../../helpers/location';
 
 const { width, height } = Dimensions.get('window');
@@ -105,7 +105,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 					latitude: emergency.location.coordinates[1]
 				}}
 			>
-				<NewMarker size={16} />
+				<MapMarker size={16} />
 			</MapView.Marker>
 		));
 	};
@@ -204,9 +204,7 @@ const mapStateToProps = ({ location: { coordinates } }: any) => ({
 	coordinates
 });
 
-const mapDispatchToProps = {
-	locate: LocationActions.locate
-};
+const mapDispatchToProps = { locate: LocationActions.locate };
 
 export default connect(
 	mapStateToProps,

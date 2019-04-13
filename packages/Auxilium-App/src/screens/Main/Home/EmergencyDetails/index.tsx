@@ -26,7 +26,10 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 	} = pageDetails;
 	return (
 		<SafeAreaView style={styles.container}>
-			<TouchableOpacity style={styles.backButton} onPress={() => navigation.pop()}>
+			<TouchableOpacity
+				style={styles.backButton}
+				onPress={() => navigation.pop()}
+			>
 				<Feather name='arrow-left' size={35} color='#D3D3D3' />
 			</TouchableOpacity>
 			<MapView
@@ -45,8 +48,11 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 				</MapView.Marker>
 			</MapView>
 			<View style={styles.descriptionView}>
-        <Text></Text>
-        <Text style={styles.description}>{description}</Text>
+				<View>
+					<Feather name='navigation' color='#D3D3D3' size={16} />
+					<Text style={styles.description}>{`${latitude}, ${longitude}`}</Text>
+				</View>
+				<Text style={styles.description}>{description}</Text>
 			</View>
 		</SafeAreaView>
 	);
@@ -71,8 +77,8 @@ const styles = StyleSheet.create({
 	descriptionView: {
 		flexGrow: 1,
 		width,
-		justifyContent: 'space-around',
-		alignItems: 'center'
+		padding: 20,
+		justifyContent: 'space-around'
 	},
 	description: {
 		fontFamily: 'Rubik Regular',

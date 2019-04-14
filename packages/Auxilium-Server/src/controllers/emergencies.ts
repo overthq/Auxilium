@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import haversine from 'haversine';
+import * as haversine from 'haversine';
 import { Emergency, User } from '../models';
+import { sendNotification } from '../helpers';
 
 export const getNearbyEmergencies = async (req: Request, res: Response) => {
 	const { longitude, latitude }: { [key: string]: string } = req.query;
@@ -54,7 +55,8 @@ export const getUserEmergencies = async (req: Request, res: Response) => {
 export const backgroundNotifications = async (req: Request, res: Response) => {
 	const {
 		longitude: lon,
-		latitude: lat
+		latitude: lat,
+		pushToken
 	}: { [key: string]: string } = req.query;
 	try {
 		const emergencies = await Emergency.find({
@@ -72,11 +74,11 @@ export const backgroundNotifications = async (req: Request, res: Response) => {
 			const coordinates = emergency.location;
 			const [longitude, latitude] = coordinates;
 			const distance = haversine(
-				{ longitude: lon, latitude: lat },
+				{ longitude: Number(lon), latitude: Number(lat) },
 				{ longitude, latitude }
 			);
 			if (distance <= 1) {
-				// Send the notification
+				sendNotification(pushToken);
 			}
 		});
 	} catch (error) {

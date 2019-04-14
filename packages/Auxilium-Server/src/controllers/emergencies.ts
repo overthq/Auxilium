@@ -70,15 +70,22 @@ export const backgroundNotifications = async (req: Request, res: Response) => {
 				}
 			}
 		}).find();
-		emergencies.forEach((emergency: any) => {
+		emergencies.forEach(async (emergency: any) => {
 			const coordinates = emergency.location;
 			const [longitude, latitude] = coordinates;
 			const distance = haversine(
 				{ longitude: Number(lon), latitude: Number(lat) },
 				{ longitude, latitude }
 			);
-			if (distance <= 1) {
-				sendNotification(pushToken);
+			if (distance <= 1 && !emergency.recepients.includes(pushToken)) {
+				// TODO: fix case where user has been alerted about emergency previously.
+				// Add a recepient array to the the Emergency schema
+				// Push the pushToken to the array, if the user has been previously been notified.
+				// Check if user's pushToken is in the array
+				// If user's pushToken isn't there, send the notification.
+				await sendNotification(pushToken);
+				await emergency.recepients.push(pushToken);
+				emergency.save();
 			}
 		});
 	} catch (error) {

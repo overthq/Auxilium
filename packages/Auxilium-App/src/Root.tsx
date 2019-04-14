@@ -6,6 +6,7 @@ import AppNavigator, { NavigationService } from './screens';
 import { LocationActions } from './redux/actions';
 import { ThemeConsumer } from './context/index';
 import { getBackgroundUpdates, LOCATION_TASK } from './tasks';
+import { Emergencies } from './api';
 
 interface RootState {
 	fontsLoaded: boolean;
@@ -94,15 +95,10 @@ if (error) {
 if (data) {
 	const { locations } = data;
 	console.log(locations);
-	// Pass this to the backend for further use.
-	(async () => {
-		const response = await fetch(``, {
-			method: 'GET',
-			headers: {
-				Accept: 'application/json'
-			},
-		});
-	})();
+	// Study the structure of the locations object.
+	// I think it should look like this:
+	// [{ ..., coordinates: { longitude, latitude } }, ...]
+	Emergencies.managePushNotifications(locations);
 }
 
 const mapDispatchToProps = { locate: LocationActions.locate };

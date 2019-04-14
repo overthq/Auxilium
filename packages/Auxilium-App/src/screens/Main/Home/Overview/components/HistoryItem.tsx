@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { getAddressFromCoords } from '../../../helpers/location';
+import LocationHelpers from '../../../../../helpers/location';
 
 const { width } = Dimensions.get('window');
 
@@ -23,7 +23,10 @@ class HistoryItem extends React.Component<
 				coordinates: [longitude, latitude]
 			}
 		} = this.props;
-		const address = await getAddressFromCoords({ longitude, latitude });
+		const address = await LocationHelpers.getAddressFromCoords({
+			longitude,
+			latitude
+		});
 		this.setState({ address });
 	}
 

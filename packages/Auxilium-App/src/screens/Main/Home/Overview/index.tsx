@@ -21,7 +21,7 @@ import { LocationActions } from '../../../../redux/actions';
 import env from '../../../../../env';
 import { Emergencies } from '../../../../api';
 import { MapMarker, MainButton, AroundYou } from './components';
-import { getAddressFromCoords } from '../../helpers/location';
+import { getAddressFromCoords } from '../../../../helpers/location';
 
 const { width, height } = Dimensions.get('window');
 
@@ -50,7 +50,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 		} = this.props;
 		await locate();
 		const place = await getAddressFromCoords({ longitude, latitude });
-		const emergencies = await this.loadEmergencies(longitude, latitude) || [];
+		const emergencies = (await this.loadEmergencies(longitude, latitude)) || [];
 		await this.setState({ place, emergencies });
 
 		this.socket.on('emergency', (emergency: Emergency) => {

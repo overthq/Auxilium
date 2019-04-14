@@ -95,6 +95,14 @@ if (data) {
 	const { locations } = data;
 	console.log(locations);
 	// Pass this to the backend for further use.
+	(async () => {
+		const response = await fetch(``, {
+			method: 'GET',
+			headers: {
+				Accept: 'application/json'
+			},
+		});
+	})();
 }
 
 const mapDispatchToProps = { locate: LocationActions.locate };

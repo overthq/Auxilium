@@ -5,5 +5,6 @@ const router = Router();
 
 router.get('/get', emergencies.getNearbyEmergencies);
 router.get('/history', emergencies.getUserEmergencies);
+router.get('/notifications', emergencies.backgroundNotifications);
 
 export default router;

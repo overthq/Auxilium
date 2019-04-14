@@ -55,7 +55,7 @@ const managePushNotifications = async ({
 		await fetch(
 			`${
 				env.apiUrl
-			}emergencies/send-notification?longitude=${longitude}&latitude=${latitude}&pushToken=${pushToken}`
+			}emergencies/notifications?longitude=${longitude}&latitude=${latitude}&pushToken=${pushToken}`
 		);
 	} catch (error) {
 		Alert.alert(error.message);

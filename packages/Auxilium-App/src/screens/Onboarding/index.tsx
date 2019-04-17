@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-	View,
+	SafeAreaView,
 	Text,
 	Dimensions,
 	TouchableOpacity,
@@ -35,8 +35,8 @@ const Onboarding = (props: OnboardingProps) => {
 		}
 	};
 
-  return (
-		<View style={styles.screen}>
+	return (
+		<SafeAreaView style={styles.screen}>
 			<FlatList
 				data={slides}
 				keyExtractor={item => item.id.toString()}
@@ -58,7 +58,7 @@ const Onboarding = (props: OnboardingProps) => {
 			<TouchableOpacity style={styles.button} onPress={authenticateUser}>
 				<Text style={styles.buttonText}>Get Started</Text>
 			</TouchableOpacity>
-		</View>
+		</SafeAreaView>
 	);
 };
 

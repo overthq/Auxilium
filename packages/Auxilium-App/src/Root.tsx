@@ -86,20 +86,20 @@ class Root extends React.Component<RootProps, RootState> {
 	}
 }
 
-const { data, error } = TaskManager.defineTask(LOCATION_TASK);
+TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
+	if (error) {
+		console.log(error);
+	}
 
-if (error) {
-	console.log(error);
-}
-
-if (data) {
-	const { locations } = data;
-	console.log(locations);
-	// Study the structure of the locations object.
-	// I think it should look like this:
-	// [{ ..., coordinates: { longitude, latitude } }, ...]
-	Emergencies.managePushNotifications(locations);
-}
+	if (data) {
+		const { locations } = data;
+		console.log(locations);
+		// Study the structure of the locations object.
+		// I think it should look like this:
+		// [{ ..., coordinates: { longitude, latitude } }, ...]
+		Emergencies.managePushNotifications(locations);
+	}
+});
 
 const mapDispatchToProps = { locate: LocationActions.locate };
 

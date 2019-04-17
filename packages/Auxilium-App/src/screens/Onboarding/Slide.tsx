@@ -22,11 +22,21 @@ const Slide = ({ image, title, description }: SlideProps) => (
 		<View style={styles.image}>
 			<Image
 				source={image}
-				style={{ height: 0.9 * (height / 2), width: 0.9 * width }}
+				style={{ height: 0.9 * (height / 2), width: 0.95 * width }}
+				resizeMode='cover'
 			/>
 		</View>
-		<Text style={styles.title}>{title}</Text>
-		<Text style={styles.description}>{description}</Text>
+		<View
+			style={{
+				display: 'flex',
+				flexGrow: 1,
+				justifyContent: 'space-between',
+				paddingVertical: 50
+			}}
+		>
+			<Text style={styles.title}>{title}</Text>
+			<Text style={styles.description}>{description}</Text>
+		</View>
 	</SafeAreaView>
 );
 
@@ -54,10 +64,11 @@ const styles = StyleSheet.create({
 		color: '#D3D3D3'
 	},
 	description: {
-		fontSize: 16,
+		fontSize: 18,
 		fontFamily: 'Rubik Regular',
 		textAlign: 'center',
-		color: '#D3D3D3'
+		color: '#D3D3D3',
+		maxWidth: 0.8 * width
 	}
 });
 

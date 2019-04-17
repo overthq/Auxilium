@@ -1,24 +1,28 @@
 import React from 'react';
 import {
-	View,
+	SafeAreaView,
 	Text,
 	Dimensions,
 	TouchableOpacity,
 	Alert,
 	StyleSheet,
-	FlatList
+	FlatList,
+	Animated
 } from 'react-native';
 // eslint-disable-next-line
 import { NavigationScreenProps } from 'react-navigation';
 import { Auth } from '../../api';
 import Slide from './Slide';
 import slides from './slides';
+import { Pagination } from './components';
 
 const { width, height } = Dimensions.get('window');
 
 interface OnboardingProps extends NavigationScreenProps {}
 
 const Onboarding = (props: OnboardingProps) => {
+	const scrollX = new Animated.Value(0);
+
 	const authenticateUser = async () => {
 		const {
 			navigation: { navigate }
@@ -30,23 +34,31 @@ const Onboarding = (props: OnboardingProps) => {
 			return Alert.alert(error.message);
 		}
 	};
+
 	return (
-		<View style={styles.screen}>
+		<SafeAreaView style={styles.screen}>
 			<FlatList
 				data={slides}
 				keyExtractor={item => item.id.toString()}
 				renderItem={({ item, index }) => <Slide key={index} {...item} />}
 				horizontal
-				contentContainerStyle={{ height: 0.8 * height }}
+				contentContainerStyle={{ height: 0.7 * height, overflow: 'hidden' }}
 				showsHorizontalScrollIndicator={false}
 				snapToInterval={width}
 				snapToAlignment='center'
 				decelerationRate={0}
+				pagingEnabled
+				onScroll={Animated.event([
+					{
+						nativeEvent: { contentOffset: { x: scrollX } }
+					}
+				])}
 			/>
+			<Pagination {...{ tabs: slides, scrollX }} />
 			<TouchableOpacity style={styles.button} onPress={authenticateUser}>
 				<Text style={styles.buttonText}>Get Started</Text>
 			</TouchableOpacity>
-		</View>
+		</SafeAreaView>
 	);
 };
 
@@ -54,7 +66,7 @@ const styles = StyleSheet.create({
 	screen: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'space-between'
+		backgroundColor: '#1C1C1C'
 	},
 	button: {
 		height: 50,
@@ -64,7 +76,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		borderRadius: 25,
 		backgroundColor: '#FF8282',
-		marginBottom: 20
+		marginBottom: 15
 	},
 	buttonText: {
 		color: '#FFFFFF',

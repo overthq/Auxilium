@@ -12,4 +12,4 @@ const getAddressFromCoords = async ({ longitude, latitude }: Coordinates) => {
 	}
 };
 
-export { getAddressFromCoords };
+export default { getAddressFromCoords };

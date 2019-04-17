@@ -1,7 +1,7 @@
 import { Constants, Notifications, Permissions } from 'expo';
 import { Alert } from 'react-native';
 import env from '../../env';
-import { AuthHelpers } from '../screens/Main/helpers';
+import { AuthHelpers } from '../helpers';
 
 const authenticate = async (): Promise<void> => {
 	const { status: existingStatus } = await Permissions.getAsync(

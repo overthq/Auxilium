@@ -14,7 +14,7 @@ In [my country](https://en.wikipedia.org/wiki/Nigeria), many people die because 
 
 ## Project Phase
 
-This project is currently in _pre-launch_, being developed by [Oluwakorede Fashokun](https://github/com/korede360) for [Overt](https://overt.dev), a concept that creates open-source software to solve many of the problems we face in the world. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412)
+This project is currently in _pre-launch_, being developed by [Oluwakorede Fashokun](https://github/com/korede360) for [Overt](https://overt.dev), a concept that creates open-source software to solve many of the problems we face in the world. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412), or follow Overt on Twitter [here](https://twitter.com/overt_hq).
 
 ## Installation
 
@@ -69,10 +69,12 @@ Auxilium is a JavaScript-based application. It is built with popular JS librarie
   - Hosting: [Heroku](https://heroku.com)
   - WebSockets: [Socket.IO](https://socket.io)
 
+We also use [Lerna](https://lernajs.io) to manage the monorepo structure, and [CircleCI](https://circleci.org) for continuous integration/deployment (CI/CD)
+
 ## License
 
 MIT License
 
 ## Author
 
-Oluwakorede Fashokun <koredefashokun@gmail.com> for [Overt](https://overt.dev)
+Oluwakorede Fashokun <korede@overt.dev> for [Overt](https://overt.dev).

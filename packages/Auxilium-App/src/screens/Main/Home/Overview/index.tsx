@@ -20,8 +20,8 @@ import mapStyle from './mapStyle';
 import { LocationActions } from '../../../../redux/actions';
 import env from '../../../../../env';
 import { Emergencies } from '../../../../api';
-import { NewMarker, MainButton, AroundYou } from './components';
-import { getAddressFromCoords } from '../../helpers/location';
+import { MapMarker, MainButton, AroundYou } from './components';
+import LocationHelpers from '../../../../helpers/location';
 
 const { width, height } = Dimensions.get('window');
 
@@ -49,8 +49,11 @@ class Home extends React.Component<HomeProps, HomeState> {
 			locate
 		} = this.props;
 		await locate();
-		const place = await getAddressFromCoords({ longitude, latitude });
-		const emergencies = await this.loadEmergencies(longitude, latitude) || [];
+		const place = await LocationHelpers.getAddressFromCoords({
+			longitude,
+			latitude
+		});
+		const emergencies = (await this.loadEmergencies(longitude, latitude)) || [];
 		await this.setState({ place, emergencies });
 
 		this.socket.on('emergency', (emergency: Emergency) => {
@@ -105,7 +108,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 					latitude: emergency.location.coordinates[1]
 				}}
 			>
-				<NewMarker size={16} />
+				<MapMarker size={16} />
 			</MapView.Marker>
 		));
 	};
@@ -204,9 +207,7 @@ const mapStateToProps = ({ location: { coordinates } }: any) => ({
 	coordinates
 });
 
-const mapDispatchToProps = {
-	locate: LocationActions.locate
-};
+const mapDispatchToProps = { locate: LocationActions.locate };
 
 export default connect(
 	mapStateToProps,

@@ -1,10 +1,12 @@
 import React from 'react';
-import { AppLoading, Asset, Font } from 'expo';
+import { AppLoading, Asset, Font, TaskManager } from 'expo';
 import { connect } from 'react-redux';
 import { YellowBox, StatusBar } from 'react-native';
 import AppNavigator, { NavigationService } from './screens';
 import { LocationActions } from './redux/actions';
 import { ThemeConsumer } from './context/index';
+import { getBackgroundUpdates, LOCATION_TASK } from './tasks';
+import { Emergencies } from './api';
 
 interface RootState {
 	fontsLoaded: boolean;
@@ -24,6 +26,7 @@ class Root extends React.Component<RootProps, RootState> {
 		this.checkUserAuth();
 		this.loadFonts();
 		locate();
+		getBackgroundUpdates();
 	}
 
 	checkUserAuth = () => {};
@@ -82,6 +85,21 @@ class Root extends React.Component<RootProps, RootState> {
 		);
 	}
 }
+
+TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
+	if (error) {
+		console.log(error);
+	}
+
+	if (data) {
+		const { locations } = data;
+		console.log(locations);
+		// Study the structure of the locations object.
+		// I think it should look like this:
+		// [{ ..., coordinates: { longitude, latitude } }, ...]
+		Emergencies.managePushNotifications(locations);
+	}
+});
 
 const mapDispatchToProps = { locate: LocationActions.locate };
 

@@ -1,25 +1,18 @@
 import { Request, Response } from 'express';
+import * as haversine from 'haversine';
 import { Emergency, User } from '../models';
-
-interface Coordinates {
-	longitude: number;
-	latitude: number;
-}
+import { sendNotification } from '../helpers';
 
 export const getNearbyEmergencies = async (req: Request, res: Response) => {
-	const { coordinates }: { coordinates: Coordinates } = req.body;
+	const { longitude, latitude }: { [key: string]: string } = req.query;
 	try {
-		// const pushTokens: string[] | any = await User.find().select(
-		// 	'pushToken - _id'
-		// );
-		// Use the above *only* when the app is in the background.
 		const emergencies = await Emergency.find({
 			location: {
 				$near: {
 					$maxDistance: 1000,
 					$geometry: {
 						type: 'Point',
-						coordinates: [coordinates.longitude, coordinates.latitude]
+						coordinates: [Number(longitude), Number(latitude)]
 					}
 				}
 			}
@@ -50,6 +43,50 @@ export const getUserEmergencies = async (req: Request, res: Response) => {
 		return res.status(200).json({
 			success: true,
 			emergencies
+		});
+	} catch (error) {
+		return res.status(500).json({
+			success: false,
+			message: 'An error has occured. Please try again later.'
+		});
+	}
+};
+
+export const backgroundNotifications = async (req: Request, res: Response) => {
+	const {
+		longitude: lon,
+		latitude: lat,
+		pushToken
+	}: { [key: string]: string } = req.query;
+	try {
+		const emergencies = await Emergency.find({
+			location: {
+				$near: {
+					$maxDistance: 1000,
+					$geometry: {
+						type: 'Point',
+						coordinates: [Number(lon), Number(lat)]
+					}
+				}
+			}
+		}).find();
+		emergencies.forEach(async (emergency: any) => {
+			const coordinates = emergency.location;
+			const [longitude, latitude] = coordinates;
+			const distance = haversine(
+				{ longitude: Number(lon), latitude: Number(lat) },
+				{ longitude, latitude }
+			);
+			if (distance <= 1 && !emergency.recepients.includes(pushToken)) {
+				// TODO: fix case where user has been alerted about emergency previously.
+				// Add a recepient array to the the Emergency schema
+				// Push the pushToken to the array, if the user has been previously been notified.
+				// Check if user's pushToken is in the array
+				// If user's pushToken isn't there, send the notification.
+				await sendNotification(pushToken);
+				await emergency.recepients.push(pushToken);
+				emergency.save();
+			}
 		});
 	} catch (error) {
 		return res.status(500).json({

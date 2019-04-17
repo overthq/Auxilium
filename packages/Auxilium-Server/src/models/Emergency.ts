@@ -12,6 +12,10 @@ const EmergencySchema = new Schema(
 		},
 		description: {
 			type: String
+		},
+		recepients: {
+			type: [String],
+			default: []
 		}
 	},
 	{ timestamps: true }

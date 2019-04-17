@@ -1,6 +1,5 @@
-import React from "react";
-import "./App.css";
-import Map from "./pages/Map";
+import React from 'react';
+import Map from './pages/Map';
 
 const App = () => <Map />;
 

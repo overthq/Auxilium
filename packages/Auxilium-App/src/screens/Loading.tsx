@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
-import { AuthHelpers } from './Main/helpers';
+import { AuthHelpers } from '../helpers';
 
 export default class Loading extends React.Component<NavigationScreenProps> {
 	async componentDidMount() {

@@ -6,29 +6,45 @@
   </a>
 </p>
 
-Auxilium is an open-source app for reporting emergencies. It informs nearby users that someone around them is in danger, and provides them with your location (and directions), so you can get help quickly.
+Auxilium is an open-source app for reporting emergencies. It informs nearby users that an emergency has occured in their vicinity, and provides them with the location (and directions), to keep them informed, and take neccessary actions.
 
 ## Motivation
 
-In [my country](https://en.wikipedia.org/wiki/Nigeria), many people die because of inability to access help quickly when they are involved in accidents or emergencies. I've always believed that many of these mortalities could have been averted, if people around would ave come to their aid.
+In [my country](https://en.wikipedia.org/wiki/Nigeria), many people die because of inability to access help quickly when they are involved in accidents or emergencies. I've always believed that many of these mortalities could have been averted, if people around would have come to their aid.
 
 ## Project Phase
 
-This project is currently in _pre-launch_, being developed by [Oluwakorede Fashokun](https://github/com/korede360) for [Overt](https://overt.dev), a concept that creates open-source apps to solve many of the worlds problems. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412)
+This project is currently in _pre-launch_, being developed by [Oluwakorede Fashokun](https://github/com/korede360) for [Overt](https://overt.dev), a concept that creates open-source software to solve many of the problems we face in the world. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412), or follow Overt on Twitter [here](https://twitter.com/overt_hq).
 
 ## Installation
+
+This section will help you get Auxilium up and running on your development environment.
+
+### Prerequisites
+
+Before starting installing, the following are required:
+
+- [Node.js](https://nodejs.org) (version 8 or higher).
+- [Yarn](https://yarnpkg.com) (preferred package manager)
+- [MongoDB](https://mongodb.com) (database for local development)
+
+### Commands
 
 To install Auxilium on your machine, run these commands:
 
 ```sh
 # Clone the repository
 git clone https://github.com/overthq/Auxilium
+
 # Move into the project directory
 cd Auxilium
+
 # Install general dependencies
 yarn
+
 # Install required dependencies
 yarn lerna bootstrap
+
 # Start the entire project
 yarn lerna run start
 ```
@@ -39,7 +55,7 @@ All forms of (positive) contribution is welcome to Auxilium. Be sure to check ou
 
 ## Tech Stack
 
-Overt is a JavaScript-based application. It is built with popular JS libraries/frameworks like React, React Native and Express. Here's what the stack looks like.
+Auxilium is a JavaScript-based application. It is built with popular JS libraries/frameworks like React, React Native and Express. Here's what the stack looks like.
 
 - Front-End
   - Mobile App
@@ -53,10 +69,12 @@ Overt is a JavaScript-based application. It is built with popular JS libraries/f
   - Hosting: [Heroku](https://heroku.com)
   - WebSockets: [Socket.IO](https://socket.io)
 
+We also use [Lerna](https://lernajs.io) to manage the monorepo structure, and [CircleCI](https://circleci.org) for continuous integration/deployment (CI/CD)
+
 ## License
 
 MIT License
 
 ## Author
 
-Oluwakorede Fashokun <koredefashokun@gmail.com> for [Overt](https://overt.dev)
+Oluwakorede Fashokun <korede@overt.dev> for [Overt](https://overt.dev).

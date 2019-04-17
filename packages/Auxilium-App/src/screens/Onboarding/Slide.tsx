@@ -23,15 +23,14 @@ const Slide = ({ image, title, description }: SlideProps) => (
 			<Image
 				source={image}
 				style={{ height: 0.9 * (height / 2), width: 0.95 * width }}
-				resizeMode='cover'
+				resizeMode='contain'
 			/>
 		</View>
 		<View
 			style={{
-				display: 'flex',
+				justifyContent: 'space-around',
 				flexGrow: 1,
-				justifyContent: 'space-between',
-				paddingVertical: 50
+				flexDirection: 'column'
 			}}
 		>
 			<Text style={styles.title}>{title}</Text>
@@ -43,7 +42,7 @@ const Slide = ({ image, title, description }: SlideProps) => (
 const styles = StyleSheet.create({
 	container: {
 		width,
-		height: 0.75 * height,
+		height: 0.7 * height,
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'space-between',

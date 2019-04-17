@@ -42,7 +42,7 @@ const Onboarding = (props: OnboardingProps) => {
 				keyExtractor={item => item.id.toString()}
 				renderItem={({ item, index }) => <Slide key={index} {...item} />}
 				horizontal
-				contentContainerStyle={{ height: 0.8 * height }}
+				contentContainerStyle={{ height: 0.7 * height, overflow: 'hidden' }}
 				showsHorizontalScrollIndicator={false}
 				snapToInterval={width}
 				snapToAlignment='center'
@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
 	screen: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'space-between',
 		backgroundColor: '#1C1C1C'
 	},
 	button: {
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		borderRadius: 25,
 		backgroundColor: '#FF8282',
-		marginBottom: 20
+		marginBottom: 15
 	},
 	buttonText: {
 		color: '#FFFFFF',

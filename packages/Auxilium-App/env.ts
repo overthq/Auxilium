@@ -2,10 +2,13 @@ import { Constants } from 'expo';
 
 const ENV = {
 	dev: {
-		apiUrl: `http://${Constants.manifest.debuggerHost
-			.split(`:`)
-			.shift()
-			.concat(`:4000/`)}`
+		apiUrl:
+			typeof Constants.manifest.packagerOpts === 'object'
+				? `http://${Constants.manifest.debuggerHost
+						.split(`:`)
+						.shift()
+						.concat(`:4000/`)}`
+				: ''
 	},
 	staging: {
 		apiUrl: 'https://auxilium-staging.herokuapp.com/'

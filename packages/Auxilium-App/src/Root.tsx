@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { YellowBox, StatusBar } from 'react-native';
 import AppNavigator, { NavigationService } from './screens';
 import { LocationActions } from './redux/actions';
-import { ThemeConsumer } from './context/index';
 import { getBackgroundUpdates, LOCATION_TASK } from './tasks';
 import { Emergencies } from './api';
 
@@ -62,26 +61,14 @@ class Root extends React.Component<RootProps, RootState> {
 
 	render() {
 		const { fontsLoaded } = this.state;
-		if (!fontsLoaded) {
-			return <AppLoading />;
-		}
+		StatusBar.setBarStyle('light-content');
+		if (!fontsLoaded) return <AppLoading />;
 		return (
-			<ThemeConsumer>
-				{({ theme }) => (
-					<>
-						<StatusBar
-							barStyle={
-								theme.name === 'dark' ? 'light-content' : 'dark-content'
-							}
-						/>
-						<AppNavigator
-							ref={(navigatorRef: any) => {
-								NavigationService.setTopLevelNavigator(navigatorRef);
-							}}
-						/>
-					</>
-				)}
-			</ThemeConsumer>
+			<AppNavigator
+				ref={(navigatorRef: any) => {
+					NavigationService.setTopLevelNavigator(navigatorRef);
+				}}
+			/>
 		);
 	}
 }

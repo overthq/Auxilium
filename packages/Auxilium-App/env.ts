@@ -18,10 +18,11 @@ const ENV = {
 	}
 };
 
-const getEnvVars = (env: string = '') => {
+const getEnvVars = (env: string = 'default') => {
 	if (env.includes('dev')) return ENV.dev;
 	if (env.includes('staging')) return ENV.staging;
 	if (env.includes('prod')) return ENV.prod;
+	if (env.includes('default')) return ENV.staging;
 	return ENV.dev;
 };
 

@@ -23,7 +23,7 @@ const getNearbyEmergencies = async ({
 		const { emergencies } = await response.json();
 		return emergencies;
 	} catch (error) {
-		return Alert.alert(error.message);
+		return Alert.alert(error.message, `API URL ${env.apiUrl}`);
 	}
 };
 

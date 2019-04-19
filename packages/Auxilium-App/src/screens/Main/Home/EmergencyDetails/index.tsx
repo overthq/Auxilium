@@ -11,7 +11,7 @@ import { MapView } from 'expo';
 import { Feather } from '@expo/vector-icons';
 import { NavigationScreenProps } from 'react-navigation';
 import mapStyle from './mapStyle';
-import { NewMarker } from '../Overview/components';
+import { MapMarker } from '../Overview/components';
 
 const { width, height } = Dimensions.get('window');
 
@@ -44,7 +44,7 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 				}}
 			>
 				<MapView.Marker coordinate={{ longitude, latitude }}>
-					<NewMarker size={40} />
+					<MapMarker size={40} />
 				</MapView.Marker>
 			</MapView>
 			<View style={styles.descriptionView}>

@@ -1,40 +1,49 @@
 {
-	"expo": {
-		"name": "Auxilium",
-		"slug": "auxilium",
-		"description": "Report emergencies in your vicinty, and alert nearby users.",
-		"privacy": "public",
-		"sdkVersion": "32.0.0",
-		"platforms": ["ios", "android"],
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/icon.png",
-		"splash": {
-			"image": "./assets/splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#1C1C1C"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": true,
-			"infoPlist": {
-				"UIBackgroundModes": ["location", "fetch"]
-			}
-		},
-		"hooks": {
-			"postPublish": [
-				{
-					"file": "sentry-expo/upload-sourcemaps",
-					"config": {
-						"organization": "auxilium",
-						"project": "auxilium-app",
-						"authToken": "4bc50035b6814c5dba418490934c2297c84fefecfabf42e49b00ad78bf1cec11"
-					}
-				}
-			]
-		}
-	}
+  "expo": {
+    "name": "Auxilium",
+    "slug": "auxilium",
+    "description": "Report emergencies in your vicinty, and alert nearby users.",
+    "privacy": "public",
+    "githubUrl": "https://github.com/overthq/Auxilium",
+    "sdkVersion": "32.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1C1C1C"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ]
+      }
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "auxilium",
+            "project": "auxilium-app",
+            "authToken": "4bc50035b6814c5dba418490934c2297c84fefecfabf42e49b00ad78bf1cec11"
+          }
+        }
+      ]
+    }
+  }
 }

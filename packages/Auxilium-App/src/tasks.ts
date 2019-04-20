@@ -12,9 +12,3 @@ export const getBackgroundUpdates = async () => {
 	}
 };
 
-export const pushNotifications = async (
-	longitude: number,
-	latitude: number
-) => {
-	await Emergencies.managePushNotifications({ longitude, latitude });
-};

@@ -24,58 +24,82 @@ interface IEmergencyDetailsProps extends NavigationScreenProps {
 	locate(): void;
 }
 
-const EmergencyDetails = (props: IEmergencyDetailsProps) => {
-	const { navigation } = props;
-	const pageDetails: Emergency = navigation.getParam('details');
-	const {
-		location: {
-			coordinates: [longitude, latitude]
-		},
-		description
-	} = pageDetails;
+class EmergencyDetails extends React.Component<
+	IEmergencyDetailsProps,
+	{ route: any[] }
+> {
+	state = {
+		route: []
+	};
 
-	const { coordinates: fromCoords } = props;
+	async componentDidMount() {
+		const { coordinates: fromCoords } = this.props;
+		const { navigation } = this.props;
+		const pageDetails: Emergency = navigation.getParam('details');
+		const {
+			location: {
+				coordinates: [longitude, latitude]
+			}
+		} = pageDetails;
+		const from = fromCoords;
+		const to = { longitude, latitude };
+		const route = await LocationHelpers.getNavigationRoute(from, to);
+		this.setState({ route });
+	}
 
-	const from = fromCoords;
-	const to = { longitude, latitude };
-
-	const coordinates = LocationHelpers.getNavigationRoute(from, to);
-
-	return (
-		<SafeAreaView style={styles.container}>
-			<TouchableOpacity
-				style={styles.backButton}
-				onPress={() => navigation.pop()}
-			>
-				<Feather name='arrow-left' size={35} color='#D3D3D3' />
-			</TouchableOpacity>
-			<MapView
-				style={styles.map}
-				provider='google'
-				customMapStyle={mapStyle}
-				initialRegion={{
-					longitude,
-					latitude,
-					longitudeDelta: 0.00353,
-					latitudeDelta: 0.00568
-				}}
-			>
-				<MapView.Marker coordinate={{ longitude, latitude }}>
-					<MapMarker size={40} />
-				</MapView.Marker>
-				{/* TODO: Add a polyline to show directions to emergency position */}
-				<MapView.PolyLine coordinates={coordinates} />
-			</MapView>
-			<View style={styles.descriptionView}>
-				<View>
-					<Feather name='navigation' color='#D3D3D3' size={16} />
-					<Text style={styles.description}>{`${latitude}, ${longitude}`}</Text>
+	render() {
+		const { navigation } = this.props;
+		const { route } = this.state;
+		const pageDetails: Emergency = navigation.getParam('details');
+		const {
+			location: {
+				coordinates: [longitude, latitude]
+			},
+			description
+		} = pageDetails;
+		const roundNum = (x: number) => Math.round(x) / 10000;
+		return (
+			<SafeAreaView style={styles.container}>
+				<TouchableOpacity
+					style={styles.backButton}
+					onPress={() => navigation.pop()}
+				>
+					<Feather name='arrow-left' size={35} color='#D3D3D3' />
+				</TouchableOpacity>
+				<MapView
+					style={styles.map}
+					provider='google'
+					customMapStyle={mapStyle}
+					initialRegion={{
+						longitude,
+						latitude,
+						longitudeDelta: 0.00353,
+						latitudeDelta: 0.00568
+					}}
+				>
+					<MapView.Marker coordinate={{ longitude, latitude }}>
+						<MapMarker size={20} borderStroke={3} />
+					</MapView.Marker>
+					{/* TODO: Add a polyline to show directions to emergency position */}
+					<MapView.Polyline
+						coordinates={route}
+						strokeColor='#FF8282'
+						strokeWidth={3}
+					/>
+				</MapView>
+				<View style={styles.descriptionView}>
+					<View>
+						<Feather name='navigation' color='#D3D3D3' size={16} />
+						<Text style={styles.description}>
+							{`${roundNum(latitude)}, ${roundNum(longitude)}`}
+						</Text>
+					</View>
+					<Text style={styles.description}>{description}</Text>
 				</View>
-				<Text style={styles.description}>{description}</Text>
-			</View>
-		</SafeAreaView>
-	);
-};
+			</SafeAreaView>
+		);
+	}
+}
 
 const styles = StyleSheet.create({
 	container: {

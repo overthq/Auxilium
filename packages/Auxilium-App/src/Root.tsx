@@ -1,7 +1,7 @@
 import React from 'react';
-import { AppLoading, Asset, Font, TaskManager } from 'expo';
+import { AppLoading, Asset, Font, TaskManager, BackgroundFetch } from 'expo';
 import { connect } from 'react-redux';
-import { YellowBox, StatusBar } from 'react-native';
+import { YellowBox, StatusBar, AsyncStorage } from 'react-native';
 import AppNavigator, { NavigationService } from './screens';
 import { LocationActions } from './redux/actions';
 import { getBackgroundUpdates, LOCATION_TASK } from './tasks';
@@ -22,13 +22,10 @@ class Root extends React.Component<RootProps, RootState> {
 	componentDidMount() {
 		const { locate } = this.props;
 		this.ignoreSocketWarnings();
-		this.checkUserAuth();
 		this.loadFonts();
 		locate();
 		getBackgroundUpdates();
 	}
-
-	checkUserAuth = () => {};
 
 	loadFonts = async () => {
 		await Font.loadAsync({
@@ -80,11 +77,13 @@ TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
 
 	if (data) {
 		const { locations } = data;
-		console.log(locations);
+		// console.log(locations);
 		// Study the structure of the locations object.
 		// I think it should look like this:
 		// [{ ..., coordinates: { longitude, latitude } }, ...]
-		Emergencies.managePushNotifications(locations);
+		// const {
+		// 	coords: { longitude, latitude }
+		// } = locations;
 	}
 });
 

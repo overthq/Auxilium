@@ -9,7 +9,7 @@ import {
 	Alert
 } from 'react-native';
 import { connect } from 'react-redux';
-import { MapView, Constants } from 'expo';
+import { MapView, Constants, Region } from 'expo';
 import { NavigationScreenProps } from 'react-navigation';
 import io from 'socket.io-client';
 import haversine from 'haversine';
@@ -28,6 +28,7 @@ const { width, height } = Dimensions.get('window');
 interface HomeState {
 	place: string;
 	emergencies: Emergency[] | void;
+	region?: Region;
 }
 
 interface HomeProps extends NavigationScreenProps {
@@ -40,7 +41,8 @@ class Home extends React.Component<HomeProps, HomeState> {
 
 	state = {
 		place: '',
-		emergencies: []
+		emergencies: [],
+		region: undefined
 	};
 
 	async componentDidMount() {
@@ -113,8 +115,12 @@ class Home extends React.Component<HomeProps, HomeState> {
 		));
 	};
 
+	onRegionChange = (region: Region) => {
+		this.setState({ region });
+	};
+
 	render() {
-		const { place, emergencies } = this.state;
+		const { place, emergencies, region } = this.state;
 		const { coordinates, navigation } = this.props;
 		return (
 			<SafeAreaView style={styles.container}>
@@ -136,6 +142,8 @@ class Home extends React.Component<HomeProps, HomeState> {
 							longitudeDelta: 0.00353,
 							latitudeDelta: 0.00568
 						}}
+						onRegionChange={this.onRegionChange}
+						{...{ region }}
 						pitchEnabled={false}
 						rotateEnabled={false}
 						scrollEnabled={false}

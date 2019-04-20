@@ -10,12 +10,21 @@ import {
 import { MapView } from 'expo';
 import { Feather } from '@expo/vector-icons';
 import { NavigationScreenProps } from 'react-navigation';
+import { connect } from 'react-redux';
+
 import mapStyle from './mapStyle';
 import { MapMarker } from '../Overview/components';
+import { LocationHelpers } from '../../../../helpers';
+import { LocationActions } from '../../../../redux/actions';
 
 const { width, height } = Dimensions.get('window');
 
-const EmergencyDetails = (props: NavigationScreenProps) => {
+interface IEmergencyDetailsProps extends NavigationScreenProps {
+	coordinates: Coordinates;
+	locate(): void;
+}
+
+const EmergencyDetails = (props: IEmergencyDetailsProps) => {
 	const { navigation } = props;
 	const pageDetails: Emergency = navigation.getParam('details');
 	const {
@@ -24,6 +33,14 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 		},
 		description
 	} = pageDetails;
+
+	const { coordinates: fromCoords } = props;
+
+	const from = fromCoords;
+	const to = { longitude, latitude };
+
+	const coordinates = LocationHelpers.getNavigationRoute(from, to);
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<TouchableOpacity
@@ -46,6 +63,8 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 				<MapView.Marker coordinate={{ longitude, latitude }}>
 					<MapMarker size={40} />
 				</MapView.Marker>
+				{/* TODO: Add a polyline to show directions to emergency position */}
+				<MapView.PolyLine coordinates={coordinates} />
 			</MapView>
 			<View style={styles.descriptionView}>
 				<View>
@@ -87,4 +106,13 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default EmergencyDetails;
+const mapStateToProps = ({ location: { coordinates } }: any) => ({
+	coordinates
+});
+
+const mapDispatchToProps = { locate: LocationActions.locate };
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(EmergencyDetails);

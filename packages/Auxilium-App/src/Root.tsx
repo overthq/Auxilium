@@ -77,13 +77,8 @@ TaskManager.defineTask(LOCATION_TASK, async ({ data, error }: any) => {
 		const { locations } = data;
 		const {
 	    coords: { longitude, latitude }
-    } = locations;
-    locations.forEach(async location => {
-      const {
-        coords: { longitude, latitude }
-      } = location;
-      await Emergency.managePushNotifications({ longitude, latitude });
-    });
+    } = locations[0];
+    await Emergency.managePushNotifications({ longitude, latitude });
 	}
 });
 

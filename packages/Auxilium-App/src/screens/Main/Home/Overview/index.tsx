@@ -36,7 +36,7 @@ interface HomeProps extends NavigationScreenProps {
 	locate(): Promise<void>;
 }
 
-class Home extends React.Component<HomeProps, HomeState> {
+class Overview extends React.Component<HomeProps, HomeState> {
 	socket = io(env.apiUrl);
 
 	state = {
@@ -220,4 +220,4 @@ const mapDispatchToProps = { locate: LocationActions.locate };
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Home);
+)(Overview);

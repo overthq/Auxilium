@@ -1,7 +1,7 @@
 import React from 'react';
-import { AppLoading, Asset, Font, TaskManager, BackgroundFetch } from 'expo';
+import { AppLoading, Asset, Font, TaskManager } from 'expo';
 import { connect } from 'react-redux';
-import { YellowBox, StatusBar, AsyncStorage } from 'react-native';
+import { YellowBox, StatusBar } from 'react-native';
 import AppNavigator, { NavigationService } from './screens';
 import { LocationActions } from './redux/actions';
 import { getBackgroundUpdates, LOCATION_TASK } from './tasks';

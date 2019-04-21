@@ -88,7 +88,7 @@ class EmergencyDetails extends React.Component<
 					/>
 				</MapView>
 				<View style={styles.descriptionView}>
-					<View>
+					<View style={{ flexDirection: 'row' }}>
 						<Feather name='navigation' color='#D3D3D3' size={16} />
 						<Text style={styles.description}>
 							{`${roundNum(latitude)}, ${roundNum(longitude)}`}

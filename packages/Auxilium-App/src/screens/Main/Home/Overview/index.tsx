@@ -11,6 +11,7 @@ import {
 import { connect } from 'react-redux';
 import { MapView, Constants, Region } from 'expo';
 import { NavigationScreenProps } from 'react-navigation';
+/* eslint-disable-next-line import/no-unresolved */
 import io from 'socket.io-client';
 import haversine from 'haversine';
 
@@ -56,6 +57,7 @@ class Overview extends React.Component<HomeProps, HomeState> {
 			latitude
 		});
 		const emergencies = (await this.loadEmergencies(longitude, latitude)) || [];
+		console.log('emergencies:', emergencies);
 		await this.setState({ place, emergencies });
 
 		this.socket.on('emergency', (emergency: Emergency) => {
@@ -78,6 +80,7 @@ class Overview extends React.Component<HomeProps, HomeState> {
 				longitude,
 				latitude
 			});
+			console.log(emergencies);
 			return emergencies;
 		} catch (error) {
 			return Alert.alert(error.message);

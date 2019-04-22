@@ -20,16 +20,17 @@ const getNavigationRoute = async (from: Coordinates, to: Coordinates) => {
 	const { longitude: toLongitude, latitude: toLatitude } = to;
 	try {
 		const response = await fetch(
-			`https://api.mapbox.com/directions/v5/mapbox/walking/${fromLongitude},${fromLatitude};${toLongitude},${toLatitude}.json?access_token=${MAPBOX_ACCESS_TOKEN}`
+			`https://api.mapbox.com/directions/v5/mapbox/walking/${fromLongitude},${fromLatitude};${toLongitude},${toLatitude}.json?access_token=${MAPBOX_ACCESS_TOKEN}&geometries=geojson`
 		);
-		const { waypoints } = await response.json();
-		const coordinates = waypoints.map((waypoint: any) => {
-			return {
-				longitude: waypoint.location[0],
-				latitude: waypoint.location[1]
-			};
-		});
-		return coordinates;
+		const { routes } = await response.json();
+		const { coordinates } = routes[0].geometry;
+		const formattedCoords: Coordinates[] = await coordinates.map(
+			(coordinate: [number, number]) => ({
+				longitude: coordinate[0],
+				latitude: coordinate[1]
+			})
+		);
+		return formattedCoords;
 	} catch (error) {
 		return Alert.alert(error.message);
 	}

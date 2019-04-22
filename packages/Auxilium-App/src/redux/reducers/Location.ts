@@ -10,7 +10,6 @@ const initialState = {
 		longitude: 0,
 		latitude: 0
 	},
-	emergencies: [],
 	errorMessage: ''
 };
 
@@ -22,8 +21,7 @@ export default (state = initialState, action: any) => {
 			return {
 				...state,
 				loading: false,
-				coordinates: action.payload.coordinates,
-				emergencies: action.payload.emergencies
+				coordinates: action.payload.coordinates
 			};
 		case FETCH_LOCATION_FAILURE:
 			return {

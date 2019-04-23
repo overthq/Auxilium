@@ -13,7 +13,6 @@ import { MapView, Constants, Region } from 'expo';
 import { NavigationScreenProps } from 'react-navigation';
 /* eslint-disable-next-line import/no-unresolved */
 import io from 'socket.io-client';
-import haversine from 'haversine';
 
 import { Ionicons } from '@expo/vector-icons';
 import mapStyle from './mapStyle';
@@ -26,52 +25,53 @@ import LocationHelpers from '../../../../helpers/location';
 
 const { width, height } = Dimensions.get('window');
 
-interface HomeState {
+interface OverviewState {
 	place: string;
-	emergencies: Emergency[] | void;
 	region?: Region;
 }
 
-interface HomeProps extends NavigationScreenProps {
+interface OverviewProps extends NavigationScreenProps {
 	coordinates: Coordinates;
+	emergencies: Emergency[];
 	locate(): Promise<void>;
 }
 
-class Overview extends React.Component<HomeProps, HomeState> {
-	socket = io(env.apiUrl);
+class Overview extends React.Component<OverviewProps, OverviewState> {
+	socket = io(env.apiUrl, {
+		jsonp: false,
+		transports: ['websocket']
+	});
 
 	state = {
 		place: '',
-		emergencies: [],
 		region: undefined
 	};
 
 	async componentDidMount() {
 		const {
-			coordinates: { longitude, latitude },
-			locate
+			coordinates: { longitude, latitude }
 		} = this.props;
-		await locate();
 		const place = await LocationHelpers.getAddressFromCoords({
 			longitude,
 			latitude
 		});
-		const emergencies = (await this.loadEmergencies(longitude, latitude)) || [];
-		console.log('emergencies:', emergencies);
-		await this.setState({ place, emergencies });
+		await this.setState({ place });
+	}
 
-		this.socket.on('emergency', (emergency: Emergency) => {
-			const distance = haversine(
-				{ longitude, latitude },
-				{
-					longitude: emergency.location.coordinates[0],
-					latitude: emergency.location.coordinates[1]
-				}
-			);
-			if (Math.round(distance) <= 1) {
-				this.setState({ emergencies: [...emergencies, emergency] });
-			}
-		});
+	shouldComponentUpdate(nextProps: OverviewProps) {
+		const {
+			coordinates: { longitude, latitude },
+			locate
+		} = this.props;
+		const {
+			coordinates: { longitude: nextLongitude, latitude: nextLatitude }
+		} = nextProps;
+		locate();
+		return longitude === nextLongitude && latitude === nextLatitude;
+	}
+
+	componentWillUnmount() {
+		this.socket.removeAllListeners();
 	}
 
 	loadEmergencies = async (longitude: number, latitude: number) => {
@@ -80,7 +80,6 @@ class Overview extends React.Component<HomeProps, HomeState> {
 				longitude,
 				latitude
 			});
-			console.log(emergencies);
 			return emergencies;
 		} catch (error) {
 			return Alert.alert(error.message);
@@ -105,17 +104,20 @@ class Overview extends React.Component<HomeProps, HomeState> {
 	};
 
 	renderMarkers = (emergencies: Emergency[]) => {
-		return emergencies.map((emergency: Emergency, index: number) => (
-			<MapView.Marker
-				key={index}
-				coordinate={{
-					longitude: emergency.location.coordinates[0],
-					latitude: emergency.location.coordinates[1]
-				}}
-			>
-				<MapMarker size={16} />
-			</MapView.Marker>
-		));
+		return (
+			emergencies &&
+			emergencies.map((emergency: Emergency, index: number) => (
+				<MapView.Marker
+					key={index}
+					coordinate={{
+						longitude: emergency.location.coordinates[0],
+						latitude: emergency.location.coordinates[1]
+					}}
+				>
+					<MapMarker size={16} />
+				</MapView.Marker>
+			))
+		);
 	};
 
 	onRegionChange = (region: Region) => {
@@ -123,8 +125,8 @@ class Overview extends React.Component<HomeProps, HomeState> {
 	};
 
 	render() {
-		const { place, emergencies, region } = this.state;
-		const { coordinates, navigation } = this.props;
+		const { place, region } = this.state;
+		const { coordinates, navigation, emergencies } = this.props;
 		return (
 			<SafeAreaView style={styles.container}>
 				<ScrollView
@@ -214,8 +216,12 @@ const styles = StyleSheet.create({
 	}
 });
 
-const mapStateToProps = ({ location: { coordinates } }: any) => ({
-	coordinates
+const mapStateToProps = ({
+	location: { coordinates },
+	emergencies: { emergencies }
+}: any) => ({
+	coordinates,
+	emergencies
 });
 
 const mapDispatchToProps = { locate: LocationActions.locate };

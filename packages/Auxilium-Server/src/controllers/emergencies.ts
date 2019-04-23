@@ -6,18 +6,17 @@ import { sendNotification } from '../helpers';
 export const getNearbyEmergencies = async (req: Request, res: Response) => {
 	const { longitude, latitude }: { [key: string]: string } = req.query;
 	try {
-		// const emergencies = await Emergency.find({
-		// 	location: {
-		// 		$near: {
-		// 			$maxDistance: 1000,
-		// 			$geometry: {
-		// 				type: 'Point',
-		// 				coordinates: [Number(longitude), Number(latitude)]
-		// 			}
-		// 		}
-		// 	}
-		// }).find();
-		const emergencies = await Emergency.find();
+		const emergencies = await Emergency.find({
+			location: {
+				$near: {
+					$maxDistance: 1000,
+					$geometry: {
+						type: 'Point',
+						coordinates: [Number(longitude), Number(latitude)]
+					}
+				}
+			}
+		}).find();
 		return res.status(200).json({
 			success: true,
 			emergencies

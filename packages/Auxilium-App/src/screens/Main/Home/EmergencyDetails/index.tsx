@@ -10,53 +10,96 @@ import {
 import { MapView } from 'expo';
 import { Feather } from '@expo/vector-icons';
 import { NavigationScreenProps } from 'react-navigation';
+import { connect } from 'react-redux';
+
 import mapStyle from './mapStyle';
-import { NewMarker } from '../Overview/components';
+import { MapMarker } from '../Overview/components';
+import { LocationHelpers } from '../../../../helpers';
+import { LocationActions } from '../../../../redux/actions';
 
 const { width, height } = Dimensions.get('window');
 
-const EmergencyDetails = (props: NavigationScreenProps) => {
-	const { navigation } = props;
-	const pageDetails: Emergency = navigation.getParam('details');
-	const {
-		location: {
-			coordinates: [longitude, latitude]
-		},
-		description
-	} = pageDetails;
-	return (
-		<SafeAreaView style={styles.container}>
-			<TouchableOpacity
-				style={styles.backButton}
-				onPress={() => navigation.pop()}
-			>
-				<Feather name='arrow-left' size={35} color='#D3D3D3' />
-			</TouchableOpacity>
-			<MapView
-				style={styles.map}
-				provider='google'
-				customMapStyle={mapStyle}
-				initialRegion={{
-					longitude,
-					latitude,
-					longitudeDelta: 0.00353,
-					latitudeDelta: 0.00568
-				}}
-			>
-				<MapView.Marker coordinate={{ longitude, latitude }}>
-					<NewMarker size={40} />
-				</MapView.Marker>
-			</MapView>
-			<View style={styles.descriptionView}>
-				<View>
-					<Feather name='navigation' color='#D3D3D3' size={16} />
-					<Text style={styles.description}>{`${latitude}, ${longitude}`}</Text>
+interface IEmergencyDetailsProps extends NavigationScreenProps {
+	coordinates: Coordinates;
+	locate(): void;
+}
+
+class EmergencyDetails extends React.Component<
+	IEmergencyDetailsProps,
+	{ route: any[] }
+> {
+	state = {
+		route: []
+	};
+
+	async componentDidMount() {
+		const { coordinates: fromCoords } = this.props;
+		const { navigation } = this.props;
+		const pageDetails: Emergency = navigation.getParam('details');
+		const {
+			location: {
+				coordinates: [longitude, latitude]
+			}
+		} = pageDetails;
+		const from = fromCoords;
+		const to = { longitude, latitude };
+		const route = await LocationHelpers.getNavigationRoute(from, to);
+		this.setState({ route });
+	}
+
+	render() {
+		const { navigation } = this.props;
+		const { route } = this.state;
+		const pageDetails: Emergency = navigation.getParam('details');
+		const {
+			location: {
+				coordinates: [longitude, latitude]
+			},
+			description
+		} = pageDetails;
+		const roundNum = (x: number) => Math.round(x) / 10000;
+		return (
+			<SafeAreaView style={styles.container}>
+				<TouchableOpacity
+					style={styles.backButton}
+					onPress={() => navigation.pop()}
+				>
+					<Feather name='arrow-left' size={35} color='#D3D3D3' />
+				</TouchableOpacity>
+				<MapView
+					style={styles.map}
+					provider='google'
+					customMapStyle={mapStyle}
+					initialRegion={{
+						longitude,
+						latitude,
+						longitudeDelta: 0.00353,
+						latitudeDelta: 0.00568
+					}}
+				>
+					<MapView.Marker coordinate={{ longitude, latitude }}>
+						<MapMarker size={20} borderStroke={3} />
+					</MapView.Marker>
+					{/* TODO: Add a polyline to show directions to emergency position */}
+					<MapView.Polyline
+						coordinates={route}
+						strokeColor='#FF8282'
+						strokeWidth={3}
+					/>
+				</MapView>
+				<View style={styles.descriptionView}>
+					<View style={{ flexDirection: 'row' }}>
+						<Feather name='navigation' color='#D3D3D3' size={16} />
+						<Text style={styles.description}>
+							{`${roundNum(latitude)}, ${roundNum(longitude)}`}
+						</Text>
+					</View>
+					<Text style={styles.description}>{description}</Text>
 				</View>
-				<Text style={styles.description}>{description}</Text>
-			</View>
-		</SafeAreaView>
-	);
-};
+			</SafeAreaView>
+		);
+	}
+}
 
 const styles = StyleSheet.create({
 	container: {
@@ -87,4 +130,13 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default EmergencyDetails;
+const mapStateToProps = ({ location: { coordinates } }: any) => ({
+	coordinates
+});
+
+const mapDispatchToProps = { locate: LocationActions.locate };
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(EmergencyDetails);

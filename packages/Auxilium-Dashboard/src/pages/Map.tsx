@@ -1,8 +1,11 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
+import ReactMapboxGL from 'react-mapbox-gl';
 
-mapboxgl.accessToken =
-	'pk.eyJ1Ijoia29yZWRlMzYwIiwiYSI6ImNqZno1MGN2YjBhOTgyd2xlbWFhMGQ3dmwifQ.1AbAu_Ga4bu4iQCnOgBfog';
+const MapContainer = ReactMapboxGL({
+	accessToken:
+		'pk.eyJ1Ijoia29yZWRlMzYwIiwiYSI6ImNqZno1MGN2YjBhOTgyd2xlbWFhMGQ3dmwifQ.1AbAu_Ga4bu4iQCnOgBfog'
+});
 
 interface MapState {
 	lng: number;
@@ -11,24 +14,18 @@ interface MapState {
 }
 
 const initialMapState = {
-	lng: 5,
-	lat: 34,
-	zoom: 1.5
+	lng: 1,
+	lat: 24,
+	zoom: 8
 };
 
 const mapReducer = (state: MapState, action: any) => ({ ...state, ...action });
 
 const Map = () => {
-	let mapContainer: any;
 	const [state, setState] = React.useReducer(mapReducer, initialMapState);
-	React.useEffect(() => {
-		const { lng, lat, zoom } = state;
-		const map = new mapboxgl.Map({
-			container: mapContainer,
-			style: 'mapbox://styles/mapbox/dark-v9',
-			center: [lng, lat],
-			zoom
-		});
+	const { long: longitude, lat: latitude } = state;
+
+	const onMapLoad = (map: mapboxgl.Map) => {
 		map.on('move', () => {
 			const { lng, lat } = map.getCenter();
 			setState({
@@ -37,12 +34,25 @@ const Map = () => {
 				zoom: map.getZoom().toFixed(2)
 			});
 		});
-	}, []);
+
+		map.addControl(
+			new mapboxgl.GeolocateControl({
+				positionOptions: {
+					enableHighAccuracy: true
+				},
+				trackUserLocation: true
+			})
+		);
+	};
+
 	return (
 		<div>
-			<div
-				style={{ width: '100vw', height: '100vh' }}
-				ref={el => (mapContainer = el)}
+			<MapContainer
+				containerStyle={{ width: '100vw', height: '100vh' }}
+				onStyleLoad={onMapLoad}
+				style='mapbox://styles/mapbox/dark-v9'
+				center={[longitude, latitude]}
+				zoom={[1.5]}
 			/>
 		</div>
 	);

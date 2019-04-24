@@ -16,8 +16,16 @@ jobs:
           name: Login to Expo
           command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run:
-          name: Publish to Expo
+          name: Publish to default channel
           command: lerna exec --scope auxilium-app "yarn publish:app"
+      - run:
+          name: Publish to Expo Release Channels
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              lerna exec --scope auxilium-app "yarn publish:app --release-channel staging"
+            elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+              lerna exec --scope auxilium-app "yarn publish:app --release-channel prod"
+            fi
   deploy_backend:
     working_directory: ~/auxilium-app
     docker:

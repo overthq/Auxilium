@@ -9,16 +9,16 @@ import {
 	FETCH_EMERGENCIES_FAILURE
 } from './types';
 
+const socket = io(env.apiUrl, {
+	jsonp: false,
+	transports: ['websocket']
+});
+
 const fetchEmergencies = () => {
 	return async (dispatch: any, getState: any): Promise<void> => {
 		const {
 			location: { coordinates }
 		} = getState();
-
-		const socket = io(env.apiUrl, {
-			jsonp: false,
-			transports: ['websocket']
-		});
 
 		socket.on('emergency', (emergency: Emergency) => {
 			const distance = haversine(coordinates, {

@@ -17,7 +17,7 @@ import io from 'socket.io-client';
 import { Ionicons } from '@expo/vector-icons';
 import mapStyle from './mapStyle';
 
-import { LocationActions } from '../../../../redux/actions';
+import { LocationActions, EmergenciesActions } from '../../../../redux/actions';
 import env from '../../../../../env';
 import { Emergencies } from '../../../../api';
 import { MapMarker, MainButton, AroundYou } from './components';
@@ -98,6 +98,7 @@ class Overview extends React.Component<OverviewProps, OverviewState> {
 				},
 				description
 			});
+			EmergenciesActions.fetchEmergencies();
 		} catch (error) {
 			Alert.alert(error.message);
 		}

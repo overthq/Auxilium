@@ -48,7 +48,7 @@ class EmergencyDetails extends React.Component<
 	}
 
 	render() {
-		const { navigation } = this.props;
+		const { navigation, coordinates: fromCoords } = this.props;
 		const { route } = this.state;
 		const pageDetails: Emergency = navigation.getParam('details');
 		const {
@@ -58,6 +58,9 @@ class EmergencyDetails extends React.Component<
 			description
 		} = pageDetails;
 		const roundNum = (x: number) => Math.round(x) / 10000;
+		const longitudeDelta = Math.abs(fromCoords.longitude - longitude);
+		const latitudeDelta = Math.abs(fromCoords.latitude - latitude);
+
 		return (
 			<SafeAreaView style={styles.container}>
 				<TouchableOpacity
@@ -73,8 +76,8 @@ class EmergencyDetails extends React.Component<
 					initialRegion={{
 						longitude,
 						latitude,
-						longitudeDelta: 0.00353,
-						latitudeDelta: 0.00568
+						longitudeDelta,
+						latitudeDelta
 					}}
 				>
 					<MapView.Marker coordinate={{ longitude, latitude }}>

@@ -26,7 +26,7 @@ interface IEmergencyDetailsProps extends NavigationScreenProps {
 
 class EmergencyDetails extends React.Component<
 	IEmergencyDetailsProps,
-	{ route: any[] }
+	{ route: Coordinates[] }
 > {
 	state = {
 		route: []
@@ -43,7 +43,7 @@ class EmergencyDetails extends React.Component<
 		} = pageDetails;
 		const from = fromCoords;
 		const to = { longitude, latitude };
-		const route = await LocationHelpers.getNavigationRoute(from, to);
+		const route = (await LocationHelpers.getNavigationRoute(from, to)) || [];
 		this.setState({ route });
 	}
 

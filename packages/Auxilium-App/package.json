@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",
+    "date-fns": "^2.0.0-alpha.27",
     "expo": "^32.0.6",
     "haversine": "^1.1.1",
     "react": "16.5.0",

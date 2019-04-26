@@ -1,4 +1,5 @@
 import { Location } from 'expo';
+import { Emergencies } from './api';
 
 export const LOCATION_TASK = 'background-location-task';
 
@@ -10,3 +11,4 @@ export const getBackgroundUpdates = async () => {
 		});
 	}
 };
+

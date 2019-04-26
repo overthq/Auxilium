@@ -4,7 +4,7 @@ import {
 	FETCH_LOCATION,
 	FETCH_LOCATION_SUCCESS,
 	FETCH_LOCATION_FAILURE
-} from '../types/Location';
+} from './types';
 
 const locate = () => {
 	return async (dispatch: any): Promise<void> => {

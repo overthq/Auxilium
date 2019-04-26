@@ -1,9 +1,9 @@
 import React from 'react';
 import { AppLoading, Asset, Font, TaskManager } from 'expo';
 import { connect } from 'react-redux';
-import { YellowBox, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import AppNavigator, { NavigationService } from './screens';
-import { LocationActions } from './redux/actions';
+import { LocationActions, EmergenciesActions } from './redux/actions';
 import { getBackgroundUpdates, LOCATION_TASK } from './tasks';
 import { Emergencies } from './api';
 
@@ -12,6 +12,7 @@ interface RootState {
 }
 interface RootProps {
 	locate(): Promise<void>;
+	fetchEmergencies(): Promise<void>;
 }
 
 class Root extends React.Component<RootProps, RootState> {
@@ -20,15 +21,12 @@ class Root extends React.Component<RootProps, RootState> {
 	};
 
 	componentDidMount() {
-		const { locate } = this.props;
-		this.ignoreSocketWarnings();
-		this.checkUserAuth();
+		const { locate, fetchEmergencies } = this.props;
 		this.loadFonts();
 		locate();
+		fetchEmergencies();
 		getBackgroundUpdates();
 	}
-
-	checkUserAuth = () => {};
 
 	loadFonts = async () => {
 		await Font.loadAsync({
@@ -52,13 +50,6 @@ class Root extends React.Component<RootProps, RootState> {
 		});
 	};
 
-	ignoreSocketWarnings = () => {
-		console.ignoredYellowBox = ['Remote debugger'];
-		YellowBox.ignoreWarnings([
-			'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
-		]);
-	};
-
 	render() {
 		const { fontsLoaded } = this.state;
 		StatusBar.setBarStyle('light-content');
@@ -73,22 +64,22 @@ class Root extends React.Component<RootProps, RootState> {
 	}
 }
 
-TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
-	if (error) {
-		console.log(error);
-	}
+TaskManager.defineTask(LOCATION_TASK, async ({ data, error }: any) => {
+	if (error) console.log(error);
 
 	if (data) {
 		const { locations } = data;
-		console.log(locations);
-		// Study the structure of the locations object.
-		// I think it should look like this:
-		// [{ ..., coordinates: { longitude, latitude } }, ...]
-		Emergencies.managePushNotifications(locations);
+		const {
+			coords: { longitude, latitude }
+		} = locations[0];
+		await Emergencies.managePushNotifications({ longitude, latitude });
 	}
 });
 
-const mapDispatchToProps = { locate: LocationActions.locate };
+const mapDispatchToProps = {
+	locate: LocationActions.locate,
+	fetchEmergencies: EmergenciesActions.fetchEmergencies
+};
 
 export default connect(
 	null,

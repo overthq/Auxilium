@@ -6,7 +6,7 @@
 	"scripts": {
 		"lint": "yarn eslint --fix . --ext .ts",
 		"test": "mocha -r ts-node/register tests/*.spec.ts --exit",
-		"dev": "nodemon src/app.ts --exec ts-node",
+		"dev": "nodemon",
 		"clean": "yarn rimraf dist",
 		"build": "yarn clean && yarn tsc",
 		"heroku-postbuild": "yarn build",

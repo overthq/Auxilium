@@ -2,12 +2,10 @@ import { Constants } from 'expo';
 
 const ENV = {
 	dev: {
-		apiUrl:
-			typeof Constants.manifest.packagerOpts === 'object' &&
-			`http://${Constants.manifest.debuggerHost
-				.split(`:`)
-				.shift()
-				.concat(`:4000/`)}`
+		apiUrl: __DEV__ ? `http://${Constants.manifest.debuggerHost
+			.split(`:`)
+			.shift()
+			.concat(`:4000/`)}` : ''
 	},
 	staging: {
 		apiUrl: 'https://auxilium-staging.herokuapp.com/'
@@ -23,7 +21,7 @@ const getEnvVars = (env: string = '') => {
 	if (env.includes('staging')) return ENV.staging;
 	if (env.includes('prod')) return ENV.prod;
 	if (env.includes('default')) return ENV.staging;
-	else return ENV.staging;
+	return ENV.staging;
 };
 
 export default getEnvVars(Constants.manifest.releaseChannel);

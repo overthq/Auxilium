@@ -52,5 +52,8 @@
 				"extensions": [".ts", ".tsx"]
 			}
 		}
+	},
+	"globals": {
+		"__DEV__": true
 	}
 }

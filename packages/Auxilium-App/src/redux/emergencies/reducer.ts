@@ -18,7 +18,7 @@ export default (state = initialState, action: any) => {
 			return {
 				...state,
 				loading: false,
-				emergencies: [...state.emergencies, action.payload.emergencies]
+				emergencies: [...state.emergencies, ...action.payload.emergencies]
 			};
 		case FETCH_EMERGENCIES_FAILURE:
 			return {

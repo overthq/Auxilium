@@ -58,8 +58,13 @@ class EmergencyDetails extends React.Component<
 			description
 		} = pageDetails;
 		const roundNum = (x: number) => Math.round(x) / 10000;
-		const longitudeDelta = Math.abs(fromCoords.longitude - longitude);
-		const latitudeDelta = Math.abs(fromCoords.latitude - latitude);
+
+		const lonDelta = Math.abs(fromCoords.longitude - longitude);
+		const latDelta = Math.abs(fromCoords.latitude - latitude);
+		const longitudeDelta = lonDelta >= 0.00353 ? lonDelta : 0.00353;
+		const latitudeDelta = latDelta >= 0.00568 ? latDelta : 0.00568;
+		const centerLongitude = (fromCoords.longitude + longitude) / 2;
+		const centerLatitude = (fromCoords.latitude + latitude) / 2;
 
 		return (
 			<SafeAreaView style={styles.container}>
@@ -74,11 +79,13 @@ class EmergencyDetails extends React.Component<
 					provider='google'
 					customMapStyle={mapStyle}
 					initialRegion={{
-						longitude,
-						latitude,
+						longitude: centerLongitude,
+						latitude: centerLatitude,
 						longitudeDelta,
 						latitudeDelta
 					}}
+					showsIndoors
+					showsBuildings
 				>
 					<MapView.Marker coordinate={{ longitude, latitude }}>
 						<MapMarker size={20} borderStroke={3} />

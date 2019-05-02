@@ -11,14 +11,10 @@ import {
 import { connect } from 'react-redux';
 import { MapView, Constants, Region } from 'expo';
 import { NavigationScreenProps } from 'react-navigation';
-/* eslint-disable-next-line import/no-unresolved */
-import io from 'socket.io-client';
-
 import { Ionicons } from '@expo/vector-icons';
-import mapStyle from './mapStyle';
 
+import mapStyle from './mapStyle';
 import { LocationActions, EmergenciesActions } from '../../../../redux/actions';
-import env from '../../../../../env';
 import { Emergencies } from '../../../../api';
 import { MapMarker, MainButton, AroundYou } from './components';
 import LocationHelpers from '../../../../helpers/location';
@@ -37,11 +33,6 @@ interface OverviewProps extends NavigationScreenProps {
 }
 
 class Overview extends React.Component<OverviewProps, OverviewState> {
-	socket = io(env.apiUrl, {
-		jsonp: false,
-		transports: ['websocket']
-	});
-
 	state = {
 		place: '',
 		region: undefined
@@ -71,7 +62,7 @@ class Overview extends React.Component<OverviewProps, OverviewState> {
 	}
 
 	componentWillUnmount() {
-		this.socket.removeAllListeners();
+		EmergenciesActions.socket.removeAllListeners();
 	}
 
 	loadEmergencies = async (longitude: number, latitude: number) => {
@@ -90,7 +81,7 @@ class Overview extends React.Component<OverviewProps, OverviewState> {
 		const { locate, coordinates } = this.props;
 		try {
 			await locate();
-			this.socket.emit('emergency', {
+			EmergenciesActions.socket.emit('emergency', {
 				deviceId: Constants.deviceId,
 				location: {
 					type: 'Point',

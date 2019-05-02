@@ -146,7 +146,7 @@ class Overview extends React.Component<OverviewProps, OverviewState> {
 						scrollEnabled={false}
 						zoomEnabled={false}
 					>
-						{emergencies && this.renderMarkers(emergencies)}
+						{emergencies && this.renderMarkers(emergencies.slice(0, 5))}
 					</MapView>
 					<Text style={styles.sectionHeader}>Around You</Text>
 					{emergencies && (

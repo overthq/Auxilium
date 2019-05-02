@@ -8,7 +8,7 @@ interface AroundYouProps {
 
 const AroundYou = ({ emergencies, navigate }: AroundYouProps) => (
 	<>
-		{emergencies.slice(0, 5).map((item, index) => (
+		{emergencies.map((item, index) => (
 			<HistoryItem key={index} {...item} onPress={() => navigate(item)} />
 		))}
 	</>

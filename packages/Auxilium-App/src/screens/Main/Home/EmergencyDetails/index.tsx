@@ -90,7 +90,6 @@ class EmergencyDetails extends React.Component<
 					<MapView.Marker coordinate={{ longitude, latitude }}>
 						<MapMarker size={20} borderStroke={3} />
 					</MapView.Marker>
-					{/* TODO: Add a polyline to show directions to emergency position */}
 					<MapView.Polyline
 						coordinates={route}
 						strokeColor='#FF8282'

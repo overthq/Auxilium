@@ -6,7 +6,7 @@ const sendNotification = async (pushToken: string) => {
 		headers: {
 			host: 'exp.host',
 			Accept: 'application/json',
-			'Accept-encoding': 'gzip, deflate',
+			'Accept-Encoding': 'gzip, deflate',
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({

@@ -81,13 +81,13 @@ export const backgroundNotifications = async (req: Request, res: Response) => {
 				const data = await sendNotification(pushToken);
 				await emergency.recepients.push(pushToken);
 				await emergency.save();
-				res.status(200).json({
+				return res.status(200).json({
 					success: true,
 					message: 'Found emergency in your area',
 					data
 				});
 			}
-			res.status(200).json({
+			return res.status(200).json({
 				success: true,
 				message: 'Good news, No emergency found in your area.'
 			});

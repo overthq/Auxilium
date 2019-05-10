@@ -1,10 +1,7 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import Animated from 'react-native-reanimated';
-import {
-	PanGestureHandler,
-	PanGestureHandlerGestureEvent
-} from 'react-native-gesture-handler';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 
 const { height } = Dimensions.get('window');
 
@@ -13,7 +10,7 @@ const ExpandableDetails = () => {
 	const onPanGestureEvent = () => {
 		Animated.interpolate(animatedHeight, {
 			inputRange: [0, 1],
-      outputRange: [(height / 4), (height / 2)],
+			outputRange: [height / 4, height / 2],
 			extrapolate: Animated.Extrapolate.CLAMP
 		});
 	};

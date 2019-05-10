@@ -22,9 +22,9 @@ jobs:
           name: Publish to Expo Release Channels
           command: |
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              lerna exec --scope auxilium-app "yarn publish:app --non-interactive --release-channel staging"
+              lerna exec --scope auxilium-app "yarn publish:app --release-channel staging"
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-              lerna exec --scope auxilium-app "yarn publish:app --non-interactive --release-channel prod"
+              lerna exec --scope auxilium-app "yarn publish:app --release-channel prod"
             fi
   deploy_backend:
     working_directory: ~/auxilium-app

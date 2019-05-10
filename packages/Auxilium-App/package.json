@@ -17,6 +17,8 @@
     "haversine": "^1.1.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-gesture-handler": "^1.2.1",
+    "react-native-reanimated": "^1.0.1",
     "react-navigation": "^3.3.2",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
@@ -27,7 +29,7 @@
     "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
-    "@types/expo": "^32.0.10",
+    "@types/expo": "^32.0.13",
     "@types/expo__vector-icons": "^9.0.1",
     "@types/haversine": "^1.1.1",
     "@types/react": "^16.8.6",

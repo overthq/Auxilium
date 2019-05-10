@@ -57,7 +57,7 @@ class EmergencyDetails extends React.Component<
 			},
 			description
 		} = pageDetails;
-		const roundNum = (x: number) => Math.round(x) / 10000;
+		const roundNum = (x: number) => Math.round(x);
 
 		const lonDelta = Math.abs(fromCoords.longitude - longitude);
 		const latDelta = Math.abs(fromCoords.latitude - latitude);
@@ -86,6 +86,10 @@ class EmergencyDetails extends React.Component<
 					}}
 					showsIndoors
 					showsBuildings
+					pitchEnabled={false}
+					rotateEnabled={false}
+					scrollEnabled={false}
+					zoomEnabled={false}
 				>
 					<MapView.Marker coordinate={{ longitude, latitude }}>
 						<MapMarker size={20} borderStroke={3} />

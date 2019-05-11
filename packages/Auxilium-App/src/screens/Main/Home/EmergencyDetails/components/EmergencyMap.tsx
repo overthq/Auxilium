@@ -12,29 +12,28 @@ interface IEmergencyMapProps {
 	pageDetails: Emergency;
 }
 
-class EmergencyMap extends React.Component<IEmergencyMapProps> {
+interface IEmergencyMapState {
+	route: Coordinates[];
+	longitudeDelta: number;
+	latitudeDelta: number;
+	centerLongitude: number;
+	centerLatitude: number;
+}
+
+class EmergencyMap extends React.Component<
+	IEmergencyMapProps,
+	IEmergencyMapState
+> {
 	state = {
-		route: []
+		route: [],
+		longitudeDelta: 0,
+		latitudeDelta: 0,
+		centerLongitude: 0,
+		centerLatitude: 0
 	};
 
 	async componentDidMount() {
 		const { coordinates: fromCoords, pageDetails } = this.props;
-		const {
-			location: {
-				coordinates: [longitude, latitude]
-			}
-		} = pageDetails;
-
-		const from = fromCoords;
-		const to = { longitude, latitude };
-		const currentRoute =
-			(await LocationHelpers.getNavigationRoute(from, to)) || [];
-		this.setState({ route: currentRoute });
-	}
-
-	render() {
-		const { coordinates: fromCoords, pageDetails } = this.props;
-		const { route } = this.state;
 		const {
 			location: {
 				coordinates: [longitude, latitude]
@@ -47,6 +46,36 @@ class EmergencyMap extends React.Component<IEmergencyMapProps> {
 		const latitudeDelta = latDelta >= 0.00568 ? latDelta : 0.00568;
 		const centerLongitude = (fromCoords.longitude + longitude) / 2;
 		const centerLatitude = (fromCoords.latitude + latitude) / 2;
+
+		await this.setState({
+			longitudeDelta,
+			latitudeDelta,
+			centerLongitude,
+			centerLatitude
+		});
+
+		const from = fromCoords;
+		const to = { longitude, latitude };
+		const currentRoute =
+			(await LocationHelpers.getNavigationRoute(from, to)) || [];
+		this.setState({ route: currentRoute });
+	}
+
+	render() {
+		const { pageDetails } = this.props;
+		const {
+			route,
+			longitudeDelta,
+			latitudeDelta,
+			centerLongitude,
+			centerLatitude
+		} = this.state;
+
+		const {
+			location: {
+				coordinates: [longitude, latitude]
+			}
+		} = pageDetails;
 
 		return (
 			<MapView

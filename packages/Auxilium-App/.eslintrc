@@ -24,6 +24,7 @@
 	],
 	"rules": {
 		"comma-dangle": "off",
+		"import/no-extraneous-dependencies": 0,
 		"indent": 0,
 		"no-tabs": 0,
 		"no-unused-vars": ["off"],

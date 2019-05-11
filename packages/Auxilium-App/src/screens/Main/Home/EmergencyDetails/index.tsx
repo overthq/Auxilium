@@ -5,9 +5,11 @@ import {
 	StyleSheet,
 	Dimensions
 } from 'react-native';
+import { connect } from 'react-redux';
 import { NavigationScreenProps } from 'react-navigation';
 import { Feather } from '@expo/vector-icons';
 import { EmergencyMap, ExpandableDetails } from './components';
+import { LocationActions } from '../../../../redux/actions';
 
 const { width } = Dimensions.get('window');
 
@@ -60,4 +62,13 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default EmergencyDetails;
+const mapStateToProps = ({ location: { coordinates } }: any) => ({
+	coordinates
+});
+
+const mapDispatchToProps = { locate: LocationActions.locate };
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(EmergencyDetails);

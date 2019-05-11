@@ -8,7 +8,6 @@ const getNearbyEmergencies = async ({
 	latitude
 }: Coordinates): Promise<Emergency[] | void> => {
 	try {
-		console.log(longitude, latitude);
 		const response = await fetch(
 			`${
 				env.apiUrl
@@ -21,7 +20,6 @@ const getNearbyEmergencies = async ({
 				}
 			}
 		);
-		console.log(response.ok);
 		const { emergencies } = await response.json();
 		return emergencies;
 	} catch (error) {

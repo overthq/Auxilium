@@ -66,7 +66,6 @@ class Root extends React.Component<RootProps, RootState> {
 
 TaskManager.defineTask(LOCATION_TASK, async ({ data, error }: any) => {
 	if (error) console.log(error);
-
 	if (data) {
 		const { locations } = data;
 		const {

@@ -7,12 +7,13 @@ const { height } = Dimensions.get('window');
 
 const ExpandableDetails = () => {
 	const animatedHeight = new Animated.Value(height / 4);
-	const onPanGestureEvent = () => {
-		Animated.interpolate(animatedHeight, {
-			inputRange: [0, 1],
-			outputRange: [height / 4, height / 2],
-			extrapolate: Animated.Extrapolate.CLAMP
-		});
+	const onPanGestureEvent = (event: PanGestureHandlerGestureEvent) => {
+		console.log(event);
+    // Animated.interpolate(animatedHeight, {
+    //	 inputRange: [0, 1],
+    //	 outputRange: [height / 4, height / 2],
+    //	 extrapolate: Animated.Extrapolate.CLAMP
+    // });
 	};
 
 	return (

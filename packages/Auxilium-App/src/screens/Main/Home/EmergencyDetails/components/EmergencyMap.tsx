@@ -12,63 +12,72 @@ interface IEmergencyMapProps {
 	pageDetails: Emergency;
 }
 
-const EmergencyMap = (props: IEmergencyMapProps) => {
-	const [route, setRoute] = React.useState<Coordinates[]>([]);
-	const { coordinates: fromCoords, pageDetails } = props;
-	const {
-		location: {
-			coordinates: [longitude, latitude]
-		}
-	} = pageDetails;
+class EmergencyMap extends React.Component<IEmergencyMapProps> {
+	state = {
+		route: []
+	};
 
-	const lonDelta = Math.abs(fromCoords.longitude - longitude);
-	const latDelta = Math.abs(fromCoords.latitude - latitude);
-	const longitudeDelta = lonDelta >= 0.00353 ? lonDelta : 0.00353;
-	const latitudeDelta = latDelta >= 0.00568 ? latDelta : 0.00568;
-	const centerLongitude = (fromCoords.longitude + longitude) / 2;
-	const centerLatitude = (fromCoords.latitude + latitude) / 2;
+	async componentDidMount() {
+		const { coordinates: fromCoords, pageDetails } = this.props;
+		const {
+			location: {
+				coordinates: [longitude, latitude]
+			}
+		} = pageDetails;
 
-	const from = fromCoords;
-	const to = { longitude, latitude };
+		const from = fromCoords;
+		const to = { longitude, latitude };
+		const currentRoute =
+			(await LocationHelpers.getNavigationRoute(from, to)) || [];
+		this.setState({ route: currentRoute });
+	}
 
-	React.useEffect(() => {
-		const fetchRoute = async () => {
-			const currentRoute =
-				(await LocationHelpers.getNavigationRoute(from, to)) || [];
-			setRoute(currentRoute);
-		};
-		fetchRoute();
-	}, []);
+	render() {
+		const { coordinates: fromCoords, pageDetails } = this.props;
+		const { route } = this.state;
+		const {
+			location: {
+				coordinates: [longitude, latitude]
+			}
+		} = pageDetails;
 
-	return (
-		<MapView
-			style={styles.map}
-			provider='google'
-			customMapStyle={mapStyle}
-			initialRegion={{
-				longitude: centerLongitude,
-				latitude: centerLatitude,
-				longitudeDelta,
-				latitudeDelta
-			}}
-			showsIndoors
-			showsBuildings
-			pitchEnabled={false}
-			rotateEnabled={false}
-			scrollEnabled={false}
-			zoomEnabled={false}
-		>
-			<MapView.Marker coordinate={{ longitude, latitude }}>
-				<MapMarker size={20} borderStroke={3} />
-			</MapView.Marker>
-			<MapView.Polyline
-				coordinates={route}
-				strokeColor='#FF8282'
-				strokeWidth={3}
-			/>
-		</MapView>
-	);
-};
+		const lonDelta = Math.abs(fromCoords.longitude - longitude);
+		const latDelta = Math.abs(fromCoords.latitude - latitude);
+		const longitudeDelta = lonDelta >= 0.00353 ? lonDelta : 0.00353;
+		const latitudeDelta = latDelta >= 0.00568 ? latDelta : 0.00568;
+		const centerLongitude = (fromCoords.longitude + longitude) / 2;
+		const centerLatitude = (fromCoords.latitude + latitude) / 2;
+
+		return (
+			<MapView
+				style={styles.map}
+				provider='google'
+				customMapStyle={mapStyle}
+				initialRegion={{
+					longitude: centerLongitude,
+					latitude: centerLatitude,
+					longitudeDelta,
+					latitudeDelta
+				}}
+				showsIndoors
+				showsBuildings
+				pitchEnabled={false}
+				rotateEnabled={false}
+				scrollEnabled={false}
+				zoomEnabled={false}
+			>
+				<MapView.Marker coordinate={{ longitude, latitude }}>
+					<MapMarker size={20} borderStroke={3} />
+				</MapView.Marker>
+				<MapView.Polyline
+					coordinates={route}
+					strokeColor='#FF8282'
+					strokeWidth={3}
+				/>
+			</MapView>
+		);
+	}
+}
 
 const styles = StyleSheet.create({
 	map: {

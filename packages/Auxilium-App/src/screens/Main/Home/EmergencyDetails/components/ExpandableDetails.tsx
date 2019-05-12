@@ -25,9 +25,7 @@ const ExpandableDetails = ({
 			[
 				{
 					nativeEvent: {
-						contentOffset: {
-							y: event.nativeEvent.y
-						}
+						contentOffset: { y: event.nativeEvent.y }
 					}
 				}
 			],

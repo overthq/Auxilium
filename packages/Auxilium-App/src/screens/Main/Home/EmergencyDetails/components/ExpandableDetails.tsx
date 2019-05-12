@@ -21,7 +21,6 @@ const ExpandableDetails = ({
 }: IExpandableDetailsProps) => {
 	const animatedHeight = new Animated.Value(height / 4);
 	const onPanGestureEvent = (event: PanGestureHandlerGestureEvent) => {
-		console.log(event.nativeEvent.y);
 		Animated.event(
 			[
 				{
@@ -34,10 +33,10 @@ const ExpandableDetails = ({
 			],
 			{ useNativeDriver: true }
 		);
-		// Use Animated.event to animate height between height / 4 and height / 2
+		// Use Animated.event to animate height between (height / 4) and (height / 2)
 		// Or find out if translationY is a good idea.
 		// Or, we could use scaleY to increase the vertical height
-		// Go from scaleY: height / 4 to height / 2
+		// Go from scaleY: (height / 4) to (height / 2)
 	};
 
 	return (

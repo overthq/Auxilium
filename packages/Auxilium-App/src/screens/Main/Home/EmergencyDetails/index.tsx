@@ -39,7 +39,8 @@ const EmergencyDetails = ({
 					width,
 					position: 'absolute',
 					backgroundColor: 'transparent',
-					alignItems: 'flex-end'
+					alignItems: 'center',
+					justifyContent: 'flex-end'
 				}}
 			>
 				<ExpandableDetails

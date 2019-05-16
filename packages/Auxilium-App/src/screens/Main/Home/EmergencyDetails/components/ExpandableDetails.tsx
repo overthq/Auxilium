@@ -21,11 +21,12 @@ const ExpandableDetails = ({
 }: IExpandableDetailsProps) => {
 	const animatedHeight = new Animated.Value(height / 4);
 	const onPanGestureEvent = (event: PanGestureHandlerGestureEvent) => {
+		console.log(event);
 		Animated.event(
 			[
 				{
 					nativeEvent: {
-						contentOffset: { y: event.nativeEvent.y }
+						contentOffset: { y: animatedHeight }
 					}
 				}
 			],
@@ -37,9 +38,21 @@ const ExpandableDetails = ({
 		// Go from scaleY: (height / 4) to (height / 2)
 	};
 
+	// Use the animated value
 	return (
 		<PanGestureHandler onGestureEvent={onPanGestureEvent}>
-			<Animated.View style={[styles.container, { height: animatedHeight }]}>
+			<Animated.View
+				style={[
+					styles.container,
+					{
+						transform: [
+							{
+								scaleY: height / 4
+							}
+						]
+					}
+				]}
+			>
 				<Text>{description}</Text>
 				<Text>{`${longitude}, ${latitude}`}</Text>
 				{/* Maybe the name of the city, country or address. */}

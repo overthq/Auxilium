@@ -44,13 +44,7 @@ const ExpandableDetails = ({
 			<Animated.View
 				style={[
 					styles.container,
-					{
-						transform: [
-							{
-								scaleY: height / 4
-							}
-						]
-					}
+					{ height: animatedHeight }
 				]}
 			>
 				<Text>{description}</Text>

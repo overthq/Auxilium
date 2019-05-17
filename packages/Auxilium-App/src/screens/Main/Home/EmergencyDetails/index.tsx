@@ -3,7 +3,8 @@ import {
 	SafeAreaView,
 	TouchableOpacity,
 	StyleSheet,
-	Dimensions
+	Dimensions,
+	View
 } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationScreenProps } from 'react-navigation';
@@ -11,7 +12,7 @@ import { Feather } from '@expo/vector-icons';
 import { EmergencyMap, ExpandableDetails } from './components';
 import { LocationActions } from '../../../../redux/actions';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 interface IEmergencyDetailsProps extends NavigationScreenProps {
 	coordinates: Coordinates;
@@ -32,7 +33,22 @@ const EmergencyDetails = ({
 				<Feather name='arrow-left' size={35} color='#D3D3D3' />
 			</TouchableOpacity>
 			<EmergencyMap {...{ coordinates, pageDetails }} />
-			<ExpandableDetails />
+			<View
+				style={{
+					height,
+					width,
+					position: 'absolute',
+					backgroundColor: 'transparent',
+					alignItems: 'center',
+					justifyContent: 'flex-end'
+				}}
+			>
+				<ExpandableDetails
+					description={pageDetails.description}
+					longitude={pageDetails.location.coordinates[0]}
+					latitude={pageDetails.location.coordinates[1]}
+				/>
+			</View>
 		</SafeAreaView>
 	);
 };

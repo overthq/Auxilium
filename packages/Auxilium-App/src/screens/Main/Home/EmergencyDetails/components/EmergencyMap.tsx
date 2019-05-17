@@ -111,7 +111,7 @@ class EmergencyMap extends React.Component<
 const styles = StyleSheet.create({
 	map: {
 		width,
-		height: height * 0.75
+		height: height * 0.8
 	}
 });
 

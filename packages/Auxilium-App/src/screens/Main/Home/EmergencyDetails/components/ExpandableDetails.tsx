@@ -1,24 +1,63 @@
 import React from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, Text } from 'react-native';
 import Animated from 'react-native-reanimated';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import {
+	PanGestureHandler,
+	PanGestureHandlerGestureEvent
+} from 'react-native-gesture-handler';
 
 const { height } = Dimensions.get('window');
 
-const ExpandableDetails = () => {
+interface IExpandableDetailsProps {
+	description?: string;
+	longitude: number;
+	latitude: number;
+}
+
+const ExpandableDetails = ({
+	description,
+	longitude,
+	latitude
+}: IExpandableDetailsProps) => {
 	const animatedHeight = new Animated.Value(height / 4);
 	const onPanGestureEvent = (event: PanGestureHandlerGestureEvent) => {
 		console.log(event);
-    // Animated.interpolate(animatedHeight, {
-    //	 inputRange: [0, 1],
-    //	 outputRange: [height / 4, height / 2],
-    //	 extrapolate: Animated.Extrapolate.CLAMP
-    // });
+		Animated.event(
+			[
+				{
+					nativeEvent: {
+						contentOffset: { y: animatedHeight }
+					}
+				}
+			],
+			{ useNativeDriver: true }
+		);
+		// Use Animated.event to animate height between (height / 4) and (height / 2)
+		// Or find out if translationY is a good idea.
+		// Or, we could use scaleY to increase the vertical height
+		// Go from scaleY: (height / 4) to (height / 2)
 	};
 
+	// Use the animated value
 	return (
 		<PanGestureHandler onGestureEvent={onPanGestureEvent}>
-			<Animated.View style={[styles.container, { height: animatedHeight }]} />
+			<Animated.View
+				style={[
+					styles.container,
+					{
+						transform: [
+							{
+								scaleY: height / 4
+							}
+						]
+					}
+				]}
+			>
+				<Text>{description}</Text>
+				<Text>{`${longitude}, ${latitude}`}</Text>
+				{/* Maybe the name of the city, country or address. */}
+				{/* We can also use the animation value to interpolate the opacity of the name of place text */}
+			</Animated.View>
 		</PanGestureHandler>
 	);
 };
@@ -27,7 +66,9 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#505050',
 		borderTopLeftRadius: 10,
-		borderTopRightRadius: 10
+		borderTopRightRadius: 10,
+		padding: 20,
+		width: '100%'
 	}
 });
 

@@ -41,12 +41,7 @@ const ExpandableDetails = ({
 	// Use the animated value
 	return (
 		<PanGestureHandler onGestureEvent={onPanGestureEvent}>
-			<Animated.View
-				style={[
-					styles.container,
-					{ height: animatedHeight }
-				]}
-			>
+			<Animated.View style={[styles.container, { height: animatedHeight }]}>
 				<Text>{description}</Text>
 				<Text>{`${longitude}, ${latitude}`}</Text>
 				{/* Maybe the name of the city, country or address. */}

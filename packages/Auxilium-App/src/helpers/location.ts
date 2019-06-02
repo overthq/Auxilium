@@ -36,6 +36,4 @@ const getNavigationRoute = async (from: Coordinates, to: Coordinates) => {
 	}
 };
 
-const getCoordsCenter = (from: Coordinates, to: Coordinates) => {};
-
 export default { getAddressFromCoords, getNavigationRoute };

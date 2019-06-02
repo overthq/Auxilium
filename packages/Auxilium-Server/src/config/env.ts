@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-dotenv.load();
+dotenv.config();
 
 type EnvTypes = {
 	PORT: number | any;

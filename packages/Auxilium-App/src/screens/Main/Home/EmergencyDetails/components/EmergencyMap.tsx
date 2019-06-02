@@ -20,7 +20,7 @@ interface IEmergencyMapState {
 	centerLatitude: number;
 }
 
-class EmergencyMap extends React.Component<
+class EmergencyMap extends React.PureComponent<
 	IEmergencyMapProps,
 	IEmergencyMapState
 > {

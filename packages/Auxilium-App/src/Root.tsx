@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { StatusBar } from 'react-native';
 import AppNavigator, { NavigationService } from './screens';
 import { LocationActions, EmergenciesActions } from './redux/actions';
-import { getBackgroundUpdates, LOCATION_TASK } from './tasks';
+import { LOCATION_TASK, getBackgroundUpdates } from './tasks';
 import { Emergencies } from './api';
 
 interface RootState {
@@ -16,16 +16,19 @@ interface RootProps {
 }
 
 class Root extends React.Component<RootProps, RootState> {
-	state = {
-		fontsLoaded: false
-	};
-
-	componentDidMount() {
-		const { locate, fetchEmergencies } = this.props;
-		this.loadFonts();
+	constructor(props: RootProps) {
+		super(props);
+		const { locate, fetchEmergencies } = props;
 		locate();
 		fetchEmergencies();
 		getBackgroundUpdates();
+		this.state = {
+			fontsLoaded: false
+		};
+	}
+
+	componentDidMount() {
+		this.loadFonts();
 	}
 
 	loadFonts = async () => {

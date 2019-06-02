@@ -10,6 +10,13 @@
 	},
 	"license": "GNU GPL V3",
 	"main": "node_modules/expo/AppEntry.js",
+	"scripts": {
+		"start": "expo start",
+		"ios": "expo start --ios",
+		"android": "expo start --android",
+		"lint": "eslint --fix . --ext .ts,.tsx",
+		"publish:app": "expo publish"
+	},
 	"dependencies": {
 		"@expo/vector-icons": "^10.0.1",
 		"date-fns": "^2.0.0-alpha.27",

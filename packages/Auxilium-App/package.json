@@ -38,7 +38,7 @@
 		"@types/expo": "^32.0.13",
 		"@types/expo__vector-icons": "^9.0.1",
 		"@types/haversine": "^1.1.2",
-		"@types/react": "^16.8.17",
+		"@types/react": "^16.8.1999999999",
 		"@types/react-native": "^0.57.57",
 		"@types/react-navigation": "^3.0.7",
 		"@types/react-redux": "^7.0.9",

@@ -1,6 +1,14 @@
 {
 	"name": "auxilium",
+	"description": "Emergency reporting app",
+	"version": "0.0.1",
 	"private": true,
+	"license": "GNU GPL V3",
+	"author": {
+		"name": "Oluwakorede Fashokun",
+		"email": "korede@overt.dev",
+		"url": "https://overt.dev"
+	},
 	"devDependencies": {
 		"husky": "^2.3.0",
 		"lerna": "^3.14.1"

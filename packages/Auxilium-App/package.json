@@ -1,7 +1,15 @@
 {
 	"name": "auxilium-app",
-	"main": "node_modules/expo/AppEntry.js",
+	"description": "Mobile app for Auxilium",
 	"version": "0.0.1",
+	"private": true,
+	"author": {
+		"name": "Oluwakorede Fashokun",
+		"email": "korede@overt.dev",
+		"url": "https://overt.dev"
+	},
+	"license": "GNU GPL V3",
+	"main": "node_modules/expo/AppEntry.js",
 	"scripts": {
 		"start": "expo start",
 		"android": "expo start --android",
@@ -50,6 +58,5 @@
 		"eslint-plugin-react-native": "^3.7.0",
 		"prettier": "^1.17.1",
 		"typescript": "^3.5.1"
-	},
-	"private": true
+	}
 }

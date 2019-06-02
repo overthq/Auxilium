@@ -12,7 +12,6 @@
 		"heroku-postbuild": "yarn build",
 		"start": "node dist/app"
 	},
-	"author": "Oluwakorede Fashokun <koredefashokun@gmail.com>",
 	"dependencies": {
 		"@sentry/node": "^5.4.0",
 		"dotenv": "^8.0.0",
@@ -48,5 +47,11 @@
 		"rimraf": "^2.6.3",
 		"ts-node": "^8.2.0",
 		"typescript": "^3.5.1"
-	}
+	},
+	"author": {
+		"name": "Oluwakorede Fashokun",
+		"email": "korede@overt.dev",
+		"url": "https://overt.dev"
+	},
+	"license": "GNU GPL V3"
 }

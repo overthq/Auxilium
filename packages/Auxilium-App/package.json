@@ -10,14 +10,6 @@
 	},
 	"license": "GNU GPL V3",
 	"main": "node_modules/expo/AppEntry.js",
-	"scripts": {
-		"start": "expo start",
-		"android": "expo start --android",
-		"ios": "expo start --ios",
-		"eject": "expo eject",
-		"publish:app": "expo publish",
-		"lint": "yarn eslint --fix . --ext .tsx,.ts"
-	},
 	"dependencies": {
 		"@expo/vector-icons": "^10.0.1",
 		"date-fns": "^2.0.0-alpha.27",
@@ -38,7 +30,7 @@
 		"@types/expo": "^32.0.13",
 		"@types/expo__vector-icons": "^9.0.1",
 		"@types/haversine": "^1.1.2",
-		"@types/react": "^16.8.1999999999",
+		"@types/react": "^16.8.19",
 		"@types/react-native": "^0.57.57",
 		"@types/react-navigation": "^3.0.7",
 		"@types/react-redux": "^7.0.9",

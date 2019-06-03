@@ -1,11 +1,13 @@
 import React from 'react';
 import { AppLoading, Asset, Font, TaskManager } from 'expo';
+import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { StatusBar } from 'react-native';
 import AppNavigator, { NavigationService } from './screens';
 import { LocationActions, EmergenciesActions } from './redux/actions';
 import { LOCATION_TASK, getBackgroundUpdates } from './tasks';
 import { Emergencies } from './api';
+import env from '../env';
 
 interface RootState {
 	fontsLoaded: boolean;
@@ -67,14 +69,17 @@ class Root extends React.Component<RootProps, RootState> {
 	}
 }
 
-TaskManager.defineTask(LOCATION_TASK, async ({ data, error }: any) => {
+TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
 	if (error) console.log(error);
 	if (data) {
 		const { locations } = data;
 		const {
 			coords: { longitude, latitude }
 		} = locations[0];
-		await Emergencies.managePushNotifications({ longitude, latitude });
+		const socket = io(env.apiUrl);
+		socket.on('emergency', () => {
+			Emergencies.managePushNotifications({ longitude, latitude });
+		});
 	}
 });
 

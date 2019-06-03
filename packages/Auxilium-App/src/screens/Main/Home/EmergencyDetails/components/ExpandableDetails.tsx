@@ -5,6 +5,7 @@ import {
 	PanGestureHandler,
 	PanGestureHandlerGestureEvent
 } from 'react-native-gesture-handler';
+import { LocationHelpers } from '../../../../../helpers';
 
 const { height } = Dimensions.get('window');
 
@@ -42,8 +43,13 @@ const ExpandableDetails = ({
 	return (
 		<PanGestureHandler onGestureEvent={onPanGestureEvent}>
 			<Animated.View style={[styles.container, { height: animatedHeight }]}>
-				<Text>{description}</Text>
-				<Text>{`${longitude}, ${latitude}`}</Text>
+				<Text style={styles.emergencyDescription}>{description}</Text>
+				<Text style={styles.emergencyAddress}>
+					{LocationHelpers.getAddressFromCoords({ longitude, latitude })}
+				</Text>
+				<Text style={styles.emergencyLongLat}>
+					{`${longitude}, ${latitude}`}
+				</Text>
 				{/* Maybe the name of the city, country or address. */}
 				{/* We can also use the animation value to interpolate the opacity of the name of place text */}
 			</Animated.View>
@@ -58,6 +64,21 @@ const styles = StyleSheet.create({
 		borderTopRightRadius: 10,
 		padding: 20,
 		width: '100%'
+	},
+	emergencyDescription: {
+		color: '#D3D3D3',
+		fontSize: 20,
+		fontFamily: 'Rubik Medium'
+	},
+	emergencyLongLat: {
+		color: '#D3D3D3',
+		fontSize: 16,
+		fontFamily: 'Rubik Regular'
+	},
+	emergencyAddress: {
+		fontSize: 18,
+		color: '#D3D3D3',
+		fontFamily: 'Rubik Regular'
 	}
 });
 

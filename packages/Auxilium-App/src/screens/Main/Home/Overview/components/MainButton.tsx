@@ -5,9 +5,7 @@ const MainButton = ({ onPress }: { onPress(): void }) => (
 	<TouchableOpacity style={styles.buttonHolder} {...{ onPress }}>
 		<View style={styles.button}>
 			<View style={styles.buttonInner}>
-				<Text style={{ fontSize: 30, color: '#FFFFFF', fontWeight: 'bold' }}>
-					!
-				</Text>
+				<Text style={styles.buttonText}>!</Text>
 			</View>
 		</View>
 	</TouchableOpacity>
@@ -36,6 +34,11 @@ const styles = {
 		alignItems: 'center' as 'center',
 		justifyContent: 'center' as 'center',
 		backgroundColor: '#FF8282'
+	},
+	buttonText: {
+		fontSize: 30,
+		color: '#FFFFFF',
+		fontWeight: 'bold' as 'bold'
 	}
 };
 

@@ -9,7 +9,7 @@ interface AroundYouProps {
 const AroundYou = ({ emergencies, navigate }: AroundYouProps) => (
 	<>
 		{emergencies.map((item, index) => (
-			<HistoryItem key={index} {...item} onPress={() => navigate(item)} />
+			<HistoryItem key={index} onPress={() => navigate(item)} {...item} />
 		))}
 	</>
 );

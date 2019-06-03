@@ -72,12 +72,10 @@ class Overview extends React.PureComponent<OverviewProps, OverviewState> {
 	render() {
 		const { onRegionChange } = this;
 		const { place, region } = this.state;
-		const { coordinates, navigation, emergencies } = this.props;
+		const { coordinates, navigation, emergencies = [] } = this.props;
 		return (
 			<SafeAreaView style={styles.container}>
-				<ScrollView
-					contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }}
-				>
+				<ScrollView contentContainerStyle={styles.scrollContainer}>
 					<View style={styles.top}>
 						<Text style={styles.locationName}>{place}</Text>
 						<Ionicons name='md-funnel' size={22} color='#D3D3D3' />
@@ -86,16 +84,14 @@ class Overview extends React.PureComponent<OverviewProps, OverviewState> {
 						{...{ coordinates, region, onRegionChange, emergencies }}
 					/>
 					<Text style={styles.sectionHeader}>Around You</Text>
-					{emergencies && (
-						<AroundYou
-							navigate={(emergency: Emergency) =>
-								navigation.navigate('EmergencyDetails', {
-									details: emergency
-								})
-							}
-							{...{ emergencies }}
-						/>
-					)}
+					<AroundYou
+						navigate={(emergency: Emergency) =>
+							navigation.navigate('EmergencyDetails', {
+								details: emergency
+							})
+						}
+						{...{ emergencies }}
+					/>
 				</ScrollView>
 				<MainButton
 					onPress={() =>

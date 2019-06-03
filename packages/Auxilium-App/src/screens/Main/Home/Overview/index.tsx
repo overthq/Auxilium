@@ -33,13 +33,8 @@ class Overview extends React.PureComponent<OverviewProps, OverviewState> {
 	}
 
 	async componentDidMount() {
-		const {
-			coordinates: { longitude, latitude }
-		} = this.props;
-		const place = await LocationHelpers.getAddressFromCoords({
-			longitude,
-			latitude
-		});
+		const { coordinates } = this.props;
+		const place = await LocationHelpers.getAddressFromCoords(coordinates);
 		await this.setState({ place });
 	}
 
@@ -51,7 +46,7 @@ class Overview extends React.PureComponent<OverviewProps, OverviewState> {
 		const { locate, coordinates } = this.props;
 		try {
 			await locate();
-			EmergenciesActions.socket.emit('emergency', {
+			await EmergenciesActions.socket.emit('emergency', {
 				deviceId: Constants.deviceId,
 				location: {
 					type: 'Point',

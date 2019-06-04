@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
+import {
+	View,
+	Text,
+	Dimensions,
+	TouchableOpacity,
+	StyleSheet
+} from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import LocationHelpers from '../../../../../helpers/location';
 
@@ -47,7 +53,7 @@ class HistoryItem extends React.Component<
 	}
 }
 
-const styles = {
+const styles = StyleSheet.create({
 	historySection: {
 		borderRadius: 6,
 		backgroundColor: 'rgba(255, 255, 255, 0.05)',
@@ -57,13 +63,13 @@ const styles = {
 		marginBottom: 10
 	},
 	headerRow: {
-		display: 'flex' as 'flex',
-		flexDirection: 'row' as 'row',
+		display: 'flex',
+		flexDirection: 'row',
 		marginBottom: 10
 	},
 	locationText: {
 		fontFamily: 'Rubik Regular',
-		textTransform: 'uppercase' as 'uppercase',
+		textTransform: 'uppercase',
 		letterSpacing: 1,
 		color: '#D3D3D3',
 		marginLeft: 6
@@ -72,6 +78,6 @@ const styles = {
 		color: '#777777',
 		fontSize: 14
 	}
-};
+});
 
 export default HistoryItem;

@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { MapView, Constants, Region } from 'expo';
+import { Constants, Region } from 'expo';
 import { NavigationScreenProps } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 
 import { LocationActions, EmergenciesActions } from '../../../../redux/actions';
-import { MapMarker, MainButton, AroundYou, NearbyMap } from './components';
+import { MainButton, AroundYou, NearbyMap } from './components';
 import LocationHelpers from '../../../../helpers/location';
 import styles from './styles';
 
@@ -33,13 +33,8 @@ class Overview extends React.PureComponent<OverviewProps, OverviewState> {
 	}
 
 	async componentDidMount() {
-		const {
-			coordinates: { longitude, latitude }
-		} = this.props;
-		const place = await LocationHelpers.getAddressFromCoords({
-			longitude,
-			latitude
-		});
+		const { coordinates } = this.props;
+		const place = await LocationHelpers.getAddressFromCoords(coordinates);
 		await this.setState({ place });
 	}
 
@@ -51,7 +46,7 @@ class Overview extends React.PureComponent<OverviewProps, OverviewState> {
 		const { locate, coordinates } = this.props;
 		try {
 			await locate();
-			EmergenciesActions.socket.emit('emergency', {
+			await EmergenciesActions.socket.emit('emergency', {
 				deviceId: Constants.deviceId,
 				location: {
 					type: 'Point',
@@ -65,55 +60,33 @@ class Overview extends React.PureComponent<OverviewProps, OverviewState> {
 		}
 	};
 
-	renderMarkers = (emergencies: Emergency[]) => {
-		if (!emergencies) return null;
-		return emergencies.map((emergency: Emergency, index: number) => (
-			<MapView.Marker
-				key={index}
-				coordinate={{
-					longitude: emergency.location.coordinates[0],
-					latitude: emergency.location.coordinates[1]
-				}}
-			>
-				<MapMarker size={16} />
-			</MapView.Marker>
-		));
-	};
-
 	onRegionChange = (region: Region) => {
 		this.setState({ region });
 	};
 
 	render() {
+		const { onRegionChange } = this;
 		const { place, region } = this.state;
-		const { coordinates, navigation, emergencies } = this.props;
+		const { coordinates, navigation, emergencies = [] } = this.props;
 		return (
 			<SafeAreaView style={styles.container}>
-				<ScrollView
-					contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }}
-				>
+				<ScrollView contentContainerStyle={styles.scrollContainer}>
 					<View style={styles.top}>
 						<Text style={styles.locationName}>{place}</Text>
 						<Ionicons name='md-funnel' size={22} color='#D3D3D3' />
 					</View>
 					<NearbyMap
-						coordinates={coordinates}
-						region={region}
-						onRegionChange={this.onRegionChange}
-					>
-						{emergencies && this.renderMarkers(emergencies.slice(0, 5))}
-					</NearbyMap>
+						{...{ coordinates, region, onRegionChange, emergencies }}
+					/>
 					<Text style={styles.sectionHeader}>Around You</Text>
-					{emergencies && (
-						<AroundYou
-							navigate={(emergency: Emergency) =>
-								navigation.navigate('EmergencyDetails', {
-									details: emergency
-								})
-							}
-							{...{ emergencies }}
-						/>
-					)}
+					<AroundYou
+						navigate={(emergency: Emergency) =>
+							navigation.navigate('EmergencyDetails', {
+								details: emergency
+							})
+						}
+						{...{ emergencies }}
+					/>
 				</ScrollView>
 				<MainButton
 					onPress={() =>

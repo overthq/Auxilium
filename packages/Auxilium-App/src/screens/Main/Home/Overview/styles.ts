@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
 		backgroundColor: '#1C1C1C',
 		alignItems: 'center'
 	},
+	scrollContainer: {
+		flexGrow: 1,
+		alignItems: 'center'
+	},
 	top: {
 		width,
 		padding: 0.05 * width,

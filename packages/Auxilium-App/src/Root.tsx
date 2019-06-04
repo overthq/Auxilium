@@ -67,14 +67,17 @@ class Root extends React.Component<RootProps, RootState> {
 	}
 }
 
-TaskManager.defineTask(LOCATION_TASK, async ({ data, error }: any) => {
+TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
 	if (error) console.log(error);
 	if (data) {
 		const { locations } = data;
 		const {
 			coords: { longitude, latitude }
 		} = locations[0];
-		await Emergencies.managePushNotifications({ longitude, latitude });
+		setInterval(
+			Emergencies.managePushNotifications({ longitude, latitude }),
+			1000
+		);
 	}
 });
 

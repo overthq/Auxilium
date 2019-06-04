@@ -22,11 +22,11 @@ export default class Popup extends React.Component<
 		text: ''
 	};
 
-	onSubmit = () => {
+	onSubmit = async () => {
 		const { navigation } = this.props;
-		const action = navigation.getParam('action');
 		const { text } = this.state;
-		action(text);
+		const action = navigation.getParam('action');
+		await action(text);
 		navigation.pop();
 	};
 

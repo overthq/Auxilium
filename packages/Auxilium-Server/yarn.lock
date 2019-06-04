@@ -157,9 +157,9 @@
     "@types/node" "*"
 
 "@types/mongoose@^5.5.3":
-  version "5.5.3"
-  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.5.3.tgz#41d912dc1e236f6ce15cbebcc1b7b94b38eda9d4"
-  integrity sha512-HTHlGl81+LcG9b9Bgyn2Jjl8MO8Tx4FZLRVSf3+SpVl7kRF2iUY/C8vZH5Vj7UvLQGSrUGkt+fJUBrmsD1HucQ==
+  version "5.5.5"
+  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.5.5.tgz#c8d8a2632fb03c7c9879a9ec9eed88a4e28f1956"
+  integrity sha512-EqeWg6UkoraYA9W/Gbyer2I/KT6rWwSkPkdsl3dcB81RHadQdpxpV7tyOdPTCCLxDcqzkILrA4Vtt/Zqx3YZaA==
   dependencies:
     "@types/mongodb" "*"
     "@types/node" "*"

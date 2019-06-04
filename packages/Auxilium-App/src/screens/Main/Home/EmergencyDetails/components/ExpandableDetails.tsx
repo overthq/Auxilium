@@ -63,7 +63,7 @@ class ExpandableDetails extends React.PureComponent<
 					<Text style={styles.emergencyDescription}>{description}</Text>
 					<Text style={styles.emergencyAddress}>{place}</Text>
 					<Text style={styles.emergencyLongLat}>
-						{`${longitude}, ${latitude}`}
+						{`${longitude.toFixed(4)}, ${latitude.toFixed(4)}`}
 					</Text>
 					{/* We can also use the animation value to interpolate the opacity of the name of place text */}
 				</Animated.View>
@@ -85,14 +85,15 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontFamily: 'Rubik Medium'
 	},
-	emergencyLongLat: {
-		color: '#D3D3D3',
-		fontSize: 16,
-		fontFamily: 'Rubik Regular'
-	},
 	emergencyAddress: {
 		fontSize: 18,
 		color: '#D3D3D3',
+		fontFamily: 'Rubik Regular',
+		marginVertical: 5
+	},
+	emergencyLongLat: {
+		color: '#a0a0a0',
+		fontSize: 14,
 		fontFamily: 'Rubik Regular'
 	}
 });

@@ -14,7 +14,7 @@ In [my country](https://en.wikipedia.org/wiki/Nigeria), many people die because 
 
 ## Project Phase
 
-This project is currently in the *pre-launch* phase, being developed by [Oluwakorede Fashokun](https://github/com/koredefashokun) for [Overt](https://overt.dev), a concept that creates open-source software to solve many of the problems we face in the world. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412), or follow Overt on Twitter [here](https://twitter.com/overt_hq).
+This project is currently in the _pre-launch_ phase, being developed by [Oluwakorede Fashokun](https://github/com/koredefashokun) for [Overt](https://overt.dev), a concept that creates open-source software to solve many of the problems we face in the world. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412), or follow Overt on Twitter [here](https://twitter.com/overt_hq).
 
 ## Installation
 
@@ -45,8 +45,21 @@ yarn
 # Install required dependencies
 yarn lerna bootstrap
 
-# Start the entire project
-yarn lerna run start
+# SERVER-SIDE (Be sure to read the Auxilium-Server docs)
+
+# Start MongoDB (in a seperate terminal)
+mongod
+
+# Start the backend server (after including the necessary vars in the server's .env file)
+cd packages/Auxilium-Server
+yarn dev
+
+# CLIENT-SIDE
+
+# Start the Expo app
+cd packages/Auxilium-App
+expo start
+
 ```
 
 ## Contributing

@@ -1,3 +1,23 @@
 {
-	"name": "@auxilium/server-core"
+	"name": "@auxilium/server-core",
+	"description": "Shared infrastructure of Auxilium server-side services",
+	"version": "0.0.1",
+	"private": true,
+	"license": "GNU GPL V3",
+	"author": {
+		"name": "Oluwakorede Fashokun",
+		"email": "korede@overt.dev",
+		"url": "https://overt.dev"
+	},
+	"scripts": {
+		"build": "tsc -b"
+	},
+	"dependencies": {
+		"mongoose": "^5.5.12"
+	},
+	"devDependencies": {
+		"@types/mongoose": "^5.5.5",
+		"eslint": "^5.16.0",
+		"typescript": "^3.5.1"
+	}
 }

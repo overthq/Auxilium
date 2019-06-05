@@ -44,7 +44,6 @@
 		"@types/react-redux": "^7.0.9",
 		"@types/redux-logger": "^3.0.7",
 		"@types/socket.io-client": "^1.4.32",
-		"@types/yup": "^0.26.13",
 		"babel-preset-expo": "^5.1.1",
 		"eslint": "^5.16.0",
 		"expo-yarn-workspaces": "^1.2.0",

@@ -1,7 +1,8 @@
 import 'mocha';
-import * as chai from 'chai';
-import chaiHttp = require('chai-http');
+import chai from 'chai';
 import app from '../src/app';
+
+import chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 chai.should();

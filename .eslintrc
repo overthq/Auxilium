@@ -1,57 +1,41 @@
 {
 	"parser": "@typescript-eslint/parser",
-	"plugins": [
-		"@typescript-eslint",
-		"react",
-		"react-native",
-		"prettier",
-		"import"
-	],
+	"plugins": ["@typescript-eslint", "react", "react-native", "import"],
 	"parserOptions": {
 		"sourceType": "module"
 	},
 	"env": {
 		"browser": true,
-		"node": true
+		"node": true,
+		"jest": true,
+		"mocha": true
 	},
 	"extends": [
-		"airbnb",
 		"prettier",
-		"plugin:prettier/recommended",
+		"plugin:@typescript-eslint/recommended",
 		"plugin:react/recommended",
-		"prettier/react",
-		"prettier/@typescript-eslint"
+		"prettier/@typescript-eslint",
+		"prettier/react"
 	],
 	"rules": {
-		"comma-dangle": "off",
-		"import/no-extraneous-dependencies": 0,
 		"indent": 0,
 		"no-tabs": 0,
 		"no-unused-vars": ["off"],
 		"no-use-before-define": 0,
-		"jsx-quotes": ["error", "prefer-single"],
-		"prettier/prettier": [
-			"error",
-			{
-				"singleQuote": true,
-				"useTabs": true,
-				"tabWidth": 2,
-				"semi": true,
-				"jsxSingleQuote": true,
-				"trailingComma": "none",
-				"bracketSpacing": true,
-				"arrowParens": "avoid",
-				"endOfLine": "lf"
-			}
-		],
-		"react/jsx-filename-extension": [2, { "extensions": [".jsx", ".tsx"] }],
-		"react/no-array-index-key": 0
+		"react/jsx-filename-extension": [2, { "extensions": [".tsx"] }],
+		"react/no-array-index-key": 0,
+		"@typescript-eslint/no-use-before-define": 0,
+		"@typescript-eslint/explicit-member-accessibility": 0,
+		"@typescript-eslint/explicit-function-return-type": 0
 	},
 	"settings": {
 		"import/resolver": {
 			"node": {
 				"extensions": [".ts", ".tsx"]
 			}
+		},
+		"react": {
+			"version": "detect"
 		}
 	},
 	"globals": {

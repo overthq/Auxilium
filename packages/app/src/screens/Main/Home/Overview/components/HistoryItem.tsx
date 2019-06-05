@@ -7,7 +7,7 @@ import {
 	StyleSheet
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import LocationHelpers from '../../../../../helpers/location';
+import { LocationHelpers } from '../../../../../helpers';
 
 const { width } = Dimensions.get('window');
 

@@ -13,6 +13,7 @@ const { width } = Dimensions.get('window');
 
 interface HistoryItemProps extends Emergency {
 	onPress(): void;
+	createdAt: Date;
 }
 
 class HistoryItem extends React.Component<
@@ -38,7 +39,7 @@ class HistoryItem extends React.Component<
 
 	render() {
 		const { address } = this.state;
-		const { description, onPress } = this.props;
+		const { description, createdAt, onPress } = this.props;
 		return (
 			<TouchableOpacity activeOpacity={0.6} {...{ onPress }}>
 				<View style={styles.historySection}>
@@ -47,6 +48,7 @@ class HistoryItem extends React.Component<
 						<Text style={styles.locationText}>{address}</Text>
 					</View>
 					<Text style={styles.descriptionText}>{description}</Text>
+					<Text>{createdAt}</Text>
 				</View>
 			</TouchableOpacity>
 		);

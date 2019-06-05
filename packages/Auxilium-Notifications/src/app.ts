@@ -1,13 +1,10 @@
 import * as WebSocket from 'ws';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
-
-const { PORT } = process.env;
+import { PORT } from './config/env';
+import './config/database';
 
 const ws = new WebSocket.Server({ port: Number(PORT) });
 
-ws.on('listening', () => {
+ws.once('listening', () => {
 	console.log('Notifications server started.');
 });
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
 
-interface INewMarkerProps {
+interface NewMarkerProps {
 	size: number;
 	borderStroke?: number;
 }
 
-const MapMarker = ({ size }: INewMarkerProps) => (
+const MapMarker = ({ size, borderStroke }: NewMarkerProps) => (
 	<View
 		style={{
 			height: size,

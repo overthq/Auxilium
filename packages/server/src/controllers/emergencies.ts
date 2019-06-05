@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import * as haversine from 'haversine';
+import haversine from 'haversine';
 import { Emergency, User } from '../models';
 import { sendNotification } from '../helpers';
 

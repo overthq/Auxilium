@@ -1,5 +1,5 @@
 {
-	"name": "auxilium-server",
+	"name": "@auxilium/server",
 	"private": true,
 	"main": "dist/app.js",
 	"version": "0.0.1",
@@ -31,6 +31,7 @@
 		"@types/jsonwebtoken": "^8.3.2",
 		"@types/mocha": "^5.2.7",
 		"@types/mongoose": "^5.5.3",
+		"@types/node-fetch": "^2.3.4",
 		"@types/socket.io": "^2.1.2",
 		"@typescript-eslint/eslint-plugin": "^1.9.0",
 		"@typescript-eslint/parser": "^1.9.0",

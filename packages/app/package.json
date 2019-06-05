@@ -1,5 +1,5 @@
 {
-	"name": "auxilium-app",
+	"name": "@auxilium/app",
 	"description": "Mobile app for Auxilium",
 	"version": "0.0.1",
 	"private": true,
@@ -9,8 +9,9 @@
 		"url": "https://overt.dev"
 	},
 	"license": "GNU GPL V3",
-	"main": "node_modules/expo/AppEntry.js",
+	"main": "__generated__/AppEntry.js",
 	"scripts": {
+		"postinstall": "expo-yarn-workspaces postinstall",
 		"start": "expo start",
 		"ios": "expo start --ios",
 		"android": "expo start --android",
@@ -44,17 +45,9 @@
 		"@types/redux-logger": "^3.0.7",
 		"@types/socket.io-client": "^1.4.32",
 		"@types/yup": "^0.26.13",
-		"@typescript-eslint/eslint-plugin": "^1.9.0",
-		"@typescript-eslint/parser": "^1.9.0",
 		"babel-preset-expo": "^5.1.1",
 		"eslint": "^5.16.0",
-		"eslint-config-airbnb": "^17.1.0",
-		"eslint-config-prettier": "^4.3.0",
-		"eslint-plugin-import": "^2.17.2",
-		"eslint-plugin-jsx-a11y": "^6.2.1",
-		"eslint-plugin-prettier": "^3.1.0",
-		"eslint-plugin-react": "^7.13.0",
-		"eslint-plugin-react-native": "^3.7.0",
+		"expo-yarn-workspaces": "^1.2.0",
 		"prettier": "^1.17.1",
 		"typescript": "^3.5.1"
 	}

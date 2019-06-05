@@ -1,7 +1,7 @@
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import env from './env';
 
-mongoose.connect(env.DB_URI, { useNewUrlParser: true });
+mongoose.connect(env.DB_URI, { useNewUrlParser: true, useCreateIndex: true });
 
 const db = mongoose.connection;
 

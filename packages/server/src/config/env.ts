@@ -1,4 +1,5 @@
-import * as dotenv from 'dotenv';
+import dotenv from 'dotenv';
+
 dotenv.config();
 
 type EnvTypes = {
@@ -7,7 +8,7 @@ type EnvTypes = {
 	SENTRY_DSN: string;
 };
 
-const { PORT, DB_URI, SENTRY_DSN } = process.env;
+const { PORT, DB_URI, SENTRY_DSN } = process.env as { [key: string]: string };
 
 const env: EnvTypes = { PORT, DB_URI, SENTRY_DSN };
 

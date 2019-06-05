@@ -1,12 +1,11 @@
-import * as http from 'http';
-import * as express from 'express';
-import * as socketIO from 'socket.io';
+import http from 'http';
+import express from 'express';
+import socketIO from 'socket.io';
 import * as Sentry from '@sentry/node';
 
 import router from './router';
 import env from './config/env';
 import './config/database';
-
 import { Emergency } from './models';
 
 const app: express.Application = express();

@@ -15,43 +15,36 @@ interface HistoryItemProps extends Emergency {
 	onPress(): void;
 }
 
-class HistoryItem extends React.Component<
-	HistoryItemProps,
-	{ address: string }
-> {
-	state = {
-		address: ''
-	};
+const HistoryItem = ({ onPress, description, location }: HistoryItemProps) => {
+	const [address, setAddress] = React.useState('');
 
-	async componentDidMount() {
+	const preload = async () => {
 		const {
-			location: {
-				coordinates: [longitude, latitude]
-			}
-		} = this.props;
+			coordinates: [longitude, latitude]
+		} = location;
 		const address = await LocationHelpers.getAddressFromCoords({
 			longitude,
 			latitude
 		});
-		this.setState({ address });
-	}
+		setAddress(address);
+	};
 
-	render() {
-		const { address } = this.state;
-		const { description, onPress } = this.props;
-		return (
-			<TouchableOpacity activeOpacity={0.6} {...{ onPress }}>
-				<View style={styles.historySection}>
-					<View style={styles.headerRow}>
-						<Feather name='navigation' size={16} color='#D3D3D3' />
-						<Text style={styles.locationText}>{address}</Text>
-					</View>
-					<Text style={styles.descriptionText}>{description}</Text>
+	React.useEffect(() => {
+		preload();
+	}, []);
+
+	return (
+		<TouchableOpacity activeOpacity={0.6} {...{ onPress }}>
+			<View style={styles.historySection}>
+				<View style={styles.headerRow}>
+					<Feather name='navigation' size={16} color='#D3D3D3' />
+					<Text style={styles.locationText}>{address}</Text>
 				</View>
-			</TouchableOpacity>
-		);
-	}
-}
+				<Text style={styles.descriptionText}>{description}</Text>
+			</View>
+		</TouchableOpacity>
+	);
+};
 
 const styles = StyleSheet.create({
 	historySection: {

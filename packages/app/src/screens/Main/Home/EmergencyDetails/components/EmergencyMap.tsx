@@ -1,18 +1,18 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import { MapView } from 'expo';
+import MapView from 'react-native-maps';
 import { MapMarker } from '../../Overview/components';
 import { LocationHelpers } from '../../../../../helpers';
 import mapStyle from './mapStyle';
 
 const { width, height } = Dimensions.get('window');
 
-interface IEmergencyMapProps {
+interface EmergencyMapProps {
 	coordinates: Coordinates;
 	pageDetails: Emergency;
 }
 
-interface IEmergencyMapState {
+interface EmergencyMapState {
 	route: Coordinates[];
 	longitudeDelta: number;
 	latitudeDelta: number;
@@ -20,26 +20,32 @@ interface IEmergencyMapState {
 	centerLatitude: number;
 }
 
-class EmergencyMap extends React.PureComponent<
-	IEmergencyMapProps,
-	IEmergencyMapState
-> {
-	state = {
-		route: [],
-		longitudeDelta: 0,
-		latitudeDelta: 0,
-		centerLongitude: 0,
-		centerLatitude: 0
-	};
+const initialState: EmergencyMapState = {
+	route: [],
+	longitudeDelta: 0,
+	latitudeDelta: 0,
+	centerLongitude: 0,
+	centerLatitude: 0
+};
 
-	async componentDidMount() {
-		const { coordinates: fromCoords, pageDetails } = this.props;
-		const {
-			location: {
-				coordinates: [longitude, latitude]
-			}
-		} = pageDetails;
+const EmergencyMap = (props: EmergencyMapProps) => {
+	const { coordinates: fromCoords, pageDetails } = props;
+	const {
+		location: {
+			coordinates: [longitude, latitude]
+		}
+	} = pageDetails;
+	const [state, setState] = React.useReducer(
+		(p, n) => ({ ...p, ...n }),
+		initialState
+	);
 
+	React.useEffect(() => {
+		preload();
+		return () => setState(null);
+	}, []);
+
+	const preload = async () => {
 		const lonDelta = Math.abs(fromCoords.longitude - longitude);
 		const latDelta = Math.abs(fromCoords.latitude - latitude);
 		const longitudeDelta = lonDelta >= 0.00353 ? lonDelta : 0.00353;
@@ -47,7 +53,7 @@ class EmergencyMap extends React.PureComponent<
 		const centerLongitude = (fromCoords.longitude + longitude) / 2;
 		const centerLatitude = (fromCoords.latitude + latitude) / 2;
 
-		await this.setState({
+		await setState({
 			longitudeDelta,
 			latitudeDelta,
 			centerLongitude,
@@ -58,55 +64,46 @@ class EmergencyMap extends React.PureComponent<
 		const to = { longitude, latitude };
 		const currentRoute =
 			(await LocationHelpers.getNavigationRoute(from, to)) || [];
-		this.setState({ route: currentRoute });
-	}
+		setState({ route: currentRoute });
+	};
 
-	render() {
-		const { pageDetails } = this.props;
-		const {
-			route,
-			longitudeDelta,
-			latitudeDelta,
-			centerLongitude,
-			centerLatitude
-		} = this.state;
+	const {
+		route,
+		longitudeDelta,
+		latitudeDelta,
+		centerLongitude,
+		centerLatitude
+	} = state;
 
-		const {
-			location: {
-				coordinates: [longitude, latitude]
-			}
-		} = pageDetails;
-
-		return (
-			<MapView
-				style={styles.map}
-				provider='google'
-				customMapStyle={mapStyle}
-				initialRegion={{
-					longitude: centerLongitude,
-					latitude: centerLatitude,
-					longitudeDelta,
-					latitudeDelta
-				}}
-				showsIndoors
-				showsBuildings
-				pitchEnabled={false}
-				rotateEnabled={false}
-				scrollEnabled={false}
-				zoomEnabled={false}
-			>
-				<MapView.Marker coordinate={{ longitude, latitude }}>
-					<MapMarker size={20} borderStroke={3} />
-				</MapView.Marker>
-				<MapView.Polyline
-					coordinates={route}
-					strokeColor='#FF8282'
-					strokeWidth={3}
-				/>
-			</MapView>
-		);
-	}
-}
+	return (
+		<MapView
+			style={styles.map}
+			provider='google'
+			customMapStyle={mapStyle}
+			initialRegion={{
+				longitude: centerLongitude,
+				latitude: centerLatitude,
+				longitudeDelta,
+				latitudeDelta
+			}}
+			showsIndoors
+			showsBuildings
+			pitchEnabled={false}
+			rotateEnabled={false}
+			scrollEnabled={false}
+			zoomEnabled={false}
+		>
+			<MapView.Marker coordinate={{ longitude, latitude }}>
+				<MapMarker size={20} borderStroke={3} />
+			</MapView.Marker>
+			<MapView.Polyline
+				coordinates={route}
+				strokeColor='#FF8282'
+				strokeWidth={3}
+			/>
+		</MapView>
+	);
+};
 
 const styles = StyleSheet.create({
 	map: {

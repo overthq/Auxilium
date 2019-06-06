@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
-import { MapView, Region } from 'expo';
+import MapView, { Region } from 'react-native-maps';
 import mapStyle from './mapStyle';
 import MapMarker from './MapMarker';
 

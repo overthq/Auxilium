@@ -74,10 +74,9 @@ TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
 		const {
 			coords: { longitude, latitude }
 		} = locations[0] as { coords: Coordinates };
-		setInterval(
-			Emergencies.managePushNotifications({ longitude, latitude }),
-			1000
-		);
+		setInterval(() => {
+			Emergencies.managePushNotifications({ longitude, latitude })
+		}, 1000);
 	}
 });
 

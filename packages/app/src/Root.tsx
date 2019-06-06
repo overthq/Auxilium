@@ -1,37 +1,41 @@
 import React from 'react';
-import { AppLoading, Asset, Font, TaskManager } from 'expo';
+import { Asset } from 'expo-asset';
+import * as Font from 'expo-font';
+import { AppLoading, TaskManager } from 'expo';
 import { connect } from 'react-redux';
 import { StatusBar } from 'react-native';
-import AppNavigator, { NavigationService } from './screens';
+import AppNavigator from './screens';
 import { LocationActions, EmergenciesActions } from './redux/actions';
 import { LOCATION_TASK, getBackgroundUpdates } from './tasks';
 import { Emergencies } from './api';
+import { AuthHelpers } from './helpers';
 
-interface RootState {
-	fontsLoaded: boolean;
-}
 interface RootProps {
 	locate(): Promise<void>;
 	fetchEmergencies(): Promise<void>;
 }
 
-class Root extends React.Component<RootProps, RootState> {
-	constructor(props: RootProps) {
-		super(props);
-		const { locate, fetchEmergencies } = props;
+const Root = (props: RootProps) => {
+	const { locate, fetchEmergencies } = props;
+	const [fontsLoaded, setFontsLoaded] = React.useState(false);
+	const [loggedIn, setLoggedIn] = React.useState(false);
+
+	const preload = async () => {
+		const status = await AuthHelpers.checkAuthStatus();
+		setLoggedIn(!!status);
+	};
+
+	React.useEffect(() => {
+		loadAssets();
+		loadFonts();
 		locate();
 		fetchEmergencies();
 		getBackgroundUpdates();
-		this.state = {
-			fontsLoaded: false
-		};
-	}
+		preload();
+		StatusBar.setBarStyle('light-content');
+	}, []);
 
-	componentDidMount() {
-		this.loadFonts();
-	}
-
-	loadFonts = async () => {
+	const loadFonts = async () => {
 		await Font.loadAsync({
 			/* eslint-disable global-require */
 			'Rubik Regular': require('../assets/fonts/Rubik-Regular.ttf'),
@@ -39,10 +43,10 @@ class Root extends React.Component<RootProps, RootState> {
 			'Rubik Bold': require('../assets/fonts/Rubik-Bold.ttf'),
 			'Rubik Black': require('../assets/fonts/Rubik-Black.ttf')
 		});
-		this.setState({ fontsLoaded: true });
+		setFontsLoaded(true);
 	};
 
-	loadAssets = () => {
+	const loadAssets = () => {
 		const images = [
 			require('../assets/Notify.png'),
 			require('../assets/Help_Others.png'),
@@ -53,19 +57,9 @@ class Root extends React.Component<RootProps, RootState> {
 		});
 	};
 
-	render() {
-		const { fontsLoaded } = this.state;
-		StatusBar.setBarStyle('light-content');
-		if (!fontsLoaded) return <AppLoading />;
-		return (
-			<AppNavigator
-				ref={(navigatorRef: any) => {
-					NavigationService.setTopLevelNavigator(navigatorRef);
-				}}
-			/>
-		);
-	}
-}
+	if (!fontsLoaded) return <AppLoading />;
+	return <AppNavigator {...{ loggedIn }} />;
+};
 
 TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
 	if (error) console.log(error);

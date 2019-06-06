@@ -23,28 +23,33 @@ interface OverviewProps extends NavigationScreenProps {
 	fetchEmergencies(): void;
 }
 
-class Overview extends React.PureComponent<OverviewProps, OverviewState> {
-	constructor(props: OverviewProps) {
-		super(props);
-		props.fetchEmergencies();
-		this.state = {
-			place: '',
-			region: undefined
-		};
-	}
+const initialState: OverviewState = {
+	place: '',
+	region: undefined
+};
 
-	async componentDidMount() {
-		const { coordinates } = this.props;
+const Overview = (props: OverviewProps) => {
+	const { locate, coordinates, navigation, emergencies = [] } = props;
+	const [state, setState] = React.useReducer(
+		(p, n) => ({ ...p, ...n }),
+		initialState
+	);
+
+	const preload = async () => {
+		await locate();
 		const place = await LocationHelpers.getAddressFromCoords(coordinates);
-		await this.setState({ place });
-	}
+		await setState({ place });
+	};
 
-	componentWillUnmount() {
-		EmergenciesActions.socket.removeAllListeners();
-	}
+	React.useEffect(() => {
+		preload();
+		props.fetchEmergencies();
+		return () => {
+			EmergenciesActions.socket.removeAllListeners();
+		};
+	}, []);
 
-	askForHelp = async (description: string) => {
-		const { locate, coordinates } = this.props;
+	const askForHelp = async (description: string) => {
 		try {
 			await locate();
 			await EmergenciesActions.socket.emit('emergency', {
@@ -61,51 +66,40 @@ class Overview extends React.PureComponent<OverviewProps, OverviewState> {
 		}
 	};
 
-	onRegionChange = (region: Region) => {
-		this.setState({ region });
+	const onRegionChange = (region: Region) => {
+		setState({ region });
 	};
 
-	render() {
-		const { onRegionChange } = this;
-		const { place, region } = this.state;
-		const { coordinates, navigation, emergencies = [] } = this.props;
-		return (
-			<SafeAreaView style={styles.container}>
-				<ScrollView contentContainerStyle={styles.scrollContainer}>
-					<View style={styles.top}>
-						<Text style={styles.locationName}>{place}</Text>
-						<Ionicons name='md-funnel' size={22} color='#D3D3D3' />
-					</View>
-					<NearbyMap
-						{...{ coordinates, region, onRegionChange, emergencies }}
-					/>
-					<Text style={styles.sectionHeader}>Around You</Text>
-					<AroundYou
-						navigate={(emergency: Emergency) =>
-							navigation.navigate('EmergencyDetails', {
-								details: emergency
-							})
-						}
-						{...{ emergencies }}
-					/>
-				</ScrollView>
-				<MainButton
-					onPress={() =>
-						navigation.navigate('Popup', {
-							action: this.askForHelp
+	const { place, region } = state;
+
+	return (
+		<SafeAreaView style={styles.container}>
+			<ScrollView contentContainerStyle={styles.scrollContainer}>
+				<View style={styles.top}>
+					<Text style={styles.locationName}>{place}</Text>
+					<Ionicons name='md-funnel' size={22} color='#D3D3D3' />
+				</View>
+				<NearbyMap {...{ coordinates, region, onRegionChange, emergencies }} />
+				<Text style={styles.sectionHeader}>Around You</Text>
+				<AroundYou
+					navigate={(emergency: Emergency) =>
+						navigation.navigate('EmergencyDetails', {
+							details: emergency
 						})
 					}
+					{...{ emergencies }}
 				/>
-			</SafeAreaView>
-		);
-	}
-}
-
-const Over = () => {
-	return (
-		
-	)
-}
+			</ScrollView>
+			<MainButton
+				onPress={() =>
+					navigation.navigate('Popup', {
+						action: askForHelp
+					})
+				}
+			/>
+		</SafeAreaView>
+	);
+};
 
 const mapStateToProps = ({
 	location: { coordinates },

@@ -1,4 +1,5 @@
-import { Location, Permissions } from 'expo';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 import { Alert } from 'react-native';
 import {
 	FETCH_LOCATION,

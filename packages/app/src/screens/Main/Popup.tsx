@@ -14,47 +14,37 @@ import { NavigationScreenProps } from 'react-navigation';
 
 const { width, height } = Dimensions.get('window');
 
-export default class Popup extends React.Component<
-	NavigationScreenProps,
-	{ text: string }
-> {
-	state = {
-		text: ''
-	};
+const Popup = ({ navigation }: NavigationScreenProps) => {
+	const [text, setText] = React.useState('');
 
-	onSubmit = async () => {
-		const { navigation } = this.props;
-		const { text } = this.state;
+	const onSubmit = async () => {
 		const action = navigation.getParam('action');
 		await action(text);
 		navigation.pop();
 	};
 
-	render() {
-		const { navigation } = this.props;
-		return (
-			<KeyboardAvoidingView style={styles.container} behavior='padding'>
-				<TouchableWithoutFeedback onPress={() => navigation.pop()}>
-					<View style={styles.container}>
-						<View style={[styles.modal, { width, height: height / 2 }]}>
-							<TouchableOpacity style={styles.button} onPress={this.onSubmit}>
-								<Feather name='send' color='#FF8282' size={30} />
-							</TouchableOpacity>
-							<TextInput
-								style={styles.textArea}
-								onChangeText={text => this.setState({ text })}
-								placeholder='What went wrong?'
-								placeholderTextColor='#777777'
-								multiline
-								onBlur={Keyboard.dismiss}
-							/>
-						</View>
+	return (
+		<KeyboardAvoidingView style={styles.container} behavior='padding'>
+			<TouchableWithoutFeedback onPress={() => navigation.pop()}>
+				<View style={styles.container}>
+					<View style={[styles.modal, { width, height: height / 2 }]}>
+						<TouchableOpacity style={styles.button} onPress={onSubmit}>
+							<Feather name='send' color='#FF8282' size={30} />
+						</TouchableOpacity>
+						<TextInput
+							style={styles.textArea}
+							onChangeText={value => setText(value)}
+							placeholder='What went wrong?'
+							placeholderTextColor='#777777'
+							multiline
+							onBlur={Keyboard.dismiss}
+						/>
 					</View>
-				</TouchableWithoutFeedback>
-			</KeyboardAvoidingView>
-		);
-	}
-}
+				</View>
+			</TouchableWithoutFeedback>
+		</KeyboardAvoidingView>
+	);
+};
 
 const styles = StyleSheet.create({
 	container: {
@@ -82,3 +72,5 @@ const styles = StyleSheet.create({
 		alignSelf: 'flex-end'
 	}
 });
+
+export default Popup;

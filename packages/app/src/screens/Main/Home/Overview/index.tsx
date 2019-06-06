@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { Constants, Region } from 'expo';
+import { Constants } from 'expo';
+import { Region } from 'react-native-maps';
 import { NavigationScreenProps } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -98,6 +99,12 @@ class Overview extends React.PureComponent<OverviewProps, OverviewState> {
 			</SafeAreaView>
 		);
 	}
+}
+
+const Over = () => {
+	return (
+		
+	)
 }
 
 const mapStateToProps = ({

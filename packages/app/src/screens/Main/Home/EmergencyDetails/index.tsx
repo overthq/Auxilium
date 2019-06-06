@@ -14,7 +14,7 @@ import { LocationActions } from '../../../../redux/actions';
 
 const { width, height } = Dimensions.get('window');
 
-interface IEmergencyDetailsProps extends NavigationScreenProps {
+interface EmergencyDetailsProps extends NavigationScreenProps {
 	coordinates: Coordinates;
 	locate(): void;
 }
@@ -22,7 +22,7 @@ interface IEmergencyDetailsProps extends NavigationScreenProps {
 const EmergencyDetails = ({
 	navigation,
 	coordinates
-}: IEmergencyDetailsProps) => {
+}: EmergencyDetailsProps) => {
 	const pageDetails: Emergency = navigation.getParam('details');
 	return (
 		<SafeAreaView style={styles.container}>

@@ -20,7 +20,7 @@
 	"dependencies": {
 		"@expo/vector-icons": "^10.0.1",
 		"date-fns": "^2.0.0-alpha.27",
-		"expo": "^33.0.3",
+		"expo": "^32.0.6",
 		"haversine": "^1.1.1",
 		"react": "16.5.0",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",

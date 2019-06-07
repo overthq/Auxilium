@@ -26,25 +26,25 @@ jobs:
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
               yarn workspace @auxilium/app publish:app --release-channel prod
             fi
-    build_android:
-      working_directory: ~/auxilium
-      docker:
-        - image: circleci/node:11.8.0
-      steps:
-        - checkout
-        - run:
-            name: Install global dependencies
-            command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli lerna
-        - run:
-            name: Install dependencies
-            command: yarn install
-        - run:
-            name: Login to Expo
-            command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        - run:
-            name: Build Android App
-            command: |
-              yarn workspace @auxilium/app build:android --release-channel prod
+  build_android:
+    working_directory: ~/auxilium
+    docker:
+      - image: circleci/node:11.8.0
+    steps:
+      - checkout
+      - run:
+          name: Install global dependencies
+          command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli lerna
+      - run:
+          name: Install dependencies
+          command: yarn install
+      - run:
+          name: Login to Expo
+          command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+      - run:
+          name: Build Android App
+          command: |
+            yarn workspace @auxilium/app build:android --release-channel prod
   deploy_backend:
     working_directory: ~/auxilium
     docker:

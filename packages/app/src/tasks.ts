@@ -1,4 +1,4 @@
-import { Location } from 'expo';
+import * as Location from 'expo-location';
 
 export const LOCATION_TASK = 'background-location-task';
 

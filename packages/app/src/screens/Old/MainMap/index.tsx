@@ -7,7 +7,8 @@ import {
 	StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
-import { MapView, Constants } from 'expo';
+import MapView from 'react-native-maps';
+import * as Constants from 'expo-constants';
 import haversine from 'haversine';
 import { Feather } from '@expo/vector-icons';
 /* eslint-disable-next-line */

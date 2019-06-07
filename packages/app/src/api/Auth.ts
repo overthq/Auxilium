@@ -1,4 +1,6 @@
-import { Constants, Notifications, Permissions } from 'expo';
+import { Notifications } from 'expo';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
 import { Alert } from 'react-native';
 import env from '../../env';
 import { AuthHelpers } from '../helpers';

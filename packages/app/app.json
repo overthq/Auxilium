@@ -23,10 +23,14 @@
 		},
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
+			"bundleIdentifier": "dev.overt.auxilium",
 			"supportsTablet": true,
 			"infoPlist": {
 				"UIBackgroundModes": ["location", "fetch"]
 			}
+		},
+		"android": {
+			"package": "dev.overt.auxilium"
 		},
 		"hooks": {
 			"postPublish": [

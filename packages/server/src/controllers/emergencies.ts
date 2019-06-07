@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import { RequestHandler } from 'express';
 import haversine from 'haversine';
 import { Emergency, User } from '../models';
 import { sendNotification } from '../helpers';
 
-export const getNearbyEmergencies = async (req: Request, res: Response) => {
+export const getNearbyEmergencies: RequestHandler = async (req, res) => {
 	const { longitude, latitude }: { [key: string]: string } = req.query;
 	try {
 		const emergencies = await Emergency.find({
@@ -24,12 +24,34 @@ export const getNearbyEmergencies = async (req: Request, res: Response) => {
 	} catch (error) {
 		return res.status(500).json({
 			success: false,
-			message: 'An error has occured. Please try again later.'
+			message: 'An error has occured. Please try again later.',
+			error: error
 		});
 	}
 };
 
-export const getUserEmergencies = async (req: Request, res: Response) => {
+export const createEmergency: RequestHandler = async (req, res) => {
+	const { deviceId, description, coordinates } = req.body;
+	try {
+		const emergency = new Emergency({
+			deviceId,
+			description,
+			location: {
+				type: 'Point',
+				coordinates
+			}
+		});
+		await emergency.save();
+	} catch (error) {
+		return res.status(500).json({
+			success: false,
+			message: 'An error has occured. Please try again later.',
+			error
+		});
+	}
+};
+
+export const getUserEmergencies: RequestHandler = async (req, res) => {
 	const { deviceId } = req.query;
 	try {
 		const user = await User.findOne({ deviceId });
@@ -52,7 +74,7 @@ export const getUserEmergencies = async (req: Request, res: Response) => {
 	}
 };
 
-export const backgroundNotifications = async (req: Request, res: Response) => {
+export const backgroundNotifications: RequestHandler = async (req, res) => {
 	const {
 		longitude: lon,
 		latitude: lat,

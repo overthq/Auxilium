@@ -8,7 +8,7 @@ import emergencies from './src/redux/emergencies/reducer';
 
 const appReducer = combineReducers({
 	location: persistReducer({ key: 'location', storage }, location),
-	emergencies: persistReducer({ key: 'location', storage }, emergencies)
+	emergencies: persistReducer({ key: 'emergencies', storage }, emergencies)
 });
 const middlewares = applyMiddleware(thunk, logger);
 

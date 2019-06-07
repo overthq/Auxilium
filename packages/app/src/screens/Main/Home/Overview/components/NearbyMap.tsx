@@ -8,8 +8,6 @@ const { width, height } = Dimensions.get('window');
 
 interface NearbyMapProps {
 	coordinates: Coordinates;
-	region?: Region;
-	onRegionChange(region: Region): void;
 	emergencies: Emergency[];
 }
 
@@ -25,12 +23,17 @@ const renderMarkers = (emergencies: Emergency[]) => {
 	});
 };
 
-const NearbyMap = ({
-	coordinates,
-	region,
-	onRegionChange,
-	emergencies
-}: NearbyMapProps) => {
+const NearbyMap = (props: NearbyMapProps) => {
+	const {
+		coordinates: { longitude, latitude },
+		emergencies
+	} = props;
+
+	const [region, setRegion] = React.useState<Region | undefined>(undefined);
+	const onRegionChange = (region: Region) => {
+		setRegion(region);
+	};
+
 	return (
 		emergencies && (
 			<MapView
@@ -39,8 +42,8 @@ const NearbyMap = ({
 				provider='google'
 				showsUserLocation
 				initialRegion={{
-					longitude: coordinates.longitude,
-					latitude: coordinates.latitude,
+					longitude,
+					latitude,
 					longitudeDelta: 0.00353,
 					latitudeDelta: 0.00568
 				}}

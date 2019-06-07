@@ -1,5 +1,4 @@
-import { Alert } from 'react-native';
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 import env from '../../env';
 import { AuthHelpers } from '../helpers';
 
@@ -23,7 +22,30 @@ const getNearbyEmergencies = async ({
 		const { emergencies } = await response.json();
 		return emergencies;
 	} catch (error) {
-		return Alert.alert(error.message);
+		return console.log(error.message);
+	}
+};
+
+const createEmergency = async (
+	description: string,
+	{ longitude, latitude }: Coordinates
+) => {
+	try {
+		const response = await fetch(`${env.apiUrl}emergencies/create`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				deviceId: Constants.deviceId,
+				description,
+				coordinates: [longitude, latitude]
+			})
+		});
+		await response.json();
+	} catch (error) {
+		console.log(error.message);
 	}
 };
 
@@ -42,7 +64,7 @@ const getUserHistory = async () => {
 		const { emergencies }: { emergencies: Emergency[] } = await response.json();
 		return emergencies;
 	} catch (error) {
-		return Alert.alert(error.message);
+		return console.log(error.message);
 	}
 };
 
@@ -58,12 +80,13 @@ const managePushNotifications = async ({
 			}emergencies/notifications?longitude=${longitude}&latitude=${latitude}&pushToken=${pushToken}`
 		);
 	} catch (error) {
-		Alert.alert(error.message);
+		console.log(error.message);
 	}
 };
 
 export default {
 	getNearbyEmergencies,
+	createEmergency,
 	getUserHistory,
 	managePushNotifications
 };

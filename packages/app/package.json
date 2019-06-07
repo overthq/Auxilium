@@ -19,13 +19,15 @@
 		"publish:app": "expo publish"
 	},
 	"dependencies": {
-		"@expo/vector-icons": "^10.0.1",
+		"@expo/vector-icons": "^10.0.2",
 		"date-fns": "^2.0.0-alpha.31",
 		"expo": "^33.0.3",
 		"expo-asset": "^5.0.1",
+		"expo-constants": "~5.0.1",
 		"expo-font": "~5.0.1",
 		"expo-location": "~5.0.1",
 		"expo-permissions": "~5.0.1",
+		"expo-task-manager": "~5.0.1",
 		"haversine": "^1.1.1",
 		"react": "16.8.3",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",

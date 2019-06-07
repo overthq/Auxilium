@@ -6,6 +6,7 @@ import {
 	FETCH_LOCATION_SUCCESS,
 	FETCH_LOCATION_FAILURE
 } from './types';
+import { LocationHelpers } from '../../helpers';
 
 const locate = () => {
 	return async (dispatch: any): Promise<void> => {
@@ -18,10 +19,15 @@ const locate = () => {
 			const {
 				coords: { latitude, longitude }
 			} = await Location.getCurrentPositionAsync({ accuracy: 1 });
+			const place = await LocationHelpers.getAddressFromCoords({
+				latitude,
+				longitude
+			});
 			return dispatch({
 				type: FETCH_LOCATION_SUCCESS,
 				payload: {
-					coordinates: { latitude, longitude }
+					coordinates: { latitude, longitude },
+					place
 				}
 			});
 		} catch (error) {

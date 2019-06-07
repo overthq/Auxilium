@@ -1,7 +1,8 @@
 import React from 'react';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
-import { AppLoading, TaskManager } from 'expo';
+import * as TaskManager from 'expo-task-manager';
+import { AppLoading } from 'expo';
 import { connect } from 'react-redux';
 import { StatusBar } from 'react-native';
 import AppNavigator from './screens';
@@ -11,12 +12,12 @@ import { Emergencies } from './api';
 import { AuthHelpers } from './helpers';
 
 interface RootProps {
-	locate(): Promise<void>;
-	fetchEmergencies(): Promise<void>;
+	locate(): void;
+	fetchEmergencies(): void;
 }
 
 const Root = (props: RootProps) => {
-	const { locate, fetchEmergencies } = props;
+	const { fetchEmergencies } = props;
 	const [fontsLoaded, setFontsLoaded] = React.useState(false);
 	const [loggedIn, setLoggedIn] = React.useState(false);
 
@@ -28,10 +29,9 @@ const Root = (props: RootProps) => {
 	React.useEffect(() => {
 		loadAssets();
 		loadFonts();
-		locate();
+		preload();
 		fetchEmergencies();
 		getBackgroundUpdates();
-		preload();
 		StatusBar.setBarStyle('light-content');
 	}, []);
 

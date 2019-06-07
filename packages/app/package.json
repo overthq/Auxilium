@@ -16,7 +16,8 @@
 		"ios": "expo start --ios",
 		"android": "expo start --android",
 		"lint": "eslint --fix . --ext .ts,.tsx",
-		"publish:app": "expo publish"
+		"publish:app": "expo publish",
+		"build:android": "expo build:android"
 	},
 	"dependencies": {
 		"@expo/vector-icons": "^10.0.2",

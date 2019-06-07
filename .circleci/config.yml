@@ -72,9 +72,9 @@ workflows:
                 - staging
                 - master
       - build_android:
-        requires:
-          - deploy_mobile
-        filters:
-          branches:
-            only:
-              - master
+          requires:
+            - deploy_mobile
+          filters:
+            branches:
+              only:
+                - master

@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Install global dependencies
-          command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli lerna
+          command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli
       - run:
           name: Install dependencies
           command: yarn install
@@ -34,7 +34,7 @@ jobs:
       - checkout
       - run:
           name: Install global dependencies
-          command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli lerna
+          command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli
       - run:
           name: Install dependencies
           command: yarn install
@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Build Android App
           command: |
-            yarn workspace @auxilium/app build:android --release-channel prod
+            yarn workspace @auxilium/app build:android --release-channel
   deploy_backend:
     working_directory: ~/auxilium
     docker:

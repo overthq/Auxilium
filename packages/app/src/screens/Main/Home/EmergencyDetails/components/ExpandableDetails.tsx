@@ -2,7 +2,7 @@ import React from 'react';
 import { Dimensions, StyleSheet, Text } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { PanGestureHandler } from 'react-native-gesture-handler';
-import { LocationHelpers } from '../../../../../helpers';
+import { Location } from '../../../../../api';
 
 const { height } = Dimensions.get('window');
 
@@ -20,8 +20,7 @@ const ExpandableDetails = (props: ExpandableDetailsProps) => {
 	}, []);
 
 	const loadPlace = async () => {
-		const { longitude, latitude } = props;
-		const place = await LocationHelpers.getAddressFromCoords({
+		const place = await Location.getAddress({
 			longitude,
 			latitude
 		});

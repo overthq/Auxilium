@@ -1,4 +1,4 @@
-interface Coordinates {
+interface EmergencyCoordinates {
 	latitude: number;
 	longitude: number;
 }

@@ -2,18 +2,18 @@ import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 import { MapMarker } from '../../Overview/components';
-import { LocationHelpers } from '../../../../../helpers';
+import { Location } from '../../../../../api';
 import mapStyle from './mapStyle';
 
 const { width, height } = Dimensions.get('window');
 
 interface EmergencyMapProps {
-	coordinates: Coordinates;
+	coordinates: EmergencyCoordinates;
 	pageDetails: Emergency;
 }
 
 interface EmergencyMapState {
-	route: Coordinates[];
+	route: EmergencyCoordinates[];
 	longitudeDelta: number;
 	latitudeDelta: number;
 	centerLongitude: number;
@@ -62,8 +62,7 @@ const EmergencyMap = (props: EmergencyMapProps) => {
 
 		const from = fromCoords;
 		const to = { longitude, latitude };
-		const currentRoute =
-			(await LocationHelpers.getNavigationRoute(from, to)) || [];
+		const currentRoute = (await Location.getRoute(from, to)) || [];
 		setState({ route: currentRoute });
 	};
 

@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 		borderTopRightRadius: 10
 	},
 	textArea: {
-		height: '100%',
+		height: height / 2 - 50,
 		width: '100%',
 		fontFamily: 'Rubik Regular',
 		fontSize: 16,

@@ -7,7 +7,7 @@ import MapMarker from './MapMarker';
 const { width, height } = Dimensions.get('window');
 
 interface NearbyMapProps {
-	coordinates: Coordinates;
+	coordinates: EmergencyCoordinates;
 	emergencies: Emergency[];
 }
 

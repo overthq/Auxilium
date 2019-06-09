@@ -18,7 +18,8 @@
 		"express": "^4.17.1",
 		"haversine": "^1.1.1",
 		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^5.5.13"
+		"mongoose": "^5.5.13",
+		"node-fetch": "^2.6.0"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.1.7",

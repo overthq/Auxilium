@@ -10,7 +10,7 @@ import styles from './styles';
 import { Emergencies } from '../../../../api';
 
 interface OverviewProps extends NavigationScreenProps {
-	coordinates: Coordinates;
+	coordinates: EmergencyCoordinates;
 	place: string;
 	emergencies: Emergency[];
 	locate(): void;

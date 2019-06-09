@@ -15,7 +15,7 @@ import { LocationActions } from '../../../../redux/actions';
 const { width, height } = Dimensions.get('window');
 
 interface EmergencyDetailsProps extends NavigationScreenProps {
-	coordinates: Coordinates;
+	coordinates: EmergencyCoordinates;
 	locate(): void;
 }
 
@@ -33,16 +33,7 @@ const EmergencyDetails = ({
 				<Feather name='arrow-left' size={35} color='#D3D3D3' />
 			</TouchableOpacity>
 			<EmergencyMap {...{ coordinates, pageDetails }} />
-			<View
-				style={{
-					height,
-					width,
-					position: 'absolute',
-					backgroundColor: 'transparent',
-					alignItems: 'center',
-					justifyContent: 'flex-end'
-				}}
-			>
+			<View style={styles.detailsHolder}>
 				<ExpandableDetails
 					description={pageDetails.description}
 					longitude={pageDetails.location.coordinates[0]}
@@ -75,6 +66,14 @@ const styles = StyleSheet.create({
 		fontFamily: 'Rubik Regular',
 		fontSize: 16,
 		color: '#D3D3D3'
+	},
+	detailsHolder: {
+		height,
+		width,
+		position: 'absolute',
+		backgroundColor: 'transparent',
+		alignItems: 'center',
+		justifyContent: 'flex-end'
 	}
 });
 

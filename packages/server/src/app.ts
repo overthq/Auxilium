@@ -1,7 +1,7 @@
 import express from 'express';
 import * as Sentry from '@sentry/node';
 
-import router from './router';
+import router from './routes';
 import env from './config/env';
 import './config/database';
 

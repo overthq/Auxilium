@@ -5,7 +5,7 @@ import { AuthHelpers } from '../helpers';
 const getNearbyEmergencies = async ({
 	longitude,
 	latitude
-}: Coordinates): Promise<Emergency[] | void> => {
+}: EmergencyCoordinates): Promise<Emergency[] | void> => {
 	try {
 		const response = await fetch(
 			`${
@@ -28,7 +28,7 @@ const getNearbyEmergencies = async ({
 
 const createEmergency = async (
 	description: string,
-	{ longitude, latitude }: Coordinates
+	{ longitude, latitude }: EmergencyCoordinates
 ) => {
 	try {
 		const response = await fetch(`${env.apiUrl}emergencies/create`, {
@@ -71,7 +71,7 @@ const getUserHistory = async () => {
 const managePushNotifications = async ({
 	longitude,
 	latitude
-}: Coordinates) => {
+}: EmergencyCoordinates) => {
 	try {
 		const { pushToken } = await AuthHelpers.getAuthData();
 		await fetch(

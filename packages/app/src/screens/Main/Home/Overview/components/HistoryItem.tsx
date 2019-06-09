@@ -7,7 +7,7 @@ import {
 	StyleSheet
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { LocationHelpers } from '../../../../../helpers';
+import { Location } from '../../../../../api';
 
 const { width } = Dimensions.get('window');
 
@@ -23,7 +23,7 @@ const HistoryItem = ({ onPress, description, location }: HistoryItemProps) => {
 		const {
 			coordinates: [longitude, latitude]
 		} = location;
-		const address = await LocationHelpers.getAddressFromCoords({
+		const address = await Location.getAddress({
 			longitude,
 			latitude
 		});

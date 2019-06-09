@@ -80,4 +80,4 @@ const mapDispatchToProps = {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Overview);
+)(React.memo(Overview));

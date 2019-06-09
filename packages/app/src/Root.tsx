@@ -3,21 +3,13 @@ import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import * as TaskManager from 'expo-task-manager';
 import { AppLoading } from 'expo';
-import { connect } from 'react-redux';
 import { StatusBar } from 'react-native';
 import AppNavigator from './screens';
-import { LocationActions, EmergenciesActions } from './redux/actions';
 import { LOCATION_TASK, getBackgroundUpdates } from './tasks';
 import { Emergencies } from './api';
 import { AuthHelpers } from './helpers';
 
-interface RootProps {
-	locate(): void;
-	fetchEmergencies(): void;
-}
-
-const Root = (props: RootProps) => {
-	const { fetchEmergencies } = props;
+const Root = () => {
 	const [fontsLoaded, setFontsLoaded] = React.useState(false);
 	const [loggedIn, setLoggedIn] = React.useState(false);
 
@@ -30,7 +22,6 @@ const Root = (props: RootProps) => {
 		loadAssets();
 		loadFonts();
 		preload();
-		fetchEmergencies();
 		getBackgroundUpdates();
 		StatusBar.setBarStyle('light-content');
 	}, []);
@@ -74,12 +65,4 @@ TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
 	}
 });
 
-const mapDispatchToProps = {
-	locate: LocationActions.locate,
-	fetchEmergencies: EmergenciesActions.fetchEmergencies
-};
-
-export default connect(
-	null,
-	mapDispatchToProps
-)(Root);
+export default Root;

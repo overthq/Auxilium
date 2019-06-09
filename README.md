@@ -80,7 +80,7 @@ Auxilium is a JavaScript-based application. It is built with popular JS librarie
   - Framework: [Express](https://expressjs.com)
   - Database: [MongoDB](https://mongodb.com)
   - Hosting: [Heroku](https://heroku.com)
-  - WebSockets: [Socket.IO](https://socket.io)
+  - WebSockets
 
 We also use [Lerna](https://lernajs.io) to manage the monorepo structure, and [CircleCI](https://circleci.org) for continuous integration/deployment (CI/CD)
 

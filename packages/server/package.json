@@ -15,12 +15,10 @@
 	"dependencies": {
 		"@sentry/node": "^5.4.0",
 		"dotenv": "^8.0.0",
-		"expo-server-sdk": "^3.3.0",
 		"express": "^4.17.1",
 		"haversine": "^1.1.1",
 		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^5.5.13",
-		"socket.io": "^2.2.0"
+		"mongoose": "^5.5.13"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.1.7",

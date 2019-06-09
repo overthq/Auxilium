@@ -42,6 +42,11 @@ export const createEmergency: RequestHandler = async (req, res) => {
 			}
 		});
 		await emergency.save();
+		return res.status(201).json({
+			success: true,
+			message: 'Emergency successfully created.',
+			emergency
+		});
 	} catch (error) {
 		return res.status(500).json({
 			success: false,

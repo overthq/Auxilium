@@ -14,7 +14,7 @@ In [my country](https://en.wikipedia.org/wiki/Nigeria), many people die because 
 
 ## Project Phase
 
-This project is currently in the _pre-launch_ phase, being developed by [Oluwakorede Fashokun](https://github/com/koredefashokun) for [Overt](https://overt.dev), a concept that creates open-source software to solve many of the problems we face in the world. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412), or follow Overt on Twitter [here](https://twitter.com/overt_hq).
+This project is currently in the _pre-launch_ phase, being developed by [Oluwakorede Fashokun](https://github/com/koredefashokun) and [members of the Overt community](https://discord.gg/3PGd8Wx) for [Overt](https://overt.dev), a concept that creates open-source software to solve many of the problems we face in the world. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412), or follow Overt on Twitter [here](https://twitter.com/overt_hq).
 
 ## Installation
 
@@ -30,36 +30,35 @@ Before starting installing, the following are required:
 
 ### Commands
 
+Note that reading the package-specific docs is crucial to get Auxilium up and running locally.
+You can check each of the packages in the `packages` folder for their respective READMEs.
+
 To install Auxilium on your machine, run these commands:
 
 ```sh
 # Clone the repository
-git clone https://github.com/overthq/Auxilium
+git clone https://github.com/overthq/Auxilium.git
 
 # Move into the project directory
 cd Auxilium
 
-# Install general dependencies
+# Install dependencies
 yarn
 
-# Install required dependencies
-yarn lerna bootstrap
-
-# SERVER-SIDE (Be sure to read the Auxilium-Server docs)
+# SERVER-SIDE (Be sure to read the server docs)
 
 # Start MongoDB (in a seperate terminal)
 mongod
 
 # Start the backend server (after including the necessary vars in the server's .env file)
-cd packages/Auxilium-Server
+cd packages/server
 yarn dev
 
 # CLIENT-SIDE
 
 # Start the Expo app
-cd packages/Auxilium-App
+cd packages/app
 expo start
-
 ```
 
 ## Contributing
@@ -82,12 +81,12 @@ Auxilium is a JavaScript-based application. It is built with popular JS librarie
   - Hosting: [Heroku](https://heroku.com)
   - WebSockets
 
-We also use [Lerna](https://lernajs.io) to manage the monorepo structure, and [CircleCI](https://circleci.org) for continuous integration/deployment (CI/CD)
+We also use [Yarn Workspaces](https://yarnpkg.com/en/docs/workspaces) to manage the monorepo structure, and [CircleCI](https://circleci.org) for continuous integration/deployment (CI/CD).
 
 ## License
 
-MIT License
+GNU GPLv3 License
 
 ## Author
 
-Oluwakorede Fashokun <korede@overt.dev> for [Overt](https://overt.dev).
+Oluwakorede Fashokun (<korede@overt.dev>) for [Overt](https://overt.dev).

@@ -49,7 +49,7 @@ const Overview = (props: OverviewProps) => {
 							details: emergency
 						})
 					}
-					{...{ emergencies }}
+					emergencies={emergencies.slice(0, 5)}
 				/>
 			</ScrollView>
 			<MainButton

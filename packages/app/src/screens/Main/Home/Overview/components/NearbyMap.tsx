@@ -26,7 +26,7 @@ const renderMarkers = (emergencies: Emergency[] = []) => {
 const NearbyMap = (props: NearbyMapProps) => {
 	const {
 		coordinates: { longitude, latitude },
-		emergencies
+		emergencies = []
 	} = props;
 
 	const [region, setRegion] = React.useState<Region | undefined>(undefined);
@@ -36,28 +36,26 @@ const NearbyMap = (props: NearbyMapProps) => {
 	};
 
 	return (
-		emergencies && (
-			<MapView
-				style={styles.map}
-				customMapStyle={mapStyle}
-				provider='google'
-				showsUserLocation
-				initialRegion={{
-					longitude,
-					latitude,
-					longitudeDelta: 0.00353,
-					latitudeDelta: 0.00568
-				}}
-				onRegionChange={onRegionChange}
-				{...{ region }}
-				pitchEnabled={false}
-				rotateEnabled={false}
-				scrollEnabled={false}
-				zoomEnabled={false}
-			>
-				{renderMarkers(emergencies.slice(0, 5))}
-			</MapView>
-		)
+		<MapView
+			style={styles.map}
+			customMapStyle={mapStyle}
+			provider='google'
+			showsUserLocation
+			initialRegion={{
+				longitude,
+				latitude,
+				longitudeDelta: 0.00353,
+				latitudeDelta: 0.00568
+			}}
+			onRegionChange={onRegionChange}
+			{...{ region }}
+			pitchEnabled={false}
+			rotateEnabled={false}
+			scrollEnabled={false}
+			zoomEnabled={false}
+		>
+			{renderMarkers(emergencies)}
+		</MapView>
 	);
 };
 

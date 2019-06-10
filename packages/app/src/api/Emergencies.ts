@@ -8,9 +8,7 @@ const getNearbyEmergencies = async ({
 }: EmergencyCoordinates): Promise<Emergency[] | void> => {
 	try {
 		const response = await fetch(
-			`${
-				env.apiUrl
-			}emergencies/get?longitude=${longitude}&latitude=${latitude}`,
+			`${env.apiUrl}emergencies/get?longitude=${longitude}&latitude=${latitude}`,
 			{
 				method: 'GET',
 				headers: {
@@ -19,6 +17,7 @@ const getNearbyEmergencies = async ({
 				}
 			}
 		);
+		console.log(await response.text());
 		const { emergencies } = await response.json();
 		return emergencies;
 	} catch (error) {
@@ -75,9 +74,7 @@ const managePushNotifications = async ({
 	try {
 		const { pushToken } = await AuthHelpers.getAuthData();
 		await fetch(
-			`${
-				env.apiUrl
-			}emergencies/notifications?longitude=${longitude}&latitude=${latitude}&pushToken=${pushToken}`
+			`${env.apiUrl}emergencies/notifications?longitude=${longitude}&latitude=${latitude}&pushToken=${pushToken}`
 		);
 	} catch (error) {
 		console.log(error.message);

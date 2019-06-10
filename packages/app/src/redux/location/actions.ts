@@ -8,7 +8,7 @@ import {
 } from './types';
 import { Location as LocationAPI } from '../../api';
 
-const locate = () => {
+const locate = (addressRefresh: boolean = true) => {
 	return async (dispatch: any): Promise<void> => {
 		dispatch({ type: FETCH_LOCATION });
 		try {
@@ -19,10 +19,17 @@ const locate = () => {
 			const {
 				coords: { latitude, longitude }
 			} = await Location.getCurrentPositionAsync({ accuracy: 1 });
-			const place = await LocationAPI.getAddress({
-				latitude,
-				longitude
-			});
+
+			var place = null;
+
+			if (addressRefresh) {
+				Alert.alert('refreshing');
+				place = await LocationAPI.getAddress({
+					latitude,
+					longitude
+				});
+			}
+
 			return dispatch({
 				type: FETCH_LOCATION_SUCCESS,
 				payload: {

@@ -13,7 +13,7 @@ interface OverviewProps extends NavigationScreenProps {
 	coordinates: EmergencyCoordinates;
 	place: string;
 	emergencies: Emergency[];
-	locate(): void;
+	locate(addressRefresh?: boolean): void;
 	fetchEmergencies(): void;
 }
 
@@ -27,7 +27,7 @@ const Overview = (props: OverviewProps) => {
 
 	const askForHelp = async (description: string) => {
 		try {
-			await props.locate();
+			await props.locate(false);
 			Emergencies.createEmergency(description, coordinates);
 		} catch (error) {
 			Alert.alert(error.message);

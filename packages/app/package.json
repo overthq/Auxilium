@@ -23,7 +23,7 @@
 	"dependencies": {
 		"@expo/vector-icons": "^10.0.2",
 		"date-fns": "^2.0.0-alpha.31",
-		"expo": "^33.0.3",
+		"expo": "^33.0.4",
 		"expo-asset": "^5.0.1",
 		"expo-constants": "~5.0.1",
 		"expo-font": "~5.0.1",
@@ -35,12 +35,12 @@
 		"react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
 		"react-native-maps": "~0.24.0",
 		"react-navigation": "^3.11.0",
-		"react-redux": "^6.0.1",
+		"react-redux": "^7.0.3",
 		"redux": "^4.0.1",
 		"redux-logger": "^3.0.6",
 		"redux-persist": "^5.10.0",
 		"redux-thunk": "^2.3.0",
-		"sentry-expo": "~1.11.2"
+		"sentry-expo": "~1.13.0"
 	},
 	"devDependencies": {
 		"@types/expo": "^32.0.13",
@@ -54,7 +54,7 @@
 		"babel-preset-expo": "^5.1.1",
 		"eslint": "^5.16.0",
 		"expo-yarn-workspaces": "^1.2.0",
-		"prettier": "^1.17.1",
+		"prettier": "^1.18.2",
 		"typescript": "^3.5.1"
 	}
 }

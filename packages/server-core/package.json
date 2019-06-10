@@ -13,7 +13,7 @@
 		"build": "tsc -b"
 	},
 	"dependencies": {
-		"mongoose": "^5.5.13"
+		"mongoose": "^5.5.14"
 	},
 	"devDependencies": {
 		"@types/mongoose": "^5.5.5",

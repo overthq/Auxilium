@@ -40,7 +40,7 @@
 		"redux-logger": "^3.0.6",
 		"redux-persist": "^5.10.0",
 		"redux-thunk": "^2.3.0",
-		"sentry-expo": "~1.11.2"
+		"sentry-expo": "~1.13.0"
 	},
 	"devDependencies": {
 		"@types/expo": "^32.0.13",

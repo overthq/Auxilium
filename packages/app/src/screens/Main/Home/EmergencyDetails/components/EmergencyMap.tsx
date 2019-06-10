@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker, Polyline } from 'react-native-maps';
 import { MapMarker } from '../../Overview/components';
 import { Location } from '../../../../../api';
 import mapStyle from './mapStyle';
@@ -9,7 +9,8 @@ const { width, height } = Dimensions.get('window');
 
 interface EmergencyMapProps {
 	coordinates: EmergencyCoordinates;
-	pageDetails: Emergency;
+	longitude: number;
+	latitude: number;
 }
 
 interface EmergencyMapState {
@@ -29,12 +30,8 @@ const initialState: EmergencyMapState = {
 };
 
 const EmergencyMap = (props: EmergencyMapProps) => {
-	const { coordinates: fromCoords, pageDetails } = props;
-	const {
-		location: {
-			coordinates: [longitude, latitude]
-		}
-	} = pageDetails;
+	const { coordinates: fromCoords, longitude, latitude } = props;
+
 	const [state, setState] = React.useReducer(
 		(p, n) => ({ ...p, ...n }),
 		initialState
@@ -92,14 +89,10 @@ const EmergencyMap = (props: EmergencyMapProps) => {
 			scrollEnabled={false}
 			zoomEnabled={false}
 		>
-			<MapView.Marker coordinate={{ longitude, latitude }}>
+			<Marker coordinate={{ longitude, latitude }}>
 				<MapMarker size={20} borderStroke={3} />
-			</MapView.Marker>
-			<MapView.Polyline
-				coordinates={route}
-				strokeColor='#FF8282'
-				strokeWidth={3}
-			/>
+			</Marker>
+			<Polyline coordinates={route} strokeColor='#FF8282' strokeWidth={3} />
 		</MapView>
 	);
 };

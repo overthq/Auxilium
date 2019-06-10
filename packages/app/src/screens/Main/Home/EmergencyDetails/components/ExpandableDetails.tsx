@@ -15,6 +15,7 @@ interface ExpandableDetailsProps {
 const ExpandableDetails = (props: ExpandableDetailsProps) => {
 	const { description, longitude, latitude } = props;
 	const [place, setPlace] = React.useState('');
+
 	React.useEffect(() => {
 		loadPlace();
 	}, []);

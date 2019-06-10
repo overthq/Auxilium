@@ -24,6 +24,12 @@ const EmergencyDetails = ({
 	coordinates
 }: EmergencyDetailsProps) => {
 	const pageDetails: Emergency = navigation.getParam('details');
+	const {
+		description,
+		location: {
+			coordinates: [longitude, latitude]
+		}
+	} = pageDetails;
 	return (
 		<SafeAreaView style={styles.container}>
 			<TouchableOpacity
@@ -32,13 +38,9 @@ const EmergencyDetails = ({
 			>
 				<Feather name='arrow-left' size={35} color='#D3D3D3' />
 			</TouchableOpacity>
-			<EmergencyMap {...{ coordinates, pageDetails }} />
+			<EmergencyMap {...{ coordinates, longitude, latitude }} />
 			<View style={styles.detailsHolder}>
-				<ExpandableDetails
-					description={pageDetails.description}
-					longitude={pageDetails.location.coordinates[0]}
-					latitude={pageDetails.location.coordinates[1]}
-				/>
+				<ExpandableDetails {...{ description, longitude, latitude }} />
 			</View>
 		</SafeAreaView>
 	);

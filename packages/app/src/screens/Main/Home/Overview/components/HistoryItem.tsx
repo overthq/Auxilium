@@ -13,7 +13,6 @@ const { width } = Dimensions.get('window');
 
 interface HistoryItemProps extends Emergency {
 	onPress(): void;
-	createdAt: Date;
 }
 
 const HistoryItem = ({ onPress, description, location }: HistoryItemProps) => {

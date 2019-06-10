@@ -18,9 +18,7 @@ import { Pagination } from './components';
 
 const { width, height } = Dimensions.get('window');
 
-interface OnboardingProps extends NavigationScreenProps {}
-
-const Onboarding = (props: OnboardingProps) => {
+const Onboarding = (props: NavigationScreenProps) => {
 	const scrollX = new Animated.Value(0);
 
 	const authenticateUser = async () => {

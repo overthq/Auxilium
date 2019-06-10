@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
-import MapView, { Region } from 'react-native-maps';
+import MapView, { Marker, Region } from 'react-native-maps';
 import mapStyle from './mapStyle';
 import MapMarker from './MapMarker';
 
@@ -11,14 +11,14 @@ interface NearbyMapProps {
 	emergencies: Emergency[];
 }
 
-const renderMarkers = (emergencies: Emergency[]) => {
+const renderMarkers = (emergencies: Emergency[] = []) => {
 	if (!emergencies) return null;
 	return emergencies.map((emergency: Emergency, index: number) => {
 		const [longitude, latitude] = emergency.location.coordinates;
 		return (
-			<MapView.Marker key={index} coordinate={{ longitude, latitude }}>
+			<Marker key={index} coordinate={{ longitude, latitude }}>
 				<MapMarker size={16} />
-			</MapView.Marker>
+			</Marker>
 		);
 	});
 };
@@ -30,6 +30,7 @@ const NearbyMap = (props: NearbyMapProps) => {
 	} = props;
 
 	const [region, setRegion] = React.useState<Region | undefined>(undefined);
+
 	const onRegionChange = (region: Region) => {
 		setRegion(region);
 	};

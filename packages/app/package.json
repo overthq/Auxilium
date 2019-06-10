@@ -15,6 +15,7 @@
 		"start": "expo start",
 		"ios": "expo start --ios",
 		"android": "expo start --android",
+		"format": "prettier --write '{.,src/**}/*.{js,jsx,ts,tsx}'",
 		"lint": "eslint --fix . --ext .ts,.tsx",
 		"publish:app": "expo publish",
 		"build:android": "expo build:android"

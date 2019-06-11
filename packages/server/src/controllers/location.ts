@@ -38,9 +38,7 @@ export const getAddress: RequestHandler = async (req, res) => {
 		const response = await fetch(
 			`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${env.MAPBOX_ACCESS_TOKEN}`
 		);
-		const data = await response.json();
-		console.log(data);
-		const { features } = data;
+		const { features } = await response.json();
 		return res.status(200).json({
 			success: true,
 			message: 'Successfully retrieved address',

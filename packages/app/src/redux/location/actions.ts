@@ -20,10 +20,9 @@ const locate = (addressRefresh: boolean = true) => {
 				coords: { latitude, longitude }
 			} = await Location.getCurrentPositionAsync({ accuracy: 1 });
 
-			var place = null;
+			let place;
 
 			if (addressRefresh) {
-				Alert.alert('refreshing');
 				place = await LocationAPI.getAddress({
 					latitude,
 					longitude

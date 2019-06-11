@@ -17,7 +17,6 @@ const getNearbyEmergencies = async ({
 				}
 			}
 		);
-		console.log(await response.text());
 		const { emergencies } = await response.json();
 		return emergencies;
 	} catch (error) {

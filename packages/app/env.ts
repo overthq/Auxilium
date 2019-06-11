@@ -1,8 +1,12 @@
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 
 const ENV = {
 	dev: {
-		apiUrl: 'http://cbd4655c.ngrok.io/'
+		apiUrl:
+			`http://${Constants.manifest.debuggerHost
+				.split(`:`)
+				.shift()
+				.concat(`:4000/`) || ''}` || ''
 	},
 	staging: {
 		apiUrl: 'https://auxilium-staging.herokuapp.com/'

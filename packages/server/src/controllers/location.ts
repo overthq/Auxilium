@@ -32,7 +32,6 @@ export const getRoute: RequestHandler = async (req, res) => {
 };
 
 export const getAddress: RequestHandler = async (req, res) => {
-	console.log(req.query);
 	const { longitude, latitude } = req.query;
 	try {
 		const response = await fetch(

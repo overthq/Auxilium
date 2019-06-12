@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, SafeAreaView, ScrollView, Alert } from 'react-native';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationScreenProps } from 'react-navigation';
 
@@ -9,25 +9,35 @@ import { MainButton, AroundYou, NearbyMap } from './components';
 import styles from './styles';
 import { Emergencies } from '../../../../api';
 
-interface OverviewProps extends NavigationScreenProps {
-	coordinates: EmergencyCoordinates;
-	place: string;
-	emergencies: Emergency[];
-	locate(addressRefresh?: boolean): void;
-	fetchEmergencies(): void;
+interface OverviewState {
+	location: {
+		coordinates: EmergencyCoordinates;
+		place: string;
+	};
+	emergencies: {
+		emergencies: Emergency[];
+	};
 }
 
-const Overview = (props: OverviewProps) => {
-	const { coordinates, place, navigation, emergencies = [] } = props;
+const stateMapper = ({ location, emergencies }: OverviewState) => ({
+	coordinates: location.coordinates,
+	place: location.place,
+	emergencies: emergencies.emergencies
+});
+
+const Overview = (props: NavigationScreenProps) => {
+	const { navigation } = props;
+	const { coordinates, place, emergencies } = useSelector(stateMapper);
+	const dispatch = useDispatch();
 
 	React.useEffect(() => {
-		props.locate();
-		props.fetchEmergencies();
+		dispatch(LocationActions.locate());
+		dispatch(EmergenciesActions.fetchEmergencies());
 	}, []);
 
 	const askForHelp = async (description: string) => {
 		try {
-			await props.locate(false);
+			await dispatch(LocationActions.locate(false));
 			Emergencies.createEmergency(description, coordinates);
 		} catch (error) {
 			Alert.alert(error.message);
@@ -63,21 +73,4 @@ const Overview = (props: OverviewProps) => {
 	);
 };
 
-const mapStateToProps = ({
-	location: { coordinates, place },
-	emergencies: { emergencies }
-}: any) => ({
-	coordinates,
-	place,
-	emergencies
-});
-
-const mapDispatchToProps = {
-	locate: LocationActions.locate,
-	fetchEmergencies: EmergenciesActions.fetchEmergencies
-};
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(React.memo(Overview));
+export default React.memo(Overview);

@@ -1,7 +1,6 @@
 import fetch from 'node-fetch';
 import env from '../config/env';
 import { RequestHandler } from 'express';
-import console = require('console');
 
 export const getRoute: RequestHandler = async (req, res) => {
 	const { from, to } = req.query;

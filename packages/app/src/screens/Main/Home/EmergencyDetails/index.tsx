@@ -6,23 +6,26 @@ import {
 	Dimensions,
 	View
 } from 'react-native';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavigationScreenProps } from 'react-navigation';
 import { Feather } from '@expo/vector-icons';
 import { EmergencyMap, ExpandableDetails } from './components';
-import { LocationActions } from '../../../../redux/actions';
 
 const { width, height } = Dimensions.get('window');
 
-interface EmergencyDetailsProps extends NavigationScreenProps {
-	coordinates: EmergencyCoordinates;
-	locate(): void;
+interface EmergencyDetailsState {
+	location: {
+		coordinates: EmergencyCoordinates;
+	};
 }
 
-const EmergencyDetails = ({
-	navigation,
-	coordinates
-}: EmergencyDetailsProps) => {
+const stateMapper = ({ location }: EmergencyDetailsState) => ({
+	coordinates: location.coordinates
+});
+
+const EmergencyDetails = (props: NavigationScreenProps) => {
+	const { navigation } = props;
+	const { coordinates } = useSelector(stateMapper);
 	const pageDetails: Emergency = navigation.getParam('details');
 	const {
 		description,
@@ -79,13 +82,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-const mapStateToProps = ({ location: { coordinates } }: any) => ({
-	coordinates
-});
-
-const mapDispatchToProps = { locate: LocationActions.locate };
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(EmergencyDetails);
+export default EmergencyDetails;

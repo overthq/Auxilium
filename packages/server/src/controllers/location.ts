@@ -2,22 +2,24 @@ import fetch from 'node-fetch';
 import env from '../config/env';
 import { RequestHandler } from 'express';
 
+type Pair = [number, number];
+
+const MAPBOX_BASE_URL = 'https://api.mapbox.com/directions/v5';
+const MAPBOX_GEOCODING_BASE_URL = 'https://api.mapbox.com/geocoding/v5';
+
 export const getRoute: RequestHandler = async (req, res) => {
 	const { from, to } = req.query;
 	const [fromLongitude, fromLatitude] = from.split(',');
 	const [toLongitude, toLatitude] = to.split(',');
+	const queryString = `${fromLongitude},${fromLatitude};${toLongitude},${toLatitude}`;
 	try {
 		const response = await fetch(
-			`https://api.mapbox.com/directions/v5/mapbox/walking/${fromLongitude},${fromLatitude};${toLongitude},${toLatitude}.json?access_token=${
-				env.MAPBOX_ACCESS_TOKEN
-			}&geometries=geojson`
+			`${MAPBOX_BASE_URL}/mapbox/walking/${queryString}.json?access_token=${env.MAPBOX_ACCESS_TOKEN}&geometries=geojson`
 		);
 		const { routes } = await response.json();
-		const { coordinates } = routes[0].geometry;
-		const route = await coordinates.map((coordinate: [number, number]) => ({
-			longitude: coordinate[0],
-			latitude: coordinate[1]
-		}));
+		const { coordinates }: { coordinates: Pair[] } = routes[0].geometry;
+		const routeMap = ([longitude, latitude]: Pair) => ({ longitude, latitude });
+		const route = await coordinates.map(routeMap);
 		return res.status(200).json({
 			success: true,
 			message: 'Route fetched successfully',
@@ -26,7 +28,7 @@ export const getRoute: RequestHandler = async (req, res) => {
 	} catch (error) {
 		return res.status(500).json({
 			success: false,
-			message: 'An error occured while fetching the route information',
+			message: 'An error occurred while fetching the route information',
 			error
 		});
 	}
@@ -34,11 +36,10 @@ export const getRoute: RequestHandler = async (req, res) => {
 
 export const getAddress: RequestHandler = async (req, res) => {
 	const { longitude, latitude } = req.query;
+	const queryString = `${longitude},${latitude}`;
 	try {
 		const response = await fetch(
-			`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${
-				env.MAPBOX_ACCESS_TOKEN
-			}`
+			`${MAPBOX_GEOCODING_BASE_URL}/mapbox.places/${queryString}.json?access_token=${env.MAPBOX_ACCESS_TOKEN}`
 		);
 		const { features } = await response.json();
 		return res.status(200).json({
@@ -49,7 +50,7 @@ export const getAddress: RequestHandler = async (req, res) => {
 	} catch (error) {
 		return res.status(500).json({
 			success: false,
-			message: 'An error occured while looking up the address',
+			message: 'An error occurred while looking up the address',
 			error
 		});
 	}

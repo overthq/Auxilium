@@ -3,6 +3,7 @@ import {
 	FETCH_LOCATION_SUCCESS,
 	FETCH_LOCATION_FAILURE
 } from './types';
+import { Alert } from 'react-native';
 
 const initialState = {
 	loading: false,
@@ -23,7 +24,7 @@ export default (state = initialState, action: any) => {
 				...state,
 				loading: false,
 				coordinates: action.payload.coordinates,
-				place: action.payload.place
+				place: action.payload.place || state.place
 			};
 		case FETCH_LOCATION_FAILURE:
 			return {

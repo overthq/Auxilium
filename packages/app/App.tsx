@@ -12,9 +12,7 @@ Sentry.config(
 	'https://018ed01c2b844dc1bab9fa5a84517b24@sentry.io/1409956'
 ).install();
 
-if (Platform.OS === 'ios') {
-	useScreens();
-}
+if (Platform.OS === 'ios') useScreens();
 
 const App = () => (
 	<Provider store={store}>

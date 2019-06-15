@@ -1,4 +1,15 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Document } from 'mongoose';
+
+interface EmergencyType extends Document {
+	deviceId: string;
+	location: {
+		type: 'Point';
+		coordinates: [number, number];
+	};
+	address: string;
+	description: string;
+	recepients: string[];
+}
 
 const EmergencySchema = new Schema(
 	{
@@ -9,6 +20,9 @@ const EmergencySchema = new Schema(
 		location: {
 			type: { type: String },
 			coordinates: []
+		},
+		address: {
+			type: String
 		},
 		description: {
 			type: String
@@ -23,4 +37,4 @@ const EmergencySchema = new Schema(
 
 EmergencySchema.index({ location: '2dsphere' });
 
-export default model('Emergency', EmergencySchema);
+export default model<EmergencyType>('Emergency', EmergencySchema);

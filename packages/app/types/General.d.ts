@@ -7,8 +7,9 @@ interface Emergency {
 	_id: string;
 	deviceId: string;
 	location: {
+		type: 'Point';
 		coordinates: [number, number];
-		type?: 'Point';
 	};
+	address: string;
 	description?: string;
 }

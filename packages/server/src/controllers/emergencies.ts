@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import haversine from 'haversine';
 import { Emergency, User } from '../models';
-import { sendNotification } from '../helpers';
+import { sendNotification, getAddress } from '../helpers';
 
 export const getNearbyEmergencies: RequestHandler = async (req, res) => {
 	const { longitude, latitude }: { [key: string]: string } = req.query;
@@ -25,21 +25,24 @@ export const getNearbyEmergencies: RequestHandler = async (req, res) => {
 		return res.status(500).json({
 			success: false,
 			message: 'An error has occured. Please try again later.',
-			error: error
+			error
 		});
 	}
 };
 
 export const createEmergency: RequestHandler = async (req, res) => {
 	const { deviceId, description, coordinates } = req.body;
+	const [longitude, latitude] = coordinates;
 	try {
+		const address = await getAddress({ longitude, latitude });
 		const emergency = new Emergency({
 			deviceId,
 			description,
 			location: {
 				type: 'Point',
 				coordinates
-			}
+			},
+			address
 		});
 		await emergency.save();
 		return res.status(201).json({
@@ -97,8 +100,8 @@ export const backgroundNotifications: RequestHandler = async (req, res) => {
 				}
 			}
 		}).find();
-		emergencies.forEach(async (emergency: any) => {
-			const coordinates = emergency.location;
+		emergencies.forEach(async emergency => {
+			const { coordinates } = emergency.location;
 			const [longitude, latitude] = coordinates;
 			const distance = haversine(
 				{ longitude: Number(lon), latitude: Number(lat) },

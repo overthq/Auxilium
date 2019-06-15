@@ -52,6 +52,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Copy latest Yarn lockfile
+          command: cp yarn.lock packages/server/yarn.lock
+      - run:
           name: Push backend to Heroku
           command: |
             git subtree push --prefix packages/server https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master

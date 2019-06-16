@@ -1,3 +1,3 @@
-export const emergencyListener = data => {
+export const emergencyListener = (data: any) => {
 	console.log(data);
 };

@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 import { DB_URI } from './env';
 
-mongoose.connect(DB_URI, { useNewUrlParser: true });
+mongoose.connect(DB_URI, { useNewUrlParser: true, useCreateIndex: true });
 const db = mongoose.connection;
 
 db.once('open', () => {

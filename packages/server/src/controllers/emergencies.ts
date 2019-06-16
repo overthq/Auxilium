@@ -108,18 +108,13 @@ export const backgroundNotifications: RequestHandler = async (req, res) => {
 				{ longitude, latitude }
 			);
 			if (distance <= 1 && !emergency.recepients.includes(pushToken)) {
-				const data = await sendNotification(pushToken);
+				await sendNotification(pushToken);
 				await emergency.recepients.push(pushToken);
 				await emergency.save();
-				return res.status(200).json({
-					success: true,
-					message: 'Found emergency in your area',
-					data
-				});
 			}
 			return res.status(200).json({
 				success: true,
-				message: 'Good news, No emergency found in your area.'
+				message: 'Successfully handled nearby emergencies'
 			});
 		});
 	} catch (error) {

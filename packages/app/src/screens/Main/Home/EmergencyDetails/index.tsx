@@ -29,6 +29,7 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 	const pageDetails: Emergency = navigation.getParam('details');
 	const {
 		description,
+		address,
 		location: {
 			coordinates: [longitude, latitude]
 		}
@@ -43,7 +44,7 @@ const EmergencyDetails = (props: NavigationScreenProps) => {
 			</TouchableOpacity>
 			<EmergencyMap {...{ coordinates, longitude, latitude }} />
 			<View style={styles.detailsHolder}>
-				<ExpandableDetails {...{ description, longitude, latitude }} />
+				<ExpandableDetails {...{ description, address, longitude, latitude }} />
 			</View>
 		</SafeAreaView>
 	);

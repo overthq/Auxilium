@@ -30,7 +30,7 @@ const initialState: EmergencyMapState = {
 };
 
 const EmergencyMap = (props: EmergencyMapProps) => {
-	const { coordinates: fromCoords, longitude, latitude } = props;
+	const { coordinates: from, longitude, latitude } = props;
 
 	const [state, setState] = React.useReducer(
 		(p, n) => ({ ...p, ...n }),
@@ -43,12 +43,12 @@ const EmergencyMap = (props: EmergencyMapProps) => {
 	}, []);
 
 	const preload = async () => {
-		const lonDelta = Math.abs(fromCoords.longitude - longitude);
-		const latDelta = Math.abs(fromCoords.latitude - latitude);
+		const lonDelta = Math.abs(from.longitude - longitude);
+		const latDelta = Math.abs(from.latitude - latitude);
 		const longitudeDelta = lonDelta >= 0.00353 ? lonDelta : 0.00353;
 		const latitudeDelta = latDelta >= 0.00568 ? latDelta : 0.00568;
-		const centerLongitude = (fromCoords.longitude + longitude) / 2;
-		const centerLatitude = (fromCoords.latitude + latitude) / 2;
+		const centerLongitude = (from.longitude + longitude) / 2;
+		const centerLatitude = (from.latitude + latitude) / 2;
 
 		await setState({
 			longitudeDelta,
@@ -57,7 +57,6 @@ const EmergencyMap = (props: EmergencyMapProps) => {
 			centerLatitude
 		});
 
-		const from = fromCoords;
 		const to = { longitude, latitude };
 		const currentRoute = (await Location.getRoute(from, to)) || [];
 		setState({ route: currentRoute });

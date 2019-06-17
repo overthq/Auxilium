@@ -23,8 +23,7 @@ const stateMapper = ({ location }: EmergencyDetailsState) => ({
 	coordinates: location.coordinates
 });
 
-const EmergencyDetails = (props: NavigationScreenProps) => {
-	const { navigation } = props;
+const EmergencyDetails = ({ navigation }: NavigationScreenProps) => {
 	const { coordinates } = useSelector(stateMapper);
 	const pageDetails: Emergency = navigation.getParam('details');
 	const {

@@ -89,6 +89,7 @@ export const backgroundNotifications: RequestHandler = async (req, res) => {
 		pushToken
 	}: { [key: string]: string } = req.query;
 	try {
+		const sender = await User.findOne({ pushToken });
 		const emergencies = await Emergency.find({
 			location: {
 				$near: {
@@ -107,7 +108,11 @@ export const backgroundNotifications: RequestHandler = async (req, res) => {
 				{ longitude: Number(lon), latitude: Number(lat) },
 				{ longitude, latitude }
 			);
-			if (distance <= 1 && !emergency.recepients.includes(pushToken)) {
+			if (
+				distance <= 1 &&
+				sender.deviceId !== emergency.deviceId &&
+				!emergency.recepients.includes(pushToken)
+			) {
 				await sendNotification(pushToken);
 				await emergency.recepients.push(pushToken);
 				await emergency.save();

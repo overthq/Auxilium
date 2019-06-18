@@ -61,7 +61,7 @@ TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
 		} = locations[0] as { coords: EmergencyCoordinates };
 		setInterval(() => {
 			Emergencies.managePushNotifications({ longitude, latitude });
-		}, 1000);
+		}, 10000);
 	}
 });
 

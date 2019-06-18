@@ -43,9 +43,7 @@ const Root = () => {
 			require('../assets/Help_Others.png'),
 			require('../assets/Security.png')
 		];
-		images.map(image => {
-			return Asset.fromModule(image).downloadAsync();
-		});
+		images.map(image => Asset.fromModule(image).downloadAsync());
 	};
 
 	if (!fontsLoaded) return <AppLoading />;

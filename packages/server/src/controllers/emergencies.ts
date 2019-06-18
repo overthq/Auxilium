@@ -113,7 +113,8 @@ export const backgroundNotifications: RequestHandler = async (req, res) => {
 				sender.deviceId !== emergency.deviceId &&
 				!emergency.recepients.includes(pushToken)
 			) {
-				await sendNotification(pushToken);
+				const address = await getAddress({ longitude, latitude });
+				await sendNotification(pushToken, address);
 				await emergency.recepients.push(pushToken);
 				await emergency.save();
 			}

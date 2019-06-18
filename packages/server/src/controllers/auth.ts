@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
+import { RequestHandler } from 'express';
 import { User } from '../models';
 
-export const auth = async (req: Request, res: Response) => {
+export const auth: RequestHandler = async (req, res) => {
 	const { deviceId, pushToken } = req.body;
 	if (!deviceId || !pushToken) {
 		return res.status(400).json({

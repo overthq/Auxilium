@@ -42,7 +42,7 @@ const EmergencyMap = (props: EmergencyMapProps) => {
 		return () => setState(null);
 	}, []);
 
-	const preload = async () => {
+	const preload = React.useCallback(async () => {
 		const lonDelta = Math.abs(from.longitude - longitude);
 		const latDelta = Math.abs(from.latitude - latitude);
 		const longitudeDelta = lonDelta >= 0.00353 ? lonDelta : 0.00353;
@@ -60,7 +60,7 @@ const EmergencyMap = (props: EmergencyMapProps) => {
 		const to = { longitude, latitude };
 		const currentRoute = (await Location.getRoute(from, to)) || [];
 		setState({ route: currentRoute });
-	};
+	}, [longitude, latitude]);
 
 	const {
 		route,

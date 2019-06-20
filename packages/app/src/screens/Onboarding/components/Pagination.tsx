@@ -10,7 +10,6 @@ interface PaginationProps {
 
 const Pagination = ({ tabs, scrollX }: PaginationProps) => {
 	const position = Animated.divide(scrollX, width);
-
 	return (
 		<View style={styles.container}>
 			{tabs.map((_, index) => {

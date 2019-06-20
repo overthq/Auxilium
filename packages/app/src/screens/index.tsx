@@ -20,8 +20,8 @@ const AppNavigator = ({ loggedIn }: AppNavigatorProps) => {
 	);
 	return (
 		<Navigator
-			ref={(navigatorRef: any) => {
-				NavigationService.setTopLevelNavigator(navigatorRef);
+			ref={navigatorRef => {
+				navigatorRef && NavigationService.setTopLevelNavigator(navigatorRef);
 			}}
 		/>
 	);

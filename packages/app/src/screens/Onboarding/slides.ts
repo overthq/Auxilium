@@ -1,4 +1,4 @@
-/* eslint-disable global-require, no-unused-vars */
+/* eslint-disable global-require */
 import { SlideProps } from './Slide';
 
 const slides: SlideProps[] = [

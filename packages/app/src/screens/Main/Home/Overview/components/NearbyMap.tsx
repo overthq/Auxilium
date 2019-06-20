@@ -12,9 +12,8 @@ interface NearbyMapProps {
 }
 
 const renderMarkers = (emergencies: Emergency[] = []) => {
-	if (!emergencies) return null;
-	return emergencies.map((emergency: Emergency, index: number) => {
-		const [longitude, latitude] = emergency.location.coordinates;
+	return emergencies.map(({ location }: Emergency, index) => {
+		const [longitude, latitude] = location.coordinates;
 		return (
 			<Marker key={index} coordinate={{ longitude, latitude }}>
 				<MapMarker size={16} />
@@ -26,14 +25,11 @@ const renderMarkers = (emergencies: Emergency[] = []) => {
 const NearbyMap = (props: NearbyMapProps) => {
 	const {
 		coordinates: { longitude, latitude },
-		emergencies = []
+		emergencies
 	} = props;
 
 	const [region, setRegion] = React.useState<Region | undefined>(undefined);
-
-	const onRegionChange = (region: Region) => {
-		setRegion(region);
-	};
+	const onRegionChange = (region: Region) => setRegion(region);
 
 	return (
 		<MapView
@@ -47,8 +43,8 @@ const NearbyMap = (props: NearbyMapProps) => {
 				longitudeDelta: 0.00353,
 				latitudeDelta: 0.00568
 			}}
-			onRegionChange={onRegionChange}
 			{...{ region }}
+			onRegionChange={onRegionChange}
 			pitchEnabled={false}
 			rotateEnabled={false}
 			scrollEnabled={false}

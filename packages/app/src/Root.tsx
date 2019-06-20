@@ -43,9 +43,7 @@ const Root = () => {
 			require('../assets/Help_Others.png'),
 			require('../assets/Security.png')
 		];
-		images.map(image => {
-			return Asset.fromModule(image).downloadAsync();
-		});
+		images.map(image => Asset.fromModule(image).downloadAsync());
 	};
 
 	if (!fontsLoaded) return <AppLoading />;
@@ -61,7 +59,7 @@ TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
 		} = locations[0] as { coords: EmergencyCoordinates };
 		setInterval(() => {
 			Emergencies.managePushNotifications({ longitude, latitude });
-		}, 1000);
+		}, 10000);
 	}
 });
 

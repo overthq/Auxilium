@@ -25,7 +25,7 @@
 		"express": "^4.17.1",
 		"haversine": "^1.1.1",
 		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^5.5.15",
+		"mongoose": "^5.6.0",
 		"node-fetch": "^2.6.0"
 	},
 	"devDependencies": {
@@ -46,6 +46,6 @@
 		"prettier": "^1.18.2",
 		"rimraf": "^2.6.3",
 		"ts-node": "^8.3.0",
-		"typescript": "^3.5.1"
+		"typescript": "^3.5.2"
 	}
 }

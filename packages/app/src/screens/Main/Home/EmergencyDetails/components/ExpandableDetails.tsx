@@ -1,57 +1,25 @@
 import React from 'react';
-import { Dimensions, StyleSheet, Text } from 'react-native';
-import Animated from 'react-native-reanimated';
-import { PanGestureHandler } from 'react-native-gesture-handler';
-import { Location } from '../../../../../api';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 
 const { height } = Dimensions.get('window');
 
 interface ExpandableDetailsProps {
 	description?: string;
+	address: string;
 	longitude: number;
 	latitude: number;
 }
 
 const ExpandableDetails = (props: ExpandableDetailsProps) => {
-	const { description, longitude, latitude } = props;
-	const [place, setPlace] = React.useState('');
-
-	React.useEffect(() => {
-		loadPlace();
-	}, []);
-
-	const loadPlace = async () => {
-		const place = await Location.getAddress({
-			longitude,
-			latitude
-		});
-		setPlace(place);
-	};
-
-	const animatedHeight = new Animated.Value(height / 4);
-	const onPanGestureEvent = () => {
-		Animated.event(
-			[
-				{
-					nativeEvent: {
-						contentOffset: { y: animatedHeight }
-					}
-				}
-			],
-			{ useNativeDriver: true }
-		);
-	};
-
+	const { description, address, longitude, latitude } = props;
 	return (
-		<PanGestureHandler onGestureEvent={onPanGestureEvent}>
-			<Animated.View style={[styles.container, { height: animatedHeight }]}>
-				<Text style={styles.emergencyDescription}>{description}</Text>
-				<Text style={styles.emergencyAddress}>{place}</Text>
-				<Text style={styles.emergencyLongLat}>
-					{`${longitude.toFixed(4)}, ${latitude.toFixed(4)}`}
-				</Text>
-			</Animated.View>
-		</PanGestureHandler>
+		<View style={styles.container}>
+			<Text style={styles.emergencyDescription}>{description}</Text>
+			<Text style={styles.emergencyAddress}>{address}</Text>
+			<Text style={styles.emergencyLongLat}>
+				{`${longitude.toFixed(4)}, ${latitude.toFixed(4)}`}
+			</Text>
+		</View>
 	);
 };
 
@@ -61,6 +29,7 @@ const styles = StyleSheet.create({
 		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10,
 		padding: 20,
+		height: height / 4,
 		width: '100%'
 	},
 	emergencyDescription: {

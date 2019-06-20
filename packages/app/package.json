@@ -31,7 +31,7 @@
 		"expo-permissions": "~5.0.1",
 		"expo-task-manager": "~5.0.1",
 		"haversine": "^1.1.1",
-		"react": "16.8.3",
+		"react": "16.8.6",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
 		"react-native-maps": "~0.24.0",
 		"react-navigation": "^3.11.0",

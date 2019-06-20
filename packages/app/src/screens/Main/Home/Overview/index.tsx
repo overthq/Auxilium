@@ -25,8 +25,7 @@ const stateMapper = ({ location, emergencies }: OverviewState) => ({
 	emergencies: emergencies.emergencies
 });
 
-const Overview = (props: NavigationScreenProps) => {
-	const { navigation } = props;
+const Overview = ({ navigation }: NavigationScreenProps) => {
 	const { coordinates, place, emergencies } = useSelector(stateMapper);
 	const dispatch = useDispatch();
 

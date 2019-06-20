@@ -26,13 +26,7 @@ const Slide = ({ image, title, description }: SlideProps) => (
 				resizeMode='contain'
 			/>
 		</View>
-		<View
-			style={{
-				justifyContent: 'space-around',
-				flexGrow: 1,
-				flexDirection: 'column'
-			}}
-		>
+		<View style={styles.meta}>
 			<Text style={styles.title}>{title}</Text>
 			<Text style={styles.description}>{description}</Text>
 		</View>
@@ -53,6 +47,11 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center'
+	},
+	meta: {
+		justifyContent: 'space-around',
+		flexGrow: 1,
+		flexDirection: 'column'
 	},
 	title: {
 		fontSize: 26,

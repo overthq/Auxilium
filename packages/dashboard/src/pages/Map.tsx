@@ -3,15 +3,8 @@ import mapboxgl from 'mapbox-gl';
 import ReactMapboxGL from 'react-mapbox-gl';
 
 const MapContainer = ReactMapboxGL({
-	accessToken:
-		'pk.eyJ1Ijoia29yZWRlMzYwIiwiYSI6ImNqZno1MGN2YjBhOTgyd2xlbWFhMGQ3dmwifQ.1AbAu_Ga4bu4iQCnOgBfog'
+	accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN as string
 });
-
-interface MapState {
-	lng: number;
-	lat: number;
-	zoom: number;
-}
 
 const initialMapState = {
 	lng: 1,
@@ -19,10 +12,11 @@ const initialMapState = {
 	zoom: 8
 };
 
-const mapReducer = (state: MapState, action: any) => ({ ...state, ...action });
-
 const Map = () => {
-	const [state, setState] = React.useReducer(mapReducer, initialMapState);
+	const [state, setState] = React.useReducer(
+		(prev, next) => ({ ...prev, ...next }),
+		initialMapState
+	);
 	const { long: longitude, lat: latitude } = state;
 
 	const onMapLoad = (map: mapboxgl.Map) => {

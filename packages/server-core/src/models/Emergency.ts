@@ -3,9 +3,11 @@ import { model, Schema, Document } from 'mongoose';
 interface EmergencyType extends Document {
 	deviceId: string;
 	location: {
+		type: 'Point';
 		coordinates: [number, number];
 	};
-	description?: string;
+	address: string;
+	description: string;
 	recepients: string[];
 }
 
@@ -18,6 +20,9 @@ const EmergencySchema = new Schema(
 		location: {
 			type: { type: String },
 			coordinates: []
+		},
+		address: {
+			type: String
 		},
 		description: {
 			type: String

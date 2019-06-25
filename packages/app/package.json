@@ -52,7 +52,7 @@
 		"@types/react-redux": "^7.1.0",
 		"@types/redux-logger": "^3.0.7",
 		"babel-preset-expo": "^5.2.0",
-		"eslint": "^5.16.0",
+		"eslint": "^6.0.1",
 		"expo-yarn-workspaces": "^1.2.0",
 		"prettier": "^1.18.2",
 		"typescript": "^3.5.2"

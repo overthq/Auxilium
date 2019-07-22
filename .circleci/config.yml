@@ -3,7 +3,7 @@ jobs:
   deploy_mobile:
     working_directory: ~/auxilium
     docker:
-      - image: circleci/node:11.8.0
+      - image: circleci/node:12.6.0-stretch
     steps:
       - checkout
       - run:

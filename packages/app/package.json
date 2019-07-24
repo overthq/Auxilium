@@ -22,7 +22,7 @@
 		"build:android": "expo build:android"
 	},
 	"dependencies": {
-		"@expo/vector-icons": "^10.0.2",
+		"@expo/vector-icons": "^10.0.3",
 		"date-fns": "^2.0.0-alpha.34",
 		"expo": "^33.0.6",
 		"expo-asset": "^5.0.1",
@@ -35,9 +35,9 @@
 		"react": "16.8.3",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
 		"react-native-maps": "~0.24.0",
-		"react-navigation": "^3.11.0",
+		"react-navigation": "^3.11.1",
 		"react-redux": "^7.1.0",
-		"redux": "^4.0.1",
+		"redux": "^4.0.4",
 		"redux-logger": "^3.0.6",
 		"redux-persist": "^5.10.0",
 		"redux-thunk": "^2.3.0",
@@ -46,16 +46,16 @@
 	"devDependencies": {
 		"@types/expo": "^32.0.13",
 		"@types/expo__vector-icons": "^9.0.1",
-		"@types/haversine": "^1.1.2",
-		"@types/react": "^16.8.21",
-		"@types/react-native": "^0.57.63",
+		"@types/haversine": "^1.1.4",
+		"@types/react": "^16.8.23",
+		"@types/react-native": "^0.60.2",
 		"@types/react-navigation": "^3.0.7",
-		"@types/react-redux": "^7.1.0",
+		"@types/react-redux": "^7.1.1",
 		"@types/redux-logger": "^3.0.7",
 		"babel-preset-expo": "^5.2.0",
-		"eslint": "^5.16.0",
+		"eslint": "^6.1.0",
 		"expo-yarn-workspaces": "^1.2.0",
 		"prettier": "^1.18.2",
-		"typescript": "^3.5.2"
+		"typescript": "^3.5.3"
 	}
 }

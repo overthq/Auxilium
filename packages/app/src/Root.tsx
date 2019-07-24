@@ -25,7 +25,12 @@ const Root = () => {
 		preload();
 		getBackgroundUpdates();
 		StatusBar.setBarStyle('light-content');
-		Notifications.addListener(handleNotification);
+		const notificationSubsctiption = Notifications.addListener(
+			handleNotification
+		);
+		return () => {
+			notificationSubsctiption.remove();
+		};
 	}, []);
 
 	const handleNotification = (notification: any) => {
@@ -34,7 +39,6 @@ const Root = () => {
 
 	const loadFonts = async () => {
 		await Font.loadAsync({
-			/* eslint-disable global-require */
 			'Rubik Regular': require('../assets/fonts/Rubik-Regular.ttf'),
 			'Rubik Medium': require('../assets/fonts/Rubik-Medium.ttf'),
 			'Rubik Bold': require('../assets/fonts/Rubik-Bold.ttf'),

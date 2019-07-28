@@ -104,12 +104,13 @@ export const backgroundNotifications: RequestHandler = async (req, res) => {
 		emergencies.forEach(async emergency => {
 			const { coordinates } = emergency.location;
 			const [longitude, latitude] = coordinates;
-			const distance = haversine(
+			const isWithinRange = haversine(
 				{ longitude: Number(lon), latitude: Number(lat) },
-				{ longitude, latitude }
+				{ longitude, latitude },
+				{ threshold: 1, unit: 'km' }
 			);
 			if (
-				distance <= 1 &&
+				isWithinRange &&
 				sender.deviceId !== emergency.deviceId &&
 				!emergency.recepients.includes(pushToken)
 			) {

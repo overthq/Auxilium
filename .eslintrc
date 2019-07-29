@@ -1,0 +1,44 @@
+{
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["@typescript-eslint", "react", "react-native", "import"],
+	"parserOptions": {
+		"sourceType": "module"
+	},
+	"env": {
+		"browser": true,
+		"node": true,
+		"jest": true,
+		"mocha": true
+	},
+	"extends": [
+		"prettier",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react/recommended",
+		"prettier/@typescript-eslint",
+		"prettier/react"
+	],
+	"rules": {
+		"indent": 0,
+		"no-tabs": 0,
+		"no-unused-vars": ["off"],
+		"no-use-before-define": 0,
+		"react/jsx-filename-extension": [2, { "extensions": [".tsx"] }],
+		"react/no-array-index-key": 0,
+		"@typescript-eslint/no-use-before-define": 0,
+		"@typescript-eslint/explicit-member-accessibility": 0,
+		"@typescript-eslint/explicit-function-return-type": 0
+	},
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".ts", ".tsx"]
+			}
+		},
+		"react": {
+			"version": "detect"
+		}
+	},
+	"globals": {
+		"__DEV__": true
+	}
+}

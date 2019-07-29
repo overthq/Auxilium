@@ -1,41 +1,61 @@
 version: 2
 jobs:
   deploy_mobile:
-    working_directory: ~/auxilium-app
+    working_directory: ~/auxilium
     docker:
-      - image: circleci/node:11.8.0
+      - image: circleci/node:12.6.0-stretch
     steps:
       - checkout
       - run:
           name: Install global dependencies
-          command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli lerna
+          command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli
       - run:
           name: Install dependencies
-          command: lerna bootstrap --scope auxilium-app
+          command: yarn install
       - run:
           name: Login to Expo
           command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run:
           name: Publish to default channel
-          command: lerna exec --scope auxilium-app "yarn publish:app"
+          command: yarn workspace @auxilium/app publish:app
       - run:
           name: Publish to Expo Release Channels
           command: |
             if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              lerna exec --scope auxilium-app "yarn publish:app --release-channel staging"
+              yarn workspace @auxilium/app publish:app --release-channel staging
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-              lerna exec --scope auxilium-app "yarn publish:app --release-channel prod"
+              yarn workspace @auxilium/app publish:app --release-channel prod
             fi
+  build_android:
+    working_directory: ~/auxilium
+    docker:
+      - image: circleci/node:12.6.0-stretch
+    steps:
+      - checkout
+      - run:
+          name: Install global dependencies
+          command: sudo npm i -g yarn@latest && sudo yarn global add expo-cli
+      - run:
+          name: Install dependencies
+          command: yarn install
+      - run:
+          name: Login to Expo
+          command: expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+      - run:
+          name: Build Android App
+          command: yarn workspace @auxilium/app build:android
   deploy_backend:
-    working_directory: ~/auxilium-app
+    working_directory: ~/auxilium
     docker:
       - image: buildpack-deps:trusty
     steps:
       - checkout
       - run:
+          name: Copy latest Yarn lockfile
+          command: cp yarn.lock packages/server/yarn.lock
+      - run:
           name: Push backend to Heroku
-          command: |
-            git subtree push --prefix packages/Auxilium-Server https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+          command: git subtree push --prefix packages/server https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 workflows:
   version: 2
   deploy:
@@ -51,4 +71,11 @@ workflows:
             branches:
               only:
                 - staging
+                - master
+      - build_android:
+          requires:
+            - deploy_mobile
+          filters:
+            branches:
+              only:
                 - master

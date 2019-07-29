@@ -8,9 +8,7 @@ const getRoute = async (
 	const { longitude: toLongitude, latitude: toLatitude } = to;
 	try {
 		const response = await fetch(
-			`${
-				env.apiUrl
-			}location/get-route?from=${fromLongitude},${fromLatitude}&to=${toLongitude},${toLatitude}`,
+			`${env.apiUrl}location/get-route?from=${fromLongitude},${fromLatitude}&to=${toLongitude},${toLatitude}`,
 			{
 				method: 'GET',
 				headers: {
@@ -29,9 +27,7 @@ const getRoute = async (
 const getAddress = async ({ longitude, latitude }: EmergencyCoordinates) => {
 	try {
 		const response = await fetch(
-			`${
-				env.apiUrl
-			}location/get-address?longitude=${longitude}&latitude=${latitude}`,
+			`${env.apiUrl}location/get-address?longitude=${longitude}&latitude=${latitude}`,
 			{
 				method: 'GET',
 				headers: {

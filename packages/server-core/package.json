@@ -13,11 +13,11 @@
 		"build": "tsc -b"
 	},
 	"dependencies": {
-		"mongoose": "^5.6.0"
+		"mongoose": "^5.6.6"
 	},
 	"devDependencies": {
-		"@types/mongoose": "^5.5.6",
-		"eslint": "^5.16.0",
-		"typescript": "^3.5.2"
+		"@types/mongoose": "^5.5.9",
+		"eslint": "^6.1.0",
+		"typescript": "^3.5.3"
 	}
 }

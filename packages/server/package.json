@@ -20,32 +20,31 @@
 		"start": "node dist/app"
 	},
 	"dependencies": {
-		"@sentry/node": "^5.4.0",
+		"@sentry/node": "^5.5.0",
 		"dotenv": "^8.0.0",
 		"express": "^4.17.1",
 		"haversine": "^1.1.1",
 		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^5.6.0",
+		"mongoose": "^5.6.6",
 		"node-fetch": "^2.6.0"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.1.7",
 		"@types/dotenv": "^6.1.1",
 		"@types/express": "^4.17.0",
-		"@types/haversine": "^1.1.2",
+		"@types/haversine": "^1.1.4",
 		"@types/jsonwebtoken": "^8.3.2",
 		"@types/mocha": "^5.2.7",
-		"@types/mongoose": "^5.5.6",
-		"@types/node-fetch": "^2.3.7",
-		"@types/socket.io": "^2.1.2",
+		"@types/mongoose": "^5.5.9",
+		"@types/node-fetch": "^2.5.0",
 		"chai": "^4.2.0",
 		"chai-http": "^4.3.0",
-		"eslint": "^5.16.0",
-		"mocha": "^6.1.4",
+		"eslint": "^6.1.0",
+		"mocha": "^6.2.0",
 		"nodemon": "^1.19.1",
 		"prettier": "^1.18.2",
 		"rimraf": "^2.6.3",
 		"ts-node": "^8.3.0",
-		"typescript": "^3.5.2"
+		"typescript": "^3.5.3"
 	}
 }

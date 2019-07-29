@@ -2,7 +2,7 @@ import React from 'react';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import * as TaskManager from 'expo-task-manager';
-import { AppLoading } from 'expo';
+import { AppLoading, Notifications } from 'expo';
 import { StatusBar } from 'react-native';
 import AppNavigator from './screens';
 import { LOCATION_TASK, getBackgroundUpdates } from './tasks';
@@ -12,6 +12,7 @@ import { AuthHelpers } from './helpers';
 const Root = () => {
 	const [fontsLoaded, setFontsLoaded] = React.useState(false);
 	const [loggedIn, setLoggedIn] = React.useState(false);
+	const [notification, setNotification] = React.useState(null);
 
 	const preload = async () => {
 		const status = await AuthHelpers.checkAuthStatus();
@@ -24,11 +25,20 @@ const Root = () => {
 		preload();
 		getBackgroundUpdates();
 		StatusBar.setBarStyle('light-content');
+		const notificationSubsctiption = Notifications.addListener(
+			handleNotification
+		);
+		return () => {
+			notificationSubsctiption.remove();
+		};
 	}, []);
+
+	const handleNotification = (notification: any) => {
+		return setNotification(notification);
+	};
 
 	const loadFonts = async () => {
 		await Font.loadAsync({
-			/* eslint-disable global-require */
 			'Rubik Regular': require('../assets/fonts/Rubik-Regular.ttf'),
 			'Rubik Medium': require('../assets/fonts/Rubik-Medium.ttf'),
 			'Rubik Bold': require('../assets/fonts/Rubik-Bold.ttf'),
@@ -47,6 +57,7 @@ const Root = () => {
 	};
 
 	if (!fontsLoaded) return <AppLoading />;
+	if (notification) console.log(notification); // Inspect this and see what it has
 	return <AppNavigator {...{ loggedIn }} />;
 };
 

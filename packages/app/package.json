@@ -29,7 +29,7 @@
 		"expo-constants": "~5.0.1",
 		"expo-font": "~5.0.1",
 		"expo-location": "~5.0.1",
-		"expo-permissions": "~5.0.1",
+		"expo-permissions": "~6.0.0",
 		"expo-task-manager": "~5.0.1",
 		"haversine": "^1.1.1",
 		"react": "16.8.3",

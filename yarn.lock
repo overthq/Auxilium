@@ -5472,6 +5472,13 @@ expo-font@~5.0.1:
   dependencies:
     fontfaceobserver "^2.1.0"
 
+expo-font@~6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/expo-font/-/expo-font-6.0.1.tgz#239b0468edf90d441dca20253c00b334e812c5c5"
+  integrity sha512-zQwGFTKSrsTWmFzS0l87i6TyqM0YFDK4ui4sSzpbdQsUHXpeG7wfa67i09roLS0xtp85nrR9Vm2bUJp9njV8JQ==
+  dependencies:
+    fontfaceobserver "^2.1.0"
+
 expo-gl-cpp@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/expo-gl-cpp/-/expo-gl-cpp-5.0.1.tgz#cc83b18c4ab0e3e125cb95cf501975455a2c5bbe"
@@ -14570,9 +14577,10 @@ xcode@^2.0.0:
     simple-plist "^1.0.0"
     uuid "^3.3.2"
 
-"xcode@git+https://github.com/apache/cordova-node-xcode.git#e7646f0680d509b590b839e567c217590451505b":
+"xcode@https://github.com/apache/cordova-node-xcode#e7646f0680d509b590b839e567c217590451505b":
   version "1.0.1-dev"
-  resolved "git+https://github.com/apache/cordova-node-xcode.git#e7646f0680d509b590b839e567c217590451505b"
+  uid e7646f0680d509b590b839e567c217590451505b
+  resolved "https://github.com/apache/cordova-node-xcode#e7646f0680d509b590b839e567c217590451505b"
   dependencies:
     simple-plist "^0.2.1"
     uuid "3.0.1"

@@ -10,14 +10,16 @@ export const auth: RequestHandler = async (req, res) => {
 		});
 	}
 	try {
-		const user = await User.findOne({ deviceId });
+		let user = await User.findOne({ deviceId });
 		if (!user) {
 			const newUser = new User({ deviceId, pushToken });
 			await newUser.save();
+			user = newUser;
 		}
 		return res.status(200).json({
 			success: true,
-			message: 'User successfully verified'
+			message: 'User successfully verified',
+			user // Add access token and JWT info to limit who can make further requests to the API.
 		});
 	} catch (error) {
 		return res.status(500).json({

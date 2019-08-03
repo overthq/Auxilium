@@ -1,6 +1,6 @@
 {
 	"parser": "@typescript-eslint/parser",
-	"plugins": ["@typescript-eslint", "react", "react-native", "import"],
+	"plugins": ["@typescript-eslint", "react", "import"],
 	"parserOptions": {
 		"sourceType": "module"
 	},

@@ -2,7 +2,7 @@ import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import { MapMarker } from '../../Overview/components';
-import { Location } from '../../../../../api';
+import { Location } from '../../../../api';
 import mapStyle from './mapStyle';
 
 const { width, height } = Dimensions.get('window');

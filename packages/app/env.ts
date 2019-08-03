@@ -1,12 +1,11 @@
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 
 const ENV = {
 	dev: {
 		apiUrl: __DEV__
-			? `http://${Constants.manifest.debuggerHost
+			? `http://${((Constants.manifest.debuggerHost as string)
 					.split(`:`)
-					.shift()
-					.concat(`:4000/`) || ''}`
+					.shift() as string).concat(`:4000/`) || ''}`
 			: ''
 	},
 	staging: {

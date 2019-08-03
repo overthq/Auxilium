@@ -36,13 +36,20 @@ const PopupModal = ({ modalRef, action }: PopupModalProps) => {
 			adjustToContentHeight
 			handlePosition='inside'
 			modalStyle={styles.modal}
+			handleStyle={styles.modalHandle}
 		>
 			<View style={styles.modalHeader}>
-				<TouchableOpacity onPress={handleClose}>
+				<TouchableOpacity
+					style={styles.modalActionButton}
+					onPress={handleClose}
+				>
 					<Feather name='x' color='#FF8282' size={20} />
 				</TouchableOpacity>
 				<Text style={styles.modalTitle}>Report emergency</Text>
-				<TouchableOpacity onPress={handleSubmit}>
+				<TouchableOpacity
+					style={styles.modalActionButton}
+					onPress={handleSubmit}
+				>
 					<Feather name='send' color='#FF8282' size={20} />
 				</TouchableOpacity>
 			</View>
@@ -63,20 +70,29 @@ const styles = StyleSheet.create({
 		backgroundColor: '#505050',
 		overflow: 'hidden'
 	},
+	modalHandle: {
+		backgroundColor: 'rgba(255, 255, 255, 0.1)',
+		width: 40
+	},
 	modalHeader: {
 		width: '100%',
-		height: 50,
+		height: 60,
 		backgroundColor: '#111111',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
+		paddingTop: 10,
 		paddingHorizontal: 20
 	},
 	modalTitle: {
 		color: '#D3D3D3',
 		fontFamily: 'Rubik Bold',
-		fontSize: 16
+		fontSize: 16,
+		letterSpacing: 1
+	},
+	modalActionButton: {
+		padding: 5
 	},
 	textArea: {
 		minHeight: height / 3,

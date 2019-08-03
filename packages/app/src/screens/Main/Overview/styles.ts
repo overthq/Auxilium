@@ -1,6 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
-
-const { width } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
 	container: {
@@ -12,28 +10,13 @@ const styles = StyleSheet.create({
 		flexGrow: 1,
 		alignItems: 'center'
 	},
-	top: {
-		width,
-		padding: 0.05 * width,
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		marginVertical: 15
-	},
-	locationName: {
-		fontSize: 20,
-		fontFamily: 'Rubik Bold',
-		letterSpacing: 1,
-		color: '#D3D3D3'
-	},
 	sectionHeader: {
 		fontSize: 20,
 		fontFamily: 'Rubik Bold',
-		letterSpacing: 1,
-		color: '#D3D3D3',
+		marginVertical: 20,
 		alignSelf: 'flex-start',
-		padding: 0.05 * width
+		letterSpacing: 1,
+		color: '#D3D3D3'
 	}
 });
 

@@ -54,11 +54,11 @@ const Overview = ({ navigation }: NavigationScreenProps) => {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<ScrollView contentContainerStyle={styles.scrollContainer}>
-				<View style={styles.top}>
-					<Text style={styles.locationName}>{place}</Text>
-					<Ionicons name='md-funnel' size={22} color='#D3D3D3' />
-				</View>
+			<ScrollView
+				contentContainerStyle={styles.scrollContainer}
+				showsVerticalScrollIndicator={false}
+			>
+				<Text style={styles.sectionHeader}>{place}</Text>
 				<NearbyMap {...{ coordinates, emergencies }} />
 				<Text style={styles.sectionHeader}>Around You</Text>
 				<AroundYou

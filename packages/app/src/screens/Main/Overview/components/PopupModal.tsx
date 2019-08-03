@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
 	textArea: {
 		minHeight: height / 3,
 		width: '100%',
-		padding: 20,
+		paddingHorizontal: 20,
+		marginTop: 10,
 		fontFamily: 'Rubik Regular',
 		fontSize: 16,
 		color: '#D3D3D3'

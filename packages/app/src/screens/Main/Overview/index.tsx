@@ -3,11 +3,12 @@ import { View, Text, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationScreenProps } from 'react-navigation';
+import Modalize from 'react-native-modalize';
 
-import { LocationActions, EmergenciesActions } from '../../../../redux/actions';
-import { MainButton, AroundYou, NearbyMap } from './components';
+import { LocationActions, EmergenciesActions } from '../../../redux/actions';
+import { MainButton, AroundYou, NearbyMap, PopupModal } from './components';
 import styles from './styles';
-import { Emergencies } from '../../../../api';
+import { Emergencies } from '../../../api';
 
 interface OverviewState {
 	location: {
@@ -28,28 +29,36 @@ const stateMapper = ({ location, emergencies }: OverviewState) => ({
 const Overview = ({ navigation }: NavigationScreenProps) => {
 	const { coordinates, place, emergencies } = useSelector(stateMapper);
 	const dispatch = useDispatch();
+	const modalRef = React.useRef<Modalize>(null);
 
 	React.useEffect(() => {
 		dispatch(LocationActions.locate());
 		dispatch(EmergenciesActions.fetchEmergencies());
 	}, []);
 
-	const askForHelp = async (description: string) => {
-		try {
-			await dispatch(LocationActions.locate(false));
-			Emergencies.createEmergency(description, coordinates);
-		} catch (error) {
-			Alert.alert(error.message);
-		}
+	const askForHelp = React.useCallback(
+		async (description: string) => {
+			try {
+				await dispatch(LocationActions.locate(false));
+				Emergencies.createEmergency(description, coordinates);
+			} catch (error) {
+				Alert.alert(error.message);
+			}
+		},
+		[coordinates]
+	);
+
+	const handleModalOpen = () => {
+		modalRef.current && modalRef.current.open();
 	};
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<ScrollView contentContainerStyle={styles.scrollContainer}>
-				<View style={styles.top}>
-					<Text style={styles.locationName}>{place}</Text>
-					<Ionicons name='md-funnel' size={22} color='#D3D3D3' />
-				</View>
+			<ScrollView
+				contentContainerStyle={styles.scrollContainer}
+				showsVerticalScrollIndicator={false}
+			>
+				<Text style={styles.sectionHeader}>{place}</Text>
 				<NearbyMap {...{ coordinates, emergencies }} />
 				<Text style={styles.sectionHeader}>Around You</Text>
 				<AroundYou
@@ -61,13 +70,8 @@ const Overview = ({ navigation }: NavigationScreenProps) => {
 					emergencies={emergencies.slice(0, 5)}
 				/>
 			</ScrollView>
-			<MainButton
-				onPress={() =>
-					navigation.navigate('Popup', {
-						action: askForHelp
-					})
-				}
-			/>
+			<MainButton onPress={handleModalOpen} />
+			<PopupModal {...{ modalRef, action: askForHelp }} />
 		</SafeAreaView>
 	);
 };

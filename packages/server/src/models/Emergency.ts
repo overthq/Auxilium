@@ -35,6 +35,6 @@ const EmergencySchema = new Schema(
 	{ timestamps: true }
 );
 
-EmergencySchema.index({ location: '2dsphere' });
+EmergencySchema.index({ location: '2dsphere' }, { expires: '7d' });
 
 export default model<EmergencyType>('Emergency', EmergencySchema);

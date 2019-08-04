@@ -115,7 +115,7 @@ export const backgroundNotifications: RequestHandler = async (req, res) => {
 				!emergency.recepients.includes(pushToken)
 			) {
 				const address = await getAddress({ longitude, latitude });
-				await sendNotification(pushToken, address);
+				await sendNotification(pushToken, address, emergency);
 				await emergency.recepients.push(pushToken);
 				await emergency.save();
 			}

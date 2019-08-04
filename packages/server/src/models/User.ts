@@ -1,6 +1,6 @@
 import { model, Schema, Document } from 'mongoose';
 
-interface UserType extends Document {
+export interface UserType extends Document {
 	deviceId: string;
 	pushToken: string;
 }
@@ -21,4 +21,4 @@ const UserSchema = new Schema(
 	{ timestamps: true }
 );
 
-export default model<UserType>('User', UserSchema);
+export const User = model<UserType>('User', UserSchema);

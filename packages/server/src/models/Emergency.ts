@@ -1,6 +1,6 @@
 import { model, Schema, Document } from 'mongoose';
 
-interface EmergencyType extends Document {
+export interface EmergencyType extends Document {
 	deviceId: string;
 	location: {
 		type: 'Point';
@@ -37,4 +37,4 @@ const EmergencySchema = new Schema(
 
 EmergencySchema.index({ location: '2dsphere' }, { expires: '7d' });
 
-export default model<EmergencyType>('Emergency', EmergencySchema);
+export const Emergency = model<EmergencyType>('Emergency', EmergencySchema);

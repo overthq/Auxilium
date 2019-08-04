@@ -2,21 +2,16 @@ import React from 'react';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import * as TaskManager from 'expo-task-manager';
-import { AppLoading, Notifications } from 'expo';
+import { AppLoading } from 'expo';
 import { StatusBar } from 'react-native';
 import AppNavigator from './screens';
-import NavigationService from './screens/NavigationService';
 import { LOCATION_TASK, getBackgroundUpdates } from './tasks';
 import { Emergencies } from './api';
 import { AuthHelpers } from './helpers';
-import { Notification } from 'expo/build/Notifications/Notifications.types';
 
 const Root = () => {
 	const [fontsLoaded, setFontsLoaded] = React.useState(false);
 	const [loggedIn, setLoggedIn] = React.useState(false);
-	const [notification, setNotification] = React.useState<Notification | null>(
-		null
-	);
 
 	const preload = async () => {
 		const status = await AuthHelpers.checkAuthStatus();
@@ -29,24 +24,13 @@ const Root = () => {
 		preload();
 		getBackgroundUpdates();
 		StatusBar.setBarStyle('light-content');
-		const notificationSubsctiption = Notifications.addListener(
-			handleNotification
-		);
-		return () => {
-			notificationSubsctiption.remove();
-		};
 	}, []);
-
-	const handleNotification = (notification: Notification) => {
-		return setNotification(notification);
-	};
 
 	const loadFonts = async () => {
 		await Font.loadAsync({
 			'Rubik Regular': require('../assets/fonts/Rubik-Regular.ttf'),
 			'Rubik Medium': require('../assets/fonts/Rubik-Medium.ttf'),
-			'Rubik Bold': require('../assets/fonts/Rubik-Bold.ttf'),
-			'Rubik Black': require('../assets/fonts/Rubik-Black.ttf')
+			'Rubik Bold': require('../assets/fonts/Rubik-Bold.ttf')
 		});
 		setFontsLoaded(true);
 	};
@@ -61,11 +45,6 @@ const Root = () => {
 	};
 
 	if (!fontsLoaded) return <AppLoading />;
-	if (notification && notification.origin === 'selected') {
-		NavigationService.navigate('EmergencyDetails', {
-			details: notification.data
-		});
-	}
 	return <AppNavigator {...{ loggedIn }} />;
 };
 

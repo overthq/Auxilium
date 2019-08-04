@@ -5,14 +5,18 @@ import * as TaskManager from 'expo-task-manager';
 import { AppLoading, Notifications } from 'expo';
 import { StatusBar } from 'react-native';
 import AppNavigator from './screens';
+import NavigationService from './screens/NavigationService';
 import { LOCATION_TASK, getBackgroundUpdates } from './tasks';
 import { Emergencies } from './api';
 import { AuthHelpers } from './helpers';
+import { Notification } from 'expo/build/Notifications/Notifications.types';
 
 const Root = () => {
 	const [fontsLoaded, setFontsLoaded] = React.useState(false);
 	const [loggedIn, setLoggedIn] = React.useState(false);
-	const [notification, setNotification] = React.useState(null);
+	const [notification, setNotification] = React.useState<Notification | null>(
+		null
+	);
 
 	const preload = async () => {
 		const status = await AuthHelpers.checkAuthStatus();
@@ -33,7 +37,7 @@ const Root = () => {
 		};
 	}, []);
 
-	const handleNotification = (notification: any) => {
+	const handleNotification = (notification: Notification) => {
 		return setNotification(notification);
 	};
 
@@ -57,7 +61,11 @@ const Root = () => {
 	};
 
 	if (!fontsLoaded) return <AppLoading />;
-	if (notification) console.log(notification); // Inspect this and see what it has
+	if (notification && notification.origin === 'selected') {
+		NavigationService.navigate('EmergencyDetails', {
+			details: notification.data
+		});
+	}
 	return <AppNavigator {...{ loggedIn }} />;
 };
 

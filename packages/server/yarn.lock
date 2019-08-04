@@ -11405,6 +11405,13 @@ react-native-safe-area-view@^0.14.1:
   dependencies:
     debounce "^1.2.0"
 
+"react-native-screens@^1.0.0 || ^1.0.0-alpha":
+  version "1.0.0-alpha.23"
+  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.23.tgz#25d7ea4d11bda4fcde2d1da7ae50271c6aa636e0"
+  integrity sha512-tOxHGQUN83MTmQB4ghoQkibqOdGiX4JQEmeyEv96MKWO/x8T2PJv84ECUos9hD3blPRQwVwSpAid1PPPhrVEaw==
+  dependencies:
+    debounce "^1.2.0"
+
 react-native-sentry@^0.42.0:
   version "0.42.0"
   resolved "https://registry.yarnpkg.com/react-native-sentry/-/react-native-sentry-0.42.0.tgz#9cd59659d9b6cd36d6fc4c48f50613cd82cde25f"
@@ -14207,9 +14214,9 @@ xcode@^2.0.0:
     simple-plist "^1.0.0"
     uuid "^3.3.2"
 
-"xcode@https://github.com/apache/cordova-node-xcode#e7646f0680d509b590b839e567c217590451505b":
+"xcode@git+https://github.com/apache/cordova-node-xcode.git#e7646f0680d509b590b839e567c217590451505b":
   version "1.0.1-dev"
-  resolved "https://github.com/apache/cordova-node-xcode#e7646f0680d509b590b839e567c217590451505b"
+  resolved "git+https://github.com/apache/cordova-node-xcode.git#e7646f0680d509b590b839e567c217590451505b"
   dependencies:
     simple-plist "^0.2.1"
     uuid "3.0.1"

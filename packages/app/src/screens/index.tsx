@@ -22,7 +22,7 @@ const AppNavigator = ({ loggedIn }: AppNavigatorProps) => {
 	);
 
 	const handleNotification = (notification: Notification) => {
-		if (notification && notification.origin === 'selected') {
+		if (notification.origin === 'selected') {
 			NavigationService.navigate('EmergencyDetails', {
 				details: notification.data
 			});

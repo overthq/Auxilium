@@ -47,4 +47,4 @@ const AppNavigator = ({ loggedIn }: AppNavigatorProps) => {
 	);
 };
 
-export default AppNavigator;
+export default React.memo(AppNavigator);

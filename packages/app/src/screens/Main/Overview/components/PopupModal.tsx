@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
 	modalHeader: {
 		width: '100%',
 		height: 60,
-		backgroundColor: '#111111',
+		backgroundColor: '#000000',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',

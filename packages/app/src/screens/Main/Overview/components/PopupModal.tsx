@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
 		padding: 5
 	},
 	textArea: {
+		textAlignVertical: 'top',
 		minHeight: height / 3,
 		width: '100%',
 		paddingHorizontal: 20,

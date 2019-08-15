@@ -1,5 +1,4 @@
 import { RequestHandler } from 'express';
-import haversine from 'haversine';
 import { Emergency, User } from '../models';
 import { sendNotification, getAddress } from '../helpers';
 
@@ -104,19 +103,13 @@ export const backgroundNotifications: RequestHandler = async (req, res) => {
 		emergencies.forEach(async emergency => {
 			const { coordinates } = emergency.location;
 			const [longitude, latitude] = coordinates;
-			const isWithinRange = haversine(
-				{ longitude: Number(lon), latitude: Number(lat) },
-				{ longitude, latitude },
-				{ threshold: 1, unit: 'km' }
-			);
 			if (
-				isWithinRange &&
 				sender.deviceId !== emergency.deviceId &&
 				!emergency.recepients.includes(pushToken)
 			) {
 				const address = await getAddress({ longitude, latitude });
 				await sendNotification(pushToken, address, emergency);
-				await emergency.recepients.push(pushToken);
+				emergency.recepients.push(pushToken);
 				await emergency.save();
 			}
 			return res.status(200).json({

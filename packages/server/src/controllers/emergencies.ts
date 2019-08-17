@@ -1,21 +1,15 @@
 import { RequestHandler } from 'express';
 import { Emergency, User } from '../models';
-import { sendNotification, getAddress } from '../helpers';
+import {
+	sendNotification,
+	getAddress,
+	findNearbyEmergencies
+} from '../helpers';
 
 export const getNearbyEmergencies: RequestHandler = async (req, res) => {
 	const { longitude, latitude }: { [key: string]: string } = req.query;
 	try {
-		const emergencies = await Emergency.find({
-			location: {
-				$near: {
-					$maxDistance: 1000,
-					$geometry: {
-						type: 'Point',
-						coordinates: [Number(longitude), Number(latitude)]
-					}
-				}
-			}
-		}).find();
+		const emergencies = await findNearbyEmergencies(longitude, latitude);
 		return res.status(200).json({
 			success: true,
 			emergencies
@@ -90,17 +84,7 @@ export const backgroundNotifications: RequestHandler = async (req, res) => {
 	try {
 		const sender = await User.findOne({ pushToken });
 		if (!sender) throw new Error('False alarm!');
-		const emergencies = await Emergency.find({
-			location: {
-				$near: {
-					$maxDistance: 1000,
-					$geometry: {
-						type: 'Point',
-						coordinates: [Number(lon), Number(lat)]
-					}
-				}
-			}
-		}).find();
+		const emergencies = await findNearbyEmergencies(lon, lat);
 		emergencies.forEach(async emergency => {
 			const { coordinates } = emergency.location;
 			const [longitude, latitude] = coordinates;

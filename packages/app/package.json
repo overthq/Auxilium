@@ -24,7 +24,7 @@
 	"dependencies": {
 		"@expo/vector-icons": "^10.0.3",
 		"date-fns": "^2.0.0-alpha.34",
-		"expo": "^34.0.3",
+		"expo": "^34.0.4",
 		"expo-asset": "~6.0.0",
 		"expo-constants": "~6.0.0",
 		"expo-font": "~6.0.1",

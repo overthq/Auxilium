@@ -5404,10 +5404,10 @@ expo-yarn-workspaces@^1.2.0:
     find-yarn-workspace-root "^1.2.0"
     mkdirp "^0.5.1"
 
-expo@^34.0.3:
-  version "34.0.3"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-34.0.3.tgz#5e2ac4ff2ddbcb2a095106d82e920e6a02a3dbaa"
-  integrity sha512-1WCg6ZpYuNQ1YdZ1vDjksB45mts2DnymHjRo7s1de5RB+Ym8SlhNelbQXOZTkdSicNg0dk9lENqcWPRAWwR2bA==
+expo@^34.0.4:
+  version "34.0.4"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-34.0.4.tgz#af6ef0da40c98981b5f3323c86fd815dfa417fff"
+  integrity sha512-sZQQoZnN5ASrkSA4qSsk7HPBewHB6b3k9VPZvchT0FBZ1fP5vpmzfIbVOqOLRXHf2VdjNnQVme617TnpPlruJg==
   dependencies:
     "@babel/runtime" "^7.1.2"
     "@expo/vector-icons" "^10.0.2"

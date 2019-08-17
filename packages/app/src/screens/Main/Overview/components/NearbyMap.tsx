@@ -58,8 +58,7 @@ const NearbyMap = (props: NearbyMapProps) => {
 const styles = StyleSheet.create({
 	map: {
 		height: height / 2,
-		width: 0.9 * width,
-		borderRadius: 6
+		width
 	}
 });
 

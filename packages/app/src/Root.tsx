@@ -55,9 +55,8 @@ TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
 		const {
 			coords: { longitude, latitude }
 		} = locations[0] as { coords: EmergencyCoordinates };
-		setInterval(() => {
-			Emergencies.managePushNotifications({ longitude, latitude });
-		}, 10000);
+		// This might not be optimal - We're expending the users mobile data in the background.
+		Emergencies.managePushNotifications({ longitude, latitude });
 	}
 });
 

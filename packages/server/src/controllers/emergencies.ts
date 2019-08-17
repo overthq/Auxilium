@@ -89,6 +89,7 @@ export const backgroundNotifications: RequestHandler = async (req, res) => {
 	}: { [key: string]: string } = req.query;
 	try {
 		const sender = await User.findOne({ pushToken });
+		if (!sender) throw new Error('False alarm!');
 		const emergencies = await Emergency.find({
 			location: {
 				$near: {

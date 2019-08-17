@@ -29,7 +29,7 @@ const HistoryItem = ({ onPress, description, address }: HistoryItemProps) => (
 const styles = StyleSheet.create({
 	historySection: {
 		borderRadius: 6,
-		backgroundColor: 'rgba(255, 255, 255, 0.05)',
+		backgroundColor: 'rgba(255, 255, 255, 0.1)',
 		width: 0.9 * width,
 		height: 65,
 		padding: 10,

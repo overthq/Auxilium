@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationScreenProps } from 'react-navigation';
 import Modalize from 'react-native-modalize';
 
@@ -58,9 +58,19 @@ const Overview = ({ navigation }: NavigationScreenProps) => {
 				contentContainerStyle={styles.scrollContainer}
 				showsVerticalScrollIndicator={false}
 			>
-				<Text style={styles.sectionHeader}>{place}</Text>
+				<View style={styles.sectionHeader}>
+					<MaterialIcons
+						name='near-me'
+						color='#D3D3D3'
+						size={18}
+						style={{ marginRight: 10 }}
+					/>
+					<Text style={styles.sectionHeaderText}>{place}</Text>
+				</View>
 				<NearbyMap {...{ coordinates, emergencies }} />
-				<Text style={styles.sectionHeader}>Around You</Text>
+				<Text style={[styles.sectionHeader, styles.sectionHeaderText]}>
+					Around You
+				</Text>
 				<AroundYou
 					navigate={(emergency: Emergency) =>
 						navigation.navigate('EmergencyDetails', {

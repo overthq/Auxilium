@@ -6,7 +6,7 @@ import {
 	TouchableOpacity,
 	StyleSheet
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
@@ -18,7 +18,7 @@ const HistoryItem = ({ onPress, description, address }: HistoryItemProps) => (
 	<TouchableOpacity activeOpacity={0.6} {...{ onPress }}>
 		<View style={styles.historySection}>
 			<View style={styles.headerRow}>
-				<Feather name='navigation' size={16} color='#D3D3D3' />
+				<MaterialIcons name='near-me' size={14} color='#D3D3D3' />
 				<Text style={styles.locationText}>{address}</Text>
 			</View>
 			<Text style={styles.descriptionText}>{description}</Text>
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
 	headerRow: {
 		display: 'flex',
 		flexDirection: 'row',
+		alignItems: 'center',
 		marginBottom: 10
 	},
 	locationText: {

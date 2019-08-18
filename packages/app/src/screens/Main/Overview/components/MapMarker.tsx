@@ -1,22 +1,22 @@
 import React from 'react';
-import { View } from 'react-native';
+import Svg, { Circle } from 'react-native-svg';
 
-interface NewMarkerProps {
+interface MarkerProps {
 	size: number;
 	borderStroke?: number;
 }
 
-const MapMarker = ({ size, borderStroke }: NewMarkerProps) => (
-	<View
-		style={{
-			height: size,
-			width: size,
-			borderRadius: size / 2,
-			backgroundColor: '#FF4D4D',
-			borderWidth: 1 || borderStroke,
-			borderColor: '#000000'
-		}}
-	/>
+const MapMarker = ({ size, borderStroke }: MarkerProps) => (
+	<Svg height={size} width={size}>
+		<Circle
+			cx={size / 2}
+			cy={size / 2}
+			r={size / 2 - (1 || borderStroke) * 2}
+			stroke='#000000'
+			strokeWidth={1 || borderStroke}
+			fill='#FF4D4D'
+		/>
+	</Svg>
 );
 
 export default MapMarker;

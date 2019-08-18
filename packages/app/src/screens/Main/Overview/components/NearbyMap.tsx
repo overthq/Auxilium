@@ -16,7 +16,7 @@ const renderMarkers = (emergencies: Emergency[] = []) => {
 		const [longitude, latitude] = location.coordinates;
 		return (
 			<Marker key={index} coordinate={{ longitude, latitude }}>
-				<MapMarker size={16} />
+				<MapMarker size={20} />
 			</Marker>
 		);
 	});

@@ -1,7 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
-
-const { height } = Dimensions.get('window');
+import { View, Text, StyleSheet } from 'react-native';
 
 interface EmergencyDetailsProps {
 	description?: string;
@@ -35,7 +33,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#505050',
 		borderRadius: 6,
 		padding: 10,
-		height: height / 4,
 		width: '90%'
 	},
 	emergencyDescription: {

@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
-import { NavigationScreenProps } from 'react-navigation';
 import Modalize from 'react-native-modalize';
 
-import { LocationActions, EmergenciesActions } from '../../../redux/actions';
+import { LocationActions, EmergenciesActions } from '../../redux/actions';
 import { MainButton, AroundYou, NearbyMap, PopupModal } from './components';
 import styles from './styles';
-import { Emergencies } from '../../../api';
+import { Emergencies } from '../../api';
+import DetailsModal from './components/DetailsModal';
 
 interface OverviewState {
 	location: {
@@ -26,10 +26,18 @@ const stateMapper = ({ location, emergencies }: OverviewState) => ({
 	emergencies: emergencies.emergencies
 });
 
-const Overview = ({ navigation }: NavigationScreenProps) => {
+const handleModalOpen = (ref: React.RefObject<Modalize>) => {
+	ref.current && ref.current.open();
+};
+
+const Overview = () => {
 	const { coordinates, place, emergencies } = useSelector(stateMapper);
+	const [activeEmergency, setEmergency] = React.useState<Emergency>(
+		emergencies[0]
+	);
 	const dispatch = useDispatch();
 	const modalRef = React.useRef<Modalize>(null);
+	const emergencyModalRef = React.useRef<Modalize>(null);
 
 	React.useEffect(() => {
 		dispatch(LocationActions.locate());
@@ -39,7 +47,7 @@ const Overview = ({ navigation }: NavigationScreenProps) => {
 	const askForHelp = React.useCallback(
 		async (description: string) => {
 			try {
-				await dispatch(LocationActions.locate(false));
+				dispatch(LocationActions.locate(false));
 				Emergencies.createEmergency(description, coordinates);
 			} catch (error) {
 				Alert.alert(error.message);
@@ -48,8 +56,9 @@ const Overview = ({ navigation }: NavigationScreenProps) => {
 		[coordinates]
 	);
 
-	const handleModalOpen = () => {
-		modalRef.current && modalRef.current.open();
+	const handleEmergencyOpen = (emergency: Emergency) => {
+		setEmergency(emergency);
+		handleModalOpen(emergencyModalRef);
 	};
 
 	return (
@@ -72,16 +81,13 @@ const Overview = ({ navigation }: NavigationScreenProps) => {
 					Around You
 				</Text>
 				<AroundYou
-					navigate={(emergency: Emergency) =>
-						navigation.navigate('EmergencyDetails', {
-							details: emergency
-						})
-					}
+					navigate={emergency => handleEmergencyOpen(emergency)}
 					emergencies={emergencies.slice(0, 5)}
 				/>
 			</ScrollView>
-			<MainButton onPress={handleModalOpen} />
+			<MainButton onPress={() => handleModalOpen(modalRef)} />
 			<PopupModal {...{ modalRef, action: askForHelp }} />
+			<DetailsModal modalRef={emergencyModalRef} emergency={activeEmergency} />
 		</SafeAreaView>
 	);
 };

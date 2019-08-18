@@ -4,7 +4,7 @@ import { Notifications } from 'expo';
 import { Notification } from 'expo/build/Notifications/Notifications.types';
 import NavigationService from './NavigationService';
 import Onboarding from './Onboarding';
-import Main from './Main';
+import Overview from './Overview';
 
 interface AppNavigatorProps {
 	loggedIn: boolean;
@@ -13,9 +13,9 @@ interface AppNavigatorProps {
 const AppNavigator = ({ loggedIn }: AppNavigatorProps) => {
 	const Navigator = createAppContainer(
 		createSwitchNavigator(
-			{ Onboarding, Main },
+			{ Onboarding, Overview },
 			{
-				initialRouteName: loggedIn ? 'Main' : 'Onboarding',
+				initialRouteName: loggedIn ? 'Overview' : 'Onboarding',
 				backBehavior: 'none'
 			}
 		)
@@ -23,9 +23,7 @@ const AppNavigator = ({ loggedIn }: AppNavigatorProps) => {
 
 	const handleNotification = (notification: Notification) => {
 		if (notification.origin === 'selected') {
-			NavigationService.navigate('EmergencyDetails', {
-				details: notification.data
-			});
+			// Handle the case
 		}
 	};
 

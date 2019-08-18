@@ -12,4 +12,5 @@ interface Emergency {
 	};
 	address: string;
 	description?: string;
+	createdAt: Date | string;
 }

@@ -21,10 +21,9 @@ const AppNavigator = ({ loggedIn }: AppNavigatorProps) => {
 		)
 	);
 
-	const handleNotification = (notification: Notification) => {
-		if (notification.origin === 'selected') {
-			// Handle the case
-			// Open the DetailsModal on the Overview page.
+	const handleNotification = ({ origin, data }: Notification) => {
+		if (origin === 'selected') {
+			NavigationService.navigate('Overview', { initialEmergency: data });
 		}
 	};
 

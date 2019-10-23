@@ -34,7 +34,7 @@ const handleModalOpen = (ref: React.RefObject<Modalize>) => {
 const Overview = ({ navigation }: NavigationScreenProps) => {
 	const { coordinates, place, emergencies } = useSelector(stateMapper);
 	const [activeEmergency, setActiveEmergency] = React.useState<Emergency>(
-		emergencies[0]
+		emergencies[0] // this has to be changed because there might be no emergency in the user's area.
 	);
 	const dispatch = useDispatch();
 	const modalRef = React.useRef<Modalize>(null);

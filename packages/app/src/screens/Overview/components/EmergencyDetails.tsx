@@ -1,21 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-const { height } = Dimensions.get('window');
-
-interface ExpandableDetailsProps {
+interface EmergencyDetailsProps {
 	description?: string;
 	address: string;
 	longitude: number;
 	latitude: number;
+	createdAt: Date | string;
 }
 
-const ExpandableDetails = (props: ExpandableDetailsProps) => {
-	const { description, address, longitude, latitude } = props;
+const EmergencyDetails = (props: EmergencyDetailsProps) => {
+	const { description, address, longitude, latitude, createdAt } = props;
 	return (
 		<View style={styles.container}>
 			<Text style={styles.emergencyDescription}>{description}</Text>
 			<Text style={styles.emergencyAddress}>{address}</Text>
+			<Text style={styles.emergencyLongLat}>
+				{new Date(createdAt).toLocaleDateString()}
+			</Text>
 			<Text style={styles.emergencyLongLat}>
 				{`${longitude.toFixed(4)}, ${latitude.toFixed(4)}`}
 			</Text>
@@ -25,12 +27,13 @@ const ExpandableDetails = (props: ExpandableDetailsProps) => {
 
 const styles = StyleSheet.create({
 	container: {
+		position: 'absolute',
+		alignSelf: 'center',
+		bottom: 20,
 		backgroundColor: '#505050',
-		borderTopLeftRadius: 10,
-		borderTopRightRadius: 10,
-		padding: 20,
-		height: height / 4,
-		width: '100%'
+		borderRadius: 6,
+		padding: 10,
+		width: '90%'
 	},
 	emergencyDescription: {
 		color: '#D3D3D3',
@@ -50,4 +53,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default ExpandableDetails;
+export default EmergencyDetails;

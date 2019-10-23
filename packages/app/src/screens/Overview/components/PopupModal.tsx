@@ -15,7 +15,7 @@ const { height } = Dimensions.get('window');
 
 interface PopupModalProps {
 	modalRef: React.RefObject<Modalize>;
-	action(text: string): void;
+	action(text: string): Promise<void>;
 }
 
 const PopupModal = ({ modalRef, action }: PopupModalProps) => {

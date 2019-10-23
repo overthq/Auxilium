@@ -55,14 +55,12 @@ yarn
 mongod
 
 # Start the backend server (after including the necessary vars in the server's .env file)
-cd packages/server
-yarn dev
+yarn workspace @auxilium/server dev
 
 # CLIENT-SIDE
 
 # Start the Expo app
-cd packages/app
-expo start
+yarn workspace @auxilium/app start
 ```
 
 ## Contributing
@@ -76,7 +74,6 @@ Auxilium is a JavaScript-based application. It is built with popular JS librarie
 - Front-End
   - Mobile App
     - Framework: [React Native](https://facebook.github.io/react-native) based on [Expo](https://expo.io)
-    - Database: [SQLite](https://sqlite.org) (stores data on the front-end)
   - Dashboard
     - Library: [React](https://facebook.github.io/react) based on [Create React App](https://facebook.github.io/create-react-app)
 - Back-End

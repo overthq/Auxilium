@@ -22,7 +22,7 @@
 		"build:android": "expo build:android -t app-bundle"
 	},
 	"dependencies": {
-		"@expo/vector-icons": "^10.0.3",
+		"@expo/vector-icons": "^10.0.6",
 		"date-fns": "^2.0.0-alpha.34",
 		"expo": "^35.0.0",
 		"expo-asset": "~7.0.0",

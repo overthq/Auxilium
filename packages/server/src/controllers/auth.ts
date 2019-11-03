@@ -12,8 +12,7 @@ export const auth: RequestHandler = async (req, res) => {
 	try {
 		let user = await User.findOne({ deviceId });
 		if (!user) {
-			const newUser = new User({ deviceId, pushToken });
-			await newUser.save();
+			const newUser = await User.create({ deviceId, pushToken });
 			user = newUser;
 		}
 		return res.status(200).json({

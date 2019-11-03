@@ -1,25 +1,25 @@
 const Emergency = `
 	type Location {
-		type: String
-		coordinates: [Int]
+		type: String!
+		coordinates: [Int!]!
 	}
 
 	type Emergency {
-		deviceId: String
-		location: Location
-		address: String
+		deviceId: String!
+		location: Location!
+		address: String!
 		description: String
-		recepients: [String]
+		recepients: [String!]!
 	}
 
 	input EmergencyInput {
-		deviceId: string
+		deviceId: string!
 		description: string
-		coordinates: [Int]
+		coordinates: [Int]!
 	}
 
 	extend type Mutation {
-		reportEmergency: (input: EmergencyInput): Emergency
+		reportEmergency: (input: EmergencyInput): Emergency!
 	}
 
 	extend type Query {
@@ -27,9 +27,12 @@ const Emergency = `
 			longitude: Int
 			latitude: Int
 		): Emergency[]
+		userEmergencies(userId: ID!): Emergency[]
 	}
 
-	extend type Subscription {}
+	extend type Subscription {
+		notifications: Emergency[]
+	}
 `;
 
 export default Emergency;

@@ -16,10 +16,10 @@ yarn start
 
 ```
 - src
-	| api
-	| helpers
-	| redux
-	| screens
+  | api
+  | helpers
+  | redux
+  | screens
 - App.tsx (application root file, mostly contains providers).
 ```
 

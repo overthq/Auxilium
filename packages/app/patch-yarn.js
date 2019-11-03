@@ -7,9 +7,7 @@
 const path = require('path');
 const fs = require('fs');
 
-if (process.platform !== 'win32') {
-  return;
-}
+if (process.platform !== 'win32') return;
 
 const sourcePath = path.resolve(path.join(__dirname, '../../node_modules'));
 const symlinkPath = path.join(__dirname, '../../node_modules/node_modules');
@@ -18,9 +16,7 @@ try {
   console.log('Removing a symlink to node_modules/node_modules');
   fs.unlinkSync(symlinkPath);
 } catch (error) {
-  if (error.code !== 'ENOENT') {
-    throw error;
-  }
+  if (error.code !== 'ENOENT') throw error;
 }
 
 try {

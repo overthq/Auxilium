@@ -1,0 +1,10 @@
+schema: schema.json
+documents: ./src/**/*.graphql
+require:
+  - ts-node/register
+generates:
+  ./src/server-types.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers
+      - typescript-mongodb

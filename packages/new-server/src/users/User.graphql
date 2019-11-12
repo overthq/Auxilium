@@ -1,0 +1,14 @@
+type User @entity {
+	id: ID! @id
+	deviceId: String! @column
+	pushToken: String! @column
+}
+
+input AuthInput {
+	deviceId: String
+	pushToken: String
+}
+
+extend type Mutation {
+	authenticate(input: AuthInput!): User!
+}

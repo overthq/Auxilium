@@ -1,4 +1,5 @@
 import { makeExecutableSchema } from 'graphql-tools';
+import { DIRECTIVES } from '@graphql-codegen/typescript-mongodb';
 
 import User from './users/types';
 import userMutation from './users/mutation';
@@ -21,7 +22,7 @@ const RootType = `
 	}
 `;
 
-const typeDefs = [RootType, User, Emergency];
+const typeDefs = [RootType, DIRECTIVES, User, Emergency];
 
 const resolvers = {
 	Mutation: { ...userMutation, ...emergencyMutation },

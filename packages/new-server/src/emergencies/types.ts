@@ -15,7 +15,7 @@ const Emergency = `
 	input EmergencyInput {
 		deviceId: string!
 		description: string
-		coordinates: [Int]!
+		coordinates: [Int!]!
 	}
 
 	extend type Mutation {

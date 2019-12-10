@@ -21,7 +21,7 @@
 	},
 	"dependencies": {
 		"@sentry/integrations": "^5.5.0",
-		"@sentry/node": "^5.5.0",
+		"@sentry/node": "^5.10.2",
 		"dotenv": "^8.0.0",
 		"express": "^4.17.1",
 		"jsonwebtoken": "^8.5.1",

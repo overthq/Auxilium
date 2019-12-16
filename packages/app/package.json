@@ -25,7 +25,7 @@
 		"@expo/vector-icons": "^10.0.6",
 		"date-fns": "^2.0.0-alpha.34",
 		"expo": "^35.0.0",
-		"expo-asset": "~7.0.0",
+		"expo-asset": "~8.0.0",
 		"expo-constants": "~7.0.0",
 		"expo-font": "~7.0.0",
 		"expo-location": "~7.0.0",

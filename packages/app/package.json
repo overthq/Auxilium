@@ -59,6 +59,6 @@
 		"eslint": "^6.7.2",
 		"expo-yarn-workspaces": "^1.2.1",
 		"prettier": "^1.19.1",
-		"typescript": "^3.7.3"
+		"typescript": "^3.7.4"
 	}
 }

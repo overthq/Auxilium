@@ -21,6 +21,8 @@ const stateMapper = ({ location }: EmergencyDetailsState) => ({
 
 const DetailsModal = ({ modalRef, emergency }: DetailsModalProps) => {
 	const { coordinates } = useSelector(stateMapper);
+	if (!emergency) return null;
+
 	const {
 		description,
 		address,

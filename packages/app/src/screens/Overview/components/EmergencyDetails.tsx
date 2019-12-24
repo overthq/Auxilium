@@ -15,10 +15,10 @@ const EmergencyDetails = (props: EmergencyDetailsProps) => {
 		<View style={styles.container}>
 			<Text style={styles.emergencyDescription}>{description}</Text>
 			<Text style={styles.emergencyAddress}>{address}</Text>
-			<Text style={styles.emergencyLongLat}>
+			<Text style={styles.emergencyLocation}>
 				{new Date(createdAt).toLocaleDateString()}
 			</Text>
-			<Text style={styles.emergencyLongLat}>
+			<Text style={styles.emergencyLocation}>
 				{`${longitude.toFixed(4)}, ${latitude.toFixed(4)}`}
 			</Text>
 		</View>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 		fontFamily: 'Rubik Regular',
 		marginVertical: 5
 	},
-	emergencyLongLat: {
+	emergencyLocation: {
 		color: '#a0a0a0',
 		fontSize: 14,
 		fontFamily: 'Rubik Regular'

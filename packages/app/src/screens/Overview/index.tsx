@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
 import Modalize from 'react-native-modalize';
-import { NavigationScreenProps } from 'react-navigation';
+import { NavigationScreenProp } from 'react-navigation';
 
 import { LocationActions, EmergenciesActions } from '../../redux/actions';
 import { MainButton, AroundYou, NearbyMap, PopupModal } from './components';
@@ -31,10 +31,14 @@ const handleModalOpen = (ref: React.RefObject<Modalize>) => {
 	ref.current && ref.current.open();
 };
 
-const Overview = ({ navigation }: NavigationScreenProps) => {
+interface OverviewProps {
+	navigation: NavigationScreenProp<any, any>;
+}
+
+const Overview = ({ navigation }: OverviewProps) => {
 	const { coordinates, place, emergencies } = useSelector(stateMapper);
 	const [activeEmergency, setActiveEmergency] = React.useState<Emergency>(
-		emergencies[0] // this has to be changed because there might be no emergency in the user's area.
+		emergencies[0] || undefined
 	);
 	const dispatch = useDispatch();
 	const modalRef = React.useRef<Modalize>(null);
@@ -88,7 +92,7 @@ const Overview = ({ navigation }: NavigationScreenProps) => {
 					Around You
 				</Text>
 				<AroundYou
-					navigate={emergency => handleEmergencyOpen(emergency)}
+					navigate={handleEmergencyOpen}
 					emergencies={emergencies.slice(0, 5)}
 				/>
 			</ScrollView>

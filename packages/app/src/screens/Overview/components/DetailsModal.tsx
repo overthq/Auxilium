@@ -12,7 +12,7 @@ interface EmergencyDetailsState {
 
 interface DetailsModalProps {
 	modalRef: React.RefObject<Modalize>;
-	emergency: Emergency;
+	emergency?: Emergency;
 }
 
 const stateMapper = ({ location }: EmergencyDetailsState) => ({
@@ -31,6 +31,7 @@ const DetailsModal = ({ modalRef, emergency }: DetailsModalProps) => {
 		},
 		createdAt
 	} = emergency;
+
 	return (
 		<Modalize ref={modalRef} adjustToContentHeight>
 			<EmergencyMap {...{ coordinates, longitude, latitude }} />

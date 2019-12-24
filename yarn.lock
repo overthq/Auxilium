@@ -3035,10 +3035,10 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.136.tgz#413e85089046b865d960c9ff1d400e04c31ab60f"
   integrity sha512-0GJhzBdvsW2RUccNHOBkabI8HZVdOXmXbXhuKlDEd5Vv12P7oAVGfomGp3Ne21o5D/qu1WmthlNKFaoZJJeErA==
 
-"@types/mapbox-gl@^0.54.4":
-  version "0.54.5"
-  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-0.54.5.tgz#d50285796cb9d3544121d9e2b5314da99f9774bf"
-  integrity sha512-h0MqA7rtP88vuMepODf1oomJLeuRAZfOiYdeGS3NYO4TMQs237TkA+bNehy7V5nfyCjPRuKrb0fnWMjncHak0g==
+"@types/mapbox-gl@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-1.6.1.tgz#956dc3f96cae675bcb7edba314a395ea7183cfae"
+  integrity sha512-Gwy87I+7Th5UbxfucrWGmUeH1bV2J0t1aI7dze3yReF1XPSJ6c9grDHr9rML5lvsdAv6NU1WQyqctdbSrQrmyA==
   dependencies:
     "@types/geojson" "*"
 

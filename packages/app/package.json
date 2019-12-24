@@ -47,7 +47,7 @@
 		"sentry-expo": "~1.13.0"
 	},
 	"devDependencies": {
-		"@types/expo": "^32.0.13",
+		"@types/expo": "^33.0.1",
 		"@types/expo__vector-icons": "^9.0.1",
 		"@types/haversine": "^1.1.4",
 		"@types/react": "^16.9.9",

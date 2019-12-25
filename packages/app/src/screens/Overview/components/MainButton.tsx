@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const MainButton = ({ onPress }: { onPress(): void }) => (
-	<TouchableOpacity style={styles.buttonHolder} {...{ onPress }}>
+	<TouchableOpacity style={styles.container} {...{ onPress }}>
 		<View style={styles.button}>
 			<View style={styles.buttonInner}>
 				<Text style={styles.buttonText}>!</Text>
@@ -12,7 +12,7 @@ const MainButton = ({ onPress }: { onPress(): void }) => (
 );
 
 const styles = StyleSheet.create({
-	buttonHolder: {
+	container: {
 		position: 'absolute',
 		marginHorizontal: 'auto',
 		bottom: 20

@@ -34,7 +34,7 @@
 		"@types/express": "^4.17.0",
 		"@types/jsonwebtoken": "^8.3.2",
 		"@types/mocha": "^5.2.7",
-		"@types/mongoose": "^5.5.9",
+		"@types/mongoose": "^5.5.36",
 		"@types/node-fetch": "^2.5.4",
 		"chai": "^4.2.0",
 		"chai-http": "^4.3.0",

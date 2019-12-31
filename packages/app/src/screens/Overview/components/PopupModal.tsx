@@ -8,7 +8,7 @@ import {
 	Text,
 	TouchableOpacity
 } from 'react-native';
-import Modalize from 'react-native-modalize';
+import { Modalize } from 'react-native-modalize';
 import { Feather } from '@expo/vector-icons';
 
 const { height } = Dimensions.get('window');

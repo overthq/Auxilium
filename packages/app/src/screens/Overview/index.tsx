@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
-import Modalize from 'react-native-modalize';
+import { Modalize } from 'react-native-modalize';
 import { NavigationScreenProp } from 'react-navigation';
 
 import { LocationActions, EmergenciesActions } from '../../redux/actions';

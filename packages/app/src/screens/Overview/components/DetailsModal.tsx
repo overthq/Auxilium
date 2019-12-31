@@ -1,5 +1,5 @@
 import React from 'react';
-import Modalize from 'react-native-modalize';
+import { Modalize } from 'react-native-modalize';
 import { useSelector } from 'react-redux';
 import EmergencyMap from './EmergencyMap';
 import EmergencyDetails from './EmergencyDetails';

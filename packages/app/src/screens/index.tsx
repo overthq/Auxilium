@@ -3,7 +3,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { Notifications } from 'expo';
 import { Notification } from 'expo/build/Notifications/Notifications.types';
 import NavigationService from './NavigationService';
-import Onboarding from './Onboarding';
+import Onboarding from './new/Onboarding';
 import Overview from './Overview';
 
 interface AppNavigatorProps {

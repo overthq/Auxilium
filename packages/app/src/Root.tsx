@@ -4,7 +4,6 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { StatusBar } from 'react-native';
 import AppNavigator from './screens';
-import { Emergencies } from './api';
 import { AuthHelpers } from './helpers';
 
 const Root = () => {
@@ -12,8 +11,8 @@ const Root = () => {
 	const [loggedIn, setLoggedIn] = React.useState(false);
 
 	const preload = async () => {
-		// const status = await AuthHelpers.checkAuthStatus();
-		// setLoggedIn(!!status);
+		const status = await AuthHelpers.checkAuthStatus();
+		setLoggedIn(!!status);
 	};
 
 	React.useEffect(() => {

@@ -3,9 +3,9 @@ import Constants from 'expo-constants';
 const ENV = {
 	dev: {
 		apiUrl: `http://${Constants.manifest.debuggerHost
-			.split(`:`)
+			.split(':')
 			.shift()
-			.concat(`:4000/`)}`
+			.concat(':4000/')}`
 	},
 	staging: {
 		apiUrl: 'https://auxilium-staging.herokuapp.com/'

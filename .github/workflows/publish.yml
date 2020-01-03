@@ -1,0 +1,43 @@
+name: Expo Publish
+on:
+  push:
+    branches:
+      - master
+      - staging
+jobs:
+  publish:
+    name: Install and publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+        
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          version: 13.x
+
+      - name: Publish to Expo
+        uses: expo/expo-github-action@v4
+        with:
+          expo-version: 3.x
+          expo-username: ${{ secrets.EXPO_USERNAME }}
+          expo-password: ${{ secrets.EXPO_PASSWORD }}
+          expo-packager: yarn
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build application core
+        run: yarn workspace @move/core build
+
+      - name: Publish to default channel
+        run: yarn workspace @move/app expo publish
+
+      - name: Publish to staging channel
+        if: github.ref == 'refs/heads/staging'
+        run: yarn workspace @move/app expo publish --release-channel staging
+        
+      - name: Publish to production channel
+        if: github.ref == 'refs/heads/master'
+        run: yarn workspace @move/app expo publish --release-channel prod

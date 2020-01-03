@@ -1,0 +1,25 @@
+name: Lint and Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Run static tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v1
+
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        version: 13.x
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Run lint
+      run: yarn workspaces run lint
+
+    - name: Run typecheck
+      run: yarn workspaces run tsc

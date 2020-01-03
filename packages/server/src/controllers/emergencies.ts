@@ -1,10 +1,7 @@
 import { RequestHandler } from 'express';
 import { Emergency, User } from '../models';
-import {
-	sendNotification,
-	getAddress,
-	findNearbyEmergencies
-} from '../helpers';
+import { sendNotification } from '../helpers/sendNotification';
+import { findNearbyEmergencies } from '../helpers/emergencies';
 
 export const getNearbyEmergencies: RequestHandler = async (req, res) => {
 	const { longitude, latitude }: { [key: string]: string } = req.query;
@@ -23,19 +20,15 @@ export const getNearbyEmergencies: RequestHandler = async (req, res) => {
 	}
 };
 
-export const createEmergency: RequestHandler = async (req, res) => {
-	const { deviceId, description, coordinates } = req.body;
-	const [longitude, latitude] = coordinates;
+export const reportEmergency: RequestHandler = async (req, res) => {
+	const { description, coordinates } = req.body;
 	try {
-		const address = await getAddress({ longitude, latitude });
 		const emergency = new Emergency({
-			deviceId,
 			description,
 			location: {
 				type: 'Point',
 				coordinates
-			},
-			address
+			}
 		});
 		await emergency.save();
 		return res.status(201).json({
@@ -53,16 +46,16 @@ export const createEmergency: RequestHandler = async (req, res) => {
 };
 
 export const getUserEmergencies: RequestHandler = async (req, res) => {
-	const { deviceId } = req.query;
+	const { pushToken } = req.query;
 	try {
-		const user = await User.findOne({ deviceId });
+		const user = await User.findOne({ pushToken });
 		if (!user) {
 			return res.status(404).json({
 				success: false,
-				message: `No user found with the deviceId: ${deviceId}`
+				message: `User not found`
 			});
 		}
-		const emergencies = await Emergency.find({ deviceId });
+		const emergencies = await Emergency.find({ user: user.id });
 		return res.status(200).json({
 			success: true,
 			emergencies
@@ -76,24 +69,19 @@ export const getUserEmergencies: RequestHandler = async (req, res) => {
 };
 
 export const backgroundNotifications: RequestHandler = async (req, res) => {
-	const {
-		longitude: lon,
-		latitude: lat,
-		pushToken
-	}: { [key: string]: string } = req.query;
+	const { longitude, latitude, pushToken } = req.query;
+
 	try {
 		const sender = await User.findOne({ pushToken });
 		if (!sender) throw new Error('False alarm!');
-		const emergencies = await findNearbyEmergencies(lon, lat);
+		const emergencies = await findNearbyEmergencies(longitude, latitude);
 		emergencies.forEach(async emergency => {
-			const { coordinates } = emergency.location;
-			const [longitude, latitude] = coordinates;
 			if (
-				sender.deviceId !== emergency.deviceId &&
+				sender.pushToken !== emergency.user.pushToken &&
 				!emergency.recepients.includes(pushToken)
+				// Another useful condtion is to make sure that the emergency is still recent
 			) {
-				const address = await getAddress({ longitude, latitude });
-				await sendNotification(pushToken, address, emergency);
+				await sendNotification(pushToken, emergency);
 				emergency.recepients.push(pushToken);
 				await emergency.save();
 			}

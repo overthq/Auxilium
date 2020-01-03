@@ -1,21 +1,21 @@
 import {
 	FETCH_LOCATION,
 	FETCH_LOCATION_SUCCESS,
-	FETCH_LOCATION_FAILURE
+	FETCH_LOCATION_FAILURE,
+	LocationActionTypes,
+	LocationState
 } from './types';
-import { Alert } from 'react-native';
 
-const initialState = {
+const initialState: LocationState = {
 	loading: false,
 	coordinates: {
 		longitude: 0,
 		latitude: 0
 	},
-	place: '',
 	errorMessage: ''
 };
 
-export default (state = initialState, action: any) => {
+export default (state = initialState, action: LocationActionTypes) => {
 	switch (action.type) {
 		case FETCH_LOCATION:
 			return { ...state, loading: true };
@@ -23,14 +23,13 @@ export default (state = initialState, action: any) => {
 			return {
 				...state,
 				loading: false,
-				coordinates: action.payload.coordinates,
-				place: action.payload.place || state.place
+				...action.payload
 			};
 		case FETCH_LOCATION_FAILURE:
 			return {
 				...state,
 				loading: false,
-				errorMessage: action.payload.errorMessage
+				...action.payload
 			};
 		default:
 			return state;

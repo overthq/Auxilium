@@ -1,28 +1,26 @@
 import { model, Schema, Document } from 'mongoose';
+import { UserType } from './User';
 
 export interface EmergencyType extends Document {
-	deviceId: string;
+	user: UserType;
 	location: {
 		type: 'Point';
 		coordinates: [number, number];
 	};
-	address: string;
 	description: string;
 	recepients: string[];
 }
 
 const EmergencySchema = new Schema(
 	{
-		deviceId: {
-			type: String,
+		user: {
+			type: Schema.Types.ObjectId,
+			ref: 'User',
 			required: true
 		},
 		location: {
 			type: { type: String },
 			coordinates: []
-		},
-		address: {
-			type: String
 		},
 		description: {
 			type: String

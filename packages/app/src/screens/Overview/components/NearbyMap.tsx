@@ -1,18 +1,16 @@
 import React from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
 import mapStyle from './mapStyle';
 import MapMarker from './MapMarker';
-
-const { width, height } = Dimensions.get('window');
 
 interface NearbyMapProps {
 	coordinates: EmergencyCoordinates;
 	emergencies: Emergency[];
 }
 
-const renderMarkers = (emergencies: Emergency[] = []) => {
-	return emergencies.map(({ location }: Emergency, index) => {
+const renderMarkers = (emergencies: Emergency[]) =>
+	emergencies.map(({ location }, index) => {
 		const [longitude, latitude] = location.coordinates;
 		return (
 			<Marker key={index} coordinate={{ longitude, latitude }}>
@@ -20,20 +18,16 @@ const renderMarkers = (emergencies: Emergency[] = []) => {
 			</Marker>
 		);
 	});
-};
 
-const NearbyMap = (props: NearbyMapProps) => {
-	const {
-		coordinates: { longitude, latitude },
-		emergencies
-	} = props;
-
+const NearbyMap: React.FC<NearbyMapProps> = ({
+	coordinates: { longitude, latitude },
+	emergencies
+}) => {
 	const [region, setRegion] = React.useState<Region | undefined>(undefined);
-	const onRegionChange = (region: Region) => setRegion(region);
 
 	return (
 		<MapView
-			style={styles.map}
+			style={StyleSheet.absoluteFillObject}
 			customMapStyle={mapStyle}
 			provider='google'
 			showsUserLocation
@@ -44,7 +38,7 @@ const NearbyMap = (props: NearbyMapProps) => {
 				latitudeDelta: 0.00568
 			}}
 			{...{ region }}
-			onRegionChange={onRegionChange}
+			onRegionChange={setRegion}
 			pitchEnabled={false}
 			rotateEnabled={false}
 			scrollEnabled={false}
@@ -54,12 +48,5 @@ const NearbyMap = (props: NearbyMapProps) => {
 		</MapView>
 	);
 };
-
-const styles = StyleSheet.create({
-	map: {
-		height: height / 2,
-		width
-	}
-});
 
 export default NearbyMap;

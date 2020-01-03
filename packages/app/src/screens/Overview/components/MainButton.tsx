@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const MainButton = ({ onPress }: { onPress(): void }) => (
+const MainButton: React.FC<{ onPress(): void }> = ({ onPress }) => (
 	<TouchableOpacity style={styles.container} {...{ onPress }}>
 		<View style={styles.button}>
 			<View style={styles.buttonInner}>

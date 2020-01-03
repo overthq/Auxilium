@@ -7,11 +7,6 @@ export interface UserType extends Document {
 
 const UserSchema = new Schema(
 	{
-		deviceId: {
-			type: String,
-			required: true,
-			unique: true
-		},
 		pushToken: {
 			type: String,
 			required: true,

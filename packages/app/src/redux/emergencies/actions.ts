@@ -4,30 +4,30 @@ import {
 	FETCH_EMERGENCIES_SUCCESS,
 	FETCH_EMERGENCIES_FAILURE
 } from './types';
+import { AppThunk } from '../../../store';
 
-const fetchEmergencies = () => {
-	return async (dispatch: any, getState: any): Promise<void> => {
-		const {
-			location: { coordinates }
-		} = getState();
+const fetchEmergencies = (): AppThunk => async (dispatch, getState) => {
+	const {
+		location: { coordinates }
+	} = getState();
 
-		dispatch({ type: FETCH_EMERGENCIES });
+	dispatch({ type: FETCH_EMERGENCIES });
 
-		try {
-			const emergencies =
-				(await Emergencies.getNearbyEmergencies(coordinates)) || [];
+	try {
+		const emergencies = await Emergencies.getNearbyEmergencies(coordinates);
 
-			return dispatch({
-				type: FETCH_EMERGENCIES_SUCCESS,
-				payload: { emergencies }
-			});
-		} catch (error) {
-			return dispatch({
-				type: FETCH_EMERGENCIES_FAILURE,
+		dispatch({
+			type: FETCH_EMERGENCIES_SUCCESS,
+			payload: { emergencies }
+		});
+	} catch (error) {
+		dispatch({
+			type: FETCH_EMERGENCIES_FAILURE,
+			payload: {
 				errorMessage: error.message
-			});
-		}
-	};
+			}
+		});
+	}
 };
 
 export default { fetchEmergencies };

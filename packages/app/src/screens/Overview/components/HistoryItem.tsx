@@ -6,6 +6,7 @@ import {
 	TouchableOpacity,
 	StyleSheet
 } from 'react-native';
+import { formatDistanceToNow } from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
@@ -14,12 +15,21 @@ interface HistoryItemProps extends Emergency {
 	onPress(): void;
 }
 
-const HistoryItem = ({ onPress, description, address }: HistoryItemProps) => (
+const HistoryItem: React.FC<HistoryItemProps> = ({
+	onPress,
+	description,
+	address,
+	createdAt
+}) => (
 	<TouchableOpacity activeOpacity={0.6} {...{ onPress }}>
 		<View style={styles.historySection}>
 			<View style={styles.headerRow}>
 				<MaterialIcons name='near-me' size={14} color='#D3D3D3' />
-				<Text style={styles.locationText}>{address}</Text>
+				<Text style={styles.locationText}>
+					{`${address} · ${formatDistanceToNow(new Date(createdAt), {
+						addSuffix: true
+					})}`}
+				</Text>
 			</View>
 			<Text style={styles.descriptionText}>{description}</Text>
 		</View>
@@ -29,7 +39,7 @@ const HistoryItem = ({ onPress, description, address }: HistoryItemProps) => (
 const styles = StyleSheet.create({
 	historySection: {
 		borderRadius: 6,
-		backgroundColor: 'rgba(255, 255, 255, 0.1)',
+		backgroundColor: '#404040',
 		width: 0.9 * width,
 		height: 65,
 		padding: 10,
@@ -42,8 +52,6 @@ const styles = StyleSheet.create({
 		marginBottom: 10
 	},
 	locationText: {
-		fontFamily: 'Rubik Regular',
-		textTransform: 'uppercase',
 		letterSpacing: 1,
 		color: '#D3D3D3',
 		marginLeft: 6

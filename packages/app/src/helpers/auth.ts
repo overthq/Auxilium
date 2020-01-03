@@ -1,38 +1,18 @@
 import { AsyncStorage, Alert } from 'react-native';
 
-const checkAuthStatus = async () => {
+export const checkAuthStatus = async () => {
 	try {
-		const [deviceId, pushToken] = await AsyncStorage.multiGet([
-			'deviceId',
-			'pushToken'
-		]);
-		return deviceId[1] && pushToken[1];
+		const pushToken = await AsyncStorage.getItem('pushToken');
+		return !!pushToken;
 	} catch (error) {
 		return Alert.alert(error.message);
 	}
 };
 
-const storeAuthData = async (deviceId: string, pushToken: string) => {
+export const storeAuthData = async (pushToken: string) => {
 	try {
-		await AsyncStorage.multiSet([
-			['deviceId', deviceId],
-			['pushToken', pushToken]
-		]);
+		await AsyncStorage.setItem('pushToken', pushToken);
 	} catch (error) {
 		Alert.alert(error.message);
 	}
 };
-
-const getAuthData = async (): Promise<any> => {
-	try {
-		const [deviceId, pushToken] = await AsyncStorage.multiGet([
-			'deviceId',
-			'pushToken'
-		]);
-		return { deviceId: deviceId[1], pushToken: pushToken[1] };
-	} catch (error) {
-		return Alert.alert(error.message);
-	}
-};
-
-export default { checkAuthStatus, storeAuthData, getAuthData };

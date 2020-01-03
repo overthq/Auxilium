@@ -1,6 +1,6 @@
+import { RequestHandler } from 'express';
 import fetch from 'node-fetch';
 import env from '../config/env';
-import { RequestHandler } from 'express';
 
 type Pair = [number, number];
 
@@ -18,8 +18,10 @@ export const getRoute: RequestHandler = async (req, res) => {
 		);
 		const { routes } = await response.json();
 		const { coordinates }: { coordinates: Pair[] } = routes[0].geometry;
-		const routeMap = ([longitude, latitude]: Pair) => ({ longitude, latitude });
-		const route = await coordinates.map(routeMap);
+		const route = coordinates.map(([longitude, latitude]) => ({
+			longitude,
+			latitude
+		}));
 		return res.status(200).json({
 			success: true,
 			message: 'Route fetched successfully',

@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, combineReducers, Action } from 'redux';
+import thunk, { ThunkAction } from 'redux-thunk';
 import { persistReducer, persistStore } from 'redux-persist';
 import logger from 'redux-logger';
 import location from './src/redux/location/reducer';
@@ -27,6 +27,14 @@ const rootReducer = (state: any, action: any) => {
 	}
 	return appReducer(state, action);
 };
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+	ReturnType,
+	RootState,
+	null,
+	Action<string>
+>;
 
 export const store = createStore(rootReducer, middlewares);
 export const persistor = persistStore(store);

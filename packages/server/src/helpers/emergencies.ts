@@ -14,6 +14,8 @@ export const findNearbyEmergencies = async (
 				}
 			}
 		}
-	}).find();
+	})
+		.find()
+		.populate('user');
 	return emergencies;
 };

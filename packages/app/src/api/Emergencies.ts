@@ -1,11 +1,11 @@
+import { AsyncStorage } from 'react-native';
 import Constants from 'expo-constants';
 import env from '../../env';
-import { AuthHelpers } from '../helpers';
 
 const getNearbyEmergencies = async ({
 	longitude,
 	latitude
-}: EmergencyCoordinates): Promise<Emergency[] | void> => {
+}: EmergencyCoordinates): Promise<Emergency[]> => {
 	try {
 		const response = await fetch(
 			`${env.apiUrl}emergencies/get?longitude=${longitude}&latitude=${latitude}`,
@@ -20,16 +20,17 @@ const getNearbyEmergencies = async ({
 		const { emergencies } = await response.json();
 		return emergencies;
 	} catch (error) {
-		return console.log(error.message);
+		console.log(error.message);
+		return [];
 	}
 };
 
-const createEmergency = async (
+const reportEmergency = async (
 	description: string,
 	{ longitude, latitude }: EmergencyCoordinates
 ) => {
 	try {
-		const response = await fetch(`${env.apiUrl}emergencies/create`, {
+		const response = await fetch(`${env.apiUrl}emergencies/report`, {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -44,6 +45,7 @@ const createEmergency = async (
 		await response.json();
 	} catch (error) {
 		console.log(error.message);
+		return [];
 	}
 };
 
@@ -71,7 +73,7 @@ const managePushNotifications = async ({
 	latitude
 }: EmergencyCoordinates) => {
 	try {
-		const { pushToken } = await AuthHelpers.getAuthData();
+		const pushToken = await AsyncStorage.getItem('pushToken');
 		await fetch(
 			`${env.apiUrl}emergencies/notifications?longitude=${longitude}&latitude=${latitude}&pushToken=${pushToken}`
 		);
@@ -82,7 +84,7 @@ const managePushNotifications = async ({
 
 export default {
 	getNearbyEmergencies,
-	createEmergency,
+	reportEmergency,
 	getUserHistory,
 	managePushNotifications
 };

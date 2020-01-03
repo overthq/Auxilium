@@ -9,7 +9,7 @@ import {
 	TouchableOpacity,
 	Text
 } from 'react-native';
-import { Slide, Pagination } from '../../components/Onboarding';
+import { Slide, Pagination } from '../components/Onboarding';
 
 const { width } = Dimensions.get('window');
 
@@ -74,10 +74,12 @@ const Onboarding = () => {
 				snapToAlignment='center'
 				keyExtractor={({ title }) => title}
 				renderItem={({ item, index }) => <Slide key={index} {...item} />}
-				onMomentumScrollEnd={event => {
-					const sliderIndex = event.nativeEvent.contentOffset.x
-						? event.nativeEvent.contentOffset.x / width
-						: 0;
+				onMomentumScrollEnd={({
+					nativeEvent: {
+						contentOffset: { x }
+					}
+				}) => {
+					const sliderIndex = x ? x / width : 0;
 					setSlideIndex(sliderIndex);
 				}}
 				onScroll={handleScroll}

@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { Alert } from 'react-native';
 import env from '../../env';
-import { AuthHelpers } from '../helpers';
+import { storeAuthData } from '../helpers/auth';
 
 const authenticate = async (): Promise<void> => {
 	const { status: existingStatus } = await Permissions.getAsync(
@@ -19,6 +19,7 @@ const authenticate = async (): Promise<void> => {
 		);
 	}
 	const pushToken = await Notifications.getExpoPushTokenAsync();
+
 	try {
 		const response = await fetch(`${env.apiUrl}auth`, {
 			method: 'POST',
@@ -28,9 +29,7 @@ const authenticate = async (): Promise<void> => {
 			},
 			body: JSON.stringify({ deviceId: Constants.deviceId, pushToken })
 		});
-		if (response.ok) {
-			AuthHelpers.storeAuthData(Constants.deviceId, pushToken);
-		}
+		if (response.ok) storeAuthData(pushToken);
 		const data = await response.json();
 		return data;
 	} catch (error) {

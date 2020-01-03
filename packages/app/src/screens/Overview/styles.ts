@@ -6,23 +6,19 @@ const styles = StyleSheet.create({
 		backgroundColor: '#000000',
 		alignItems: 'center'
 	},
-	scrollContainer: {
+	actions: {
 		flexGrow: 1,
-		alignItems: 'center'
-	},
-	sectionHeaderText: {
-		fontSize: 20,
-		fontFamily: 'Rubik Bold',
-		letterSpacing: 1,
-		color: '#D3D3D3'
-	},
-	sectionHeader: {
-		marginVertical: 20,
-		marginLeft: 20,
-		display: 'flex',
-		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		position: 'relative',
 		alignItems: 'center',
-		alignSelf: 'flex-start'
+		bottom: 0
+	},
+	scrollContainer: {
+		position: 'absolute',
+		bottom: 20,
+		height: 500,
+		alignItems: 'center',
+		backgroundColor: 'transparent'
 	}
 });
 

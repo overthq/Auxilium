@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, SafeAreaView, ScrollView, Alert } from 'react-native';
+import { View, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { MaterialIcons } from '@expo/vector-icons';
 import { Modalize } from 'react-native-modalize';
 import { NavigationScreenProp } from 'react-navigation';
 
@@ -10,20 +9,10 @@ import { MainButton, AroundYou, NearbyMap, PopupModal } from './components';
 import styles from './styles';
 import { Emergencies } from '../../api';
 import DetailsModal from './components/DetailsModal';
+import { RootState } from '../../../store';
 
-interface OverviewState {
-	location: {
-		coordinates: EmergencyCoordinates;
-		place: string;
-	};
-	emergencies: {
-		emergencies: Emergency[];
-	};
-}
-
-const stateMapper = ({ location, emergencies }: OverviewState) => ({
+const stateMapper = ({ location, emergencies }: RootState) => ({
 	coordinates: location.coordinates,
-	place: location.place,
 	emergencies: emergencies.emergencies
 });
 
@@ -35,8 +24,8 @@ interface OverviewProps {
 	navigation: NavigationScreenProp<any, any>;
 }
 
-const Overview = ({ navigation }: OverviewProps) => {
-	const { coordinates, place, emergencies } = useSelector(stateMapper);
+const Overview: React.FC<OverviewProps> = ({ navigation }) => {
+	const { coordinates, emergencies } = useSelector(stateMapper);
 	const [activeEmergency, setActiveEmergency] = React.useState<Emergency>(
 		emergencies[0] || undefined
 	);
@@ -59,7 +48,7 @@ const Overview = ({ navigation }: OverviewProps) => {
 		async (description: string) => {
 			try {
 				dispatch(LocationActions.locate(false));
-				Emergencies.createEmergency(description, coordinates);
+				Emergencies.reportEmergency(description, coordinates);
 			} catch (error) {
 				Alert.alert(error.message);
 			}
@@ -74,29 +63,17 @@ const Overview = ({ navigation }: OverviewProps) => {
 
 	return (
 		<SafeAreaView style={styles.container}>
+			<NearbyMap {...{ coordinates, emergencies }} />
 			<ScrollView
-				contentContainerStyle={styles.scrollContainer}
+				contentContainerStyle={styles.actions}
 				showsVerticalScrollIndicator={false}
 			>
-				<View style={styles.sectionHeader}>
-					<MaterialIcons
-						name='near-me'
-						color='#D3D3D3'
-						size={18}
-						style={{ marginRight: 10 }}
-					/>
-					<Text style={styles.sectionHeaderText}>{place}</Text>
-				</View>
-				<NearbyMap {...{ coordinates, emergencies }} />
-				<Text style={[styles.sectionHeader, styles.sectionHeaderText]}>
-					Around You
-				</Text>
 				<AroundYou
 					navigate={handleEmergencyOpen}
 					emergencies={emergencies.slice(0, 5)}
 				/>
+				<MainButton onPress={() => handleModalOpen(modalRef)} />
 			</ScrollView>
-			<MainButton onPress={() => handleModalOpen(modalRef)} />
 			<PopupModal {...{ modalRef, action: askForHelp }} />
 			<DetailsModal modalRef={emergencyModalRef} emergency={activeEmergency} />
 		</SafeAreaView>

@@ -1,16 +1,18 @@
 import {
 	FETCH_EMERGENCIES,
 	FETCH_EMERGENCIES_SUCCESS,
-	FETCH_EMERGENCIES_FAILURE
+	FETCH_EMERGENCIES_FAILURE,
+	EmergenciesAction,
+	EmergenciesState
 } from './types';
 
-const initialState = {
+const initialState: EmergenciesState = {
 	loading: false,
 	emergencies: [],
 	errorMessage: ''
 };
 
-export default (state = initialState, action: any) => {
+export default (state = initialState, action: EmergenciesAction) => {
 	switch (action.type) {
 		case FETCH_EMERGENCIES:
 			return { ...state, loading: true };
@@ -18,13 +20,13 @@ export default (state = initialState, action: any) => {
 			return {
 				...state,
 				loading: false,
-				emergencies: action.payload.emergencies
+				...action.payload
 			};
 		case FETCH_EMERGENCIES_FAILURE:
 			return {
 				...state,
 				loading: false,
-				errorMessage: action.payload.errorMessage
+				...action.payload
 			};
 		default:
 			return state;

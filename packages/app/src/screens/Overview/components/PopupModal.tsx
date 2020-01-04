@@ -18,7 +18,7 @@ interface PopupModalProps {
 	action(text: string): Promise<void>;
 }
 
-const PopupModal = ({ modalRef, action }: PopupModalProps) => {
+const PopupModal: React.FC<PopupModalProps> = ({ modalRef, action }) => {
 	const [text, setText] = React.useState('');
 
 	const handleSubmit = async () => {
@@ -26,9 +26,7 @@ const PopupModal = ({ modalRef, action }: PopupModalProps) => {
 		handleClose();
 	};
 
-	const handleClose = () => {
-		modalRef.current && modalRef.current.close();
-	};
+	const handleClose = () => modalRef.current?.close();
 
 	return (
 		<Modalize

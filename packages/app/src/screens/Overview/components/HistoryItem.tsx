@@ -8,36 +8,50 @@ import {
 } from 'react-native';
 import { formatDistanceToNow } from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
+import { getDistance } from '../../../helpers/location';
+import { RootState } from '../../../../store';
+import { useSelector } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 
 interface HistoryItemProps extends Emergency {
-	onPress(): void;
+	action(): void;
 }
 
+const selector = ({ location: { coordinates } }: RootState) => ({
+	coordinates
+});
+
 const HistoryItem: React.FC<HistoryItemProps> = ({
-	onPress,
+	action,
 	description,
-	address,
+	location: {
+		coordinates: [longitude, latitude]
+	},
 	createdAt
-}) => (
-	<TouchableOpacity activeOpacity={0.6} {...{ onPress }}>
-		<View style={styles.historySection}>
-			<View style={styles.headerRow}>
-				<MaterialIcons name='near-me' size={14} color='#D3D3D3' />
-				<Text style={styles.locationText}>
-					{`${address} · ${formatDistanceToNow(new Date(createdAt), {
-						addSuffix: true
-					})}`}
-				</Text>
+}) => {
+	const { coordinates } = useSelector(selector);
+	const distance = getDistance(coordinates, { longitude, latitude });
+
+	return (
+		<TouchableOpacity activeOpacity={0.6} onPress={action}>
+			<View style={styles.container}>
+				<View style={styles.header}>
+					<MaterialIcons name='near-me' size={14} color='#D3D3D3' />
+					<Text style={styles.location}>
+						{`~${distance} · ${formatDistanceToNow(new Date(createdAt), {
+							addSuffix: true
+						})}`}
+					</Text>
+				</View>
+				<Text style={styles.description}>{description}</Text>
 			</View>
-			<Text style={styles.descriptionText}>{description}</Text>
-		</View>
-	</TouchableOpacity>
-);
+		</TouchableOpacity>
+	);
+};
 
 const styles = StyleSheet.create({
-	historySection: {
+	container: {
 		borderRadius: 6,
 		backgroundColor: '#404040',
 		width: 0.9 * width,
@@ -45,18 +59,18 @@ const styles = StyleSheet.create({
 		padding: 10,
 		marginBottom: 10
 	},
-	headerRow: {
+	header: {
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
 		marginBottom: 10
 	},
-	locationText: {
+	location: {
 		letterSpacing: 1,
 		color: '#D3D3D3',
 		marginLeft: 6
 	},
-	descriptionText: {
+	description: {
 		color: '#777777',
 		fontSize: 14
 	}

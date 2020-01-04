@@ -1,17 +1,24 @@
 import { AsyncStorage, Alert } from 'react-native';
 
+interface User {
+	_id: string;
+	pushToken: string;
+	createdAt: Date;
+	updatedAt: Date;
+}
+
 export const checkAuthStatus = async () => {
 	try {
-		const pushToken = await AsyncStorage.getItem('pushToken');
-		return !!pushToken;
+		const user = await AsyncStorage.getItem('user');
+		return !!user;
 	} catch (error) {
 		return Alert.alert(error.message);
 	}
 };
 
-export const storeAuthData = async (pushToken: string) => {
+export const storeAuthData = (user: User) => {
 	try {
-		await AsyncStorage.setItem('pushToken', pushToken);
+		AsyncStorage.setItem('user', JSON.stringify(user));
 	} catch (error) {
 		Alert.alert(error.message);
 	}

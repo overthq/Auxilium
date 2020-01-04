@@ -3,29 +3,23 @@ import { Modalize } from 'react-native-modalize';
 import { useSelector } from 'react-redux';
 import EmergencyMap from './EmergencyMap';
 import EmergencyDetails from './EmergencyDetails';
-
-interface EmergencyDetailsState {
-	location: {
-		coordinates: EmergencyCoordinates;
-	};
-}
+import { RootState } from '../../../../store';
 
 interface DetailsModalProps {
 	modalRef: React.RefObject<Modalize>;
 	emergency?: Emergency;
 }
 
-const stateMapper = ({ location }: EmergencyDetailsState) => ({
+const stateMapper = ({ location }: RootState) => ({
 	coordinates: location.coordinates
 });
 
-const DetailsModal = ({ modalRef, emergency }: DetailsModalProps) => {
+const DetailsModal: React.FC<DetailsModalProps> = ({ modalRef, emergency }) => {
 	const { coordinates } = useSelector(stateMapper);
 	if (!emergency) return null;
 
 	const {
 		description,
-		address,
 		location: {
 			coordinates: [longitude, latitude]
 		},
@@ -35,9 +29,7 @@ const DetailsModal = ({ modalRef, emergency }: DetailsModalProps) => {
 	return (
 		<Modalize ref={modalRef} adjustToContentHeight>
 			<EmergencyMap {...{ coordinates, longitude, latitude }} />
-			<EmergencyDetails
-				{...{ description, address, longitude, latitude, createdAt }}
-			/>
+			<EmergencyDetails {...{ description, longitude, latitude, createdAt }} />
 		</Modalize>
 	);
 };

@@ -1,5 +1,4 @@
 import { Notifications } from 'expo';
-import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { Alert } from 'react-native';
 import env from '../../env';
@@ -27,11 +26,11 @@ const authenticate = async (): Promise<void> => {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ deviceId: Constants.deviceId, pushToken })
+			body: JSON.stringify({ pushToken })
 		});
-		if (response.ok) storeAuthData(pushToken);
-		const data = await response.json();
-		return data;
+
+		const { user } = await response.json();
+		if (response.ok) storeAuthData(user);
 	} catch (error) {
 		return Alert.alert(error.message);
 	}

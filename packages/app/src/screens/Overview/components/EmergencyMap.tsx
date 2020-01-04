@@ -13,7 +13,7 @@ interface EmergencyMapProps {
 	latitude: number;
 }
 
-const EmergencyMap = (props: EmergencyMapProps) => {
+const EmergencyMap: React.FC<EmergencyMapProps> = props => {
 	const { coordinates: from, longitude, latitude } = props;
 	const [route, setRoute] = React.useState<EmergencyCoordinates[]>([]);
 

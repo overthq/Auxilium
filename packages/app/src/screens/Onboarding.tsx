@@ -10,6 +10,8 @@ import {
 	Text
 } from 'react-native';
 import { Slide, Pagination } from '../components/Onboarding';
+import { NavigationScreenProp } from 'react-navigation';
+import { Auth } from '../api';
 
 const { width } = Dimensions.get('window');
 
@@ -34,12 +36,24 @@ const slides: SlideType[] = [
 	}
 ];
 
-const Onboarding = () => {
+interface OnboardingProps {
+	navigation: NavigationScreenProp<any, any>;
+}
+
+const Onboarding: React.FC<OnboardingProps> = ({ navigation }) => {
 	const [slideIndex, setSlideIndex] = React.useState(0);
 	const listRef = React.useRef<FlatList<SlideType>>(null);
 	const scrollX = new Animated.Value(0);
 
+	const completeOnboarding = () => {
+		Auth.authenticate();
+		navigation.navigate('Overview');
+	};
+
 	const scrollToNext = () => {
+		if (slideIndex === slides.length - 1) {
+			return completeOnboarding();
+		}
 		listRef.current &&
 			listRef.current.scrollToIndex({ animated: true, index: slideIndex + 1 });
 	};
@@ -57,7 +71,7 @@ const Onboarding = () => {
 					padding: 20
 				}}
 			>
-				<TouchableOpacity>
+				<TouchableOpacity onPress={completeOnboarding}>
 					<Text style={{ color: '#FFFFFF', fontFamily: 'Rubik Medium' }}>
 						SKIP
 					</Text>

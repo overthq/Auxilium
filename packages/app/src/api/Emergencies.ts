@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 import Constants from 'expo-constants';
 import env from '../../env';
 
@@ -30,6 +30,10 @@ const reportEmergency = async (
 	{ longitude, latitude }: EmergencyCoordinates
 ) => {
 	try {
+		const fetchedUser = await AsyncStorage.getItem('user');
+		if (!fetchedUser) return Alert.alert('You must be logged in');
+		const user = JSON.parse(fetchedUser);
+
 		const response = await fetch(`${env.apiUrl}emergencies/report`, {
 			method: 'POST',
 			headers: {
@@ -37,7 +41,7 @@ const reportEmergency = async (
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				deviceId: Constants.deviceId,
+				userId: user._id,
 				description,
 				coordinates: [longitude, latitude]
 			})

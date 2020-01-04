@@ -21,16 +21,17 @@ export const getNearbyEmergencies: RequestHandler = async (req, res) => {
 };
 
 export const reportEmergency: RequestHandler = async (req, res) => {
-	const { description, coordinates } = req.body;
+	const { userId, description, coordinates } = req.body;
 	try {
-		const emergency = new Emergency({
+		const emergency = await Emergency.create({
+			user: userId,
 			description,
 			location: {
 				type: 'Point',
 				coordinates
 			}
 		});
-		await emergency.save();
+
 		return res.status(201).json({
 			success: true,
 			message: 'Emergency successfully created.',

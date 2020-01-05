@@ -7,7 +7,6 @@ import {
 	StyleSheet
 } from 'react-native';
 import { formatDistanceToNow } from 'date-fns';
-import { MaterialIcons } from '@expo/vector-icons';
 import { getDistance } from '../../../helpers/location';
 import { RootState } from '../../../../store';
 import { useSelector } from 'react-redux';
@@ -34,18 +33,17 @@ const HistoryItem: React.FC<HistoryItemProps> = ({
 	const distance = getDistance(coordinates, { longitude, latitude });
 
 	return (
-		<TouchableOpacity activeOpacity={0.6} onPress={action}>
-			<View style={styles.container}>
-				<View style={styles.header}>
-					<MaterialIcons name='near-me' size={14} color='#D3D3D3' />
-					<Text style={styles.location}>
-						{`~${distance} · ${formatDistanceToNow(new Date(createdAt), {
-							addSuffix: true
-						})}`}
-					</Text>
-				</View>
-				<Text style={styles.description}>{description}</Text>
-			</View>
+		<TouchableOpacity
+			activeOpacity={0.7}
+			onPress={action}
+			style={styles.container}
+		>
+			<Text style={styles.location}>
+				{`~${distance} · ${formatDistanceToNow(new Date(createdAt), {
+					addSuffix: true
+				})}`}
+			</Text>
+			<Text style={styles.description}>{description}</Text>
 		</TouchableOpacity>
 	);
 };
@@ -59,19 +57,13 @@ const styles = StyleSheet.create({
 		padding: 10,
 		marginBottom: 10
 	},
-	header: {
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
-		marginBottom: 10
-	},
 	location: {
 		letterSpacing: 1,
-		color: '#D3D3D3',
-		marginLeft: 6
+		color: '#777777',
+		marginBottom: 10
 	},
 	description: {
-		color: '#777777',
+		color: '#D3D3D3',
 		fontSize: 14
 	}
 });

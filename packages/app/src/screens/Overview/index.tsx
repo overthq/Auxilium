@@ -8,6 +8,7 @@ import { LocationActions, EmergenciesActions } from '../../redux/actions';
 import { MainButton, AroundYou, NearbyMap, PopupModal } from './components';
 import { Emergencies } from '../../api';
 import DetailsModal from './components/DetailsModal';
+import Overlay from '../../components/Overview/Overlay';
 import { RootState } from '../../../store';
 
 const stateMapper = ({ location, emergencies }: RootState) => ({
@@ -63,7 +64,9 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<NearbyMap {...{ coordinates, emergencies }} />
-			<AroundYou open={openEmergency} {...{ emergencies }} />
+			<Overlay>
+				<AroundYou open={openEmergency} {...{ emergencies }} />
+			</Overlay>
 			<MainButton onPress={() => handleModalOpen(modalRef)} />
 			<PopupModal action={askForHelp} {...{ modalRef }} />
 			<DetailsModal modalRef={emergencyModalRef} emergency={activeEmergency} />

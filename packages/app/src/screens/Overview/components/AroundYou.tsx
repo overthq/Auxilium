@@ -1,6 +1,7 @@
 import React from 'react';
+import { Text, Dimensions, StyleSheet } from 'react-native';
 import HistoryItem from './HistoryItem';
-import { Text, Dimensions, StyleSheet, FlatList } from 'react-native';
+import { OverlaySlide } from '../../../components/Overview/Overlay';
 
 const { width } = Dimensions.get('window');
 
@@ -10,32 +11,31 @@ interface AroundYouProps {
 }
 
 const AroundYou: React.FC<AroundYouProps> = ({ emergencies, open }) => (
-	<FlatList
-		style={styles.container}
-		contentContainerStyle={styles.scroll}
-		data={emergencies}
-		keyExtractor={({ _id }) => _id}
-		renderItem={({ item }) => (
-			<HistoryItem action={() => open(item)} {...item} />
-		)}
-		ListEmptyComponent={
+	<OverlaySlide>
+		<Text style={styles.title}>Nearby</Text>
+		{emergencies.length > 0 ? (
+			emergencies.map(emergency => (
+				<HistoryItem
+					key={emergency._id}
+					action={() => open(emergency)}
+					{...emergency}
+				/>
+			))
+		) : (
 			<Text style={styles.emptyText}>
 				There are currently no emergencies in your vicinity.
 			</Text>
-		}
-	/>
+		)}
+	</OverlaySlide>
 );
 
 const styles = StyleSheet.create({
-	container: {
-		position: 'absolute',
-		backgroundColor: 'transparent',
-		bottom: 0,
-		...StyleSheet.absoluteFillObject
-	},
-	scroll: {
-		alignItems: 'center',
-		justifyContent: 'flex-end'
+	title: {
+		fontFamily: 'Rubik Medium',
+		fontSize: 24,
+		alignSelf: 'flex-start',
+		color: '#D3D3D3',
+		marginVertical: 7.5
 	},
 	emptyText: {
 		color: '#777777',

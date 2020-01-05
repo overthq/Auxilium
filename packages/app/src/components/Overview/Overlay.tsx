@@ -1,40 +1,54 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Dimensions, View } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
 const Overlay: React.FC = ({ children }) => (
 	<ScrollView
 		horizontal
+		pagingEnabled
+		snapToInterval={width}
+		snapToAlignment='center'
 		showsHorizontalScrollIndicator={false}
 		decelerationRate={0}
 		style={styles.container}
-		contentContainerStyle={styles.content}
 	>
 		{children}
 	</ScrollView>
 );
 
-// This component needs a title prop, and we need to use the pagination component here as well.
-export const OverlaySlide: React.FC = ({ children }) => (
-	<View style={styles.slide}>{children}</View>
+interface OverlaySlideProps {
+	title?: string;
+}
+
+export const OverlaySlide: React.FC<OverlaySlideProps> = ({
+	title,
+	children
+}) => (
+	<View style={styles.slide}>
+		{title && <Text style={styles.title}>{title}</Text>}
+		{children}
+	</View>
 );
 
 const styles = StyleSheet.create({
 	container: {
 		position: 'absolute',
 		backgroundColor: 'rgba(0, 0, 0, 0.3)',
-		width,
 		top: 0
 	},
-	content: {
-		padding: 20,
-		width
+	title: {
+		fontFamily: 'Rubik Medium',
+		fontSize: 24,
+		alignSelf: 'flex-start',
+		color: '#D3D3D3',
+		marginVertical: 7.5
 	},
 	slide: {
+		width,
 		backgroundColor: 'transparent',
 		alignItems: 'center',
-		width: '100%'
+		padding: 20
 	}
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Alert, StyleSheet } from 'react-native';
+import { SafeAreaView, Text, Alert, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modalize } from 'react-native-modalize';
 import { NavigationScreenProp } from 'react-navigation';
@@ -8,7 +8,7 @@ import { LocationActions, EmergenciesActions } from '../../redux/actions';
 import { MainButton, AroundYou, NearbyMap, PopupModal } from './components';
 import { Emergencies } from '../../api';
 import DetailsModal from './components/DetailsModal';
-import Overlay from '../../components/Overview/Overlay';
+import Overlay, { OverlaySlide } from '../../components/Overview/Overlay';
 import { RootState } from '../../../store';
 
 const stateMapper = ({ location, emergencies }: RootState) => ({
@@ -66,6 +66,7 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 			<NearbyMap {...{ coordinates, emergencies }} />
 			<Overlay>
 				<AroundYou open={openEmergency} {...{ emergencies }} />
+				<OverlaySlide title='Settings'></OverlaySlide>
 			</Overlay>
 			<MainButton onPress={() => handleModalOpen(modalRef)} />
 			<PopupModal action={askForHelp} {...{ modalRef }} />

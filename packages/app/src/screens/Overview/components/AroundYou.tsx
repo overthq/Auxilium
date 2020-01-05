@@ -11,8 +11,7 @@ interface AroundYouProps {
 }
 
 const AroundYou: React.FC<AroundYouProps> = ({ emergencies, open }) => (
-	<OverlaySlide>
-		<Text style={styles.title}>Nearby</Text>
+	<OverlaySlide title='Nearby'>
 		{emergencies.length > 0 ? (
 			emergencies.map(emergency => (
 				<HistoryItem
@@ -30,13 +29,6 @@ const AroundYou: React.FC<AroundYouProps> = ({ emergencies, open }) => (
 );
 
 const styles = StyleSheet.create({
-	title: {
-		fontFamily: 'Rubik Medium',
-		fontSize: 24,
-		alignSelf: 'flex-start',
-		color: '#D3D3D3',
-		marginVertical: 7.5
-	},
 	emptyText: {
 		color: '#777777',
 		fontFamily: 'Rubik Regular',

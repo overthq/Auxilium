@@ -1,8 +1,7 @@
-import { AsyncStorage, Alert } from 'react-native';
-import Constants from 'expo-constants';
 import env from '../../env';
+import { getUserData } from '../helpers/auth';
 
-const getNearbyEmergencies = async ({
+export const getNearbyEmergencies = async ({
 	longitude,
 	latitude
 }: EmergencyCoordinates): Promise<Emergency[]> => {
@@ -25,14 +24,13 @@ const getNearbyEmergencies = async ({
 	}
 };
 
-const reportEmergency = async (
+export const reportEmergency = async (
 	description: string,
 	{ longitude, latitude }: EmergencyCoordinates
 ) => {
 	try {
-		const fetchedUser = await AsyncStorage.getItem('user');
-		if (!fetchedUser) return Alert.alert('You must be logged in');
-		const user = JSON.parse(fetchedUser);
+		const user = await getUserData();
+		if (!user) return;
 
 		const response = await fetch(`${env.apiUrl}emergencies/report`, {
 			method: 'POST',
@@ -53,10 +51,12 @@ const reportEmergency = async (
 	}
 };
 
-const getUserHistory = async () => {
+export const getUserHistory = async () => {
 	try {
+		const user = await getUserData();
+		if (!user) return;
 		const response = await fetch(
-			`${env.apiUrl}emergencies/history?deviceId=${Constants.deviceId}`,
+			`${env.apiUrl}emergencies/history?userId=${user._id}`,
 			{
 				method: 'GET',
 				headers: {
@@ -72,12 +72,14 @@ const getUserHistory = async () => {
 	}
 };
 
-const managePushNotifications = async ({
+export const managePushNotifications = async ({
 	longitude,
 	latitude
 }: EmergencyCoordinates) => {
 	try {
-		const pushToken = await AsyncStorage.getItem('pushToken');
+		const user = await getUserData();
+		if (!user) return;
+		const { pushToken } = user;
 		await fetch(
 			`${env.apiUrl}emergencies/notifications?longitude=${longitude}&latitude=${latitude}&pushToken=${pushToken}`
 		);

@@ -2,7 +2,7 @@ import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 import { Alert } from 'react-native';
 import env from '../../env';
-import { storeAuthData } from '../helpers/auth';
+import { storeUserData } from '../helpers/auth';
 
 const authenticate = async (): Promise<void> => {
 	const { status: existingStatus } = await Permissions.getAsync(
@@ -30,7 +30,7 @@ const authenticate = async (): Promise<void> => {
 		});
 
 		const { user } = await response.json();
-		if (response.ok) storeAuthData(user);
+		if (response.ok) storeUserData(user);
 	} catch (error) {
 		return Alert.alert(error.message);
 	}

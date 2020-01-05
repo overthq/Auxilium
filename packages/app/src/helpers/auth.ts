@@ -7,16 +7,19 @@ interface User {
 	updatedAt: Date;
 }
 
-export const checkAuthStatus = async () => {
+export const getUserData = async () => {
 	try {
 		const user = await AsyncStorage.getItem('user');
-		return !!user;
+		if (!user) {
+			throw new Error('You must be authenticated to use this feature.');
+		}
+		return JSON.parse(user) as User;
 	} catch (error) {
-		return Alert.alert(error.message);
+		Alert.alert(error.message);
 	}
 };
 
-export const storeAuthData = (user: User) => {
+export const storeUserData = (user: User) => {
 	try {
 		AsyncStorage.setItem('user', JSON.stringify(user));
 	} catch (error) {

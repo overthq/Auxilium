@@ -1,7 +1,6 @@
 import { model, Schema, Document } from 'mongoose';
 
 export interface UserType extends Document {
-	deviceId: string;
 	pushToken: string;
 }
 

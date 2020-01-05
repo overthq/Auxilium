@@ -47,9 +47,9 @@ export const reportEmergency: RequestHandler = async (req, res) => {
 };
 
 export const getUserEmergencies: RequestHandler = async (req, res) => {
-	const { pushToken } = req.query;
+	const { userId } = req.query;
 	try {
-		const user = await User.findOne({ pushToken });
+		const user = await User.findById(userId);
 		if (!user) {
 			return res.status(404).json({
 				success: false,

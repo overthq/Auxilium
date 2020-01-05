@@ -8,13 +8,13 @@ chai.should();
 
 describe('Emergencies', () => {
 	const coordinates = { longitude: 0, latitude: 0 };
-	it('should be able to create a new emergency', async () => {
-		const deviceId = '';
+	// Create a new user, to be able to send the userId.
+	it('should be able to report a new emergency', async () => {
 		try {
 			const res = await chai
 				.request(app)
-				.post('/emergencies/create')
-				.send({ deviceId, coordinates });
+				.post('/emergencies/report')
+				.send({ coordinates });
 			res.should.have.status(201);
 		} catch (error) {
 			console.log(error);

@@ -66,6 +66,8 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 			<NearbyMap {...{ coordinates, emergencies }} />
 			<Overlay>
 				<AroundYou open={openEmergency} {...{ emergencies }} />
+				<OverlaySlide title='Safe Spots'></OverlaySlide>
+				<OverlaySlide title='Contacts'></OverlaySlide>
 				<OverlaySlide title='Settings'></OverlaySlide>
 			</Overlay>
 			<MainButton onPress={() => handleModalOpen(modalRef)} />

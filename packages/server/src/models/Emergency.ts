@@ -7,7 +7,7 @@ export interface EmergencyType extends Document {
 		type: 'Point';
 		coordinates: [number, number];
 	};
-	description: string;
+	description?: string;
 	recepients: string[];
 }
 

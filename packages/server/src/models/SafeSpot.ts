@@ -3,6 +3,7 @@ import { UserType } from './User';
 
 export interface SafeSpotType extends Document {
 	user: UserType;
+	name: string;
 	location: {
 		type: 'Point';
 		coordinates: [number, number];

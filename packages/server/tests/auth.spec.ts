@@ -8,16 +8,14 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('Authentication', () => {
-	it('should create a new user with deviceId and pushToken', async () => {
-		const payload = {
-			deviceId: 'xxxxx-xxxxxx-xxxxxx-xxxxxx',
-			pushToken: 'ExponentPushToken[xxxx-xxx-xxxx]'
-		};
+	it('should create a new user with pushToken', async () => {
 		try {
 			const res = await chai
 				.request(app)
 				.post('/auth')
-				.send(payload);
+				.send({
+					pushToken: 'ExponentPushToken[xxxx-xxx-xxxx]'
+				});
 			res.should.have.status(200);
 		} catch (error) {
 			console.log(error);

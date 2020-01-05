@@ -5,7 +5,6 @@ interface EmergencyCoordinates {
 
 interface Emergency {
 	_id: string;
-	deviceId: string;
 	location: {
 		type: 'Point';
 		coordinates: [number, number];

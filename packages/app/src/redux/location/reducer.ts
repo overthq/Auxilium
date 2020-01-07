@@ -8,10 +8,7 @@ import {
 
 const initialState: LocationState = {
 	loading: false,
-	coordinates: {
-		longitude: 0,
-		latitude: 0
-	},
+	coordinates: { longitude: 0, latitude: 0 },
 	errorMessage: ''
 };
 

@@ -6,7 +6,7 @@ import {
 	FETCH_LOCATION_SUCCESS,
 	FETCH_LOCATION_FAILURE
 } from './types';
-import { Location as LocationAPI } from '../../api';
+import { getAddress } from '../../api/Location';
 import { AppThunk } from '../../../store';
 
 const locate = (addressRefresh = true): AppThunk => async dispatch => {
@@ -23,10 +23,7 @@ const locate = (addressRefresh = true): AppThunk => async dispatch => {
 		let place;
 
 		if (addressRefresh) {
-			place = await LocationAPI.getAddress({
-				latitude,
-				longitude
-			});
+			place = await getAddress({ latitude, longitude });
 		}
 
 		dispatch({

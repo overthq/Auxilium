@@ -1,27 +1,28 @@
 export const FETCH_SAFE_SPOTS = 'FETCH_SAFE_SPOTS';
-export const FETCH_SAFE_SPOTS_SUCCESS = 'FETCH_SAFE_SPOTS';
-export const FETCH_SAFE_SPOTS_FAILURE = 'FETCH_SAFE_SPOTS';
-export const ADD_SAFE_SPOT = 'ADD_SAFE_SPOT';
+export const FETCH_SAFE_SPOTS_SUCCESS = 'FETCH_SAFE_SPOTS_SUCCESS';
+export const FETCH_SAFE_SPOTS_FAILURE = 'FETCH_SAFE_SPOTS_FAILURE';
 
-interface FetchSafeSpots {
+interface FetchSafeSpotsAction {
 	type: typeof FETCH_SAFE_SPOTS;
 }
 
-interface FetchSafeSpotsSuccess {
+interface FetchSafeSpotsSuccessAction {
 	type: typeof FETCH_SAFE_SPOTS_SUCCESS;
-	payload: {
-		safeSpots: SafeSpot[];
-	};
+	payload: { safeSpots: SafeSpot[] };
 }
 
-interface FetchSafeSpotsFailure {
+interface FetchSafeSpotsFailureAction {
 	type: typeof FETCH_SAFE_SPOTS_FAILURE;
-	payload: {
-		errorMessage: string;
-	};
+	payload: { errorMessage: string };
+}
+
+export interface SafeSpotsState {
+	loading: boolean;
+	safeSpots: SafeSpot[];
+	errorMessage: string;
 }
 
 export type SafeSpotsActionTypes =
-	| FetchSafeSpots
-	| FetchSafeSpotsSuccess
-	| FetchSafeSpotsFailure;
+	| FetchSafeSpotsAction
+	| FetchSafeSpotsSuccessAction
+	| FetchSafeSpotsFailureAction;

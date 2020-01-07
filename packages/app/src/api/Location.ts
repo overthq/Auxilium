@@ -24,7 +24,10 @@ const getRoute = async (
 	}
 };
 
-const getAddress = async ({ longitude, latitude }: EmergencyCoordinates) => {
+export const getAddress = async ({
+	longitude,
+	latitude
+}: EmergencyCoordinates) => {
 	try {
 		const response = await fetch(
 			`${env.apiUrl}location/get-address?longitude=${longitude}&latitude=${latitude}`,

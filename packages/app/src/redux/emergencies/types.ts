@@ -5,18 +5,15 @@ export const FETCH_EMERGENCIES_FAILURE = 'FETCH_EMERGENCIES_FAILURE';
 interface FetchEmergenciesAction {
 	type: typeof FETCH_EMERGENCIES;
 }
+
 interface FetchEmergenciesSuccessAction {
 	type: typeof FETCH_EMERGENCIES_SUCCESS;
-	payload: {
-		emergencies: Emergency[];
-	};
+	payload: { emergencies: Emergency[] };
 }
 
 interface FetchEmergenciesFailureAction {
 	type: typeof FETCH_EMERGENCIES_FAILURE;
-	payload: {
-		errorMessage: string;
-	};
+	payload: { errorMessage: string };
 }
 
 export interface EmergenciesState {
@@ -25,7 +22,7 @@ export interface EmergenciesState {
 	errorMessage: string;
 }
 
-export type EmergenciesAction =
+export type EmergenciesActionTypes =
 	| FetchEmergenciesAction
 	| FetchEmergenciesSuccessAction
 	| FetchEmergenciesFailureAction;

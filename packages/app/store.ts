@@ -1,12 +1,16 @@
 import { AsyncStorage } from 'react-native';
 import { createStore, applyMiddleware, combineReducers, Action } from 'redux';
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import thunk, { ThunkAction } from 'redux-thunk';
 import { persistReducer, persistStore } from 'redux-persist';
 import logger from 'redux-logger';
 import location from './src/redux/location/reducer';
 import emergencies from './src/redux/emergencies/reducer';
+import safeSpots from './src/redux/safe-spots/reducer';
 
-const appReducer = combineReducers({
+const middlewares = applyMiddleware(thunk, logger);
+
+const rootReducer = combineReducers({
 	location: persistReducer(
 		{ key: 'location', storage: AsyncStorage },
 		location
@@ -14,19 +18,12 @@ const appReducer = combineReducers({
 	emergencies: persistReducer(
 		{ key: 'emergencies', storage: AsyncStorage },
 		emergencies
+	),
+	safeSpots: persistReducer(
+		{ key: 'safeSpots', storage: AsyncStorage },
+		safeSpots
 	)
 });
-const middlewares = applyMiddleware(thunk, logger);
-
-const rootReducer = (state: any, action: any) => {
-	if (action.type === 'AUTH_LOGOUT') {
-		Object.keys(state).forEach(key => {
-			AsyncStorage.removeItem(`persist:${key}`);
-		});
-		state = undefined;
-	}
-	return appReducer(state, action);
-};
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppThunk<ReturnType = void> = ThunkAction<
@@ -36,5 +33,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 	Action<string>
 >;
 
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const store = createStore(rootReducer, middlewares);
 export const persistor = persistStore(store);

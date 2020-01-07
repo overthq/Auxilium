@@ -8,27 +8,17 @@ interface FetchLocationAction {
 
 interface FetchLocationSuccessAction {
 	type: typeof FETCH_LOCATION_SUCCESS;
-	payload: {
-		coordinates: {
-			longitude: number;
-			latitude: number;
-		};
-	};
+	payload: { coordinates: EmergencyCoordinates };
 }
 
 interface FetchLocationFailureAction {
 	type: typeof FETCH_LOCATION_FAILURE;
-	payload: {
-		errorMessage: string;
-	};
+	payload: { errorMessage: string };
 }
 
 export interface LocationState {
 	loading: boolean;
-	coordinates: {
-		longitude: number;
-		latitude: number;
-	};
+	coordinates: EmergencyCoordinates;
 	errorMessage: string;
 }
 

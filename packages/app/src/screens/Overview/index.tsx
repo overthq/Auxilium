@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Text, Alert, StyleSheet } from 'react-native';
+import { SafeAreaView, Alert, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modalize } from 'react-native-modalize';
 import { NavigationScreenProp } from 'react-navigation';

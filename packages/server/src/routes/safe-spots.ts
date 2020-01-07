@@ -5,6 +5,6 @@ const router = Router();
 
 router.post('/add', safeSpotsController.addSafeSpot);
 router.get('/get', safeSpotsController.getSafeSpots);
-router.get('/delete', safeSpotsController.deleteSafeSpot);
+router.delete('/delete', safeSpotsController.deleteSafeSpot);
 
 export default router;

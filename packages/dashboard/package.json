@@ -12,6 +12,7 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
+		"lint": "eslint --fix . --ext .ts,.tsx",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},
@@ -26,6 +27,7 @@
 		"@types/mapbox-gl": "^1.6.1",
 		"@types/react": "^16.8.23",
 		"@types/react-dom": "^16.9.4",
+		"eslint": "^6.8.0",
 		"typescript": "^3.7.4"
 	},
 	"eslintConfig": {

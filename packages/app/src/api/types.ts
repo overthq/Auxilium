@@ -13,3 +13,19 @@ interface Emergency {
 	description?: string;
 	createdAt: Date | string;
 }
+
+interface User {
+	_id: string;
+	pushToken: string;
+	createdAt: Date;
+	updatedAt: Date;
+}
+
+interface SafeSpot {
+	_id: string;
+	name: string;
+	location: {
+		type: 'Point';
+		coordinates: [number, number];
+	};
+}

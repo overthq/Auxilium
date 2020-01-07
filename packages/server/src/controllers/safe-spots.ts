@@ -66,7 +66,7 @@ export const deleteSafeSpot: RequestHandler = async (req, res) => {
 };
 
 export const getSafeSpots: RequestHandler = async (req, res) => {
-	const { userId } = req.params;
+	const { userId } = req.query;
 
 	try {
 		const spots = await SafeSpot.find({ user: userId });

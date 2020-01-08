@@ -1,11 +1,5 @@
 # [![Auxilium](assets/AuxiliumLogo.png)](https://overt.dev)
 
-<p align="center">
-  <a href="https://circleci.com/gh/overthq/Auxilium">
-    <img src="https://circleci.com/gh/overthq/Auxilium.svg?style=svg" alt="CircleCI" />
-  </a>
-</p>
-
 Auxilium is an open-source app for reporting emergencies. It informs nearby users that an emergency has occured in their vicinity, and provides them with the location (and directions), to keep them informed, and take neccessary actions.
 
 ## Motivation
@@ -51,8 +45,7 @@ yarn
 
 # SERVER-SIDE (Be sure to read the server docs)
 
-# Start MongoDB (in a seperate terminal)
-mongod
+# Start MongoDB
 
 # Start the backend server (after including the necessary vars in the server's .env file)
 yarn workspace @auxilium/server dev

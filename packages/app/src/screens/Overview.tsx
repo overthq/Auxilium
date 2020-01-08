@@ -9,7 +9,6 @@ import { reportEmergency } from '../api/Emergencies';
 import DetailsModal from '../components/modals/DetailsModal';
 import Overlay, { OverlaySlide } from '../components/Overlay';
 import PopupModal from '../components/modals/PopupModal';
-import MainButton from '../components/MainButton';
 import NearbyMap from '../components/NearbyMap';
 
 import { locate } from '../redux/location/actions';
@@ -17,6 +16,10 @@ import { fetchEmergencies } from '../redux/emergencies/actions';
 
 import SafeSpotsOverlay from '../components/overlays/SafeSpotsOverlay';
 import NearbyOverlay from '../components/overlays/NearbyOverlay';
+import ContactsOverlay from '../components/overlays/ContactsOverlay';
+import SettingsOverlay from '../components/overlays/SettingsOverlay';
+
+import Report from './Report';
 
 import { useAppSelector } from '../../store';
 
@@ -53,18 +56,6 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 		if (initialEmergency) openEmergency(initialEmergency);
 	};
 
-	const askForHelp = React.useCallback(
-		async (description: string) => {
-			try {
-				dispatch(locate(false));
-				reportEmergency(description, coordinates);
-			} catch (error) {
-				Alert.alert(error.message);
-			}
-		},
-		[coordinates]
-	);
-
 	const openEmergency = (emergency: Emergency) => {
 		setActiveEmergency(emergency);
 		handleModalOpen(emergencyModalRef);
@@ -76,11 +67,10 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 			<Overlay>
 				<NearbyOverlay open={openEmergency} {...{ emergencies }} />
 				<SafeSpotsOverlay />
-				<OverlaySlide title='Contacts'></OverlaySlide>
-				<OverlaySlide title='Settings'></OverlaySlide>
+				<ContactsOverlay />
+				<SettingsOverlay />
 			</Overlay>
-			<MainButton onPress={() => handleModalOpen(modalRef)} />
-			<PopupModal action={askForHelp} {...{ modalRef }} />
+			<Report />
 			<DetailsModal modalRef={emergencyModalRef} emergency={activeEmergency} />
 		</SafeAreaView>
 	);

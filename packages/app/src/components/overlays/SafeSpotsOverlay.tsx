@@ -7,7 +7,7 @@ const SafeSpotOverlay = () => {
 	const safeSpots = useAppSelector(({ safeSpots }) => safeSpots);
 
 	return (
-		<OverlaySlide title='SafeSpots'>
+		<OverlaySlide title='Safe Spots'>
 			<TouchableOpacity>
 				<Text>Add Spot</Text>
 			</TouchableOpacity>

@@ -9,7 +9,7 @@ import {
 import { getAddress } from '../../api/Location';
 import { AppThunk } from '../../../store';
 
-export const locate = (addressRefresh = true): AppThunk => async dispatch => {
+export const locate = (): AppThunk => async dispatch => {
 	dispatch({ type: FETCH_LOCATION });
 	try {
 		const { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -20,18 +20,9 @@ export const locate = (addressRefresh = true): AppThunk => async dispatch => {
 			coords: { latitude, longitude }
 		} = await Location.getCurrentPositionAsync({ accuracy: 1 });
 
-		let place;
-
-		if (addressRefresh) {
-			place = await getAddress({ latitude, longitude });
-		}
-
 		dispatch({
 			type: FETCH_LOCATION_SUCCESS,
-			payload: {
-				coordinates: { latitude, longitude },
-				place
-			}
+			payload: { coordinates: { latitude, longitude } }
 		});
 	} catch (error) {
 		dispatch({

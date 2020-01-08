@@ -13,8 +13,8 @@ export const getNearbyEmergencies = async ({
 };
 
 export const reportEmergency = async (
-	description: string,
-	{ longitude, latitude }: EmergencyCoordinates
+	{ longitude, latitude }: EmergencyCoordinates,
+	description?: string
 ) => {
 	const user = await getUserData();
 	if (!user) return;
@@ -23,8 +23,8 @@ export const reportEmergency = async (
 		method: 'POST',
 		body: JSON.stringify({
 			userId: user._id,
-			description,
-			coordinates: [longitude, latitude]
+			coordinates: [longitude, latitude],
+			...(description && { description })
 		})
 	});
 	await response.json();

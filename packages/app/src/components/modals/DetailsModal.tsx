@@ -1,21 +1,16 @@
 import React from 'react';
 import { Modalize } from 'react-native-modalize';
-import { useSelector } from 'react-redux';
-import EmergencyMap from './EmergencyMap';
-import EmergencyDetails from './EmergencyDetails';
-import { RootState } from '../../../../store';
+import EmergencyMap from '../EmergencyMap';
+import EmergencyDetails from '../EmergencyDetails';
+import { useAppSelector } from '../../../store';
 
 interface DetailsModalProps {
 	modalRef: React.RefObject<Modalize>;
 	emergency?: Emergency;
 }
 
-const stateMapper = ({ location }: RootState) => ({
-	coordinates: location.coordinates
-});
-
 const DetailsModal: React.FC<DetailsModalProps> = ({ modalRef, emergency }) => {
-	const { coordinates } = useSelector(stateMapper);
+	const coordinates = useAppSelector(({ location }) => location.coordinates);
 	if (!emergency) return null;
 
 	const {

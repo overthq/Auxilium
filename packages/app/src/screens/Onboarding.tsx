@@ -9,9 +9,10 @@ import {
 	TouchableOpacity,
 	Text
 } from 'react-native';
-import { Slide, Pagination } from '../components/Onboarding';
+import Slide from '../components/Slide';
+import Pagination from '../components/Pagination';
 import { NavigationScreenProp } from 'react-navigation';
-import { Auth } from '../api';
+import { authenticate } from '../api/Auth';
 
 const { width } = Dimensions.get('window');
 
@@ -46,7 +47,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ navigation }) => {
 	const scrollX = new Animated.Value(0);
 
 	const completeOnboarding = () => {
-		Auth.authenticate();
+		authenticate();
 		navigation.navigate('Overview');
 	};
 

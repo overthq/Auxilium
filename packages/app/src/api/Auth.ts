@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 import env from '../../env';
 import { storeUserData } from '../helpers/auth';
 
-const authenticate = async (): Promise<void> => {
+export const authenticate = async (): Promise<void> => {
 	const { status: existingStatus } = await Permissions.getAsync(
 		Permissions.NOTIFICATIONS
 	);
@@ -22,10 +22,6 @@ const authenticate = async (): Promise<void> => {
 	try {
 		const response = await fetch(`${env.apiUrl}auth`, {
 			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
 			body: JSON.stringify({ pushToken })
 		});
 
@@ -35,5 +31,3 @@ const authenticate = async (): Promise<void> => {
 		return Alert.alert(error.message);
 	}
 };
-
-export default { authenticate };

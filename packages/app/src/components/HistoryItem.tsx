@@ -1,25 +1,14 @@
 import React from 'react';
-import {
-	View,
-	Text,
-	Dimensions,
-	TouchableOpacity,
-	StyleSheet
-} from 'react-native';
+import { Text, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
 import { formatDistanceToNow } from 'date-fns';
-import { getDistance } from '../../../helpers/location';
-import { RootState } from '../../../../store';
-import { useSelector } from 'react-redux';
+import { getDistance } from '../helpers/location';
+import { useAppSelector } from '../../store';
 
 const { width } = Dimensions.get('window');
 
 interface HistoryItemProps extends Emergency {
 	action(): void;
 }
-
-const selector = ({ location: { coordinates } }: RootState) => ({
-	coordinates
-});
 
 const HistoryItem: React.FC<HistoryItemProps> = ({
 	action,
@@ -29,7 +18,7 @@ const HistoryItem: React.FC<HistoryItemProps> = ({
 	},
 	createdAt
 }) => {
-	const { coordinates } = useSelector(selector);
+	const coordinates = useAppSelector(({ location }) => location.coordinates);
 	const distance = getDistance(coordinates, { longitude, latitude });
 
 	return (

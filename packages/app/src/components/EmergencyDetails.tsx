@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { RootState } from '../../../../store';
-import { useSelector } from 'react-redux';
-import { getDistance } from '../../../helpers/location';
+import { useAppSelector } from '../../store';
+import { getDistance } from '../helpers/location';
 
 interface EmergencyDetailsProps {
 	description?: string;
@@ -11,13 +10,9 @@ interface EmergencyDetailsProps {
 	createdAt: Date | string;
 }
 
-const selector = ({ location: { coordinates } }: RootState) => ({
-	coordinates
-});
-
 const EmergencyDetails: React.FC<EmergencyDetailsProps> = props => {
 	const { description, longitude, latitude, createdAt } = props;
-	const { coordinates } = useSelector(selector);
+	const coordinates = useAppSelector(({ location }) => location.coordinates);
 	const distance = getDistance(coordinates, { longitude, latitude });
 
 	return (

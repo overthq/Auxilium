@@ -1,16 +1,16 @@
 import React from 'react';
 import { Text, Dimensions, StyleSheet } from 'react-native';
-import HistoryItem from './HistoryItem';
-import { OverlaySlide } from '../../../components/Overview/Overlay';
+import HistoryItem from '../HistoryItem';
+import { OverlaySlide } from '../Overlay';
 
 const { width } = Dimensions.get('window');
 
-interface AroundYouProps {
+interface NearbyOverlayProps {
 	emergencies: Emergency[];
 	open(emergency: Emergency): void;
 }
 
-const AroundYou: React.FC<AroundYouProps> = ({ emergencies, open }) => (
+const NearbyOverlay: React.FC<NearbyOverlayProps> = ({ emergencies, open }) => (
 	<OverlaySlide title='Nearby'>
 		{emergencies.length > 0 ? (
 			emergencies.map(emergency => (
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default AroundYou;
+export default NearbyOverlay;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
-import { MapMarker } from '../components';
-import { Location } from '../../../api';
-import mapStyle from './mapStyle';
+import MapMarker from './MapMarker';
+import { getRoute } from '../api/Location';
+import mapStyle from './styles/mapStyle';
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,7 +26,7 @@ const EmergencyMap: React.FC<EmergencyMapProps> = props => {
 
 	const preload = React.useCallback(async () => {
 		const to = { longitude, latitude };
-		const currentRoute = (await Location.getRoute(from, to)) || [];
+		const currentRoute = (await getRoute(from, to)) || [];
 		setRoute(currentRoute);
 	}, [longitude, latitude]);
 

@@ -1,4 +1,4 @@
-import { AsyncStorage, Alert } from 'react-native';
+import { AsyncStorage } from 'react-native';
 
 interface User {
 	_id: string;
@@ -8,21 +8,13 @@ interface User {
 }
 
 export const getUserData = async () => {
-	try {
-		const user = await AsyncStorage.getItem('user');
-		if (!user) {
-			throw new Error('You must be authenticated to use this feature.');
-		}
-		return JSON.parse(user) as User;
-	} catch (error) {
-		Alert.alert(error.message);
+	const user = await AsyncStorage.getItem('user');
+	if (!user) {
+		throw new Error('You must be authenticated to use this feature.');
 	}
+	return JSON.parse(user) as User;
 };
 
 export const storeUserData = (user: User) => {
-	try {
-		AsyncStorage.setItem('user', JSON.stringify(user));
-	} catch (error) {
-		Alert.alert(error.message);
-	}
+	return AsyncStorage.setItem('user', JSON.stringify(user));
 };

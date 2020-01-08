@@ -1,20 +1,24 @@
 import React from 'react';
 import { SafeAreaView, Alert, StyleSheet } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Modalize } from 'react-native-modalize';
 import { NavigationScreenProp } from 'react-navigation';
 
-import { LocationActions, EmergenciesActions } from '../../redux/actions';
-import { MainButton, AroundYou, NearbyMap, PopupModal } from './components';
-import { Emergencies } from '../../api';
-import DetailsModal from './components/DetailsModal';
-import Overlay, { OverlaySlide } from '../../components/Overview/Overlay';
-import { RootState } from '../../../store';
+import { reportEmergency } from '../api/Emergencies';
 
-const stateMapper = ({ location, emergencies }: RootState) => ({
-	coordinates: location.coordinates,
-	emergencies: emergencies.emergencies
-});
+import DetailsModal from '../components/modals/DetailsModal';
+import Overlay, { OverlaySlide } from '../components/Overlay';
+import PopupModal from '../components/modals/PopupModal';
+import MainButton from '../components/MainButton';
+import NearbyMap from '../components/NearbyMap';
+
+import { locate } from '../redux/location/actions';
+import { fetchEmergencies } from '../redux/emergencies/actions';
+
+import SafeSpotsOverlay from '../components/overlays/SafeSpotsOverlay';
+import NearbyOverlay from '../components/overlays/NearbyOverlay';
+
+import { useAppSelector } from '../../store';
 
 const handleModalOpen = (ref: React.RefObject<Modalize>) => {
 	ref.current?.open();
@@ -25,7 +29,12 @@ interface OverviewProps {
 }
 
 const Overview: React.FC<OverviewProps> = ({ navigation }) => {
-	const { coordinates, emergencies } = useSelector(stateMapper);
+	const { coordinates, emergencies } = useAppSelector(
+		({ location, emergencies }) => ({
+			coordinates: location.coordinates,
+			emergencies: emergencies.emergencies
+		})
+	);
 	const [activeEmergency, setActiveEmergency] = React.useState<Emergency>(
 		emergencies[0] || undefined
 	);
@@ -34,8 +43,8 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 	const emergencyModalRef = React.useRef<Modalize>(null);
 
 	React.useEffect(() => {
-		dispatch(LocationActions.locate());
-		dispatch(EmergenciesActions.fetchEmergencies());
+		dispatch(locate());
+		dispatch(fetchEmergencies());
 		handleInitialEmergency();
 	}, []);
 
@@ -47,8 +56,8 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 	const askForHelp = React.useCallback(
 		async (description: string) => {
 			try {
-				dispatch(LocationActions.locate(false));
-				Emergencies.reportEmergency(description, coordinates);
+				dispatch(locate(false));
+				reportEmergency(description, coordinates);
 			} catch (error) {
 				Alert.alert(error.message);
 			}
@@ -65,8 +74,8 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 		<SafeAreaView style={styles.container}>
 			<NearbyMap {...{ coordinates, emergencies }} />
 			<Overlay>
-				<AroundYou open={openEmergency} {...{ emergencies }} />
-				<OverlaySlide title='Safe Spots'></OverlaySlide>
+				<NearbyOverlay open={openEmergency} {...{ emergencies }} />
+				<SafeSpotsOverlay />
 				<OverlaySlide title='Contacts'></OverlaySlide>
 				<OverlaySlide title='Settings'></OverlaySlide>
 			</Overlay>

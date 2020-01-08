@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
-import mapStyle from './mapStyle';
 import MapMarker from './MapMarker';
+import mapStyle from './styles/mapStyle';
 
 interface NearbyMapProps {
 	coordinates: EmergencyCoordinates;

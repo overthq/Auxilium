@@ -10,7 +10,7 @@ interface AppNavigatorProps {
 	loggedIn: boolean;
 }
 
-const AppNavigator = ({ loggedIn }: AppNavigatorProps) => {
+const AppNavigator: React.FC<AppNavigatorProps> = ({ loggedIn }) => {
 	const Navigator = createAppContainer(
 		createSwitchNavigator(
 			{ Onboarding, Overview },

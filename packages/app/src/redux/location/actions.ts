@@ -9,7 +9,7 @@ import {
 import { getAddress } from '../../api/Location';
 import { AppThunk } from '../../../store';
 
-const locate = (addressRefresh = true): AppThunk => async dispatch => {
+export const locate = (addressRefresh = true): AppThunk => async dispatch => {
 	dispatch({ type: FETCH_LOCATION });
 	try {
 		const { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -40,5 +40,3 @@ const locate = (addressRefresh = true): AppThunk => async dispatch => {
 		});
 	}
 };
-
-export default { locate };

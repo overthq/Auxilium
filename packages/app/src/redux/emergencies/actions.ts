@@ -1,4 +1,4 @@
-import { Emergencies } from '../../api';
+import { getNearbyEmergencies } from '../../api/Emergencies';
 import {
 	FETCH_EMERGENCIES,
 	FETCH_EMERGENCIES_SUCCESS,
@@ -6,7 +6,7 @@ import {
 } from './types';
 import { AppThunk } from '../../../store';
 
-const fetchEmergencies = (): AppThunk => async (dispatch, getState) => {
+export const fetchEmergencies = (): AppThunk => async (dispatch, getState) => {
 	const {
 		location: { coordinates }
 	} = getState();
@@ -14,7 +14,7 @@ const fetchEmergencies = (): AppThunk => async (dispatch, getState) => {
 	dispatch({ type: FETCH_EMERGENCIES });
 
 	try {
-		const emergencies = await Emergencies.getNearbyEmergencies(coordinates);
+		const emergencies = await getNearbyEmergencies(coordinates);
 
 		dispatch({
 			type: FETCH_EMERGENCIES_SUCCESS,
@@ -29,5 +29,3 @@ const fetchEmergencies = (): AppThunk => async (dispatch, getState) => {
 		});
 	}
 };
-
-export default { fetchEmergencies };

@@ -2836,6 +2836,13 @@
     "@types/cookiejar" "*"
     "@types/node" "*"
 
+"@types/supercluster@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@types/supercluster/-/supercluster-5.0.1.tgz#0b25cca65b06d22fc24acc6b004843acd5d105a9"
+  integrity sha512-HpL0RXND3iR4O5MXi/4X+PoTkHA6sEFDq54qRD1Ps0YeceL5jyg9gMUeQvNU9HJpUXWbzwpCTP9hH3yQAqF9wg==
+  dependencies:
+    "@types/geojson" "*"
+
 "@types/uuid-js@^0.7.1":
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/@types/uuid-js/-/uuid-js-0.7.2.tgz#5b5552fcbaaf4acf026fb6dc66f7e5bd6b4be92f"
@@ -9139,11 +9146,6 @@ kareem@2.3.1:
   resolved "https://registry.yarnpkg.com/kareem/-/kareem-2.3.1.tgz#def12d9c941017fabfb00f873af95e9c99e1be87"
   integrity sha512-l3hLhffs9zqoDe8zjmb/mAN4B8VT3L56EUvKNqLFVs9YlFA+zx7ke1DO8STAdDyYNkeSo1nKmjuvQeI12So8Xw==
 
-kdbush@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/kdbush/-/kdbush-1.0.1.tgz#3cbd03e9dead9c0f6f66ccdb96450e5cecc640e0"
-  integrity sha1-PL0D6d6tnA9vZszblkUOXOzGQOA=
-
 kdbush@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/kdbush/-/kdbush-3.0.0.tgz#f8484794d47004cc2d85ed3a79353dbe0abc2bf0"
@@ -12388,15 +12390,16 @@ react-is@^16.9.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
   integrity sha512-gbBVYR2p8mnriqAwWx9LbuUrShnAuSCNnuPGyc7GJrMVQtPDAh8iLpv7FRuMPFb56KkaVZIYSz1PrjI9q0QPCw==
 
-react-mapbox-gl@^4.5.1:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/react-mapbox-gl/-/react-mapbox-gl-4.6.0.tgz#0b6f3ebb43413c136731a1ea74328534af336af5"
-  integrity sha512-+7v9ZeD3Fi44u+e/0OCptlafOriyF94F9C7RhoMr0d4Mn9nfwN2IfNy4fhCh2QhMAZGlvhjId2DARM51t1NvIQ==
+react-mapbox-gl@^4.8.2:
+  version "4.8.2"
+  resolved "https://registry.yarnpkg.com/react-mapbox-gl/-/react-mapbox-gl-4.8.2.tgz#3814a42d35adc53194d3920eeac72910dbcebd65"
+  integrity sha512-NAN1dgVDpjxTtqQuhPX1OUkVhS1o8KJ+jRoAN0Q/8gSWLaQlYLkC1ZOYRRj8KcoRP3Px/ya0DJsORiStz0P+eA==
   dependencies:
     "@turf/bbox" "4.7.3"
     "@turf/helpers" "4.7.3"
+    "@types/supercluster" "^5.0.1"
     deep-equal "1.0.1"
-    supercluster "3.0.2"
+    supercluster "^7.0.0"
 
 react-native-gesture-handler@~1.5.0:
   version "1.5.2"
@@ -13994,17 +13997,17 @@ superagent@^3.7.0:
     qs "^6.5.1"
     readable-stream "^2.3.5"
 
-supercluster@3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/supercluster/-/supercluster-3.0.2.tgz#370d6b4fcc9381f034f60f950593d7e4de3235ef"
-  integrity sha512-3Fm2/9YcoCE26M4FlSkGU7xYYpDAFWlxaChdx31h0I08ywRhcF2W1NKbsi+APqaxxn8TSXH/HvMhl4nEf+9lJA==
-  dependencies:
-    kdbush "^1.0.1"
-
 supercluster@^6.0.1:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/supercluster/-/supercluster-6.0.2.tgz#aa2eaae185ef97872f388c683ec29f6991721ee3"
   integrity sha512-aa0v2HURjBTOpbcknilcfxGDuArM8khklKSmZ/T8ZXL0BuRwb5aRw95lz+2bmWpFvCXDX/+FzqHxmg0TIaJErw==
+  dependencies:
+    kdbush "^3.0.0"
+
+supercluster@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/supercluster/-/supercluster-7.0.0.tgz#75d474fafb0a055db552ed7bd7bbda583f6ab321"
+  integrity sha512-8VuHI8ynylYQj7Qf6PBMWy1PdgsnBiIxujOgc9Z83QvJ8ualIYWNx2iMKyKeC4DZI5ntD9tz/CIwwZvIelixsA==
   dependencies:
     kdbush "^3.0.0"
 

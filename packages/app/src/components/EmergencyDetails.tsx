@@ -22,9 +22,6 @@ const EmergencyDetails: React.FC<EmergencyDetailsProps> = props => {
 			<Text style={styles.location}>
 				{new Date(createdAt).toLocaleDateString()}
 			</Text>
-			<Text style={styles.location}>
-				{`${longitude.toFixed(4)}, ${latitude.toFixed(4)}`}
-			</Text>
 		</View>
 	);
 };

@@ -34,6 +34,7 @@ export const OverlaySlide: React.FC<OverlaySlideProps> = ({
 const styles = StyleSheet.create({
 	container: {
 		position: 'absolute',
+		zIndex: 10,
 		backgroundColor: 'rgba(0, 0, 0, 0.3)',
 		top: 0
 	},

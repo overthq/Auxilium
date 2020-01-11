@@ -6,7 +6,7 @@ interface MarkerProps {
 	borderStroke?: number;
 }
 
-const MapMarker = ({ size, borderStroke }: MarkerProps) => (
+const MapMarker: React.FC<MarkerProps> = ({ size, borderStroke }) => (
 	<Svg height={size} width={size}>
 		<Circle
 			cx={size / 2}

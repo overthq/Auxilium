@@ -1,26 +1,20 @@
 import React from 'react';
-import { SafeAreaView, Alert, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Modalize } from 'react-native-modalize';
 import { NavigationScreenProp } from 'react-navigation';
 
-import { reportEmergency } from '../api/Emergencies';
-
 import DetailsModal from '../components/modals/DetailsModal';
-import Overlay, { OverlaySlide } from '../components/Overlay';
-import PopupModal from '../components/modals/PopupModal';
+import Overlay from '../components/Overlay';
 import NearbyMap from '../components/NearbyMap';
-
-import { locate } from '../redux/location/actions';
-import { fetchEmergencies } from '../redux/emergencies/actions';
-
 import SafeSpotsOverlay from '../components/overlays/SafeSpotsOverlay';
 import NearbyOverlay from '../components/overlays/NearbyOverlay';
 import ContactsOverlay from '../components/overlays/ContactsOverlay';
 import SettingsOverlay from '../components/overlays/SettingsOverlay';
+import Report from '../components/Report';
 
-import Report from './Report';
-
+import { locate } from '../redux/location/actions';
+import { fetchEmergencies } from '../redux/emergencies/actions';
 import { useAppSelector } from '../../store';
 
 const handleModalOpen = (ref: React.RefObject<Modalize>) => {
@@ -42,7 +36,6 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 		emergencies[0] || undefined
 	);
 	const dispatch = useDispatch();
-	const modalRef = React.useRef<Modalize>(null);
 	const emergencyModalRef = React.useRef<Modalize>(null);
 
 	React.useEffect(() => {
@@ -51,8 +44,8 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 		handleInitialEmergency();
 	}, []);
 
-	const handleInitialEmergency = async () => {
-		const initialEmergency = await navigation.getParam('initialEmergency');
+	const handleInitialEmergency = () => {
+		const initialEmergency = navigation.getParam('initialEmergency');
 		if (initialEmergency) openEmergency(initialEmergency);
 	};
 

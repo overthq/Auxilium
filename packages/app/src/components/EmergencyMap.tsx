@@ -24,22 +24,21 @@ const EmergencyMap: React.FC<EmergencyMapProps> = props => {
 	const centerLongitude = (from.longitude + longitude) / 2;
 	const centerLatitude = (from.latitude + latitude) / 2;
 
-	const preload = React.useCallback(async () => {
-		const to = { longitude, latitude };
-		const currentRoute = (await getRoute(from, to)) || [];
-		setRoute(currentRoute);
-	}, [longitude, latitude]);
-
 	React.useEffect(() => {
-		preload();
-	}, []);
+		const loadRoute = async () => {
+			const to = { longitude, latitude };
+			const currentRoute = (await getRoute(from, to)) || [];
+			setRoute(currentRoute);
+		};
+		loadRoute();
+	}, [longitude, latitude]);
 
 	return (
 		<MapView
 			style={styles.map}
 			provider='google'
 			customMapStyle={mapStyle}
-			initialRegion={{
+			region={{
 				longitude: centerLongitude,
 				latitude: centerLatitude,
 				longitudeDelta,

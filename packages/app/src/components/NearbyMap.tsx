@@ -23,7 +23,12 @@ const NearbyMap: React.FC<NearbyMapProps> = ({
 	coordinates: { longitude, latitude },
 	emergencies
 }) => {
-	const [region, setRegion] = React.useState<Region | undefined>(undefined);
+	const [region, setRegion] = React.useState<Region>({
+		longitude,
+		latitude,
+		longitudeDelta: 0.00353,
+		latitudeDelta: 0.00568
+	});
 
 	return (
 		<MapView
@@ -31,18 +36,12 @@ const NearbyMap: React.FC<NearbyMapProps> = ({
 			customMapStyle={mapStyle}
 			provider='google'
 			showsUserLocation
-			initialRegion={{
-				longitude,
-				latitude,
-				longitudeDelta: 0.00353,
-				latitudeDelta: 0.00568
-			}}
-			{...{ region }}
 			onRegionChange={setRegion}
 			pitchEnabled={false}
 			rotateEnabled={false}
 			scrollEnabled={false}
 			zoomEnabled={false}
+			{...{ region }}
 		>
 			{renderMarkers(emergencies)}
 		</MapView>

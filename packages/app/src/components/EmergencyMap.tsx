@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import MapMarker from './MapMarker';
 import { getRoute } from '../api/Location';
-import mapStyle from './styles/mapStyle';
+import mapStyle from './styles/darkMapStyle';
 
 const { width, height } = Dimensions.get('window');
 

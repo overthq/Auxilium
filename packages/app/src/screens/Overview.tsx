@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import { Modalize } from 'react-native-modalize';
 import { NavigationScreenProp } from 'react-navigation';
 
+import { MapContext } from '../contexts/MapContext';
 import DetailsModal from '../components/modals/DetailsModal';
 import Overlay from '../components/Overlay';
-import NearbyMap from '../components/NearbyMap';
 import SafeSpotsOverlay from '../components/overlays/SafeSpotsOverlay';
 import NearbyOverlay from '../components/overlays/NearbyOverlay';
 import ContactsOverlay from '../components/overlays/ContactsOverlay';
@@ -37,6 +37,7 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 	);
 	const dispatch = useDispatch();
 	const emergencyModalRef = React.useRef<Modalize>(null);
+	const { map } = React.useContext(MapContext);
 
 	React.useEffect(() => {
 		dispatch(locate());
@@ -56,7 +57,7 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<NearbyMap {...{ coordinates, emergencies }} />
+			{map}
 			<Overlay>
 				<NearbyOverlay open={openEmergency} {...{ emergencies }} />
 				<SafeSpotsOverlay />

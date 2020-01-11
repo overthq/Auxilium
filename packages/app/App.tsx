@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import Sentry from 'sentry-expo';
 import { useScreens } from 'react-native-screens';
 import { PersistGate } from 'redux-persist/integration/react';
+import { MapProvider } from './src/contexts/MapContext';
 import { store, persistor } from './store';
 import Root from './src/Root';
 
@@ -15,7 +16,9 @@ useScreens();
 const App = () => (
 	<Provider store={store}>
 		<PersistGate persistor={persistor}>
-			<Root />
+			<MapProvider>
+				<Root />
+			</MapProvider>
 		</PersistGate>
 	</Provider>
 );

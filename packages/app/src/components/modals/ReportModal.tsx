@@ -1,15 +1,12 @@
 import React from 'react';
 import {
+	Text,
 	StyleSheet,
 	TextInput,
 	Keyboard,
-	Dimensions,
-	View,
-	Text,
-	TouchableOpacity
+	Dimensions
 } from 'react-native';
 import { Modalize } from 'react-native-modalize';
-import { Feather } from '@expo/vector-icons';
 
 const { height } = Dimensions.get('window');
 
@@ -39,7 +36,7 @@ const ReportModal: React.FC<ReportModalProps> = ({ modalRef, action }) => {
 				multiline
 				onBlur={Keyboard.dismiss}
 			/>
-			{/* Add the "floating" icons to this section. */}
+			{/* TODO: Add the "floating" icons to this section. */}
 		</Modalize>
 	);
 };
@@ -58,7 +55,6 @@ const styles = StyleSheet.create({
 	textArea: {
 		fontFamily: 'Rubik Regular',
 		fontSize: 16,
-		// textAlignVertical: 'top',
 		minHeight: height / 3.5,
 		marginTop: 10,
 		color: '#D3D3D3'

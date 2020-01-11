@@ -19,7 +19,7 @@ export const MapContext = React.createContext<MapContextValue>({
 	centerOnCoords: () => {}
 });
 
-const renderMarkers = (emergencies: Emergency[]) =>
+const renderEmergencyMarkers = (emergencies: Emergency[]) =>
 	emergencies.map(({ location }, index) => {
 		const [longitude, latitude] = location.coordinates;
 		return (
@@ -29,11 +29,41 @@ const renderMarkers = (emergencies: Emergency[]) =>
 		);
 	});
 
+const renderSafeSpotMarkers = (safeSpots: SafeSpot[]) =>
+	safeSpots.map(({ location }, index) => {
+		const [longitude, latitude] = location.coordinates;
+		return (
+			<Marker key={index} coordinate={{ longitude, latitude }}>
+				<MapMarker size={20} />
+			</Marker>
+		);
+	});
+
+// TODO: Add map 'modes'
+// Mode 1 (Default): Emergencies
+// Mode 2: Safe spots
+
+// Mode 1 properties:
+// - Centered on user's current location
+// - Markers are not tappable, at least for now, or maybe later?
+// - Markers are red
+
+// Mode 2 properties:
+// - All safe spots must be in frame
+// - Markers are tappable
+// - Markers are green
+// - Marker selection focuses camera on marker, and emergencies around said marker
+
+// So technically, mode 2 has 2 modes:
+// General safe spots overview, and
+// Individual safe-spot information.
+
 export const MapProvider: React.FC = ({ children }) => {
-	const { coordinates, emergencies } = useAppSelector(
-		({ location, emergencies }) => ({
+	const { coordinates, emergencies, safeSpots } = useAppSelector(
+		({ location, emergencies, safeSpots }) => ({
 			coordinates: location.coordinates,
-			emergencies: emergencies.emergencies
+			emergencies: emergencies.emergencies,
+			safeSpots: safeSpots.safeSpots
 		})
 	);
 
@@ -45,6 +75,9 @@ export const MapProvider: React.FC = ({ children }) => {
 	};
 
 	const [region, setRegion] = React.useState<Region>(initialRegion);
+	const [mode, setMode] = React.useState<'emergencies' | 'safeSpots'>(
+		'emergencies'
+	);
 	const [mapStyle, setMapStyle] = React.useState<MapStyleElement[] | undefined>(
 		darkMapStyle
 	);
@@ -77,7 +110,9 @@ export const MapProvider: React.FC = ({ children }) => {
 			ref={mapRef}
 			{...{ initialRegion }}
 		>
-			{renderMarkers(emergencies)}
+			{mode === 'emergencies'
+				? renderEmergencyMarkers(emergencies)
+				: renderSafeSpotMarkers(safeSpots)}
 		</MapView>
 	);
 

@@ -27,11 +27,8 @@ interface OverviewProps {
 }
 
 const Overview: React.FC<OverviewProps> = ({ navigation }) => {
-	const { coordinates, emergencies } = useAppSelector(
-		({ location, emergencies }) => ({
-			coordinates: location.coordinates,
-			emergencies: emergencies.emergencies
-		})
+	const emergencies = useAppSelector(
+		({ emergencies }) => emergencies.emergencies
 	);
 	const [activeEmergency, setActiveEmergency] = React.useState<Emergency>(
 		emergencies[0] || undefined

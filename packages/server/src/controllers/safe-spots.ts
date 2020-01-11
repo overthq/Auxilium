@@ -12,6 +12,26 @@ export const addSafeSpot: RequestHandler = async (req, res) => {
 			});
 		}
 
+		const safeSpots = await SafeSpot.find({
+			user: user.id,
+			location: {
+				$near: {
+					$maxDistance: 1000,
+					$geometry: {
+						type: 'Point',
+						coordinates: [Number(location.longitude), Number(location.latitude)]
+					}
+				}
+			}
+		}).find();
+
+		if (safeSpots.length > 0) {
+			return res.status(400).json({
+				success: false,
+				message: 'You already have a safe-spot set in this vicinity.'
+			});
+		}
+
 		const spot = await SafeSpot.create({
 			name,
 			location: {

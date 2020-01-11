@@ -12,14 +12,3 @@ export const getRoute = async (
 	const { route } = await response.json();
 	return route;
 };
-
-export const getAddress = async ({
-	longitude,
-	latitude
-}: EmergencyCoordinates) => {
-	const response = await fetch(
-		`${env.apiUrl}location/get-address?longitude=${longitude}&latitude=${latitude}`
-	);
-	const { address } = await response.json();
-	return address;
-};

@@ -6,7 +6,6 @@ import {
 	FETCH_LOCATION_SUCCESS,
 	FETCH_LOCATION_FAILURE
 } from './types';
-import { getAddress } from '../../api/Location';
 import { AppThunk } from '../../../store';
 
 export const locate = (): AppThunk => async dispatch => {

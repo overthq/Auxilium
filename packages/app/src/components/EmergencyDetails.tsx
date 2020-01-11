@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { formatDistanceToNow } from 'date-fns';
 import { useAppSelector } from '../../store';
 import { getDistance } from '../helpers/location';
 
@@ -14,14 +15,14 @@ const EmergencyDetails: React.FC<EmergencyDetailsProps> = props => {
 	const { description, longitude, latitude, createdAt } = props;
 	const coordinates = useAppSelector(({ location }) => location.coordinates);
 	const distance = getDistance(coordinates, { longitude, latitude });
+	const formattedDate = formatDistanceToNow(new Date(createdAt), {
+		addSuffix: true
+	});
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.description}>~{distance}</Text>
 			<Text style={styles.description}>{description}</Text>
-			<Text style={styles.location}>
-				{new Date(createdAt).toLocaleDateString()}
-			</Text>
+			<Text style={styles.location}>{`~${distance} · ${formattedDate}`}</Text>
 		</View>
 	);
 };
@@ -30,11 +31,10 @@ const styles = StyleSheet.create({
 	container: {
 		position: 'absolute',
 		alignSelf: 'center',
-		bottom: 20,
+		bottom: 0,
 		backgroundColor: '#505050',
-		borderRadius: 6,
 		padding: 10,
-		width: '90%'
+		width: '100%'
 	},
 	description: {
 		color: '#D3D3D3',

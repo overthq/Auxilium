@@ -15,14 +15,15 @@ export const locate = (): AppThunk => async dispatch => {
 		if (status !== 'granted') {
 			return Alert.alert('We require location permissions to use this app');
 		}
-		const {
-			coords: { latitude, longitude }
-		} = await Location.getCurrentPositionAsync({ accuracy: 1 });
-
-		dispatch({
-			type: FETCH_LOCATION_SUCCESS,
-			payload: { coordinates: { latitude, longitude } }
-		});
+		await Location.watchPositionAsync(
+			{ accuracy: 1, distanceInterval: 100 },
+			({ coords: { longitude, latitude } }) => {
+				dispatch({
+					type: FETCH_LOCATION_SUCCESS,
+					payload: { coordinates: { latitude, longitude } }
+				});
+			}
+		);
 	} catch (error) {
 		dispatch({
 			type: FETCH_LOCATION_FAILURE,

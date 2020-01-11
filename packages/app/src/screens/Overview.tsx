@@ -5,13 +5,14 @@ import { Modalize } from 'react-native-modalize';
 import { NavigationScreenProp } from 'react-navigation';
 
 import { MapContext } from '../contexts/MapContext';
-import DetailsModal from '../components/modals/DetailsModal';
 import Overlay from '../components/Overlay';
+import Report from '../components/Report';
+import DetailsModal from '../components/modals/DetailsModal';
+import AddSafeSpotModal from '../components/modals/AddSafeSpotModal';
 import SafeSpotsOverlay from '../components/overlays/SafeSpotsOverlay';
 import NearbyOverlay from '../components/overlays/NearbyOverlay';
 import ContactsOverlay from '../components/overlays/ContactsOverlay';
 import SettingsOverlay from '../components/overlays/SettingsOverlay';
-import Report from '../components/Report';
 
 import { locate } from '../redux/location/actions';
 import { fetchEmergencies } from '../redux/emergencies/actions';
@@ -37,6 +38,7 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 	);
 	const dispatch = useDispatch();
 	const emergencyModalRef = React.useRef<Modalize>(null);
+	const addSafeSpotModalRef = React.useRef<Modalize>(null);
 	const { map } = React.useContext(MapContext);
 
 	React.useEffect(() => {
@@ -60,12 +62,13 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 			{map}
 			<Overlay>
 				<NearbyOverlay open={openEmergency} {...{ emergencies }} />
-				<SafeSpotsOverlay />
+				<SafeSpotsOverlay modalRef={addSafeSpotModalRef} />
 				<ContactsOverlay />
 				<SettingsOverlay />
 			</Overlay>
 			<Report />
 			<DetailsModal modalRef={emergencyModalRef} emergency={activeEmergency} />
+			<AddSafeSpotModal modalRef={addSafeSpotModalRef} />
 		</SafeAreaView>
 	);
 };

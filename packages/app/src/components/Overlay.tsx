@@ -19,14 +19,19 @@ const Overlay: React.FC = ({ children }) => (
 
 interface OverlaySlideProps {
 	title?: string;
+	headerRight?: React.ReactNode;
 }
 
 export const OverlaySlide: React.FC<OverlaySlideProps> = ({
 	title,
-	children
+	children,
+	headerRight
 }) => (
 	<View style={styles.slide}>
-		{title && <Text style={styles.title}>{title}</Text>}
+		<View style={styles.header}>
+			{title && <Text style={styles.title}>{title}</Text>}
+			{headerRight}
+		</View>
 		{children}
 	</View>
 );
@@ -38,12 +43,18 @@ const styles = StyleSheet.create({
 		backgroundColor: 'rgba(0, 0, 0, 0.3)',
 		top: 0
 	},
+	header: {
+		width: '100%',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		marginVertical: 7.5
+	},
 	title: {
 		fontFamily: 'Rubik Medium',
-		fontSize: 24,
+		fontSize: 26,
 		alignSelf: 'flex-start',
-		color: '#D3D3D3',
-		marginVertical: 7.5
+		color: '#D3D3D3'
 	},
 	slide: {
 		width,

@@ -56,12 +56,11 @@ const styles = StyleSheet.create({
 		color: '#D3D3D3'
 	},
 	textArea: {
-		textAlignVertical: 'top',
-		minHeight: height / 3.5,
-		width: '100%',
-		marginTop: 10,
 		fontFamily: 'Rubik Regular',
 		fontSize: 16,
+		// textAlignVertical: 'top',
+		minHeight: height / 3.5,
+		marginTop: 10,
 		color: '#D3D3D3'
 	}
 });

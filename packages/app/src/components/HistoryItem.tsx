@@ -20,18 +20,17 @@ const HistoryItem: React.FC<HistoryItemProps> = ({
 }) => {
 	const coordinates = useAppSelector(({ location }) => location.coordinates);
 	const distance = getDistance(coordinates, { longitude, latitude });
+	const formattedDate = formatDistanceToNow(new Date(createdAt), {
+		addSuffix: true
+	});
 
 	return (
 		<TouchableOpacity
-			activeOpacity={0.7}
+			activeOpacity={0.8}
 			onPress={action}
 			style={styles.container}
 		>
-			<Text style={styles.location}>
-				{`~${distance} · ${formatDistanceToNow(new Date(createdAt), {
-					addSuffix: true
-				})}`}
-			</Text>
+			<Text style={styles.location}>{`~${distance} · ${formattedDate}`}</Text>
 			<Text style={styles.description}>{description}</Text>
 		</TouchableOpacity>
 	);

@@ -24,6 +24,10 @@ export const addSafeSpot = ({
 
 		const response = await fetch(`${env.apiUrl}safe-spots/add`, {
 			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
 			body: JSON.stringify({
 				userId: user._id,
 				name,
@@ -45,7 +49,7 @@ export const addSafeSpot = ({
 	}
 };
 
-export const getSafeSpot = (): AppThunk => async dispatch => {
+export const getSafeSpots = (): AppThunk => async dispatch => {
 	try {
 		dispatch({ type: FETCH_SAFE_SPOTS });
 
@@ -53,7 +57,7 @@ export const getSafeSpot = (): AppThunk => async dispatch => {
 		if (!user) return;
 
 		const response = await fetch(
-			`${env.apiUrl}safe-spots/get?userId=${user._id}}`
+			`${env.apiUrl}safe-spots/get?userId=${user._id}`
 		);
 
 		const { spots } = await response.json();

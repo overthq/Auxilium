@@ -24,6 +24,7 @@ const AddSafeSpotModal: React.FC<AddSafeSpotModalProps> = ({ modalRef }) => {
 			Importantly, we also have to make the application focus back on the user location when the user goes back to the "Nearby" overlay
 		*/
 		dispatch(addSafeSpot({ name, location }));
+		modalRef.current?.close();
 	};
 
 	return (
@@ -50,8 +51,7 @@ const styles = StyleSheet.create({
 		height: 40,
 		padding: 10,
 		borderRadius: 6,
-		marginVertical: 10,
-		backgroundColor: '#100100'
+		marginVertical: 10
 	},
 	title: {
 		fontFamily: 'Rubik Medium',

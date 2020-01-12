@@ -33,6 +33,7 @@ export const addSafeSpot: RequestHandler = async (req, res) => {
 		}
 
 		const spot = await SafeSpot.create({
+			user: userId,
 			name,
 			location: {
 				type: 'Point',
@@ -87,10 +88,8 @@ export const deleteSafeSpot: RequestHandler = async (req, res) => {
 
 export const getSafeSpots: RequestHandler = async (req, res) => {
 	const { userId } = req.query;
-
 	try {
 		const spots = await SafeSpot.find({ user: userId });
-
 		return res.status(200).json({
 			success: true,
 			spots

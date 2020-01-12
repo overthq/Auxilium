@@ -20,7 +20,7 @@ export default (state = initialState, action: SafeSpotsActionTypes) => {
 			return {
 				...state,
 				loading: false,
-				safeSpots: [...state.safeSpots, ...action.payload.safeSpots]
+				safeSpots: [...state.safeSpots, ...action.payload.spots]
 			};
 		case FETCH_SAFE_SPOTS_FAILURE:
 			return {

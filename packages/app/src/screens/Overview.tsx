@@ -16,6 +16,7 @@ import SettingsOverlay from '../components/overlays/SettingsOverlay';
 
 import { locate } from '../redux/location/actions';
 import { fetchEmergencies } from '../redux/emergencies/actions';
+import { getSafeSpots } from '../redux/safe-spots/actions';
 import { useAppSelector } from '../../store';
 
 const handleModalOpen = (ref: React.RefObject<Modalize>) => {
@@ -41,6 +42,7 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 	React.useEffect(() => {
 		dispatch(locate());
 		dispatch(fetchEmergencies());
+		dispatch(getSafeSpots());
 		handleInitialEmergency();
 	}, []);
 

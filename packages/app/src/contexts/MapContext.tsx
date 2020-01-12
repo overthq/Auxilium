@@ -19,22 +19,19 @@ export const MapContext = React.createContext<MapContextValue>({
 	centerOnCoords: () => {}
 });
 
-const renderEmergencyMarkers = (emergencies: Emergency[]) =>
-	emergencies.map(({ location }, index) => {
-		const [longitude, latitude] = location.coordinates;
-		return (
-			<Marker key={index} coordinate={{ longitude, latitude }}>
-				<MapMarker size={20} />
-			</Marker>
-		);
-	});
+interface MarkersConfig {
+	elements: (Emergency | SafeSpot)[];
+	// Yes, I'm aware that the above is not equivalent to Emergency[] | SafeSpot[]
+	color?: string;
+	onPress?: (location: EmergencyCoordinates) => void;
+}
 
-const renderSafeSpotMarkers = (safeSpots: SafeSpot[]) =>
-	safeSpots.map(({ location }, index) => {
+const renderMarkers = ({ elements, color, onPress }: MarkersConfig) =>
+	elements.map(({ location }, index) => {
 		const [longitude, latitude] = location.coordinates;
 		return (
 			<Marker key={index} coordinate={{ longitude, latitude }}>
-				<MapMarker size={20} />
+				<MapMarker onPress={() => onPress} size={20} color={color} />
 			</Marker>
 		);
 	});
@@ -95,6 +92,14 @@ export const MapProvider: React.FC = ({ children }) => {
 		mapRef.current?.animateCamera({ center: coordinates }, { duration: 3000 });
 	};
 
+	React.useEffect(() => {
+		if (mode === 'safeSpots') {
+			mapRef.current?.fitToElements(true);
+		}
+	}, [mode]);
+
+	const emergenciesMode = mode === 'emergencies';
+
 	const map = (
 		<MapView
 			style={StyleSheet.absoluteFillObject}
@@ -110,9 +115,11 @@ export const MapProvider: React.FC = ({ children }) => {
 			ref={mapRef}
 			{...{ initialRegion }}
 		>
-			{mode === 'emergencies'
-				? renderEmergencyMarkers(emergencies)
-				: renderSafeSpotMarkers(safeSpots)}
+			{renderMarkers(
+				emergenciesMode
+					? { elements: emergencies }
+					: { elements: safeSpots, color: 'green', onPress: centerOnCoords }
+			)}
 		</MapView>
 	);
 

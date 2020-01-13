@@ -52,7 +52,7 @@
 		"@types/expo__vector-icons": "^9.0.1",
 		"@types/haversine": "^1.1.4",
 		"@types/react": "^16.9.17",
-		"@types/react-native": "^0.60.27",
+		"@types/react-native": "^0.60.30",
 		"@types/react-navigation": "^3.0.8",
 		"@types/react-redux": "^7.1.5",
 		"@types/redux-logger": "^3.0.7",

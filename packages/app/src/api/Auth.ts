@@ -22,10 +22,16 @@ export const authenticate = async (): Promise<void> => {
 	try {
 		const response = await fetch(`${env.apiUrl}auth`, {
 			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
 			body: JSON.stringify({ pushToken })
 		});
 
-		const { user } = await response.json();
+		const data = await response.json();
+		console.log({ data });
+		const { user } = data;
 		if (response.ok) storeUserData(user);
 	} catch (error) {
 		return Alert.alert(error.message);

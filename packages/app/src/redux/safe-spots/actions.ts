@@ -2,7 +2,9 @@ import {
 	FETCH_SAFE_SPOTS_SUCCESS,
 	FETCH_SAFE_SPOTS,
 	FETCH_SAFE_SPOTS_FAILURE,
-	DELETE_SAFE_SPOT,
+	ADD_SAFE_SPOT_SUCCESS,
+	ADD_SAFE_SPOT_FAILURE,
+	DELETE_SAFE_SPOT_SUCCESS,
 	DELETE_SAFE_SPOT_FAILURE
 } from './types';
 import env from '../../../env';
@@ -38,16 +40,22 @@ export const addSafeSpot = ({
 		const { spot } = await response.json();
 
 		dispatch({
-			type: FETCH_SAFE_SPOTS_SUCCESS,
-			payload: [spot]
+			type: ADD_SAFE_SPOT_SUCCESS,
+			payload: { spot }
 		});
 	} catch (error) {
 		dispatch({
-			type: FETCH_SAFE_SPOTS_FAILURE,
+			type: ADD_SAFE_SPOT_FAILURE,
 			payload: { errorMessage: error.message }
 		});
 	}
 };
+
+// In the future, I might have to overfetch this data, and get the list of emergencies in the safe spots as well.
+// The main concern for overfetching here is the fact that it will make the Overview screen take longer to load.
+// I have to make sure that data loading on the Overview page is reduced to a bare minimum
+// This also means adding loading states to most sections that rely on data from external sources.
+// Nearby emergencies should also load AFTER the initial render.
 
 export const getSafeSpots = (): AppThunk => async dispatch => {
 	try {
@@ -61,7 +69,10 @@ export const getSafeSpots = (): AppThunk => async dispatch => {
 		);
 
 		const { spots } = await response.json();
-		dispatch({ type: FETCH_SAFE_SPOTS_SUCCESS, payload: { spots } });
+		dispatch({
+			type: FETCH_SAFE_SPOTS_SUCCESS,
+			payload: { safeSpots: spots }
+		});
 	} catch (error) {
 		dispatch({
 			type: FETCH_SAFE_SPOTS_FAILURE,
@@ -80,7 +91,10 @@ export const deleteSafeSpot = (id: string): AppThunk => async dispatch => {
 			{ method: 'DELETE' }
 		);
 
-		dispatch({ type: DELETE_SAFE_SPOT, payload: { id } });
+		dispatch({
+			type: DELETE_SAFE_SPOT_SUCCESS,
+			payload: { id }
+		});
 	} catch (error) {
 		dispatch({
 			type: DELETE_SAFE_SPOT_FAILURE,

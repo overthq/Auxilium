@@ -1,8 +1,6 @@
 import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { Notifications } from 'expo';
 import { Notification } from 'expo/build/Notifications/Notifications.types';
-import NavigationService from './NavigationService';
 import Onboarding from './Onboarding';
 import Overview from './Overview';
 
@@ -10,20 +8,12 @@ interface AppNavigatorProps {
 	loggedIn: boolean;
 }
 
+// This entire file should be moved to the Root when it works.
 const AppNavigator: React.FC<AppNavigatorProps> = ({ loggedIn }) => {
-	const Navigator = createAppContainer(
-		createSwitchNavigator(
-			{ Onboarding, Overview },
-			{
-				initialRouteName: loggedIn ? 'Overview' : 'Onboarding',
-				backBehavior: 'none'
-			}
-		)
-	);
-
 	const handleNotification = ({ origin, data }: Notification) => {
 		if (origin === 'selected') {
-			NavigationService.navigate('Overview', { initialEmergency: data });
+			// Open the overview page with the emergency data.
+			// Still have to figure out how to access the page.
 		}
 	};
 
@@ -36,13 +26,7 @@ const AppNavigator: React.FC<AppNavigatorProps> = ({ loggedIn }) => {
 		};
 	}, []);
 
-	return (
-		<Navigator
-			ref={navigatorRef => {
-				navigatorRef && NavigationService.setTopLevelNavigator(navigatorRef);
-			}}
-		/>
-	);
+	return loggedIn ? <Overview /> : <Onboarding />;
 };
 
 export default React.memo(AppNavigator);

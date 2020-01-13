@@ -2,6 +2,10 @@ import {
 	FETCH_SAFE_SPOTS,
 	FETCH_SAFE_SPOTS_SUCCESS,
 	FETCH_SAFE_SPOTS_FAILURE,
+	ADD_SAFE_SPOT_SUCCESS,
+	ADD_SAFE_SPOT_FAILURE,
+	DELETE_SAFE_SPOT_SUCCESS,
+	DELETE_SAFE_SPOT_FAILURE,
 	SafeSpotsState,
 	SafeSpotsActionTypes
 } from './types';
@@ -20,7 +24,7 @@ export default (state = initialState, action: SafeSpotsActionTypes) => {
 			return {
 				...state,
 				loading: false,
-				safeSpots: [...state.safeSpots, ...action.payload.spots]
+				...action.payload
 			};
 		case FETCH_SAFE_SPOTS_FAILURE:
 			return {
@@ -28,6 +32,22 @@ export default (state = initialState, action: SafeSpotsActionTypes) => {
 				loading: false,
 				...action.payload
 			};
+		case ADD_SAFE_SPOT_SUCCESS:
+			return {
+				...state,
+				safeSpots: [...state.safeSpots, action.payload.spot]
+			};
+		case ADD_SAFE_SPOT_FAILURE:
+			return { ...state, ...action.payload };
+		case DELETE_SAFE_SPOT_SUCCESS:
+			return {
+				...state,
+				safeSpots: state.safeSpots.filter(
+					({ _id }) => _id !== action.payload.id
+				)
+			};
+		case DELETE_SAFE_SPOT_FAILURE:
+			return { ...state, ...action.payload };
 		default:
 			return state;
 	}

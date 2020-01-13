@@ -9,9 +9,7 @@ interface User {
 
 export const getUserData = async () => {
 	const user = await AsyncStorage.getItem('user');
-	if (!user) {
-		throw new Error('You must be authenticated to use this feature.');
-	}
+	if (!user) return false;
 	return JSON.parse(user) as User;
 };
 

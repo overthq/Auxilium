@@ -1,9 +1,11 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Modalize } from 'react-native-modalize';
+import { useDispatch } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import { OverlaySlide } from '../Overlay';
 import { useAppSelector } from '../../../store';
+import { deleteSafeSpot } from '../../redux/safe-spots/actions';
 
 interface SafeSpotOverlayProps {
 	modalRef: React.RefObject<Modalize>;
@@ -11,6 +13,7 @@ interface SafeSpotOverlayProps {
 
 const SafeSpotOverlay: React.FC<SafeSpotOverlayProps> = ({ modalRef }) => {
 	const safeSpots = useAppSelector(({ safeSpots }) => safeSpots);
+	const dispatch = useDispatch();
 
 	return (
 		<OverlaySlide
@@ -22,13 +25,23 @@ const SafeSpotOverlay: React.FC<SafeSpotOverlayProps> = ({ modalRef }) => {
 			}
 		>
 			{safeSpots.safeSpots.map(spot => (
-				<View key={spot._id}>
-					<Text>{spot.name}</Text>
+				<View style={{ flexDirection: 'row' }} key={spot._id}>
+					<Text style={styles.text}>{spot.name}</Text>
+					<TouchableOpacity onPress={() => dispatch(deleteSafeSpot(spot._id))}>
+						<Feather name='trash' color='#D3D3D3' size={24} />
+					</TouchableOpacity>
 					{/* onPress, use the centerOnCoords method to animate to the safe spot location */}
 				</View>
 			))}
 		</OverlaySlide>
 	);
 };
+
+const styles = StyleSheet.create({
+	text: {
+		fontSize: 16,
+		color: '#D3D3D3'
+	}
+});
 
 export default SafeSpotOverlay;

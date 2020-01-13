@@ -1,21 +1,55 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { MapContext } from '../contexts/MapContext';
 
 const { width } = Dimensions.get('window');
 
-const Overlay: React.FC = ({ children }) => (
-	<ScrollView
-		horizontal
-		pagingEnabled
-		snapToInterval={width}
-		snapToAlignment='center'
-		showsHorizontalScrollIndicator={false}
-		decelerationRate={0}
-		style={styles.container}
-	>
-		{children}
-	</ScrollView>
-);
+const Overlay: React.FC = ({ children }) => {
+	const [index, setIndex] = React.useState(0);
+	const {
+		mapRef,
+		nearbyEmergencyMarkers,
+		safeSpotMarkers,
+		setMarkers
+	} = React.useContext(MapContext);
+
+	React.useEffect(() => {
+		// Try removing this to see if it actually changes anything
+		// If it doesn't, it should be removed permanently.
+		// mapRef?.current?.forceUpdate();
+		switch (index) {
+			case 0:
+				setMarkers(nearbyEmergencyMarkers);
+				break;
+			case 1:
+				// mapRef?.current?.fitToElements(true);
+				setMarkers(safeSpotMarkers);
+				break;
+		}
+	}, [index]);
+
+	return (
+		<ScrollView
+			horizontal
+			pagingEnabled
+			snapToInterval={width}
+			snapToAlignment='center'
+			showsHorizontalScrollIndicator={false}
+			decelerationRate={0}
+			onMomentumScrollEnd={({
+				nativeEvent: {
+					contentOffset: { x }
+				}
+			}) => {
+				const sliderIndex = x ? x / width : 0;
+				setIndex(sliderIndex);
+			}}
+			style={styles.container}
+		>
+			{children}
+		</ScrollView>
+	);
+};
 
 interface OverlaySlideProps {
 	title?: string;

@@ -2,7 +2,6 @@ import React from 'react';
 import { Modalize } from 'react-native-modalize';
 import EmergencyMap from '../EmergencyMap';
 import EmergencyDetails from '../EmergencyDetails';
-import { useAppSelector } from '../../../store';
 
 interface DetailsModalProps {
 	modalRef: React.RefObject<Modalize>;
@@ -10,7 +9,6 @@ interface DetailsModalProps {
 }
 
 const DetailsModal: React.FC<DetailsModalProps> = ({ modalRef, emergency }) => {
-	const coordinates = useAppSelector(({ location }) => location.coordinates);
 	if (!emergency) return null;
 
 	const {
@@ -23,7 +21,7 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ modalRef, emergency }) => {
 
 	return (
 		<Modalize ref={modalRef} adjustToContentHeight>
-			<EmergencyMap {...{ coordinates, longitude, latitude }} />
+			<EmergencyMap {...{ longitude, latitude }} />
 			<EmergencyDetails {...{ description, longitude, latitude, createdAt }} />
 		</Modalize>
 	);

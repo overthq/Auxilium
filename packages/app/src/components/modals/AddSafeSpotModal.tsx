@@ -18,25 +18,25 @@ const AddSafeSpotModal: React.FC<AddSafeSpotModalProps> = ({ modalRef }) => {
 	const dispatch = useDispatch();
 
 	const handleSubmit = () => {
-		/* TODO:
-			Once the user swipes to the safe-spots overlay, we should make all the safe spots visible on the map.
-			Then if the user selects one of them, we do the centerOnCoords thing.
-			Importantly, we also have to make the application focus back on the user location when the user goes back to the "Nearby" overlay
-		*/
 		dispatch(addSafeSpot({ name, location }));
 		modalRef.current?.close();
 	};
+
+	// Add a map to this modal that allows the user to select his/her location.
+	// This should be easy to do, but I'm not sure if the user experience will be optimal.
+	// (Remember to iterate on this in the future).
 
 	return (
 		<Modalize ref={modalRef} modalStyle={styles.modal} adjustToContentHeight>
 			<Text style={styles.title}>Add Safe Spot</Text>
 			<TextInput
 				style={styles.input}
-				placeholder='Safe spot name'
 				onChangeText={setName}
+				placeholder='Name'
+				placeholderTextColor='#505050'
 			/>
-			<TouchableOpacity onPress={handleSubmit}>
-				<Text>Submit</Text>
+			<TouchableOpacity style={styles.button} onPress={handleSubmit}>
+				<Text style={styles.buttonText}>Add Safe Spot</Text>
 			</TouchableOpacity>
 		</Modalize>
 	);
@@ -51,13 +51,29 @@ const styles = StyleSheet.create({
 		height: 40,
 		padding: 10,
 		borderRadius: 6,
-		marginVertical: 10
+		marginVertical: 10,
+		color: '#D3D3D3',
+		backgroundColor: '#303030'
 	},
 	title: {
 		fontFamily: 'Rubik Medium',
 		fontSize: 24,
 		alignSelf: 'flex-start',
 		color: '#D3D3D3'
+	},
+	button: {
+		width: '100%',
+		height: 40,
+		backgroundColor: '#D3D3D3',
+		justifyContent: 'center',
+		borderRadius: 6,
+		marginBottom: 15,
+		alignItems: 'center'
+	},
+	buttonText: {
+		color: '#202020',
+		fontFamily: 'Rubik Medium',
+		fontSize: 16
 	}
 });
 

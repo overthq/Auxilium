@@ -23,17 +23,13 @@ const handleModalOpen = (ref: React.RefObject<Modalize>) => {
 	ref.current?.open();
 };
 
-interface OverviewProps {
-	navigation: NavigationScreenProp<any>;
-}
-
-const Overview: React.FC<OverviewProps> = ({ navigation }) => {
+const Overview: React.FC = () => {
 	const emergencies = useAppSelector(
 		({ emergencies }) => emergencies.emergencies
 	);
-	const [activeEmergency, setActiveEmergency] = React.useState<Emergency>(
-		emergencies[0] || undefined
-	);
+	const [activeEmergency, setActiveEmergency] = React.useState<
+		Emergency | undefined
+	>(undefined);
 	const dispatch = useDispatch();
 	const emergencyModalRef = React.useRef<Modalize>(null);
 	const addSafeSpotModalRef = React.useRef<Modalize>(null);
@@ -43,13 +39,13 @@ const Overview: React.FC<OverviewProps> = ({ navigation }) => {
 		dispatch(locate());
 		dispatch(fetchEmergencies());
 		dispatch(getSafeSpots());
-		handleInitialEmergency();
+		// handleInitialEmergency();
 	}, []);
 
-	const handleInitialEmergency = () => {
-		const initialEmergency = navigation.getParam('initialEmergency');
-		if (initialEmergency) openEmergency(initialEmergency);
-	};
+	// const handleInitialEmergency = () => {
+	// 	const initialEmergency = navigation.getParam('initialEmergency');
+	// 	if (initialEmergency) openEmergency(initialEmergency);
+	// };
 
 	const openEmergency = (emergency: Emergency) => {
 		setActiveEmergency(emergency);

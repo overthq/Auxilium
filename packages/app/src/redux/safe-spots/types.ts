@@ -1,7 +1,9 @@
 export const FETCH_SAFE_SPOTS = 'FETCH_SAFE_SPOTS';
 export const FETCH_SAFE_SPOTS_SUCCESS = 'FETCH_SAFE_SPOTS_SUCCESS';
 export const FETCH_SAFE_SPOTS_FAILURE = 'FETCH_SAFE_SPOTS_FAILURE';
-export const DELETE_SAFE_SPOT = 'DELETE_SAFE_SPOT';
+export const ADD_SAFE_SPOT_SUCCESS = 'ADD_SAFE_SPOT_SUCCESS';
+export const ADD_SAFE_SPOT_FAILURE = 'ADD_SAFE_SPOT_FAILURE';
+export const DELETE_SAFE_SPOT_SUCCESS = 'DELETE_SAFE_SPOT_SUCCESS';
 export const DELETE_SAFE_SPOT_FAILURE = 'DELETE_SAFE_SPOT_FAILURE';
 
 interface FetchSafeSpotsAction {
@@ -18,8 +20,18 @@ interface FetchSafeSpotsFailureAction {
 	payload: { errorMessage: string };
 }
 
-interface DeleteSafeSpotAction {
-	type: typeof DELETE_SAFE_SPOT;
+interface AddSafeSpotSuccessAction {
+	type: typeof ADD_SAFE_SPOT_SUCCESS;
+	payload: { spot: SafeSpot };
+}
+
+interface AddSafeSpotFailureAction {
+	type: typeof ADD_SAFE_SPOT_FAILURE;
+	payload: { errorMessage: string };
+}
+
+interface DeleteSafeSpotSuccessAction {
+	type: typeof DELETE_SAFE_SPOT_SUCCESS;
 	payload: { id: string };
 }
 
@@ -38,5 +50,7 @@ export type SafeSpotsActionTypes =
 	| FetchSafeSpotsAction
 	| FetchSafeSpotsSuccessAction
 	| FetchSafeSpotsFailureAction
-	| DeleteSafeSpotAction
+	| AddSafeSpotSuccessAction
+	| AddSafeSpotFailureAction
+	| DeleteSafeSpotSuccessAction
 	| DeleteSafeSpotFailureAction;

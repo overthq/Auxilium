@@ -1,44 +1,52 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import MapView, { Region, Marker, MapStyleElement } from 'react-native-maps';
+import { getNearbyEmergencies } from '../api/Emergencies';
 import { useAppSelector } from '../../store';
 import MapMarker from '../components/MapMarker';
 import darkMapStyle from '../components/styles/darkMapStyle';
+
+interface MarkerOptions {
+	location: {
+		longitude: number;
+		latitude: number;
+	};
+	color?: string;
+	size?: number;
+	onPress?: () => void;
+}
 
 interface MapContextValue {
 	region: Region | undefined;
 	map: React.ReactNode;
 	toggleMapStyle(): void;
-	centerOnCoords(coords: EmergencyCoordinates): void;
+	setMarkers(markers: MarkerOptions[]): void;
+	mapRef?: React.RefObject<MapView>;
+	safeSpotMarkers: MarkerOptions[];
+	nearbyEmergencyMarkers: MarkerOptions[];
 }
 
 export const MapContext = React.createContext<MapContextValue>({
 	region: undefined,
 	map: null,
 	toggleMapStyle: () => {},
-	centerOnCoords: () => {}
+	setMarkers: () => {},
+	mapRef: undefined,
+	safeSpotMarkers: [],
+	nearbyEmergencyMarkers: []
 });
 
-interface MarkersConfig {
-	elements: (Emergency | SafeSpot)[];
-	// Yes, I'm aware that the above is not equivalent to Emergency[] | SafeSpot[]
-	color?: string;
-	onPress?: (location: EmergencyCoordinates) => void;
-}
-
-const renderMarkers = ({ elements, color, onPress }: MarkersConfig) =>
-	elements.map(({ location }, index) => {
-		const [longitude, latitude] = location.coordinates;
-		return (
-			<Marker key={index} coordinate={{ longitude, latitude }}>
-				<MapMarker onPress={() => onPress} size={20} color={color} />
-			</Marker>
-		);
-	});
+const renderMarkers = (markers: MarkerOptions[]) =>
+	markers.map(({ location, size, color, onPress }, index) => (
+		<Marker key={index} coordinate={location} onPress={onPress}>
+			<MapMarker {...{ size, color }} />
+		</Marker>
+	));
 
 // TODO: Add map 'modes'
-// Mode 1 (Default): Emergencies
+// Mode 1 (default): Nearby emergencies
 // Mode 2: Safe spots
+// Mode 3: Safe spot and emergencies around it
 
 // Mode 1 properties:
 // - Centered on user's current location
@@ -51,9 +59,17 @@ const renderMarkers = ({ elements, color, onPress }: MarkersConfig) =>
 // - Markers are green
 // - Marker selection focuses camera on marker, and emergencies around said marker
 
-// So technically, mode 2 has 2 modes:
-// General safe spots overview, and
-// Individual safe-spot information.
+// Mode 3 properties:
+// - Safe spot must be at the screen's center
+// - Emergency markers for emergencies in the area should be tappable.
+// - Safe spot marker is a bit wider and green in color
+// - Emergency markers are red and normal-sized
+// - Emergency marker selection (by tap) opens DetailsModal.
+
+const getMarkersFromEmergencies = (emergencies: Emergency[]): MarkerOptions[] =>
+	emergencies.map(({ location: { coordinates: [longitude, latitude] } }) => ({
+		location: { longitude, latitude }
+	}));
 
 export const MapProvider: React.FC = ({ children }) => {
 	const { coordinates, emergencies, safeSpots } = useAppSelector(
@@ -71,12 +87,49 @@ export const MapProvider: React.FC = ({ children }) => {
 		latitudeDelta: 0.00568
 	};
 
+	const nearbyEmergencyMarkers = getMarkersFromEmergencies(emergencies);
+
+	const safeSpotMarkers = safeSpots.map(safeSpot => {
+		const {
+			location: {
+				coordinates: [longitude, latitude]
+			}
+		} = safeSpot;
+		return {
+			location: { longitude, latitude },
+			color: 'green',
+			size: 25,
+			onPress: () => {
+				focusSafeSpot(safeSpot);
+			}
+		};
+	});
+
+	const focusSafeSpot = async (safeSpot: SafeSpot) => {
+		const [longitude, latitude] = safeSpot.location.coordinates;
+		const safeSpotEmergencies = await getNearbyEmergencies({
+			longitude,
+			latitude
+		});
+
+		setMarkers([
+			{
+				location: { longitude, latitude },
+				color: 'green',
+				size: 30
+			},
+			...getMarkersFromEmergencies(safeSpotEmergencies)
+		]);
+
+		mapRef.current?.animateCamera({ center: { longitude, latitude } });
+	};
+
 	const [region, setRegion] = React.useState<Region>(initialRegion);
-	const [mode, setMode] = React.useState<'emergencies' | 'safeSpots'>(
-		'emergencies'
-	);
 	const [mapStyle, setMapStyle] = React.useState<MapStyleElement[] | undefined>(
 		darkMapStyle
+	);
+	const [markers, setMarkers] = React.useState<MarkerOptions[]>(
+		nearbyEmergencyMarkers
 	);
 	const mapRef = React.useRef<MapView>(null);
 
@@ -87,18 +140,6 @@ export const MapProvider: React.FC = ({ children }) => {
 		setMapStyle(darkMapStyle);
 		mapRef.current?.forceUpdate();
 	};
-
-	const centerOnCoords = (coordinates: EmergencyCoordinates) => {
-		mapRef.current?.animateCamera({ center: coordinates }, { duration: 3000 });
-	};
-
-	React.useEffect(() => {
-		if (mode === 'safeSpots') {
-			mapRef.current?.fitToElements(true);
-		}
-	}, [mode]);
-
-	const emergenciesMode = mode === 'emergencies';
 
 	const map = (
 		<MapView
@@ -115,17 +156,21 @@ export const MapProvider: React.FC = ({ children }) => {
 			ref={mapRef}
 			{...{ initialRegion }}
 		>
-			{renderMarkers(
-				emergenciesMode
-					? { elements: emergencies }
-					: { elements: safeSpots, color: 'green', onPress: centerOnCoords }
-			)}
+			{renderMarkers(markers)}
 		</MapView>
 	);
 
 	return (
 		<MapContext.Provider
-			value={{ region, map, toggleMapStyle, centerOnCoords }}
+			value={{
+				region,
+				map,
+				toggleMapStyle,
+				setMarkers,
+				mapRef,
+				safeSpotMarkers,
+				nearbyEmergencyMarkers
+			}}
 		>
 			{children}
 		</MapContext.Provider>

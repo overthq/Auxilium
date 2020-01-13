@@ -4,17 +4,15 @@ import MapView, { Marker, Polyline } from 'react-native-maps';
 import MapMarker from './MapMarker';
 import { getRoute } from '../api/Location';
 import mapStyle from './styles/darkMapStyle';
+import { useAppSelector } from '../../store';
 
 const { width, height } = Dimensions.get('window');
 
-interface EmergencyMapProps {
-	coordinates: EmergencyCoordinates;
-	longitude: number;
-	latitude: number;
-}
-
-const EmergencyMap: React.FC<EmergencyMapProps> = props => {
-	const { coordinates: from, longitude, latitude } = props;
+const EmergencyMap: React.FC<EmergencyCoordinates> = ({
+	longitude,
+	latitude
+}) => {
+	const from = useAppSelector(({ location }) => location.coordinates);
 	const [route, setRoute] = React.useState<EmergencyCoordinates[]>([]);
 
 	const lonDelta = Math.abs(from.longitude - longitude);

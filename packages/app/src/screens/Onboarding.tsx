@@ -37,18 +37,13 @@ const slides: SlideType[] = [
 	}
 ];
 
-interface OnboardingProps {
-	navigation: NavigationScreenProp<any, any>;
-}
-
-const Onboarding: React.FC<OnboardingProps> = ({ navigation }) => {
+const Onboarding: React.FC = () => {
 	const [slideIndex, setSlideIndex] = React.useState(0);
 	const listRef = React.useRef<FlatList<SlideType>>(null);
 	const scrollX = new Animated.Value(0);
 
 	const completeOnboarding = () => {
 		authenticate();
-		navigation.navigate('Overview');
 	};
 
 	const scrollToNext = () => {
@@ -65,17 +60,9 @@ const Onboarding: React.FC<OnboardingProps> = ({ navigation }) => {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<View
-				style={{
-					flexDirection: 'row',
-					justifyContent: 'flex-end',
-					padding: 20
-				}}
-			>
+			<View style={styles.skipSection}>
 				<TouchableOpacity onPress={completeOnboarding}>
-					<Text style={{ color: '#FFFFFF', fontFamily: 'Rubik Medium' }}>
-						SKIP
-					</Text>
+					<Text style={styles.skipText}>SKIP</Text>
 				</TouchableOpacity>
 			</View>
 			<FlatList
@@ -99,25 +86,10 @@ const Onboarding: React.FC<OnboardingProps> = ({ navigation }) => {
 				}}
 				onScroll={handleScroll}
 			/>
-			<View
-				style={{
-					padding: 20,
-					flexDirection: 'row',
-					justifyContent: 'space-between',
-					alignItems: 'center'
-				}}
-			>
+			<View style={styles.bottomSection}>
 				<Pagination {...{ tabs: slides, scrollX }} />
-				<TouchableOpacity
-					onPress={scrollToNext}
-					style={{
-						paddingVertical: 5,
-						paddingHorizontal: 10,
-						borderRadius: 20,
-						backgroundColor: '#FFFFFF'
-					}}
-				>
-					<Text style={{ fontFamily: 'Rubik Medium', color: '#505050' }}>
+				<TouchableOpacity onPress={scrollToNext} style={styles.actionButton}>
+					<Text style={styles.actionText}>
 						{slideIndex !== slides.length - 1 ? 'NEXT' : 'DONE'}
 					</Text>
 				</TouchableOpacity>
@@ -130,6 +102,31 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#FF8282'
+	},
+	skipSection: {
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		padding: 20
+	},
+	skipText: {
+		color: '#FFFFFF',
+		fontFamily: 'Rubik Medium'
+	},
+	bottomSection: {
+		padding: 20,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center'
+	},
+	actionButton: {
+		paddingVertical: 5,
+		paddingHorizontal: 10,
+		borderRadius: 20,
+		backgroundColor: '#FFFFFF'
+	},
+	actionText: {
+		fontFamily: 'Rubik Medium',
+		color: '#505050'
 	}
 });
 

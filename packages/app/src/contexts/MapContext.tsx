@@ -71,6 +71,9 @@ const getMarkersFromEmergencies = (emergencies: Emergency[]): MarkerOptions[] =>
 		location: { longitude, latitude }
 	}));
 
+const longitudeDelta = 0.00353;
+const latitudeDelta = 0.00568;
+
 export const MapProvider: React.FC = ({ children }) => {
 	const { coordinates, emergencies, safeSpots } = useAppSelector(
 		({ location, emergencies, safeSpots }) => ({
@@ -83,8 +86,8 @@ export const MapProvider: React.FC = ({ children }) => {
 	const initialRegion = {
 		longitude: coordinates.longitude,
 		latitude: coordinates.latitude,
-		longitudeDelta: 0.00353,
-		latitudeDelta: 0.00568
+		longitudeDelta,
+		latitudeDelta
 	};
 
 	const nearbyEmergencyMarkers = getMarkersFromEmergencies(emergencies);
@@ -121,7 +124,17 @@ export const MapProvider: React.FC = ({ children }) => {
 			...getMarkersFromEmergencies(safeSpotEmergencies)
 		]);
 
-		mapRef.current?.animateCamera({ center: { longitude, latitude } });
+		// If this doesn't work, I'll use this:
+		// setRegion({ longitude, latitude, longitudeDelta, latitudeDelta });
+		// Also, do we have to find a way to make this function update the value of the region thing?
+		mapRef.current?.animateToRegion({
+			longitude,
+			latitude,
+			longitudeDelta,
+			latitudeDelta
+		});
+		// This messes up the deltas.
+		// mapRef.current?.animateCamera({ center: { longitude, latitude } });
 	};
 
 	const [region, setRegion] = React.useState<Region>(initialRegion);

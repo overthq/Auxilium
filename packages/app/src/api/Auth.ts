@@ -29,9 +29,7 @@ export const authenticate = async (): Promise<void> => {
 			body: JSON.stringify({ pushToken })
 		});
 
-		const data = await response.json();
-		console.log({ data });
-		const { user } = data;
+		const { user } = await response.json();
 		if (response.ok) storeUserData(user);
 	} catch (error) {
 		return Alert.alert(error.message);

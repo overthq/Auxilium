@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import MapView, { Region, Marker, MapStyleElement } from 'react-native-maps';
 import { getNearbyEmergencies } from '../api/Emergencies';
 import { useAppSelector } from '../../store';
@@ -43,7 +43,7 @@ const renderMarkers = (markers: MarkerOptions[]) =>
 		</Marker>
 	));
 
-// TODO: Add map 'modes'
+// Map modes
 // Mode 1 (default): Nearby emergencies
 // Mode 2: Safe spots
 // Mode 3: Safe spot and emergencies around it
@@ -61,7 +61,7 @@ const renderMarkers = (markers: MarkerOptions[]) =>
 
 // Mode 3 properties:
 // - Safe spot must be at the screen's center
-// - Emergency markers for emergencies in the area should be tappable.
+// - Emergency markers for emergencies around the safe-spot should be tappable.
 // - Safe spot marker is a bit wider and green in color
 // - Emergency markers are red and normal-sized
 // - Emergency marker selection (by tap) opens DetailsModal.
@@ -124,17 +124,12 @@ export const MapProvider: React.FC = ({ children }) => {
 			...getMarkersFromEmergencies(safeSpotEmergencies)
 		]);
 
-		// If this doesn't work, I'll use this:
-		// setRegion({ longitude, latitude, longitudeDelta, latitudeDelta });
-		// Also, do we have to find a way to make this function update the value of the region thing?
 		mapRef.current?.animateToRegion({
 			longitude,
 			latitude,
 			longitudeDelta,
 			latitudeDelta
 		});
-		// This messes up the deltas.
-		// mapRef.current?.animateCamera({ center: { longitude, latitude } });
 	};
 
 	const [region, setRegion] = React.useState<Region>(initialRegion);

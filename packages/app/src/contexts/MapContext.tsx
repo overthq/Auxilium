@@ -4,7 +4,7 @@ import MapView, { Region, Marker, MapStyleElement } from 'react-native-maps';
 import { getNearbyEmergencies } from '../api/Emergencies';
 import { useAppSelector } from '../../store';
 import MapMarker from '../components/MapMarker';
-import darkMapStyle from '../components/styles/darkMapStyle';
+import darkMapStyle from '../styles/darkMapStyle';
 
 interface MarkerOptions {
 	location: {
@@ -50,21 +50,19 @@ const renderMarkers = (markers: MarkerOptions[]) =>
 
 // Mode 1 properties:
 // - Centered on user's current location
-// - Markers are not tappable, at least for now, or maybe later?
 // - Markers are red
+// - Marker selection should open the emergency modal.
 
 // Mode 2 properties:
 // - All safe spots must be in frame
-// - Markers are tappable
 // - Markers are green
 // - Marker selection focuses camera on marker, and emergencies around said marker
 
 // Mode 3 properties:
-// - Safe spot must be at the screen's center
-// - Emergency markers for emergencies around the safe-spot should be tappable.
-// - Safe spot marker is a bit wider and green in color
-// - Emergency markers are red and normal-sized
-// - Emergency marker selection (by tap) opens DetailsModal.
+// - Safe spot marker must be centered on the screen
+// - Emergency marker selection should open the emergency details modal
+// - Emergency markers have default properties
+// - Safe spot marker is larger than the default and green in color
 
 const getMarkersFromEmergencies = (emergencies: Emergency[]): MarkerOptions[] =>
 	emergencies.map(({ location: { coordinates: [longitude, latitude] } }) => ({

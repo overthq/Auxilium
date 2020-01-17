@@ -96,6 +96,7 @@ export const MapProvider: React.FC = ({ children }) => {
 				coordinates: [longitude, latitude]
 			}
 		} = safeSpot;
+
 		return {
 			location: { longitude, latitude },
 			color: 'green',

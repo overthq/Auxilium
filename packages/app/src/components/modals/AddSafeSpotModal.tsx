@@ -1,9 +1,18 @@
 import React from 'react';
-import { Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+	View,
+	Text,
+	TextInput,
+	TouchableOpacity,
+	StyleSheet
+} from 'react-native';
 import { Modalize } from 'react-native-modalize';
+import MapView, { Region } from 'react-native-maps';
 import { useDispatch } from 'react-redux';
 import { addSafeSpot } from '../../redux/safe-spots/actions';
 import { useAppSelector } from '../../../store';
+import darkMapStyle from '../../styles/darkMapStyle';
+import MapMarker from '../MapMarker';
 
 interface AddSafeSpotModalProps {
 	modalRef: React.RefObject<Modalize>;
@@ -11,20 +20,21 @@ interface AddSafeSpotModalProps {
 
 const AddSafeSpotModal: React.FC<AddSafeSpotModalProps> = ({ modalRef }) => {
 	const coordinates = useAppSelector(({ location }) => location.coordinates);
+	const initialRegion = {
+		longitude: coordinates.longitude,
+		latitude: coordinates.latitude,
+		longitudeDelta: 0.00353,
+		latitudeDelta: 0.00568
+	};
 	const [name, setName] = React.useState('');
-	const [location, setLocation] = React.useState<EmergencyCoordinates>(
-		coordinates
-	);
+	const [region, setRegion] = React.useState<Region>(initialRegion);
 	const dispatch = useDispatch();
 
 	const handleSubmit = () => {
-		dispatch(addSafeSpot({ name, location }));
+		const { longitude, latitude } = region;
+		dispatch(addSafeSpot({ name, location: { longitude, latitude } }));
 		modalRef.current?.close();
 	};
-
-	// Add a map to this modal that allows the user to select his/her location.
-	// This should be easy to do, but I'm not sure if the user experience will be optimal.
-	// (Remember to iterate on this in the future).
 
 	return (
 		<Modalize ref={modalRef} modalStyle={styles.modal} adjustToContentHeight>
@@ -35,6 +45,18 @@ const AddSafeSpotModal: React.FC<AddSafeSpotModalProps> = ({ modalRef }) => {
 				placeholder='Name'
 				placeholderTextColor='#505050'
 			/>
+			<View style={styles.mapContainer}>
+				<MapView
+					provider='google'
+					customMapStyle={darkMapStyle}
+					onRegionChange={setRegion}
+					style={styles.map}
+					{...{ initialRegion }}
+				/>
+				<View style={{ position: 'absolute' }}>
+					<MapMarker color='#2372C6' size={25} />
+				</View>
+			</View>
 			<TouchableOpacity style={styles.button} onPress={handleSubmit}>
 				<Text style={styles.buttonText}>Add Safe Spot</Text>
 			</TouchableOpacity>
@@ -47,19 +69,30 @@ const styles = StyleSheet.create({
 		padding: 15,
 		backgroundColor: '#202020'
 	},
+	title: {
+		fontFamily: 'Rubik Medium',
+		color: '#D3D3D3',
+		alignSelf: 'flex-start',
+		fontSize: 24,
+		marginBottom: 10
+	},
 	input: {
 		height: 40,
 		padding: 10,
 		borderRadius: 6,
-		marginVertical: 10,
 		color: '#D3D3D3',
 		backgroundColor: '#303030'
 	},
-	title: {
-		fontFamily: 'Rubik Medium',
-		fontSize: 24,
-		alignSelf: 'flex-start',
-		color: '#D3D3D3'
+	mapContainer: {
+		width: '100%',
+		marginVertical: 10,
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	map: {
+		height: 300,
+		width: '100%',
+		borderRadius: 6 // I don't think this works on Android still.
 	},
 	button: {
 		width: '100%',

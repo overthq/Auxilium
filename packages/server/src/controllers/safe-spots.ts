@@ -57,18 +57,12 @@ export const deleteSafeSpot: RequestHandler = async (req, res) => {
 	const { userId, spotId } = req.query;
 
 	try {
-		const spot = await SafeSpot.findById(spotId);
+		const spot = await SafeSpot.findOne({ _id: spotId, user: userId });
+
 		if (!spot) {
 			return res.status(404).json({
 				success: false,
 				message: 'The specified spot does not exist'
-			});
-		}
-
-		if (spot.user !== userId) {
-			return res.status(401).json({
-				success: false,
-				message: 'You are not authorized to delete this spot'
 			});
 		}
 

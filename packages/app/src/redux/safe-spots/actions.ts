@@ -51,12 +51,6 @@ export const addSafeSpot = ({
 	}
 };
 
-// In the future, I might have to overfetch this data, and get the list of emergencies in the safe spots as well.
-// The main concern for overfetching here is the fact that it will make the Overview screen take longer to load.
-// I have to make sure that data loading on the Overview page is reduced to a bare minimum
-// This also means adding loading states to most sections that rely on data from external sources.
-// Nearby emergencies should also load AFTER the initial render.
-
 export const getSafeSpots = (): AppThunk => async dispatch => {
 	try {
 		dispatch({ type: FETCH_SAFE_SPOTS });

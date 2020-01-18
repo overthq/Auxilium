@@ -3,10 +3,10 @@ import { AppThunk } from '../../../store';
 
 export const toggleTheme = (): AppThunk => async (dispatch, getState) => {
 	const {
-		theme: { theme: currentTheme }
+		theme: { name }
 	} = getState();
 
-	const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+	const themeName = name === 'dark' ? 'light' : 'dark';
 
-	dispatch({ type: TOGGLE_THEME, payload: { theme: newTheme } });
+	dispatch({ type: TOGGLE_THEME, payload: { theme: themeName } });
 };

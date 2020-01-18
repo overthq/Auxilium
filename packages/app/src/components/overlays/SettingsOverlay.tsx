@@ -12,7 +12,7 @@ interface SettingsOptionProps {
 // For now, this will do the job of switching themes.
 // i.e it will be reusable for other actions in the "near future".
 const SettingsOption: React.FC<SettingsOptionProps> = ({ name }) => {
-	const theme = useAppSelector(({ theme }) => theme.theme);
+	const theme = useAppSelector(({ theme }) => theme.name);
 	const dispatch = useDispatch();
 
 	const handleToggleTheme = () => {

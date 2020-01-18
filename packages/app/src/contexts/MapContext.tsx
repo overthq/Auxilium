@@ -4,8 +4,6 @@ import MapView, { Region, Marker } from 'react-native-maps';
 import { getNearbyEmergencies } from '../api/Emergencies';
 import { useAppSelector } from '../../store';
 import MapMarker from '../components/MapMarker';
-import darkMapStyle from '../styles/darkMapStyle';
-import lightMapStyle from '../styles/lightMapStyle';
 
 interface MarkerOptions {
 	location: {
@@ -77,7 +75,7 @@ export const MapProvider: React.FC = ({ children }) => {
 			coordinates: location.coordinates,
 			emergencies: emergencies.emergencies,
 			safeSpots: safeSpots.safeSpots,
-			theme: theme.theme
+			theme
 		})
 	);
 
@@ -140,7 +138,7 @@ export const MapProvider: React.FC = ({ children }) => {
 	const map = (
 		<MapView
 			style={StyleSheet.absoluteFillObject}
-			customMapStyle={theme === 'dark' ? darkMapStyle : lightMapStyle}
+			customMapStyle={theme.mapStyle}
 			provider='google'
 			showsUserLocation
 			followsUserLocation

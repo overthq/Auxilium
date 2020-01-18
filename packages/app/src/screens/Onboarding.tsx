@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import Slide from '../components/Slide';
 import Pagination from '../components/Pagination';
-import { NavigationScreenProp } from 'react-navigation';
 import { authenticate } from '../api/Auth';
 
 const { width } = Dimensions.get('window');

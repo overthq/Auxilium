@@ -7,22 +7,17 @@ const { width } = Dimensions.get('window');
 const Overlay: React.FC = ({ children }) => {
 	const [index, setIndex] = React.useState(0);
 	const {
-		mapRef,
 		nearbyEmergencyMarkers,
 		safeSpotMarkers,
 		setMarkers
 	} = React.useContext(MapContext);
 
 	React.useEffect(() => {
-		// Try removing this to see if it actually changes anything
-		// If it doesn't, it should be removed permanently.
-		// mapRef?.current?.forceUpdate();
 		switch (index) {
 			case 0:
 				setMarkers(nearbyEmergencyMarkers);
 				break;
 			case 1:
-				// mapRef?.current?.fitToElements(true);
 				setMarkers(safeSpotMarkers);
 				break;
 		}
@@ -87,8 +82,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontFamily: 'Rubik Medium',
 		fontSize: 26,
-		alignSelf: 'flex-start',
-		color: '#D3D3D3'
+		alignSelf: 'flex-start'
 	},
 	slide: {
 		width,

@@ -1,14 +1,29 @@
-import { ToggleThemeAction, TOGGLE_THEME } from './types';
+import { ToggleThemeAction, Theme, TOGGLE_THEME } from './types';
+import lightMapStyle from '../../styles/lightMapStyle';
+import darkMapStyle from '../../styles/darkMapStyle';
 
-const initialState = { theme: 'dark' };
+const themes: Record<'light' | 'dark', Theme> = {
+	light: {
+		name: 'light',
+		primaryColor: '',
+		secondaryColor: '',
+		mapStyle: lightMapStyle
+	},
+	dark: {
+		name: 'dark',
+		primaryColor: '',
+		secondaryColor: '',
+		mapStyle: darkMapStyle
+	}
+};
+
+const initialState: Theme = themes.dark;
 
 const themeReducer = (state = initialState, action: ToggleThemeAction) => {
-	switch (action.type) {
-		case TOGGLE_THEME:
-			return { theme: action.payload.theme };
-		default:
-			return state;
+	if (action.type === TOGGLE_THEME) {
+		return themes[action.payload.theme];
 	}
+	return state;
 };
 
 export default themeReducer;

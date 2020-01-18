@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		minHeight: height / 3.5,
 		marginTop: 10,
+		textAlignVertical: 'top',
 		color: '#D3D3D3'
 	}
 });

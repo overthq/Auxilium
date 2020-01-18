@@ -97,8 +97,8 @@ export const MapProvider: React.FC = ({ children }) => {
 
 		return {
 			location: { longitude, latitude },
-			color: 'green',
-			size: 25,
+			color: '#90C669',
+			size: 30,
 			onPress: () => {
 				focusSafeSpot(safeSpot);
 			}
@@ -115,7 +115,7 @@ export const MapProvider: React.FC = ({ children }) => {
 		setMarkers([
 			{
 				location: { longitude, latitude },
-				color: 'green',
+				color: '#90C669',
 				size: 30
 			},
 			...getMarkersFromEmergencies(safeSpotEmergencies)

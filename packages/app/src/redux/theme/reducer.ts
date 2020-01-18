@@ -5,14 +5,16 @@ import darkMapStyle from '../../styles/darkMapStyle';
 const themes: Record<'light' | 'dark', Theme> = {
 	light: {
 		name: 'light',
-		primaryColor: '',
-		secondaryColor: '',
+		primaryColor: '#FFFFFF',
+		secondaryColor: '#D3D3D3',
+		transluscentColor: 'rgba(0, 0, 0, 0.7)',
 		mapStyle: lightMapStyle
 	},
 	dark: {
 		name: 'dark',
-		primaryColor: '',
-		secondaryColor: '',
+		primaryColor: '#505050',
+		secondaryColor: '#D3D3D3',
+		transluscentColor: 'rgba(0, 0, 0, 0.3)',
 		mapStyle: darkMapStyle
 	}
 };

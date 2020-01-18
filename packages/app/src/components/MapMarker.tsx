@@ -1,6 +1,6 @@
 import React from 'react';
-import { TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
-import Svg, { Circle } from 'react-native-svg';
+import { View } from 'react-native';
+import { darken } from '../helpers/colors';
 
 interface MarkerProps {
 	size?: number;
@@ -13,16 +13,16 @@ const MapMarker: React.FC<MarkerProps> = ({
 	borderStroke,
 	color
 }) => (
-	<Svg height={size} width={size}>
-		<Circle
-			cx={size / 2}
-			cy={size / 2}
-			r={size / 2 - (1 || borderStroke) * 2}
-			stroke='#000000'
-			strokeWidth={2 || borderStroke}
-			fill={color || '#FF4D4D'}
-		/>
-	</Svg>
+	<View
+		style={{
+			height: size,
+			width: size,
+			borderRadius: size / 2,
+			borderWidth: 2.5 || borderStroke,
+			borderColor: darken(color || '#FF4D4D', -60),
+			backgroundColor: color || '#FF4D4D'
+		}}
+	/>
 );
 
 export default MapMarker;

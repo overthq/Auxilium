@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import { AsyncStorage, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import AppNavigator from './screens';
 import { getUserData } from './helpers/auth';
 
@@ -17,8 +17,7 @@ const Root = () => {
 	const loadFonts = async () => {
 		await Font.loadAsync({
 			'Rubik Regular': require('../assets/fonts/Rubik-Regular.ttf'),
-			'Rubik Medium': require('../assets/fonts/Rubik-Medium.ttf'),
-			'Rubik Bold': require('../assets/fonts/Rubik-Bold.ttf')
+			'Rubik Medium': require('../assets/fonts/Rubik-Medium.ttf')
 		});
 		setFontsLoaded(true);
 	};

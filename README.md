@@ -8,11 +8,11 @@ In [my country](https://en.wikipedia.org/wiki/Nigeria), many people die because 
 
 ## Project Phase
 
-This project is currently in the _pre-launch_ phase, being developed by [Oluwakorede Fashokun](https://github/com/koredefashokun) and [members of the Overt community](https://join.slack.com/t/overt-hq/shared_invite/enQtNjg4ODQ0NzIwNjc5LTc4MDA3ZDMyNmE2MTc3ZTA1NThlNmZkMDgyYTIxNzNlMGI0N2IzYWY2OWYyNGQzMzdhYWQ0OTAyMmQxYjM2MjA) for [Overt](https://overt.dev), a concept that creates open-source software to solve many of the problems we face in the world. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412), or follow Overt on Twitter [here](https://twitter.com/overt_hq).
+This project is currently in the _pre-launch_ phase, being developed by [Oluwakorede Fashokun](https://github/com/koredefashokun) and [members of the Overt community](https://discord.gg/t6wVzUh) for [Overt](https://overt.dev), a concept that creates open-source software to solve many of the problems we face in the world. You can read more [here](https://medium.com/@koredefashokun/building-the-future-in-the-open-f3ac035fb412), or follow Overt on Twitter [here](https://twitter.com/overt_hq).
 
 ## Project Ideas
 
-I write most of my ideas for Auxilium [here](https://www.notion.so/Auxilium-f55ecc60d8564af084f690c20c2a524a). You can share your feature requests with me by creating an issue or sending me an email. I really appreciate any ideas you may have.
+You can share your ideas for the project in the [Overt Discord server](https://discord.gg/t6wVzUh). You can also create feature requests as issues on this GitHub repository.
 
 ## Installation
 
@@ -73,9 +73,8 @@ Auxilium is a JavaScript-based application. It is built with popular JS librarie
   - Framework: [Express](https://expressjs.com)
   - Database: [MongoDB](https://mongodb.com)
   - Hosting: [Heroku](https://heroku.com)
-  - WebSockets
 
-We also use [Yarn Workspaces](https://yarnpkg.com/en/docs/workspaces) to manage the monorepo structure, and [CircleCI](https://circleci.org) for continuous integration/deployment (CI/CD).
+We also use [Yarn Workspaces](https://yarnpkg.com/en/docs/workspaces) to manage the monorepo structure, and GitHub Actions for continuous integration/deployment (CI/CD).
 
 ## License
 

@@ -3,18 +3,12 @@ import { Notifications } from 'expo';
 import { Notification } from 'expo/build/Notifications/Notifications.types';
 import Onboarding from './Onboarding';
 import Overview from './Overview';
+import { EmergencyContext } from '../contexts/EmergencyContext';
 
-interface AppNavigatorProps {
-	loggedIn: boolean;
-}
-
-// This entire file should be moved to the Root when it works.
-const AppNavigator: React.FC<AppNavigatorProps> = ({ loggedIn }) => {
+const AppNavigator: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
+	const { openEmergency } = React.useContext(EmergencyContext);
 	const handleNotification = ({ origin, data }: Notification) => {
-		if (origin === 'selected') {
-			// Open the overview page with the emergency data.
-			// Still have to figure out how to access the page.
-		}
+		if (origin === 'selected') openEmergency(data);
 	};
 
 	React.useEffect(() => {

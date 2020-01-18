@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import { Modalize } from 'react-native-modalize';
 
 import { MapContext } from '../contexts/MapContext';
+import { EmergencyContext } from '../contexts/EmergencyContext';
 import Overlay from '../components/Overlay';
 import Report from '../components/Report';
-import DetailsModal from '../components/modals/DetailsModal';
 import AddSafeSpotModal from '../components/modals/AddSafeSpotModal';
 import SafeSpotsOverlay from '../components/overlays/SafeSpotsOverlay';
 import NearbyOverlay from '../components/overlays/NearbyOverlay';
@@ -18,38 +18,20 @@ import { fetchEmergencies } from '../redux/emergencies/actions';
 import { getSafeSpots } from '../redux/safe-spots/actions';
 import { useAppSelector } from '../../store';
 
-const handleModalOpen = (ref: React.RefObject<Modalize>) => {
-	ref.current?.open();
-};
-
 const Overview: React.FC = () => {
 	const emergencies = useAppSelector(
 		({ emergencies }) => emergencies.emergencies
 	);
-	const [activeEmergency, setActiveEmergency] = React.useState<
-		Emergency | undefined
-	>(undefined);
 	const dispatch = useDispatch();
-	const emergencyModalRef = React.useRef<Modalize>(null);
 	const addSafeSpotModalRef = React.useRef<Modalize>(null);
 	const { map } = React.useContext(MapContext);
+	const { openEmergency } = React.useContext(EmergencyContext);
 
 	React.useEffect(() => {
 		dispatch(locate());
 		dispatch(fetchEmergencies());
 		dispatch(getSafeSpots());
-		// handleInitialEmergency();
 	}, []);
-
-	// const handleInitialEmergency = () => {
-	// 	const initialEmergency = navigation.getParam('initialEmergency');
-	// 	if (initialEmergency) openEmergency(initialEmergency);
-	// };
-
-	const openEmergency = (emergency: Emergency) => {
-		setActiveEmergency(emergency);
-		handleModalOpen(emergencyModalRef);
-	};
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -61,7 +43,6 @@ const Overview: React.FC = () => {
 				<SettingsOverlay />
 			</Overlay>
 			<Report />
-			<DetailsModal modalRef={emergencyModalRef} emergency={activeEmergency} />
 			<AddSafeSpotModal modalRef={addSafeSpotModalRef} />
 		</SafeAreaView>
 	);

@@ -3,7 +3,6 @@ import { Dimensions, StyleSheet } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import MapMarker from './MapMarker';
 import { getRoute } from '../api/Location';
-import mapStyle from '../styles/darkMapStyle';
 import { useAppSelector } from '../../store';
 
 const { width, height } = Dimensions.get('window');
@@ -12,7 +11,10 @@ const EmergencyMap: React.FC<EmergencyCoordinates> = ({
 	longitude,
 	latitude
 }) => {
-	const from = useAppSelector(({ location }) => location.coordinates);
+	const { from, mapStyle } = useAppSelector(({ location, theme }) => ({
+		from: location.coordinates,
+		mapStyle: theme.mapStyle
+	}));
 	const [route, setRoute] = React.useState<EmergencyCoordinates[]>([]);
 
 	const lonDelta = Math.abs(from.longitude - longitude);
@@ -50,7 +52,7 @@ const EmergencyMap: React.FC<EmergencyCoordinates> = ({
 			zoomEnabled={false}
 		>
 			<Marker coordinate={{ longitude, latitude }}>
-				<MapMarker size={20} borderStroke={3} />
+				<MapMarker />
 			</Marker>
 			<Polyline coordinates={route} strokeColor='#FF8282' strokeWidth={3} />
 		</MapView>

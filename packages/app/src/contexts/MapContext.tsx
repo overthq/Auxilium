@@ -4,6 +4,7 @@ import MapView, { Region, Marker } from 'react-native-maps';
 import { getNearbyEmergencies } from '../api/Emergencies';
 import { useAppSelector } from '../../store';
 import MapMarker from '../components/MapMarker';
+import { EmergencyContext } from './EmergencyContext';
 
 interface MarkerOptions {
 	location: {
@@ -61,11 +62,6 @@ const renderMarkers = (markers: MarkerOptions[]) =>
 // - Emergency markers have default properties
 // - Safe spot marker is larger than the default and green in color
 
-const getMarkersFromEmergencies = (emergencies: Emergency[]): MarkerOptions[] =>
-	emergencies.map(({ location: { coordinates: [longitude, latitude] } }) => ({
-		location: { longitude, latitude }
-	}));
-
 const longitudeDelta = 0.00353;
 const latitudeDelta = 0.00568;
 
@@ -78,12 +74,29 @@ export const MapProvider: React.FC = ({ children }) => {
 			theme
 		})
 	);
+	const { openEmergency } = React.useContext(EmergencyContext);
 
 	const initialRegion = {
 		longitude: coordinates.longitude,
 		latitude: coordinates.latitude,
 		longitudeDelta,
 		latitudeDelta
+	};
+
+	const getMarkersFromEmergencies = (
+		emergencies: Emergency[]
+	): MarkerOptions[] => {
+		return emergencies.map(emergency => {
+			const {
+				location: {
+					coordinates: [longitude, latitude]
+				}
+			} = emergency;
+			return {
+				location: { longitude, latitude },
+				onPress: () => openEmergency(emergency)
+			};
+		});
 	};
 
 	const nearbyEmergencyMarkers = getMarkersFromEmergencies(emergencies);

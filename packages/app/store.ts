@@ -7,6 +7,7 @@ import logger from 'redux-logger';
 import location from './src/redux/location/reducer';
 import emergencies from './src/redux/emergencies/reducer';
 import safeSpots from './src/redux/safe-spots/reducer';
+import theme from './src/redux/theme/reducer';
 
 const middlewares = applyMiddleware(thunk, logger);
 
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
 	safeSpots: persistReducer(
 		{ key: 'safeSpots', storage: AsyncStorage },
 		safeSpots
-	)
+	),
+	theme: persistReducer({ key: 'theme', storage: AsyncStorage }, theme)
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -23,9 +23,7 @@ export const fetchEmergencies = (): AppThunk => async (dispatch, getState) => {
 	} catch (error) {
 		dispatch({
 			type: FETCH_EMERGENCIES_FAILURE,
-			payload: {
-				errorMessage: error.message
-			}
+			payload: { errorMessage: error.message }
 		});
 	}
 };

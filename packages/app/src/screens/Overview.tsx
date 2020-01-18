@@ -2,7 +2,6 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Modalize } from 'react-native-modalize';
-import { NavigationScreenProp } from 'react-navigation';
 
 import { MapContext } from '../contexts/MapContext';
 import Overlay from '../components/Overlay';

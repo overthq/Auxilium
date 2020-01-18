@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import MapView, { Region, Marker, MapStyleElement } from 'react-native-maps';
+import MapView, { Region, Marker } from 'react-native-maps';
 import { getNearbyEmergencies } from '../api/Emergencies';
 import { useAppSelector } from '../../store';
 import MapMarker from '../components/MapMarker';
 import darkMapStyle from '../styles/darkMapStyle';
+import lightMapStyle from '../styles/lightMapStyle';
 
 interface MarkerOptions {
 	location: {
@@ -19,7 +20,6 @@ interface MarkerOptions {
 interface MapContextValue {
 	region: Region | undefined;
 	map: React.ReactNode;
-	toggleMapStyle(): void;
 	setMarkers(markers: MarkerOptions[]): void;
 	mapRef?: React.RefObject<MapView>;
 	safeSpotMarkers: MarkerOptions[];
@@ -29,7 +29,6 @@ interface MapContextValue {
 export const MapContext = React.createContext<MapContextValue>({
 	region: undefined,
 	map: null,
-	toggleMapStyle: () => {},
 	setMarkers: () => {},
 	mapRef: undefined,
 	safeSpotMarkers: [],
@@ -73,11 +72,12 @@ const longitudeDelta = 0.00353;
 const latitudeDelta = 0.00568;
 
 export const MapProvider: React.FC = ({ children }) => {
-	const { coordinates, emergencies, safeSpots } = useAppSelector(
-		({ location, emergencies, safeSpots }) => ({
+	const { coordinates, emergencies, safeSpots, theme } = useAppSelector(
+		({ location, emergencies, safeSpots, theme }) => ({
 			coordinates: location.coordinates,
 			emergencies: emergencies.emergencies,
-			safeSpots: safeSpots.safeSpots
+			safeSpots: safeSpots.safeSpots,
+			theme: theme.theme
 		})
 	);
 
@@ -132,26 +132,15 @@ export const MapProvider: React.FC = ({ children }) => {
 	};
 
 	const [region, setRegion] = React.useState<Region>(initialRegion);
-	const [mapStyle, setMapStyle] = React.useState<MapStyleElement[] | undefined>(
-		darkMapStyle
-	);
 	const [markers, setMarkers] = React.useState<MarkerOptions[]>(
 		nearbyEmergencyMarkers
 	);
 	const mapRef = React.useRef<MapView>(null);
 
-	const toggleMapStyle = () => {
-		if (mapStyle === darkMapStyle) {
-			setMapStyle(undefined);
-		}
-		setMapStyle(darkMapStyle);
-		mapRef.current?.forceUpdate();
-	};
-
 	const map = (
 		<MapView
 			style={StyleSheet.absoluteFillObject}
-			customMapStyle={mapStyle}
+			customMapStyle={theme === 'dark' ? darkMapStyle : lightMapStyle}
 			provider='google'
 			showsUserLocation
 			followsUserLocation
@@ -172,7 +161,6 @@ export const MapProvider: React.FC = ({ children }) => {
 			value={{
 				region,
 				map,
-				toggleMapStyle,
 				setMarkers,
 				mapRef,
 				safeSpotMarkers,

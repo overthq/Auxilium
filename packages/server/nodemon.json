@@ -1,6 +1,6 @@
 {
 	"watch": ["src"],
 	"ext": "ts",
-	"ignore": ["tests/*"],
-	"exec": "ts-node src/app.ts"
+	"ignore": ["tests/*", "dist/*"],
+	"exec": "ts-node -r dotenv/config src/app.ts"
 }

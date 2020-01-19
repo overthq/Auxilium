@@ -1,7 +1,11 @@
-import { RequestHandler } from 'express';
+import util from 'util';
 import { Emergency, User } from '../models';
-import { sendNotification } from '../helpers/sendNotification';
+// import { sendNotification } from '../helpers/sendNotification';
 import { findNearbyEmergencies } from '../helpers/emergencies';
+import { RequestHandler } from 'express-serve-static-core';
+import client from '../config/redis';
+
+const georadius = util.promisify(client.georadius).bind(client);
 
 export const getNearbyEmergencies: RequestHandler = async (req, res) => {
 	const { longitude, latitude }: { [key: string]: string } = req.query;
@@ -21,16 +25,28 @@ export const getNearbyEmergencies: RequestHandler = async (req, res) => {
 };
 
 export const reportEmergency: RequestHandler = async (req, res) => {
-	const { userId, description, coordinates } = req.body;
+	const { userId, longitude, latitude, description } = req.body;
 	try {
 		const emergency = await Emergency.create({
 			user: userId,
 			description,
 			location: {
 				type: 'Point',
-				coordinates
+				coordinates: [longitude, latitude]
 			}
 		});
+
+		const results = await georadius(
+			'emergencies',
+			longitude,
+			latitude,
+			'1',
+			'km',
+			'WITHDIST'
+		);
+
+		// Inspect the type of this data.
+		console.log(results);
 
 		return res.status(201).json({
 			success: true,
@@ -69,32 +85,12 @@ export const getUserEmergencies: RequestHandler = async (req, res) => {
 	}
 };
 
-export const backgroundNotifications: RequestHandler = async (req, res) => {
-	const { longitude, latitude, pushToken } = req.query;
+export const cacheLocation: RequestHandler = async (req, res) => {
+	const { longitude, latitude, pushToken } = req.body;
+	client.geoadd('emergencies', longitude, latitude, pushToken);
 
-	try {
-		const sender = await User.findOne({ pushToken });
-		if (!sender) throw new Error('False alarm!');
-		const emergencies = await findNearbyEmergencies(longitude, latitude);
-		emergencies.forEach(async emergency => {
-			if (
-				sender.pushToken !== emergency.user.pushToken &&
-				!emergency.recepients.includes(pushToken)
-				// Another useful condtion is to make sure that the emergency is still recent
-			) {
-				await sendNotification(pushToken, emergency);
-				emergency.recepients.push(pushToken);
-				await emergency.save();
-			}
-			return res.status(200).json({
-				success: true,
-				message: 'Successfully handled nearby emergencies'
-			});
-		});
-	} catch (error) {
-		return res.status(500).json({
-			success: false,
-			message: 'An error has occured. Please try again later.'
-		});
-	}
+	return res.status(200).json({
+		success: true,
+		message: 'Current location successfully added to cache'
+	});
 };

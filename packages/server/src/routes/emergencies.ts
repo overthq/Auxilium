@@ -6,6 +6,6 @@ const router = Router();
 router.get('/get', emergencies.getNearbyEmergencies);
 router.post('/report', emergencies.reportEmergency);
 router.get('/history', emergencies.getUserEmergencies);
-router.get('/notifications', emergencies.backgroundNotifications);
+router.post('/cache-location', emergencies.cacheLocation);
 
 export default router;

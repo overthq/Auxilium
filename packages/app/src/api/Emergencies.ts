@@ -27,22 +27,28 @@ export const reportEmergency = async (
 		},
 		body: JSON.stringify({
 			userId: user._id,
-			coordinates: [longitude, latitude],
+			longitude,
+			latitude,
 			...(description && { description })
 		})
 	});
 	await response.json();
-	// Do we want to create a banner that lets the user know that their emergency has been reported, and also that authorities and other citizens nearby have been alerted.
 };
 
-export const managePushNotifications = async ({
+export const cacheLocation = async ({
 	longitude,
 	latitude
 }: EmergencyCoordinates) => {
 	const user = await getUserData();
 	if (!user) return;
 	const { pushToken } = user;
-	await fetch(
-		`${env.apiUrl}emergencies/notifications?longitude=${longitude}&latitude=${latitude}&pushToken=${pushToken}`
-	);
+
+	await fetch(`${env.apiUrl}emergencies/cache-location`, {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ longitude, latitude, pushToken })
+	});
 };

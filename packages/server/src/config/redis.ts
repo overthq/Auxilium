@@ -1,7 +1,6 @@
 import redis from 'redis';
 
-const { REDIS_PORT, REDIS_HOST } = process.env;
-const client = redis.createClient(Number(REDIS_PORT), REDIS_HOST);
+const client = redis.createClient({ url: process.env.REDIS_URL });
 
 client.on('error', error => {
 	throw new Error(error);

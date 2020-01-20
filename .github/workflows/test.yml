@@ -1,6 +1,13 @@
 name: Lint and Test
 
-on: [push, pull_request]
+on:
+  push:
+    branches-ignore:
+      - 'dependabot/**'
+  pull_request:
+    branches:
+      - master
+      - staging
 
 jobs:
   test:

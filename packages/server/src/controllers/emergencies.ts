@@ -2,7 +2,7 @@ import util from 'util';
 import { Emergency, User } from '../models';
 // import { sendNotification } from '../helpers/sendNotification';
 import { findNearbyEmergencies } from '../helpers/emergencies';
-import { RequestHandler } from 'express-serve-static-core';
+import { RequestHandler } from 'express';
 import client from '../config/redis';
 
 const georadius = util.promisify(client.georadius).bind(client);

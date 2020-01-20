@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express-serve-static-core';
+import { RequestHandler } from 'express';
 import { SafeSpot, User } from '../models';
 
 export const addSafeSpot: RequestHandler = async (req, res) => {

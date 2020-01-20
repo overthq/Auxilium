@@ -1,9 +1,12 @@
 import React from 'react';
-import * as Font from 'expo-font';
-import { AppLoading } from 'expo';
 import { StatusBar } from 'react-native';
+import { AppLoading } from 'expo';
+import * as Font from 'expo-font';
+import * as TaskManager from 'expo-task-manager';
 import AppNavigator from './screens';
 import { getUserData } from './helpers/auth';
+import { LOCATION_TASK, getBackgroundUpdates } from './helpers/tasks';
+import { cacheLocation } from './api/Emergencies';
 
 const Root = () => {
 	const [fontsLoaded, setFontsLoaded] = React.useState(false);
@@ -25,11 +28,24 @@ const Root = () => {
 	React.useEffect(() => {
 		verifyUser();
 		loadFonts();
+		getBackgroundUpdates();
 		StatusBar.setBarStyle('light-content');
 	}, []);
 
 	if (!fontsLoaded) return <AppLoading />;
 	return <AppNavigator {...{ loggedIn }} />;
 };
+
+TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {
+	if (error) console.error(error.message);
+	if (data) {
+		const { locations } = data;
+		console.log({ locations });
+		const {
+			coords: { longitude, latitude }
+		} = locations[0] as { coords: EmergencyCoordinates };
+		cacheLocation({ longitude, latitude });
+	}
+});
 
 export default Root;

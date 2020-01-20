@@ -1,6 +1,5 @@
-import { RequestHandler } from 'express';
+import { RequestHandler } from 'express-serve-static-core';
 import fetch from 'node-fetch';
-import env from '../config/env';
 
 type Pair = [number, number];
 
@@ -13,7 +12,7 @@ export const getRoute: RequestHandler = async (req, res) => {
 	const queryString = `${fromLongitude},${fromLatitude};${toLongitude},${toLatitude}`;
 	try {
 		const response = await fetch(
-			`${MAPBOX_BASE_URL}/mapbox/walking/${queryString}.json?access_token=${env.MAPBOX_ACCESS_TOKEN}&geometries=geojson`
+			`${MAPBOX_BASE_URL}/mapbox/walking/${queryString}.json?access_token=${process.env.MAPBOX_ACCESS_TOKEN}&geometries=geojson`
 		);
 		const { routes } = await response.json();
 		const { coordinates }: { coordinates: Pair[] } = routes[0].geometry;

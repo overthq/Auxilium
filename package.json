@@ -10,8 +10,13 @@
 		"email": "korede@overt.dev",
 		"url": "https://overt.dev"
 	},
+	"scripts": {
+		"dev:app": "yarn workspace @auxilium/app start -c",
+		"dev:server": "cd packages/server && yarn dev"
+	},
 	"workspaces": [
-		"packages/*"
+		"packages/app",
+		"packages/dashboard"
 	],
 	"husky": {
 		"hooks": {

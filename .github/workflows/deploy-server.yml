@@ -18,10 +18,7 @@ jobs:
           version: 13.x
 
       - name: Install dependencies
-        run: yarn
-
-      - name: Copy Yarn lockfile
-        run: cp yarn.lock packages/server/yarn.lock
+        run: cd packages/server && yarn
 
       - name: Push to Heroku
         run: git subtree push --prefix packages/server https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master

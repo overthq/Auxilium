@@ -16,10 +16,16 @@ jobs:
         version: 13.x
 
     - name: Install dependencies
-      run: yarn install
+      run: |
+        yarn install
+        cd packages/server && yarn install
 
     - name: Run lint
-      run: yarn workspaces run lint
+      run: |
+        yarn workspaces run lint
+        cd packages/server && yarn lint
 
     - name: Run typecheck
-      run: yarn workspaces run tsc
+      run: |
+        yarn workspaces run tsc
+        cd packages/server && yarn tsc

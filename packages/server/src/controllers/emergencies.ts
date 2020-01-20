@@ -45,7 +45,6 @@ export const reportEmergency: RequestHandler = async (req, res) => {
 			'WITHDIST'
 		);
 
-		// Inspect the type of this data.
 		console.log(results);
 
 		return res.status(201).json({

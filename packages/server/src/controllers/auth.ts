@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express';
+import { RequestHandler } from 'express-serve-static-core';
 import { User } from '../models';
 
 export const auth: RequestHandler = async (req, res) => {

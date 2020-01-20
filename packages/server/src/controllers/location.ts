@@ -1,5 +1,5 @@
-import { RequestHandler } from 'express-serve-static-core';
 import fetch from 'node-fetch';
+import { RequestHandler } from 'express-serve-static-core';
 
 type Pair = [number, number];
 

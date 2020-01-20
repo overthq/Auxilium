@@ -21,4 +21,17 @@ describe('Authentication', () => {
 			console.log(error);
 		}
 	});
+	it('should return appropriate error if pushToken is not supplied', async () => {
+		try {
+			const res = await chai
+				.request(app)
+				.post('/auth')
+				.send({
+					pushToken: null
+				});
+			res.should.have.status(400);
+		} catch (error) {
+			console.log(error);
+		}
+	});
 });

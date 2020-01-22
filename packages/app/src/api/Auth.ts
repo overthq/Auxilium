@@ -2,7 +2,6 @@ import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 import { Alert } from 'react-native';
 import env from '../../env';
-import { storeUserData } from '../helpers/auth';
 
 export const authenticate = async (): Promise<void> => {
 	const { status: existingStatus } = await Permissions.getAsync(
@@ -19,19 +18,16 @@ export const authenticate = async (): Promise<void> => {
 	}
 	const pushToken = await Notifications.getExpoPushTokenAsync();
 
-	try {
-		const response = await fetch(`${env.apiUrl}auth`, {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ pushToken })
-		});
+	const response = await fetch(`${env.apiUrl}auth`, {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ pushToken })
+	});
 
-		const { user } = await response.json();
-		if (response.ok) storeUserData(user);
-	} catch (error) {
-		return Alert.alert(error.message);
-	}
+	const { user } = await response.json();
+	if (!user) throw new Error('Authentication unsuccessfull');
+	return user;
 };

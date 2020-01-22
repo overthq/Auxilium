@@ -9,7 +9,6 @@ import {
 } from './types';
 import env from '../../../env';
 import { AppThunk } from '../../../store';
-import { getUserData } from '../../helpers/auth';
 
 interface AddSafeSpotOptions {
 	name: string;
@@ -19,11 +18,12 @@ interface AddSafeSpotOptions {
 export const addSafeSpot = ({
 	name,
 	location
-}: AddSafeSpotOptions): AppThunk => async dispatch => {
-	try {
-		const user = await getUserData();
-		if (!user) return;
+}: AddSafeSpotOptions): AppThunk => async (dispatch, getState) => {
+	const {
+		user: { user }
+	} = getState();
 
+	try {
 		const response = await fetch(`${env.apiUrl}safe-spots/add`, {
 			method: 'POST',
 			headers: {
@@ -31,7 +31,7 @@ export const addSafeSpot = ({
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				userId: user._id,
+				userId: user?._id,
 				name,
 				location
 			})
@@ -51,15 +51,15 @@ export const addSafeSpot = ({
 	}
 };
 
-export const getSafeSpots = (): AppThunk => async dispatch => {
+export const getSafeSpots = (): AppThunk => async (dispatch, getState) => {
+	const {
+		user: { user }
+	} = getState();
+	dispatch({ type: FETCH_SAFE_SPOTS });
+
 	try {
-		dispatch({ type: FETCH_SAFE_SPOTS });
-
-		const user = await getUserData();
-		if (!user) return;
-
 		const response = await fetch(
-			`${env.apiUrl}safe-spots/get?userId=${user._id}`
+			`${env.apiUrl}safe-spots/get?userId=${user?._id}`
 		);
 
 		const { spots } = await response.json();
@@ -75,13 +75,16 @@ export const getSafeSpots = (): AppThunk => async dispatch => {
 	}
 };
 
-export const deleteSafeSpot = (id: string): AppThunk => async dispatch => {
+export const deleteSafeSpot = (id: string): AppThunk => async (
+	dispatch,
+	getState
+) => {
+	const {
+		user: { user }
+	} = getState();
 	try {
-		const user = await getUserData();
-		if (!user) return;
-
 		await fetch(
-			`${env.apiUrl}safe-spots/delete?userId=${user._id}&spotId=${id}`,
+			`${env.apiUrl}safe-spots/delete?userId=${user?._id}&spotId=${id}`,
 			{ method: 'DELETE' }
 		);
 

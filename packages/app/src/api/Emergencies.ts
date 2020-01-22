@@ -1,5 +1,5 @@
-import { getUserData } from '../helpers/auth';
 import env from '../../env';
+import { store } from '../../store';
 
 export const getNearbyEmergencies = async ({
 	longitude,
@@ -16,7 +16,9 @@ export const reportEmergency = async (
 	{ longitude, latitude }: EmergencyCoordinates,
 	description?: string
 ) => {
-	const user = await getUserData();
+	const {
+		user: { user }
+	} = store.getState();
 	if (!user) return;
 
 	const response = await fetch(`${env.apiUrl}emergencies/report`, {
@@ -39,8 +41,11 @@ export const cacheLocation = async ({
 	longitude,
 	latitude
 }: EmergencyCoordinates) => {
-	const user = await getUserData();
+	const {
+		user: { user }
+	} = store.getState();
 	if (!user) return;
+
 	const { pushToken } = user;
 
 	await fetch(`${env.apiUrl}emergencies/cache-location`, {

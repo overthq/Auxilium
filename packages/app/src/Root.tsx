@@ -4,18 +4,13 @@ import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import * as TaskManager from 'expo-task-manager';
 import AppNavigator from './screens';
-import { getUserData } from './helpers/auth';
 import { LOCATION_TASK, getBackgroundUpdates } from './helpers/tasks';
 import { cacheLocation } from './api/Emergencies';
+import { useAppSelector } from '../store';
 
 const Root = () => {
 	const [fontsLoaded, setFontsLoaded] = React.useState(false);
-	const [loggedIn, setLoggedIn] = React.useState(false);
-
-	const verifyUser = async () => {
-		const user = await getUserData();
-		setLoggedIn(!!user);
-	};
+	const user = useAppSelector(({ user }) => user.user);
 
 	const loadFonts = async () => {
 		await Font.loadAsync({
@@ -26,14 +21,13 @@ const Root = () => {
 	};
 
 	React.useEffect(() => {
-		verifyUser();
 		loadFonts();
 		getBackgroundUpdates();
 		StatusBar.setBarStyle('light-content');
 	}, []);
 
 	if (!fontsLoaded) return <AppLoading />;
-	return <AppNavigator {...{ loggedIn }} />;
+	return <AppNavigator loggedIn={!!user} />;
 };
 
 TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {

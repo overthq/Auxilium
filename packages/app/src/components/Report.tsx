@@ -9,10 +9,7 @@ const Report: React.FC = () => {
 	const coordinates = useAppSelector(({ location }) => location.coordinates);
 	const modalRef = React.useRef<Modalize>(null);
 
-	const handlePress = () => {
-		// Run a dispatch to make sure that the coordinates are current.
-		reportEmergency(coordinates);
-	};
+	const handlePress = () => reportEmergency(coordinates);
 
 	const reportAction = (text?: string) => reportEmergency(coordinates, text);
 	const handleLongPress = () => modalRef.current?.open();

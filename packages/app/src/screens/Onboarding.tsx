@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import Slide from '../components/Slide';
 import Pagination from '../components/Pagination';
-import { authenticate } from '../api/Auth';
+import { auth } from '../redux/user/actions';
 
 const { width } = Dimensions.get('window');
 
@@ -42,7 +42,7 @@ const Onboarding: React.FC = () => {
 	const scrollX = new Animated.Value(0);
 
 	const completeOnboarding = () => {
-		authenticate();
+		auth();
 	};
 
 	const scrollToNext = () => {

@@ -1,26 +1,27 @@
 import React from 'react';
 import { Notifications } from 'expo';
-import { Notification } from 'expo/build/Notifications/Notifications.types';
 import Onboarding from './Onboarding';
 import Overview from './Overview';
 import { EmergencyContext } from '../contexts/EmergencyContext';
+import { useAppSelector } from '../../store';
 
-const AppNavigator: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
+const AppNavigator: React.FC = () => {
 	const { openEmergency } = React.useContext(EmergencyContext);
-	const handleNotification = ({ origin, data }: Notification) => {
-		if (origin === 'selected') openEmergency(data);
-	};
+	const user = useAppSelector(({ user }) => user.user);
 
 	React.useEffect(() => {
 		const notificationSubscription = Notifications.addListener(
-			handleNotification
+			({ origin, data }) => {
+				if (origin === 'selected') openEmergency(data);
+			}
 		);
 		return () => {
 			notificationSubscription.remove();
 		};
 	}, []);
 
-	return loggedIn ? <Overview /> : <Onboarding />;
+	// Add fallback for AUTH_LOADING state.
+	return !!user ? <Overview /> : <Onboarding />;
 };
 
-export default React.memo(AppNavigator);
+export default AppNavigator;

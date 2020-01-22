@@ -6,11 +6,9 @@ import * as TaskManager from 'expo-task-manager';
 import AppNavigator from './screens';
 import { LOCATION_TASK, getBackgroundUpdates } from './helpers/tasks';
 import { cacheLocation } from './api/Emergencies';
-import { useAppSelector } from '../store';
 
 const Root = () => {
 	const [fontsLoaded, setFontsLoaded] = React.useState(false);
-	const user = useAppSelector(({ user }) => user.user);
 
 	const loadFonts = async () => {
 		await Font.loadAsync({
@@ -27,7 +25,7 @@ const Root = () => {
 	}, []);
 
 	if (!fontsLoaded) return <AppLoading />;
-	return <AppNavigator loggedIn={!!user} />;
+	return <AppNavigator />;
 };
 
 TaskManager.defineTask(LOCATION_TASK, ({ data, error }: any) => {

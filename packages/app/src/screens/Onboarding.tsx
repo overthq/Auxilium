@@ -9,6 +9,7 @@ import {
 	TouchableOpacity,
 	Text
 } from 'react-native';
+import { useDispatch } from 'react-redux';
 import Slide from '../components/Slide';
 import Pagination from '../components/Pagination';
 import { auth } from '../redux/user/actions';
@@ -39,10 +40,11 @@ const slides: SlideType[] = [
 const Onboarding: React.FC = () => {
 	const [slideIndex, setSlideIndex] = React.useState(0);
 	const listRef = React.useRef<FlatList<SlideType>>(null);
+	const dispatch = useDispatch();
 	const scrollX = new Animated.Value(0);
 
 	const completeOnboarding = () => {
-		auth();
+		dispatch(auth());
 	};
 
 	const scrollToNext = () => {

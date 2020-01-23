@@ -38,11 +38,9 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		width: '100%',
-		height: 45
+		width: '100%'
 	},
 	optionText: {
-		fontFamily: 'Rubik Regular',
 		fontSize: 18,
 		color: '#D3D3D3'
 	}

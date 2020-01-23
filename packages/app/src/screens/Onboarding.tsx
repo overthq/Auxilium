@@ -110,8 +110,7 @@ const styles = StyleSheet.create({
 		padding: 20
 	},
 	skipText: {
-		color: '#FFFFFF',
-		fontFamily: 'Rubik Medium'
+		color: '#FFFFFF'
 	},
 	bottomSection: {
 		padding: 20,
@@ -126,7 +125,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#FFFFFF'
 	},
 	actionText: {
-		fontFamily: 'Rubik Medium',
 		color: '#505050'
 	}
 });

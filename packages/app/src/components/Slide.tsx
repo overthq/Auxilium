@@ -23,13 +23,11 @@ const styles = StyleSheet.create({
 		width
 	},
 	title: {
-		fontFamily: 'Rubik Medium',
 		fontSize: 25,
 		marginBottom: 10,
 		color: '#FFFFFF'
 	},
 	description: {
-		fontFamily: 'Rubik Regular',
 		fontSize: 17.5,
 		color: '#FFFFFF',
 		textAlign: 'center'

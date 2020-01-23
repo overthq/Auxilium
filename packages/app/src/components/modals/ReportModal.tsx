@@ -7,6 +7,7 @@ import {
 	Dimensions
 } from 'react-native';
 import { Modalize } from 'react-native-modalize';
+import { useAppSelector } from '../../../store';
 
 const { height } = Dimensions.get('window');
 
@@ -17,6 +18,7 @@ interface ReportModalProps {
 
 const ReportModal: React.FC<ReportModalProps> = ({ modalRef, action }) => {
 	const [text, setText] = React.useState('');
+	const theme = useAppSelector(({ theme }) => theme);
 
 	const handleSubmit = async () => {
 		await action(text);
@@ -26,7 +28,11 @@ const ReportModal: React.FC<ReportModalProps> = ({ modalRef, action }) => {
 	const handleClose = () => modalRef.current?.close();
 
 	return (
-		<Modalize ref={modalRef} adjustToContentHeight modalStyle={styles.modal}>
+		<Modalize
+			ref={modalRef}
+			adjustToContentHeight
+			modalStyle={[styles.modal, { backgroundColor: theme.primaryColor }]}
+		>
 			<Text style={styles.title}>Report emergency</Text>
 			<TextInput
 				style={styles.textArea}
@@ -47,16 +53,15 @@ const styles = StyleSheet.create({
 		padding: 15
 	},
 	title: {
-		fontFamily: 'Rubik Medium',
-		fontSize: 24,
+		fontWeight: 'bold',
+		fontSize: 25,
 		alignSelf: 'flex-start',
 		color: '#D3D3D3'
 	},
 	textArea: {
-		fontFamily: 'Rubik Regular',
 		fontSize: 16,
 		minHeight: height / 3.5,
-		marginTop: 10,
+		marginVertical: 10,
 		textAlignVertical: 'top',
 		color: '#D3D3D3'
 	}

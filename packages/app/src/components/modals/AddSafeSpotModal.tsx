@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
 		backgroundColor: '#202020'
 	},
 	title: {
-		fontFamily: 'Rubik Medium',
 		color: '#D3D3D3',
 		alignSelf: 'flex-start',
-		fontSize: 24,
+		fontSize: 25,
+		fontWeight: 'bold',
 		marginBottom: 10
 	},
 	input: {
@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
 	},
 	buttonText: {
 		color: '#202020',
-		fontFamily: 'Rubik Medium',
-		fontSize: 16
+		fontSize: 16,
+		fontWeight: '500'
 	}
 });
 

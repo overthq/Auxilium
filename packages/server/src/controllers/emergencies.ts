@@ -45,8 +45,6 @@ export const reportEmergency: RequestHandler = async (req, res) => {
 			'WITHDIST'
 		);
 
-		console.log(results);
-
 		return res.status(201).json({
 			success: true,
 			message: 'Emergency successfully created.',

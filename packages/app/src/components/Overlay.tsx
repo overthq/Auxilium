@@ -78,11 +78,11 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		marginVertical: 7.5
+		marginVertical: 15
 	},
 	title: {
-		fontFamily: 'Rubik Medium',
-		fontSize: 26,
+		fontSize: 34,
+		fontWeight: 'bold',
 		color: '#D3D3D3',
 		alignSelf: 'flex-start'
 	},
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
 		width,
 		backgroundColor: 'transparent',
 		alignItems: 'center',
-		padding: 20
+		padding: 15
 	}
 });
 

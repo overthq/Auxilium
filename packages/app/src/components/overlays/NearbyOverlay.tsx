@@ -31,7 +31,6 @@ const NearbyOverlay: React.FC<NearbyOverlayProps> = ({ emergencies, open }) => (
 const styles = StyleSheet.create({
 	emptyText: {
 		color: '#777777',
-		fontFamily: 'Rubik Regular',
 		fontSize: 16,
 		textAlign: 'center',
 		width: width - 40

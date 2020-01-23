@@ -21,7 +21,7 @@ const EmergencyDetails: React.FC<EmergencyDetailsProps> = props => {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.description}>{description}</Text>
+			{description && <Text style={styles.description}>{description}</Text>}
 			<Text style={styles.location}>{`~${distance} · ${formattedDate}`}</Text>
 		</View>
 	);
@@ -39,12 +39,11 @@ const styles = StyleSheet.create({
 	description: {
 		color: '#D3D3D3',
 		fontSize: 20,
-		fontFamily: 'Rubik Medium'
+		fontWeight: '500'
 	},
 	location: {
 		color: '#a0a0a0',
-		fontSize: 14,
-		fontFamily: 'Rubik Regular'
+		fontSize: 14
 	}
 });
 

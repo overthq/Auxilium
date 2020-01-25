@@ -1,8 +1,8 @@
 import util from 'util';
+import { RequestHandler } from 'express';
 import { Emergency, User } from '../models';
 import { findNearbyEmergencies } from '../helpers/emergencies';
 import { sendNotifications } from '../helpers/notifications';
-import { RequestHandler } from 'express';
 import client from '../config/redis';
 
 const georadius = util.promisify(client.georadius).bind(client);
@@ -36,6 +36,12 @@ export const reportEmergency: RequestHandler = async (req, res) => {
 			}
 		});
 
+		res.status(201).json({
+			success: true,
+			message: 'Emergency successfully created.',
+			emergency
+		});
+
 		const results = await georadius(
 			'emergencies',
 			longitude,
@@ -54,12 +60,6 @@ export const reportEmergency: RequestHandler = async (req, res) => {
 				latitude: result[2][1]
 			}))
 		);
-
-		return res.status(201).json({
-			success: true,
-			message: 'Emergency successfully created.',
-			emergency
-		});
 	} catch (error) {
 		return res.status(500).json({
 			success: false,

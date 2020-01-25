@@ -3,7 +3,7 @@ import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { MapContext } from '../contexts/MapContext';
 import { useAppSelector } from '../../store';
 
-const { width } = Dimensions.get('window');
+const { height, width, fontScale } = Dimensions.get('window');
 
 const Overlay: React.FC = ({ children }) => {
 	const [index, setIndex] = React.useState(0);
@@ -41,7 +41,7 @@ const Overlay: React.FC = ({ children }) => {
 				const sliderIndex = x ? x / width : 0;
 				setIndex(sliderIndex);
 			}}
-			style={[styles.container, { backgroundColor: theme.transluscentColor }]}
+			style={[styles.container, { backgroundColor: theme.primaryColor }]}
 		>
 			{children}
 		</ScrollView>
@@ -57,21 +57,27 @@ export const OverlaySlide: React.FC<OverlaySlideProps> = ({
 	title,
 	children,
 	headerRight
-}) => (
-	<View style={styles.slide}>
-		<View style={styles.header}>
-			{title && <Text style={styles.title}>{title}</Text>}
-			{headerRight}
+}) => {
+	const theme = useAppSelector(({ theme }) => theme);
+	return (
+		<View style={styles.slide}>
+			<View style={styles.header}>
+				{title && (
+					<Text style={[styles.title, { color: theme.secondaryColor }]}>
+						{title}
+					</Text>
+				)}
+				{headerRight}
+			</View>
+			{children}
 		</View>
-		{children}
-	</View>
-);
+	);
+};
 
 const styles = StyleSheet.create({
 	container: {
-		position: 'absolute',
-		zIndex: 10,
-		top: 0
+		flexGrow: 1,
+		backgroundColor: '#202020'
 	},
 	header: {
 		width: '100%',
@@ -81,9 +87,8 @@ const styles = StyleSheet.create({
 		marginVertical: 15
 	},
 	title: {
-		fontSize: 34,
+		fontSize: 34 / fontScale,
 		fontWeight: 'bold',
-		color: '#D3D3D3',
 		alignSelf: 'flex-start'
 	},
 	slide: {

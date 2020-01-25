@@ -12,7 +12,10 @@ interface SafeSpotOverlayProps {
 }
 
 const SafeSpotOverlay: React.FC<SafeSpotOverlayProps> = ({ modalRef }) => {
-	const safeSpots = useAppSelector(({ safeSpots }) => safeSpots);
+	const { safeSpots, theme } = useAppSelector(({ safeSpots, theme }) => ({
+		safeSpots,
+		theme
+	}));
 	const dispatch = useDispatch();
 
 	return (
@@ -28,7 +31,7 @@ const SafeSpotOverlay: React.FC<SafeSpotOverlayProps> = ({ modalRef }) => {
 				<View style={{ flexDirection: 'row' }} key={spot._id}>
 					<Text style={styles.text}>{spot.name}</Text>
 					<TouchableOpacity onPress={() => dispatch(deleteSafeSpot(spot._id))}>
-						<Feather name='trash' color='#D3D3D3' size={24} />
+						<Feather name='trash' color={theme.secondaryColor} size={24} />
 					</TouchableOpacity>
 					{/* onPress, use the centerOnCoords method to animate to the safe spot location */}
 				</View>

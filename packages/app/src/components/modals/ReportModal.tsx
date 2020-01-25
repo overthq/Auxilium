@@ -33,7 +33,9 @@ const ReportModal: React.FC<ReportModalProps> = ({ modalRef, action }) => {
 			adjustToContentHeight
 			modalStyle={[styles.modal, { backgroundColor: theme.primaryColor }]}
 		>
-			<Text style={styles.title}>Report emergency</Text>
+			<Text style={[styles.title, { color: theme.secondaryColor }]}>
+				Report emergency
+			</Text>
 			<TextInput
 				style={styles.textArea}
 				onChangeText={setText}
@@ -55,8 +57,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontWeight: 'bold',
 		fontSize: 25,
-		alignSelf: 'flex-start',
-		color: '#D3D3D3'
+		alignSelf: 'flex-start'
 	},
 	textArea: {
 		fontSize: 16,

@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { Modalize } from 'react-native-modalize';
 
 import { MapContext } from '../contexts/MapContext';
-import { EmergencyContext } from '../contexts/EmergencyContext';
 import Overlay from '../components/Overlay';
 import Report from '../components/Report';
 import AddSafeSpotModal from '../components/modals/AddSafeSpotModal';
@@ -25,7 +24,6 @@ const Overview: React.FC = () => {
 	const dispatch = useDispatch();
 	const addSafeSpotModalRef = React.useRef<Modalize>(null);
 	const { map } = React.useContext(MapContext);
-	const { openEmergency } = React.useContext(EmergencyContext);
 
 	React.useEffect(() => {
 		dispatch(locate());
@@ -37,7 +35,7 @@ const Overview: React.FC = () => {
 		<SafeAreaView style={styles.container}>
 			{map}
 			<Overlay>
-				<NearbyOverlay open={openEmergency} {...{ emergencies }} />
+				<NearbyOverlay {...{ emergencies }} />
 				<SafeSpotsOverlay modalRef={addSafeSpotModalRef} />
 				<ContactsOverlay />
 				<SettingsOverlay />

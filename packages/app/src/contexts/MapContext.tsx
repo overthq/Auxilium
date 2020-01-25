@@ -1,10 +1,12 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
 import MapView, { Region, Marker } from 'react-native-maps';
 import { getNearbyEmergencies } from '../api/Emergencies';
 import { useAppSelector } from '../../store';
 import MapMarker from '../components/MapMarker';
 import { EmergencyContext } from './EmergencyContext';
+
+const { width, height } = Dimensions.get('window');
 
 interface MarkerOptions {
 	location: {
@@ -150,7 +152,7 @@ export const MapProvider: React.FC = ({ children }) => {
 
 	const map = (
 		<MapView
-			style={StyleSheet.absoluteFillObject}
+			style={{ width, height: height / 2 }}
 			customMapStyle={theme.mapStyle}
 			provider='google'
 			showsUserLocation

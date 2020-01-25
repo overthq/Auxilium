@@ -1,7 +1,7 @@
 import util from 'util';
 import { Emergency, User } from '../models';
-// import { sendNotification } from '../helpers/sendNotification';
 import { findNearbyEmergencies } from '../helpers/emergencies';
+import { sendNotifications } from '../helpers/notifications';
 import { RequestHandler } from 'express';
 import client from '../config/redis';
 
@@ -42,7 +42,17 @@ export const reportEmergency: RequestHandler = async (req, res) => {
 			latitude,
 			'1',
 			'km',
+			'WITHCOORD',
 			'WITHDIST'
+		);
+
+		sendNotifications(
+			results.map((result: (string | string[])[]) => ({
+				pushToken: result[0],
+				distance: result[1],
+				longitude: result[2][0],
+				latitude: result[2][1]
+			}))
 		);
 
 		return res.status(201).json({
@@ -84,6 +94,9 @@ export const getUserEmergencies: RequestHandler = async (req, res) => {
 
 export const cacheLocation: RequestHandler = async (req, res) => {
 	const { longitude, latitude, pushToken } = req.body;
+	// If Redis does not do updating, we should run this to remove the previous entry:
+	// Also, we might have to check that the key exists before running ZREM (to avoid any errors)
+	// client.zrem('emergencies', pushToken);
 	client.geoadd('emergencies', longitude, latitude, pushToken);
 
 	return res.status(200).json({

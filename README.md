@@ -42,18 +42,19 @@ cd Auxilium
 
 # Install dependencies
 yarn
+cd packages/server && yarn
 
 # SERVER-SIDE (Be sure to read the server docs)
 
 # Start MongoDB
 
 # Start the backend server (after including the necessary vars in the server's .env file)
-yarn workspace @auxilium/server dev
+yarn dev:server
 
 # CLIENT-SIDE
 
 # Start the Expo app
-yarn workspace @auxilium/app start
+yarn dev:app
 ```
 
 ## Contributing

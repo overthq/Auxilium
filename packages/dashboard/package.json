@@ -24,7 +24,7 @@
 		"react-scripts": "3.3.1"
 	},
 	"devDependencies": {
-		"@types/mapbox-gl": "^1.6.1",
+		"@types/mapbox-gl": "^1.7.0",
 		"@types/react": "^16.9.17",
 		"@types/react-dom": "^16.9.4",
 		"eslint": "^6.8.0",

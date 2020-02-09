@@ -26,7 +26,7 @@
 	"devDependencies": {
 		"@types/mapbox-gl": "^1.7.0",
 		"@types/react": "^16.9.19",
-		"@types/react-dom": "^16.9.4",
+		"@types/react-dom": "^16.9.5",
 		"eslint": "^6.8.0",
 		"typescript": "^3.7.4"
 	},

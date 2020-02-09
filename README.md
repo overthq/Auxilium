@@ -23,7 +23,7 @@ This section will help you get Auxilium up and running in your development envir
 Before starting installing, the following are required:
 
 - [Node.js](https://nodejs.org) (version 8 or higher).
-- [Yarn](https://yarnpkg.com) (preferred package manager)
+- [Yarn](https://yarnpkg.com) (version 1.22 or lower)
 - [MongoDB](https://mongodb.com) (database for local development)
 
 ### Commands

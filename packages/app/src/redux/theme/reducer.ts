@@ -7,14 +7,14 @@ const themes: Record<'light' | 'dark', Theme> = {
 		name: 'light',
 		primaryColor: '#D3D3D3',
 		secondaryColor: '#505050',
-		tertiaryColor: '#D3D3D3',
+		tertiaryColor: '#777777',
 		transluscentColor: 'rgba(0, 0, 0, 0.7)',
 		mapStyle: lightMapStyle
 	},
 	dark: {
 		name: 'dark',
 		primaryColor: '#202020',
-		secondaryColor: '#505050',
+		secondaryColor: '#D3D3D3',
 		tertiaryColor: '#D3D3D3',
 		transluscentColor: 'rgba(0, 0, 0, 0.3)',
 		mapStyle: darkMapStyle

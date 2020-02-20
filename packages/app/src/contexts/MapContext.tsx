@@ -9,10 +9,7 @@ import { EmergencyContext } from './EmergencyContext';
 const { width, height } = Dimensions.get('window');
 
 interface MarkerOptions {
-	location: {
-		longitude: number;
-		latitude: number;
-	};
+	location: Record<'longitude' | 'latitude', number>;
 	color?: string;
 	size?: number;
 	onPress?: () => void;

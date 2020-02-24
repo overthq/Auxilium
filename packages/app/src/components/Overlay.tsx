@@ -3,8 +3,9 @@ import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { MapContext } from '../contexts/MapContext';
 import { useAppSelector } from '../../store';
 
-const { height, width, fontScale } = Dimensions.get('window');
+const { width, fontScale } = Dimensions.get('window');
 
+// This overlay is too stateful for my liking.
 const Overlay: React.FC = ({ children }) => {
 	const [index, setIndex] = React.useState(0);
 	const {
@@ -14,15 +15,10 @@ const Overlay: React.FC = ({ children }) => {
 	} = React.useContext(MapContext);
 	const theme = useAppSelector(({ theme }) => theme);
 
+	const config = [nearbyEmergencyMarkers, safeSpotMarkers];
+
 	React.useEffect(() => {
-		switch (index) {
-			case 0:
-				setMarkers(nearbyEmergencyMarkers);
-				break;
-			case 1:
-				setMarkers(safeSpotMarkers);
-				break;
-		}
+		setMarkers(config[index]);
 	}, [index]);
 
 	return (

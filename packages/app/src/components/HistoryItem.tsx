@@ -31,10 +31,18 @@ const HistoryItem: React.FC<HistoryItemProps> = ({
 			onPress={action}
 			style={[
 				styles.container,
-				{ backgroundColor: theme.name === 'dark' ? '#404040' : '#606060' }
+				{
+					borderBottomColor: theme.name === 'dark' ? '#777777' : '#999999',
+					paddingBottom: 5,
+					backgroundColor: 'transparent'
+				}
 			]}
 		>
-			{description && <Text style={styles.description}>{description}</Text>}
+			{description && (
+				<Text style={[styles.description, { color: theme.secondaryColor }]}>
+					{description}
+				</Text>
+			)}
 			<Text
 				style={[
 					styles.location,
@@ -50,10 +58,11 @@ const HistoryItem: React.FC<HistoryItemProps> = ({
 
 const styles = StyleSheet.create({
 	container: {
-		borderRadius: 6,
-		backgroundColor: '#404040',
+		// borderRadius: 6,
+		// backgroundColor: '#404040',
 		width: '100%',
-		padding: 10,
+		borderBottomWidth: 1,
+		// padding: 10,
 		marginBottom: 10
 	},
 	location: {

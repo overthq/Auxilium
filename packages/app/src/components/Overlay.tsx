@@ -5,7 +5,6 @@ import { useAppSelector } from '../../store';
 
 const { width, fontScale } = Dimensions.get('window');
 
-// This overlay is too stateful for my liking.
 const Overlay: React.FC = ({ children }) => {
 	const [index, setIndex] = React.useState(0);
 	const {
@@ -15,10 +14,17 @@ const Overlay: React.FC = ({ children }) => {
 	} = React.useContext(MapContext);
 	const theme = useAppSelector(({ theme }) => theme);
 
-	const config = [nearbyEmergencyMarkers, safeSpotMarkers];
-
 	React.useEffect(() => {
-		setMarkers(config[index]);
+		switch (index) {
+			case 0:
+				setMarkers(nearbyEmergencyMarkers);
+				break;
+			case 1:
+				setMarkers(safeSpotMarkers);
+				break;
+			default:
+				break;
+		}
 	}, [index]);
 
 	return (
@@ -80,7 +86,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		marginVertical: 15
+		marginBottom: 15
 	},
 	title: {
 		fontSize: 34 / fontScale,

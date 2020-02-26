@@ -23,13 +23,15 @@ const SafeSpotOverlay: React.FC<SafeSpotOverlayProps> = ({ modalRef }) => {
 			title='Safe Spots'
 			headerRight={
 				<TouchableOpacity onPress={modalRef.current?.open}>
-					<Feather name='plus-circle' color='#D3D3D3' size={24} />
+					<Feather name='plus-circle' color={theme.secondaryColor} size={24} />
 				</TouchableOpacity>
 			}
 		>
 			{safeSpots.safeSpots.map(spot => (
 				<View style={{ flexDirection: 'row' }} key={spot._id}>
-					<Text style={styles.text}>{spot.name}</Text>
+					<Text style={[styles.text, { color: theme.secondaryColor }]}>
+						{spot.name}
+					</Text>
 					<TouchableOpacity onPress={() => dispatch(deleteSafeSpot(spot._id))}>
 						<Feather name='trash' color={theme.secondaryColor} size={24} />
 					</TouchableOpacity>
@@ -42,8 +44,7 @@ const SafeSpotOverlay: React.FC<SafeSpotOverlayProps> = ({ modalRef }) => {
 
 const styles = StyleSheet.create({
 	text: {
-		fontSize: 16,
-		color: '#D3D3D3'
+		fontSize: 16
 	}
 });
 

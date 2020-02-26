@@ -23,11 +23,7 @@ const themes: Record<'light' | 'dark', Theme> = {
 
 const initialState: Theme = themes.dark;
 
-const themeReducer = (state = initialState, action: ToggleThemeAction) => {
-	if (action.type === TOGGLE_THEME) {
-		return themes[action.payload.theme];
-	}
-	return state;
-};
+const themeReducer = (state = initialState, action: ToggleThemeAction) =>
+	action.type === TOGGLE_THEME ? themes[action.payload.theme] : state;
 
 export default themeReducer;

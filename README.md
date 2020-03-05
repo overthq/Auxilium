@@ -68,7 +68,7 @@ Auxilium is a JavaScript-based application. It is built with popular JS librarie
 - Front-End
   - Mobile App
     - Framework: [React Native](https://facebook.github.io/react-native) based on [Expo](https://expo.io)
-  - Dashboard
+  - Dashboard (not in active development)
     - Library: [React](https://facebook.github.io/react) based on [Create React App](https://facebook.github.io/create-react-app)
 - Back-End
   - Framework: [Express](https://expressjs.com)

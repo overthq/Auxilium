@@ -13,7 +13,7 @@ export const authenticate = async (): Promise<void> => {
 		finalStatus = status;
 	} else if (finalStatus !== 'granted') {
 		Alert.alert(
-			'We require push notification permissions to provide our services.'
+			'We require push notification permissions to provide our services. (This application cannot function in a simulator for this reason)'
 		);
 	}
 	const pushToken = await Notifications.getExpoPushTokenAsync();

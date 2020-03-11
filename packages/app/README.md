@@ -8,21 +8,23 @@ The following are the important commands needed during development:
 
 ```sh
 # Start the Expo server
-yarn start
-# (You can add the -c flag to clear the cache)
+yarn start -c
 ```
 
 ## Folder Structure
 
 ```
 - src
-  | api
+  | api (functions that call the Auxilium API)
+  | components (application components)
+  | contexts
   | helpers
-  | redux
-  | screens
+  | redux (Domain-scoped reducers, actions and types)
+  | screens (application screens)
+  - Root.tsx
 - App.tsx (application root file, mostly contains providers).
 ```
 
 ## Technologies
 
-This app is built with [React Native](https://facebook.github.io/react-native) and [Expo](https://expo.io).
+This app is built with [React Native](https://reactnative.dev) and [Expo](https://expo.io).

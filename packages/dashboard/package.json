@@ -20,7 +20,7 @@
 		"mapbox-gl": "^1.8.1",
 		"react": "^16.13.0",
 		"react-dom": "^16.13.0",
-		"react-mapbox-gl": "^4.8.2",
+		"react-mapbox-gl": "^4.8.3",
 		"react-scripts": "3.4.0"
 	},
 	"devDependencies": {

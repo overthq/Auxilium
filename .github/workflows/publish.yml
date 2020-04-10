@@ -26,15 +26,15 @@ jobs:
           expo-packager: yarn
 
       - name: Install dependencies
-        run: yarn
+        run: cd app && yarn
 
       - name: Publish to default channel
-        run: yarn workspace @auxilium/app expo publish
+        run: cd app && yarn expo publish
 
       - name: Publish to staging channel
         if: github.ref == 'refs/heads/staging'
-        run: yarn workspace @auxilium/app expo publish --release-channel staging
+        run: cd app && yarn expo publish --release-channel staging
 
       - name: Publish to production channel
         if: github.ref == 'refs/heads/master'
-        run: yarn workspace @auxilium/app expo publish --release-channel prod
+        run: cd app && yarn expo publish --release-channel prod

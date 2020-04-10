@@ -18,10 +18,10 @@ jobs:
           version: 13.x
 
       - name: Install dependencies
-        run: cd packages/server && yarn
+        run: cd server && yarn
 
       - name: Push to Heroku
-        run: git subtree push --prefix packages/server https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+        run: git subtree push --prefix server https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}

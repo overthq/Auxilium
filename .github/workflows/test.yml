@@ -24,15 +24,15 @@ jobs:
 
     - name: Install dependencies
       run: |
-        yarn install
-        cd packages/server && yarn install
+        cd app && yarn
+        cd server && yarn
 
     - name: Run lint
       run: |
-        yarn workspaces run lint
-        cd packages/server && yarn lint
+        cd app && yarn lint
+        cd server && yarn lint
 
     - name: Run typecheck
       run: |
-        yarn workspaces run tsc
-        cd packages/server && yarn tsc
+        cd app && yarn tsc
+        cd server && yarn tsc

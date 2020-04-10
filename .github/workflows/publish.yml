@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          version: 13.x
+          node-version: 13.x
 
       - name: Publish to Expo
         uses: expo/expo-github-action@v4

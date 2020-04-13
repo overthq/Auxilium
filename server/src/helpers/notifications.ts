@@ -1,4 +1,4 @@
-import { Expo } from 'expo-server-sdk';
+import { Expo, ExpoPushMessage } from 'expo-server-sdk';
 import fetch from 'node-fetch';
 import { EmergencyType } from '../models';
 
@@ -36,20 +36,22 @@ interface NotificationInput {
 }
 
 export const sendNotifications = async (inputs: NotificationInput[]) => {
-	const messages = [];
+	const messages = inputs.map(
+		({ pushToken, distance, longitude, latitude }): ExpoPushMessage => {
+			if (!Expo.isExpoPushToken(pushToken)) {
+				throw new Error(
+					`Push token ${pushToken} is not a valid Expo push token`
+				);
+			}
 
-	inputs.map(({ pushToken, distance, longitude, latitude }) => {
-		if (!Expo.isExpoPushToken(pushToken)) {
-			throw new Error(`Push token ${pushToken} is not a valid Expo push token`);
+			return {
+				to: pushToken,
+				sound: 'default',
+				body: `An emergency has been reported about ${distance}km from your current location`,
+				data: { longitude, latitude }
+			};
 		}
-
-		messages.push({
-			to: pushToken,
-			sound: 'default',
-			body: `An emergency has been reported about ${distance}km from your current location`,
-			data: { longitude, latitude }
-		});
-	});
+	);
 
 	const chunks = expo.chunkPushNotifications(messages);
 	const tickets = [];

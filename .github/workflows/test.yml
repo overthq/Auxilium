@@ -24,6 +24,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        yarn
         cd app && yarn && cd ..
         cd dashboard && yarn && cd ..
         cd server && yarn

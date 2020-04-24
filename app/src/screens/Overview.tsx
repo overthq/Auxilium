@@ -15,12 +15,8 @@ import SettingsOverlay from '../components/overlays/SettingsOverlay';
 import { locate } from '../redux/location/actions';
 import { fetchEmergencies } from '../redux/emergencies/actions';
 import { getSafeSpots } from '../redux/safe-spots/actions';
-import { useAppSelector } from '../../store';
 
 const Overview: React.FC = () => {
-	const emergencies = useAppSelector(
-		({ emergencies }) => emergencies.emergencies
-	);
 	const dispatch = useDispatch();
 	const addSafeSpotModalRef = React.useRef<Modalize>(null);
 	const { map } = React.useContext(MapContext);
@@ -35,7 +31,7 @@ const Overview: React.FC = () => {
 		<SafeAreaView style={styles.container}>
 			{map}
 			<Overlay>
-				<NearbyOverlay {...{ emergencies }} />
+				<NearbyOverlay />
 				<SafeSpotsOverlay modalRef={addSafeSpotModalRef} />
 				<ContactsOverlay />
 				<SettingsOverlay />

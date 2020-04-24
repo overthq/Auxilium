@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/node';
 import router from './routes';
 import './config/database';
 
-const app: express.Application = express();
+const app = express();
 Sentry.init({ dsn: process.env.SENTRY_DSN });
 
 app.use(Sentry.Handlers.requestHandler());

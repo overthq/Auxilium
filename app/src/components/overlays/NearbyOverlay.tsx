@@ -3,15 +3,16 @@ import { Text, Dimensions, StyleSheet } from 'react-native';
 import HistoryItem from '../HistoryItem';
 import { OverlaySlide } from '../Overlay';
 import { EmergencyContext } from '../../contexts/EmergencyContext';
+import { useAppSelector } from '../../../store';
 
 const { width } = Dimensions.get('window');
 
-interface NearbyOverlayProps {
-	emergencies: Emergency[];
-}
-
-const NearbyOverlay: React.FC<NearbyOverlayProps> = ({ emergencies }) => {
+const NearbyOverlay: React.FC = () => {
+	const emergencies = useAppSelector(
+		({ emergencies }) => emergencies.emergencies
+	);
 	const { openEmergency } = React.useContext(EmergencyContext);
+
 	return (
 		<OverlaySlide title='Nearby'>
 			{emergencies.length > 0 ? (

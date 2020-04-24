@@ -3,29 +3,31 @@ import {
 	Text,
 	StyleSheet,
 	TextInput,
+	TouchableOpacity,
 	Keyboard,
 	Dimensions
 } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { useAppSelector } from '../../../store';
+import { reportEmergency } from '../../api/Emergencies';
 
 const { height } = Dimensions.get('window');
 
 interface ReportModalProps {
 	modalRef: React.RefObject<Modalize>;
-	action(text: string): Promise<void>;
 }
 
-const ReportModal: React.FC<ReportModalProps> = ({ modalRef, action }) => {
+const ReportModal: React.FC<ReportModalProps> = ({ modalRef }) => {
 	const [text, setText] = React.useState('');
-	const theme = useAppSelector(({ theme }) => theme);
+	const { theme, location } = useAppSelector(({ theme, location }) => ({
+		theme,
+		location: location.coordinates
+	}));
 
 	const handleSubmit = async () => {
-		await action(text);
-		handleClose();
+		await reportEmergency(location, text);
+		modalRef.current?.close();
 	};
-
-	const handleClose = () => modalRef.current?.close();
 
 	return (
 		<Modalize
@@ -44,6 +46,7 @@ const ReportModal: React.FC<ReportModalProps> = ({ modalRef, action }) => {
 				multiline
 				onBlur={Keyboard.dismiss}
 			/>
+			<TouchableOpacity onPress={handleSubmit}>Report</TouchableOpacity>
 			{/* TODO: Add the "floating" icons to this section. */}
 		</Modalize>
 	);

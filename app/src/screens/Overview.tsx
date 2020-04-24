@@ -1,12 +1,10 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { Modalize } from 'react-native-modalize';
 
 import { MapContext } from '../contexts/MapContext';
 import Overlay from '../components/Overlay';
 import Report from '../components/Report';
-import AddSafeSpotModal from '../components/modals/AddSafeSpotModal';
 import SafeSpotsOverlay from '../components/overlays/SafeSpotsOverlay';
 import NearbyOverlay from '../components/overlays/NearbyOverlay';
 import ContactsOverlay from '../components/overlays/ContactsOverlay';
@@ -18,7 +16,6 @@ import { getSafeSpots } from '../redux/safe-spots/actions';
 
 const Overview: React.FC = () => {
 	const dispatch = useDispatch();
-	const addSafeSpotModalRef = React.useRef<Modalize>(null);
 	const { map } = React.useContext(MapContext);
 
 	React.useEffect(() => {
@@ -32,12 +29,11 @@ const Overview: React.FC = () => {
 			{map}
 			<Overlay>
 				<NearbyOverlay />
-				<SafeSpotsOverlay modalRef={addSafeSpotModalRef} />
+				<SafeSpotsOverlay />
 				<ContactsOverlay />
 				<SettingsOverlay />
 			</Overlay>
 			<Report />
-			<AddSafeSpotModal modalRef={addSafeSpotModalRef} />
 		</SafeAreaView>
 	);
 };

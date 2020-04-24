@@ -1,28 +1,25 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Modalize } from 'react-native-modalize';
 import { useDispatch } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import { OverlaySlide } from '../Overlay';
 import { useAppSelector } from '../../../store';
 import { deleteSafeSpot } from '../../redux/safe-spots/actions';
+import { ModalsContext } from '../../contexts/ModalsContext';
 
-interface SafeSpotOverlayProps {
-	modalRef: React.RefObject<Modalize>;
-}
-
-const SafeSpotOverlay: React.FC<SafeSpotOverlayProps> = ({ modalRef }) => {
+const SafeSpotOverlay: React.FC = () => {
 	const { safeSpots, theme } = useAppSelector(({ safeSpots, theme }) => ({
 		safeSpots,
 		theme
 	}));
+	const { openModal } = React.useContext(ModalsContext);
 	const dispatch = useDispatch();
 
 	return (
 		<OverlaySlide
 			title='Safe Spots'
 			headerRight={
-				<TouchableOpacity onPress={modalRef.current?.open}>
+				<TouchableOpacity onPress={() => openModal('Add Safe Spot')}>
 					<Feather name='plus-circle' color={theme.secondaryColor} size={24} />
 				</TouchableOpacity>
 			}

@@ -1,33 +1,26 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Modalize } from 'react-native-modalize';
-import ReportModal from './modals/ReportModal';
 import { reportEmergency } from '../api/Emergencies';
 import { useAppSelector } from '../../store';
+import { ModalsContext } from '../contexts/ModalsContext';
 
 const Report: React.FC = () => {
 	const coordinates = useAppSelector(({ location }) => location.coordinates);
-	const modalRef = React.useRef<Modalize>(null);
-
+	const { openModal } = React.useContext(ModalsContext);
 	const handlePress = () => reportEmergency(coordinates);
-
-	const reportAction = (text?: string) => reportEmergency(coordinates, text);
-	const handleLongPress = () => modalRef.current?.open();
+	const handleLongPress = () => openModal('Report Emergency');
 
 	return (
-		<>
-			<TouchableOpacity
-				activeOpacity={0.8}
-				style={styles.buttonContainer}
-				onPress={handlePress}
-				onLongPress={handleLongPress}
-			>
-				<View style={styles.buttonInner}>
-					<Text style={styles.buttonText}>!</Text>
-				</View>
-			</TouchableOpacity>
-			<ReportModal action={reportAction} {...{ modalRef }} />
-		</>
+		<TouchableOpacity
+			activeOpacity={0.8}
+			style={styles.buttonContainer}
+			onPress={handlePress}
+			onLongPress={handleLongPress}
+		>
+			<View style={styles.buttonInner}>
+				<Text style={styles.buttonText}>!</Text>
+			</View>
+		</TouchableOpacity>
 	);
 };
 

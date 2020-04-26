@@ -1,8 +1,6 @@
 import fetch from 'node-fetch';
 import { RequestHandler } from 'express';
 
-type Pair = [number, number];
-
 const MAPBOX_BASE_URL = 'https://api.mapbox.com/directions/v5';
 
 export const getRoute: RequestHandler = async (req, res) => {
@@ -15,7 +13,7 @@ export const getRoute: RequestHandler = async (req, res) => {
 			`${MAPBOX_BASE_URL}/mapbox/walking/${queryString}.json?access_token=${process.env.MAPBOX_ACCESS_TOKEN}&geometries=geojson`
 		);
 		const { routes } = await response.json();
-		const { coordinates }: { coordinates: Pair[] } = routes[0].geometry;
+		const { coordinates } = routes[0].geometry;
 		const route = coordinates.map(([longitude, latitude]) => ({
 			longitude,
 			latitude

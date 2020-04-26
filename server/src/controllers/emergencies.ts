@@ -8,7 +8,7 @@ import client from '../config/redis';
 const georadius = util.promisify(client.georadius).bind(client);
 
 export const getNearbyEmergencies: RequestHandler = async (req, res) => {
-	const { longitude, latitude }: { [key: string]: string } = req.query;
+	const { longitude, latitude } = req.query;
 	try {
 		const emergencies = await findNearbyEmergencies(longitude, latitude);
 		return res.status(200).json({
@@ -96,11 +96,15 @@ export const cacheLocation: RequestHandler = async (req, res) => {
 	const { longitude, latitude, pushToken } = req.body;
 	// If Redis does not do updating, we should run this to remove the previous entry:
 	// Also, we might have to check that the key exists before running ZREM (to avoid any errors)
+	// In the future, is there a way to add a timestamp to the location being cached?
+	// If this is possible, it would be easy to implement a timeline of the locations visited by a user.
+	// Which would be useful for tracking the spread of some communicable diseases like COVID-19.
+	// It would also be very secure, as the pushToken, which is the unique identifier, cannot be traced back to the device it originated from.
 	// client.zrem('emergencies', pushToken);
 	client.geoadd('emergencies', longitude, latitude, pushToken);
 
 	return res.status(200).json({
 		success: true,
-		message: 'Current location successfully added to cache'
+		message: 'Current location successfully cached'
 	});
 };

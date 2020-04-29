@@ -34,7 +34,7 @@
 		"eslint-plugin-jsx-a11y": "^6.2.3",
 		"eslint-plugin-react": "^7.19.0",
 		"husky": "^4.2.3",
-		"lint-staged": "^10.1.7",
+		"lint-staged": "^10.2.0",
 		"prettier": "^2.0.5",
 		"typescript": "^3.8.3"
 	}

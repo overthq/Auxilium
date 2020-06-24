@@ -1,0 +1,19 @@
+version: 2
+
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "npm"
+    directory: "/app"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "npm"
+    directory: "/server"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "npm"
+    directory: "/dashboard"
+    schedule:
+      interval: "daily"

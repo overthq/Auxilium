@@ -15,7 +15,9 @@ const ENV = {
 	}
 };
 
-const getEnvVars = (env: keyof typeof ENV) =>
+const getEnvVars = (env?: keyof typeof ENV) =>
 	env ? ENV[env] || ENV.staging : ENV.dev;
 
-export default getEnvVars(Constants.manifest.releaseChannel);
+export default getEnvVars(
+	Constants.manifest.releaseChannel as keyof typeof ENV | undefined
+);

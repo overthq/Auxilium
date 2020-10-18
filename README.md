@@ -75,7 +75,7 @@ Auxilium is a JavaScript-based application. It is built with popular JS librarie
   - Database: [MongoDB](https://mongodb.com)
   - Hosting: [Heroku](https://heroku.com)
 
-We also use [Yarn Workspaces](https://yarnpkg.com/en/docs/workspaces) to manage the monorepo structure, and GitHub Actions for continuous integration/deployment (CI/CD).
+The continuous integration/deployment (CI/CD) on this project is handled with [GitHub Actions](https://github.com/actions).
 
 ## License
 

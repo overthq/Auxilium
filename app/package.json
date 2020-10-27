@@ -53,6 +53,6 @@
 		"babel-preset-expo": "^8.3.0",
 		"eslint": "^7.11.0",
 		"prettier": "^2.1.2",
-		"typescript": "~3.9.2"
+		"typescript": "~4.0.5"
 	}
 }

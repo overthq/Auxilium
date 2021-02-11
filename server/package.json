@@ -30,7 +30,7 @@
 		"redis": "^3.0.2"
 	},
 	"devDependencies": {
-		"@types/chai": "^4.2.13",
+		"@types/chai": "^4.2.15",
 		"@types/express": "4.17.0",
 		"@types/jsonwebtoken": "^8.5.0",
 		"@types/mocha": "^8.0.3",

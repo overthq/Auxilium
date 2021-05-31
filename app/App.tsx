@@ -8,9 +8,9 @@ import { store, persistor } from './store';
 import Root from './src/Root';
 import { ModalsProvider } from './src/contexts/ModalsContext';
 
-Sentry.config(
-	'https://018ed01c2b844dc1bab9fa5a84517b24@sentry.io/1409956'
-).install();
+Sentry.init({
+	dsn: 'https://018ed01c2b844dc1bab9fa5a84517b24@sentry.io/1409956'
+});
 
 const App = () => (
 	<Provider store={store}>

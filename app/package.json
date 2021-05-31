@@ -20,27 +20,27 @@
 		"build:android": "expo build:android -t app-bundle"
 	},
 	"dependencies": {
-		"@expo/vector-icons": "^10.0.0",
+		"@expo/vector-icons": "^12.0.0",
 		"date-fns": "^2.16.1",
-		"expo": "^39.0.0",
-		"expo-asset": "~8.2.0",
-		"expo-location": "~9.0.0",
-		"expo-notifications": "~0.7.2",
-		"expo-permissions": "~9.3.0",
-		"expo-task-manager": "~8.5.0",
+		"expo": "^41.0.0",
+		"expo-asset": "~8.3.1",
+		"expo-location": "~12.0.4",
+		"expo-notifications": "~0.11.6",
+		"expo-permissions": "~12.0.1",
+		"expo-task-manager": "~9.1.0",
 		"haversine": "^1.1.1",
 		"react": "16.13.1",
-		"react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
-		"react-native-gesture-handler": "~1.7.0",
+		"react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+		"react-native-gesture-handler": "~1.10.2",
 		"react-native-maps": "0.27.1",
 		"react-native-modalize": "^2.0.6",
-		"react-native-reanimated": "~1.13.0",
+		"react-native-reanimated": "~2.1.0",
 		"react-redux": "^7.2.1",
 		"redux": "^4.0.5",
 		"redux-logger": "^3.0.6",
 		"redux-persist": "^6.0.0",
 		"redux-thunk": "^2.3.0",
-		"sentry-expo": "~1.13.0"
+		"sentry-expo": "^3.1.0"
 	},
 	"devDependencies": {
 		"@types/expo": "^33.0.1",
@@ -50,9 +50,9 @@
 		"@types/react-native": "~0.63.2",
 		"@types/react-redux": "^7.1.9",
 		"@types/redux-logger": "^3.0.8",
-		"babel-preset-expo": "^8.3.0",
+		"babel-preset-expo": "8.3.0",
 		"eslint": "^7.11.0",
 		"prettier": "^2.1.2",
-		"typescript": "~3.9.2"
+		"typescript": "~4.0.0"
 	}
 }

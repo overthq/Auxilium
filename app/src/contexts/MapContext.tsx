@@ -75,17 +75,20 @@ export const MapProvider: React.FC = ({ children }) => {
 	);
 	const { openEmergency } = React.useContext(EmergencyContext);
 
-	const initialRegion = {
-		longitude: coordinates.longitude,
-		latitude: coordinates.latitude,
-		longitudeDelta,
-		latitudeDelta
-	};
+	const initialRegion = React.useMemo(
+		() => ({
+			longitude: coordinates.longitude,
+			latitude: coordinates.latitude,
+			longitudeDelta,
+			latitudeDelta
+		}),
+		[coordinates]
+	);
 
 	const getMarkersFromEmergencies = (
 		emergencies: Emergency[]
-	): MarkerOptions[] => {
-		return emergencies.map(emergency => {
+	): MarkerOptions[] =>
+		emergencies.map(emergency => {
 			const {
 				location: {
 					coordinates: [longitude, latitude]
@@ -96,7 +99,6 @@ export const MapProvider: React.FC = ({ children }) => {
 				onPress: () => openEmergency(emergency)
 			};
 		});
-	};
 
 	const nearbyEmergencyMarkers = getMarkersFromEmergencies(emergencies);
 

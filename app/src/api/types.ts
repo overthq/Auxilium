@@ -29,3 +29,8 @@ interface SafeSpot {
 		coordinates: [number, number];
 	};
 }
+
+interface Route {
+	longitude: number;
+	latitude: number;
+}

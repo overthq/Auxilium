@@ -15,7 +15,7 @@ export const getNearbyEmergencies = async ({
 export const reportEmergency = async (
 	{ longitude, latitude }: EmergencyCoordinates,
 	description?: string
-) => {
+): Promise<void> => {
 	const {
 		user: { user }
 	} = store.getState();
@@ -40,7 +40,7 @@ export const reportEmergency = async (
 export const cacheLocation = async ({
 	longitude,
 	latitude
-}: EmergencyCoordinates) => {
+}: EmergencyCoordinates): Promise<void> => {
 	const {
 		user: { user }
 	} = store.getState();

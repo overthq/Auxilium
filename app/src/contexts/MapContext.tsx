@@ -16,7 +16,7 @@ interface MarkerOptions {
 }
 
 interface MapContextValue {
-	region: Region | undefined;
+	region?: Region;
 	map: React.ReactNode;
 	setMarkers(markers: MarkerOptions[]): void;
 	mapRef?: React.RefObject<MapView>;
@@ -147,23 +147,26 @@ export const MapProvider: React.FC = ({ children }) => {
 	);
 	const mapRef = React.useRef<MapView>(null);
 
-	const map = (
-		<MapView
-			style={{ width, height: height / 2 }}
-			customMapStyle={theme.mapStyle}
-			provider='google'
-			showsUserLocation
-			followsUserLocation
-			onRegionChange={setRegion}
-			pitchEnabled={false}
-			rotateEnabled={false}
-			scrollEnabled={false}
-			zoomEnabled={false}
-			ref={mapRef}
-			{...{ initialRegion }}
-		>
-			{renderMarkers(markers)}
-		</MapView>
+	const map = React.useMemo(
+		() => (
+			<MapView
+				style={{ width, height: height / 2 }}
+				customMapStyle={theme.mapStyle}
+				provider='google'
+				showsUserLocation
+				followsUserLocation
+				onRegionChange={setRegion}
+				pitchEnabled={false}
+				rotateEnabled={false}
+				scrollEnabled={false}
+				zoomEnabled={false}
+				ref={mapRef}
+				{...{ initialRegion }}
+			>
+				{renderMarkers(markers)}
+			</MapView>
+		),
+		[initialRegion, theme]
 	);
 
 	return (

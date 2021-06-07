@@ -1,6 +1,6 @@
-import { Notifications } from 'expo';
-import * as Permissions from 'expo-permissions';
 import { Alert } from 'react-native';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 import env from '../../env';
 
 export const authenticate = async (): Promise<void> => {

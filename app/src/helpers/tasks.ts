@@ -2,7 +2,7 @@ import * as Location from 'expo-location';
 
 export const LOCATION_TASK = 'background-location-task';
 
-export const getBackgroundUpdates = async () => {
+export const getBackgroundUpdates = async (): Promise<void> => {
 	const started = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK);
 
 	if (!started) {

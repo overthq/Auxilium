@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Switch, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { OverlaySlide } from '../Overlay';
+import OverlaySlide from '../OverlaySlide';
 import { useAppSelector } from '../../../store';
 import { toggleTheme } from '../../redux/theme/actions';
 
@@ -9,8 +9,6 @@ interface SettingsOptionProps {
 	name: string;
 }
 
-// For now, this will do the job of switching themes.
-// i.e it will be reusable for other actions in the "near future".
 const SettingsOption: React.FC<SettingsOptionProps> = ({ name }) => {
 	const theme = useAppSelector(({ theme }) => theme);
 	const dispatch = useDispatch();
@@ -29,7 +27,7 @@ const SettingsOption: React.FC<SettingsOptionProps> = ({ name }) => {
 	);
 };
 
-const SettingsOverlay = () => (
+const SettingsOverlay: React.FC = () => (
 	<OverlaySlide title='Settings'>
 		<SettingsOption name='Dark mode' />
 	</OverlaySlide>

@@ -13,7 +13,10 @@ const initialState: UserState = {
 	errorMessage: ''
 };
 
-const userReducer = (state = initialState, action: UserActionTypes) => {
+const userReducer = (
+	state = initialState,
+	action: UserActionTypes
+): UserState => {
 	switch (action.type) {
 		case AUTH_LOADING:
 			return { ...state, loading: true };

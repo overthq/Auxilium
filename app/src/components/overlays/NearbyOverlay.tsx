@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Dimensions, StyleSheet } from 'react-native';
 import HistoryItem from '../HistoryItem';
-import { OverlaySlide } from '../Overlay';
+import OverlaySlide from '../OverlaySlide';
 import { EmergencyContext } from '../../contexts/EmergencyContext';
 import { useAppSelector } from '../../../store';
 

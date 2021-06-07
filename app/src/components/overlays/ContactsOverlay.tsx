@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { OverlaySlide } from '../Overlay';
+import OverlaySlide from '../OverlaySlide';
 import { useAppSelector } from '../../../store';
 
-const ContactsOverlay = () => {
+const ContactsOverlay: React.FC = () => {
 	const theme = useAppSelector(({ theme }) => theme);
 
 	return (

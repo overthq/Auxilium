@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
-import { OverlaySlide } from '../Overlay';
+import OverlaySlide from '../OverlaySlide';
 import { useAppSelector } from '../../../store';
 import { deleteSafeSpot } from '../../redux/safe-spots/actions';
 import { ModalsContext } from '../../contexts/ModalsContext';

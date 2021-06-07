@@ -12,7 +12,7 @@ Sentry.init({
 	dsn: 'https://018ed01c2b844dc1bab9fa5a84517b24@sentry.io/1409956'
 });
 
-const App = () => (
+const App: React.FC = () => (
 	<Provider store={store}>
 		<PersistGate persistor={persistor}>
 			<EmergencyProvider>

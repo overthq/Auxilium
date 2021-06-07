@@ -47,17 +47,26 @@ const Onboarding: React.FC = () => {
 		dispatch(auth());
 	};
 
+	const isLastSlide = React.useMemo(() => slideIndex === slides.length - 1, [
+		slideIndex,
+		slides
+	]);
+
 	const scrollToNext = () => {
-		if (slideIndex === slides.length - 1) {
-			return completeOnboarding();
+		if (isLastSlide) {
+			completeOnboarding();
+		} else {
+			listRef.current?.scrollToIndex({ animated: true, index: slideIndex + 1 });
 		}
-		listRef.current &&
-			listRef.current.scrollToIndex({ animated: true, index: slideIndex + 1 });
 	};
 
 	const handleScroll = Animated.event([
 		{ nativeEvent: { contentOffset: { x: scrollX } } }
 	]);
+
+	const handleViewableItemsChanged = React.useCallback(({ viewableItems }) => {
+		viewableItems[0] && setSlideIndex(viewableItems[0].index);
+	}, []);
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -77,22 +86,13 @@ const Onboarding: React.FC = () => {
 				snapToAlignment='center'
 				keyExtractor={({ title }) => title}
 				renderItem={({ item, index }) => <Slide key={index} {...item} />}
-				onMomentumScrollEnd={({
-					nativeEvent: {
-						contentOffset: { x }
-					}
-				}) => {
-					const sliderIndex = x ? x / width : 0;
-					setSlideIndex(sliderIndex);
-				}}
+				onViewableItemsChanged={handleViewableItemsChanged}
 				onScroll={handleScroll}
 			/>
 			<View style={styles.bottomSection}>
 				<Pagination {...{ tabs: slides, scrollX }} />
 				<TouchableOpacity onPress={scrollToNext} style={styles.actionButton}>
-					<Text style={styles.actionText}>
-						{slideIndex !== slides.length - 1 ? 'NEXT' : 'DONE'}
-					</Text>
+					<Text style={styles.actionText}>{isLastSlide ? 'NEXT' : 'DONE'}</Text>
 				</TouchableOpacity>
 			</View>
 		</SafeAreaView>

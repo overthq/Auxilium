@@ -13,9 +13,7 @@ const Root: React.FC = () => {
 	React.useEffect(() => {
 		getBackgroundUpdates();
 		StatusBar.setBarStyle('light-content');
-	}, []);
 
-	React.useEffect(() => {
 		const notificationSubscription = Notifications.addNotificationResponseReceivedListener(
 			({ notification }) => {
 				openEmergency(
@@ -23,6 +21,7 @@ const Root: React.FC = () => {
 				);
 			}
 		);
+
 		return () => {
 			notificationSubscription.remove();
 		};

@@ -43,9 +43,7 @@ const Onboarding: React.FC = () => {
 	const dispatch = useDispatch();
 	const scrollX = new Animated.Value(0);
 
-	const completeOnboarding = () => {
-		dispatch(auth());
-	};
+	const completeOnboarding = () => dispatch(auth());
 
 	const isLastSlide = React.useMemo(() => slideIndex === slides.length - 1, [
 		slideIndex,
@@ -82,7 +80,7 @@ const Onboarding: React.FC = () => {
 				showsHorizontalScrollIndicator={false}
 				pagingEnabled
 				snapToInterval={width}
-				decelerationRate={0}
+				decelerationRate='fast'
 				snapToAlignment='center'
 				keyExtractor={({ title }) => title}
 				renderItem={({ item, index }) => <Slide key={index} {...item} />}

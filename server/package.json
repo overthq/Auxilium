@@ -27,7 +27,7 @@
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^5.10.1",
 		"node-fetch": "^2.6.1",
-		"redis": "^3.0.2"
+		"redis": "^4.1.1"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.2.13",
@@ -36,7 +36,7 @@
 		"@types/mocha": "^8.0.3",
 		"@types/mongoose": "^5.7.36",
 		"@types/node-fetch": "^2.5.7",
-		"@types/redis": "^2.8.28",
+		"@types/redis": "^4.0.11",
 		"chai": "^4.2.0",
 		"chai-http": "^4.3.0",
 		"eslint": "^7.11.0",

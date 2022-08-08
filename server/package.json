@@ -30,14 +30,14 @@
 		"redis": "^3.0.2"
 	},
 	"devDependencies": {
-		"@types/chai": "^4.2.13",
+		"@types/chai": "^4.3.3",
 		"@types/express": "4.17.0",
 		"@types/jsonwebtoken": "^8.5.0",
 		"@types/mocha": "^8.0.3",
 		"@types/mongoose": "^5.7.36",
 		"@types/node-fetch": "^2.5.7",
 		"@types/redis": "^2.8.28",
-		"chai": "^4.2.0",
+		"chai": "^4.3.6",
 		"chai-http": "^4.3.0",
 		"eslint": "^7.11.0",
 		"mocha": "^8.1.3",

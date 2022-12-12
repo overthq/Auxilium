@@ -23,7 +23,7 @@
 		"@sentry/node": "^5.26.0",
 		"dotenv": "^8.2.0",
 		"expo-server-sdk": "^3.6.0",
-		"express": "^4.17.1",
+		"express": "^4.17.3",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^5.10.1",
 		"node-fetch": "^2.6.1",
